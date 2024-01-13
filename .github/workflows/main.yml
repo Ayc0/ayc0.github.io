@@ -1,0 +1,32 @@
+name: Build and Deploy to GitHub Actions
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Get cached node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ./node_modules
+            ./.yarn/cache
+          key: ${{ runner.os }}-modules-${{ hashFiles('./yarn.lock') }}
+
+      - name: Install and Build
+        run: |
+          yarn install
+          yarn build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist
