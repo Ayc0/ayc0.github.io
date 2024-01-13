@@ -2,20 +2,20 @@ import React, { useState, useRef, startTransition } from "react";
 
 export const Unit = ({
   unit,
-  description
+  description,
 }: {
   unit: string;
   description: string;
 }) => {
   const [size, setSize] = useState<null | number>(null);
-  const nodeRef = useRef<HTMLDivElement>(undefined);
+  const nodeRef = useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     const node = nodeRef.current;
     if (!node) return;
 
     const resizeObserver = new ResizeObserver((entries) => {
-      const entry = entries[0];
+      const entry = entries[0]!;
       startTransition(() => {
         setSize(entry.contentRect.width);
       });
@@ -26,7 +26,7 @@ export const Unit = ({
     };
   }, []);
 
-  if (!CSS.supports("width", `1${unit}`)) {
+  if (typeof CSS !== "undefined" && !CSS.supports("width", `1${unit}`)) {
     return (
       <>
         <span style={{ gridRow: "span 2" }} />
@@ -47,7 +47,7 @@ export const Unit = ({
           width: `1${unit}`,
           height: `1${unit}`,
           background: "var(--color)",
-          gridRow: "span 2"
+          gridRow: "span 2",
         }}
       />
       <code>{`1${unit}`}</code>
