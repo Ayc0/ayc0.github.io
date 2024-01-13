@@ -21,15 +21,13 @@
   },
   "dependencies": {
     "react": "18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@astrojs/react": "^3.0.9",
     "@types/react": "^18.2.47",
-    "@types/react-dom": "^18",
+    "@types/react-dom": "^18.2.18",
     "astro": "^4.1.2",
-    "prettier": "^3.2.1",
-    "prettier-plugin-astro": "^0.12.3",
-    "typescript": "5.3.3"
+    "typescript": "^5.3.3"
   }
 }
