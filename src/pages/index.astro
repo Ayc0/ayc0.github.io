@@ -107,12 +107,8 @@ a {
               <a
                 style={{ textDecorationColor: "var(--color)" }}
                 href={`#${encodeURIComponent(category)}`}
-              >
-                {category}
-              </a>
-              <span style={{ fontSize: "1.1rem", marginLeft: "1ch" }}>
-                <a href={link}>(more)</a>
-              </span>
+              >{category}</a><span style={{ fontSize: "1.1rem", marginLeft: "1ch" }}>
+                <a href={link}>(more)</a></span>
             </h2>
             {units.map(([unit, description]) => (
               <Unit client:load unit={unit} description={description} />
