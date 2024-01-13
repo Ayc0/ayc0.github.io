@@ -1,12 +1,13 @@
-name: Build and Deploy to GitHub Actions
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
 
 jobs:
   build-and-deploy:

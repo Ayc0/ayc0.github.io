@@ -3,6 +3,7 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://ayc0.github.io",
   base: "/length-units",
   integrations: [react()],
 });
