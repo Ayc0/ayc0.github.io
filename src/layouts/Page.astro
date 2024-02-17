@@ -21,22 +21,25 @@ console.log(Astro.url)
 
     <!-- HTML Meta Tags -->
     <title>{title}</title>
-    {description ? <meta name="description" content={description}/> : null}
+    {description ? <meta name="description" content={description} /> : null}
 
     <!-- Facebook Meta Tags -->
-    <meta property="og:url" content={Astro.url.href}/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:title" content="{title}"/>
-    {description ? <meta property="og:description" content={description}/> : null}
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    {description ? <meta property="og:description" content={description} /> : null}
     {image ? <meta property="og:image" content={Astro.url.origin + '/projects/' + image} /> : null}
 
     <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image"/>
-    <meta property="twitter:domain" content="ayc0.github.io"/>
-    <meta property="twitter:url" content={Astro.url.href}/>
-    <meta name="twitter:title" content="{title}"/>
-    {description ? <meta name="twitter:description" content={description}/> : null}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="ayc0.github.io" />
+    <meta property="twitter:url" content={Astro.url.href} />
+    <meta name="twitter:title" content={title} />
+    {description ? <meta name="twitter:description" content={description} /> : null}
     {image ? <meta name="twitter:image" content={Astro.url.origin + '/projects/' + image} /> : null}
+
+    <!-- Others -->
+    <meta name="generator" content={Astro.generator} />
 
   </head>
 
