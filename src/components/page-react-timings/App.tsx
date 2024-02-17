@@ -112,7 +112,11 @@ function ErrorThrower() {
   if (hasError) {
     throw new Error("oops");
   }
-  return <span onClick={() => setError(true)}>💥</span>;
+  return (
+    <span onClick={() => setError(true)} title="throw error">
+      💥
+    </span>
+  );
 }
 
 function Suspenser() {
@@ -120,7 +124,11 @@ function Suspenser() {
   if (hasSuspense) {
     throw new Promise((res) => {});
   }
-  return <span onClick={() => setSuspense(true)}>🚧</span>;
+  return (
+    <span onClick={() => setSuspense(true)} title="trigger infinite suspense">
+      🚧
+    </span>
+  );
 }
 
 class ClassWithMetrics extends React.Component<{
@@ -193,7 +201,9 @@ class ClassWithMetrics extends React.Component<{
       >
         <div>
           {this.componentId}
-          <span onClick={() => this.forceUpdate()}>🔄</span>
+          <span onClick={() => this.forceUpdate()} title="re-render">
+            🔄
+          </span>
           <ErrorThrower />
           <Suspenser />
         </div>
@@ -216,7 +226,10 @@ class ClassWithChildrenWithMetrics extends ClassWithMetrics {
         style={{ border: `2px solid ${this.color}` }}
       >
         <div>
-          {this.componentId}*<span onClick={() => this.forceUpdate()}>🔄</span>
+          {this.componentId}*
+          <span onClick={() => this.forceUpdate()} title="re-render">
+            🔄
+          </span>
           <ErrorThrower />
           <Suspenser />
         </div>
@@ -319,7 +332,9 @@ function FunctionWithMetrics({
     >
       <div>
         {componentId}
-        <span onClick={() => forceUpdate({})}>🔄</span>
+        <span onClick={() => forceUpdate({})} title="re-render">
+          🔄
+        </span>
         <ErrorThrower />
         <Suspenser />
       </div>
@@ -346,7 +361,10 @@ function FunctionWithChildrenWithMetrics(
       style={{ border: `2px solid ${color}` }}
     >
       <div>
-        {componentId}*<span onClick={() => forceUpdate({})}>🔄</span>
+        {componentId}*
+        <span onClick={() => forceUpdate({})} title="re-render">
+          🔄
+        </span>
         <ErrorThrower />
         <Suspenser />
       </div>
@@ -392,6 +410,7 @@ export default function App() {
       <div>
         Timing {withTiming ? "enabled " : "disabled "}
         <button
+          title={`Toggle timing to ${!withTiming ? "enabled " : "disabled "}`}
           onClick={() => {
             console.clear();
             i = 65;
