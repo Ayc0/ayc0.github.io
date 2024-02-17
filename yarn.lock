@@ -857,6 +857,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-reconciler@npm:^0.28.0, @types/react-reconciler@npm:^0.28.2":
+  version: 0.28.8
+  resolution: "@types/react-reconciler@npm:0.28.8"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 10c0/ca95cffcdf58591679c6c87dcc6f2c50cef9c6b2772d089ec0c695567656f34a30a0f2592f391d99b0e877f94afd67347082c55eb1dc5cb8000e23c8efc0fafc
+  languageName: node
+  linkType: hard
+
 "@types/react@npm:*, @types/react@npm:^18.2.56":
   version: 18.2.56
   resolution: "@types/react@npm:18.2.56"
@@ -2524,6 +2533,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"its-fine@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "its-fine@npm:1.1.1"
+  dependencies:
+    "@types/react-reconciler": "npm:^0.28.0"
+  peerDependencies:
+    react: ">=18.0"
+  checksum: 10c0/66059a859720de19563a8abdb10f06eb6117df1897d984a54b0a71ab9dc02da3dc366428b1f0c5e085740962abb7d6ccc0b8c3e00725b0a2120c846f352adffc
+  languageName: node
+  linkType: hard
+
 "jackspeak@npm:^2.3.5":
   version: 2.3.6
   resolution: "jackspeak@npm:2.3.6"
@@ -2610,6 +2630,13 @@ __metadata:
   version: 4.1.5
   resolution: "kleur@npm:4.1.5"
   checksum: 10c0/e9de6cb49657b6fa70ba2d1448fd3d691a5c4370d8f7bbf1c2f64c24d461270f2117e1b0afe8cb3114f13bbd8e51de158c2a224953960331904e636a5e4c0f2a
+  languageName: node
+  linkType: hard
+
+"konva@npm:9.3.3":
+  version: 9.3.3
+  resolution: "konva@npm:9.3.3"
+  checksum: 10c0/1d9d008232cce2750e37ef2a0272242af0b94ddaf93bf35df76eb6d15527831265a5bb117e4a3cf2d55c4356dac2d950d7a5828c49582cd70c40bad0ee6ba507
   languageName: node
   linkType: hard
 
@@ -3813,8 +3840,10 @@ __metadata:
     "@types/react": "npm:^18.2.56"
     "@types/react-dom": "npm:^18.2.19"
     astro: "npm:^4.4.0"
+    konva: "npm:9.3.3"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
+    react-konva: "npm:18.2.10"
     typescript: "npm:^5.3.3"
   languageName: unknown
   linkType: soft
@@ -3893,6 +3922,34 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 10c0/66dfc5f93e13d0674e78ef41f92ed21dfb80f9c4ac4ac25a4b51046d41d4d2186abc915b897f69d3d0ebbffe6184e7c5876f2af26bfa956f179225d921be713a
+  languageName: node
+  linkType: hard
+
+"react-konva@npm:18.2.10":
+  version: 18.2.10
+  resolution: "react-konva@npm:18.2.10"
+  dependencies:
+    "@types/react-reconciler": "npm:^0.28.2"
+    its-fine: "npm:^1.1.1"
+    react-reconciler: "npm:~0.29.0"
+    scheduler: "npm:^0.23.0"
+  peerDependencies:
+    konva: ^8.0.1 || ^7.2.5 || ^9.0.0
+    react: ">=18.0.0"
+    react-dom: ">=18.0.0"
+  checksum: 10c0/4eb2e961829f25ac6e396fc29cacd54344f0a1df598ccdbe2ceec0e3a465a9b0115daa8700dd630e7aeaf0568580d7a6d798d97f91f14f6970c9fd2e765289bd
+  languageName: node
+  linkType: hard
+
+"react-reconciler@npm:~0.29.0":
+  version: 0.29.0
+  resolution: "react-reconciler@npm:0.29.0"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+    scheduler: "npm:^0.23.0"
+  peerDependencies:
+    react: ^18.2.0
+  checksum: 10c0/637442f98ee816b8f86586f537712a0463b53e12c0f4dec716dfdde68dfa52cef1d10138acfad194d5571296cde8715c331aa3986e538087acdc1ef83187a9b0
   languageName: node
   linkType: hard
 

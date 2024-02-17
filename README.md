@@ -11,3 +11,7 @@ It also groups & displays them in a readable manner. Visit https://ayc0.github.i
 ## React timings
 
 Experimental lab to try how & when React life cycles happen.
+
+## Hexagons
+
+Experiment to play with React & Canvas to place hexagons in a compact way
