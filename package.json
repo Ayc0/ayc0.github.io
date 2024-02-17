@@ -2,12 +2,7 @@
   "name": "projects",
   "version": "1.0.0",
   "private": true,
-  "description": "Display all different CSS length units",
-  "keywords": [
-    "css",
-    "web",
-    "length"
-  ],
+  "description": "Various personal projects",
   "packageManager": "yarn@4.1.0",
   "scripts": {
     "start": "astro dev",
@@ -24,10 +19,10 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@astrojs/react": "^3.0.9",
-    "@types/react": "^18.2.47",
-    "@types/react-dom": "^18.2.18",
-    "astro": "^4.1.2",
+    "@astrojs/react": "^3.0.10",
+    "@types/react": "^18.2.56",
+    "@types/react-dom": "^18.2.19",
+    "astro": "^4.4.0",
     "typescript": "^5.3.3"
   }
 }
