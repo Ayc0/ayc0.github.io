@@ -5,5 +5,9 @@ import react from "@astrojs/react";
 export default defineConfig({
   site: "https://ayc0.github.io",
   base: "/projects",
-  integrations: [react()],
+  integrations: [
+    react({
+      exclude: ["**/page-react-timings/*"],
+    }),
+  ],
 });

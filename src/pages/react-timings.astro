@@ -1,0 +1,37 @@
+---
+import Page  from '../layouts/Page.astro';
+---
+
+<Page title="React timings" description='Explore timings of different life cycles with the concurrent & legacy renderers'>
+
+    <p>(Open your dev tools)</p>
+
+    <div class="content">
+        <div id="switcher"></div>
+        <div id="root"></div>
+    </div>
+
+    <style is:global>
+        .content {
+            text-align: center;
+        }
+
+        .content :is(button, a) {
+            background: transparent;
+
+            border: 1px solid black;
+            border-radius: 4px;
+
+            cursor: pointer;
+
+            &:hover {
+                background: #0001;
+            }
+            &:active {
+                background: #0002;
+            }
+        }
+    </style>
+
+    <script src="../components/page-react-timings/index.tsx"></script>
+</Page>
