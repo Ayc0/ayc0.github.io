@@ -2577,20 +2577,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"length-units@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "length-units@workspace:."
-  dependencies:
-    "@astrojs/react": "npm:^3.0.9"
-    "@types/react": "npm:^18.2.47"
-    "@types/react-dom": "npm:^18.2.18"
-    astro: "npm:^4.1.2"
-    react: "npm:18.2.0"
-    react-dom: "npm:18.2.0"
-    typescript: "npm:^5.3.3"
-  languageName: unknown
-  linkType: soft
-
 "load-yaml-file@npm:^0.2.0":
   version: 0.2.0
   resolution: "load-yaml-file@npm:0.2.0"
@@ -3810,6 +3796,20 @@ __metadata:
   checksum: f66430e4ff947dbb996058f6fd22de2c66612ae1a89b097744e17fb18a4e8e7a86db99eda52ccf15e53f00b63f4ec0b0911581ff2aac0355b625c8eac509b0dc
   languageName: node
   linkType: hard
+
+"projects@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "projects@workspace:."
+  dependencies:
+    "@astrojs/react": "npm:^3.0.9"
+    "@types/react": "npm:^18.2.47"
+    "@types/react-dom": "npm:^18.2.18"
+    astro: "npm:^4.1.2"
+    react: "npm:18.2.0"
+    react-dom: "npm:18.2.0"
+    typescript: "npm:^5.3.3"
+  languageName: unknown
+  linkType: soft
 
 "promise-retry@npm:^2.0.1":
   version: 2.0.1
