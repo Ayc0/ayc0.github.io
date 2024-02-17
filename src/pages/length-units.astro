@@ -1,4 +1,6 @@
 ---
+import Page from "../layouts/Page.astro";
+
 import { lengthUnits } from "../components/units";
 import type { Category } from "../components/units";
 
@@ -12,79 +14,14 @@ const backgrounds: { [category in Category]: string } = {
 };
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-
-    <!-- HTML Meta Tags -->
-    <title>CSS length units</title>
-    <meta name="description" content="Display all different CSS length units">
-
-    <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="https://ayc0.github.io/projects/length-units/">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="CSS length units">
-    <meta property="og:description" content="Display all different CSS length units">
-    <meta property="og:image" content="https://ayc0.github.io/projects/length-units/og-image.png">
-
-    <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="ayc0.github.io">
-    <meta property="twitter:url" content="https://ayc0.github.io/projects/length-units/">
-    <meta name="twitter:title" content="CSS length units">
-    <meta name="twitter:description" content="Display all different CSS length units">
-    <meta name="twitter:image" content="https://ayc0.github.io/projects/length-units/og-image.png">
-
-  </head>
-
-  <body>
+<Page title="CSS Length Units" description="Display all different CSS length units" image="css-length-units-og.png">
     <style is:global>
-      :root {
-        color-scheme: light dark;
-        font-size: 16px;
-      }
-
-      h1 {
-        font-size: 2rem;
-      }
-      h2 {
-        font-size: 1.5rem;
-      }
-      code {
-        font-size: 1rem;
-      }
-
       .wrapper {
         display: grid;
         grid-template-columns: min-content min-content 1fr;
         align-items: center;
         row-gap: 4px;
         column-gap: 1em;
-        margin: auto;
-        max-width: 500px;
-      }
-
-      a {
-        color: inherit;
-      }
-
-      :is(h1, h2, h3, h4, h5, h6)[id]::before {
-        position: absolute;
-        transform: translateX(-100%);
-        text-decoration: underline;
-        text-decoration-color: var(--color);
-        color: var(--gray);
-      }
-
-      :is(h1, h2, h3, h4, h5, h6)[id]:has(
-          > :first-child:is(:hover, :focus-within)
-        )::before {
-        content: "# ";
       }
 
       .description {
@@ -101,21 +38,9 @@ const backgrounds: { [category in Category]: string } = {
       .escape-from-layout {
         display: contents;
       }
-      /* Colors */
-      :root {
-        --danger: Red;
-        --gray: DimGray;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --danger: #ff8585;
-          --gray: DarkGray;
-        }
-      }
     </style>
+
     <div class="wrapper">
-      <h1 class="whole-row">CSS Length Units</h1>
       {
         Object.entries(lengthUnits).map(([category, { link, units }]) => (
           <div
@@ -137,5 +62,5 @@ const backgrounds: { [category in Category]: string } = {
         ))
       }
     </div>
-  </body>
-</html>
+
+</Page>
