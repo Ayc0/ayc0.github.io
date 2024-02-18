@@ -19,3 +19,7 @@ Experiment to play with React & Canvas to place hexagons in a compact way
 ## Color Visualizer
 
 Live playground to convert colors from different color spaces
+
+## Blog posts
+
+List of all of my blog posts.

@@ -14,6 +14,28 @@ export default defineConfig({
     starlight({
       title: "Ayc0's Projects",
       lastUpdated: true,
+      sidebar: [
+        {
+          label: "Dark mode",
+          autogenerate: { directory: "posts/Dark mode" },
+        },
+        {
+          label: "CSS",
+          autogenerate: { directory: "posts/CSS" },
+        },
+        {
+          label: "TypeScript",
+          autogenerate: { directory: "posts/TypeScript" },
+        },
+        {
+          label: "Yarn",
+          autogenerate: { directory: "posts/Yarn" },
+        },
+        {
+          label: "Others",
+          autogenerate: { directory: "posts/Others" },
+        },
+      ],
     }),
   ],
 });
