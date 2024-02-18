@@ -1,0 +1,46 @@
+---
+title: "Light/dark mode: the lazy way"
+tags: ["webdev", "css"]
+created: 2021-05-29
+lastUpdated: 2023-01-16
+sidebar:
+  order: 1
+---
+
+import Codepen from "../../../../components/Codepen.astro";
+
+## Color scheme
+
+If you already have a website working, and you haven't used any styles (no custom background, no custom color, no custom inputs), then you can use in your HTML:
+
+```html
+<meta name="color-scheme" content="light dark" />
+```
+
+or in your CSS:
+
+```css
+:root {
+  color-scheme: light dark;
+}
+```
+
+This will enable both default `light` and `dark` modes for your website and will follow your system mode (no toggle available in the UI).
+
+You can read more about it here: https://web.dev/color-scheme/.
+
+## System colors
+
+There is also another powerful tool available to us: native system themed colors.
+
+In CSS, you can say that a color should follow the system color for multiple semantic elements, like `LinkText`, or `Canvas` (background color):
+
+![A few examples of system colors](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/itysdasc4tlijyvg12og.png)
+
+The best is that those colors will have automated variants in dark mode.
+
+For the whole list of system colors, and their semantic meaning, you can out the [MDN page](https://developer.mozilla.org/en-US/docs/Web/CSS/system-color), or check them out in the [CSS spec](https://w3c.github.io/csswg-drafts/css-color/#css-system-colors).
+
+## Result
+
+<Codepen user="ayc0" id="GRWOgaR" />

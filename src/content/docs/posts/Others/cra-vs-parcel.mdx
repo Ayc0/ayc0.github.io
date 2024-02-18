@@ -1,0 +1,188 @@
+---
+title: "CRA vs Parcel"
+tags: ["javascript", "react", "parcel", "bundler"]
+created: 2022-09-05
+lastUpdated: 2023-01-22
+---
+
+When working a new React project, there are a lot of frameworks / bundlers that we can choose:
+
+- [create-react-app](https://create-react-app.dev/),
+- [NextJS](https://nextjs.org/),
+- [Parcel](https://parceljs.org/),
+- [Vite](https://vitejs.dev/),
+- [astro](https://astro.build/)
+- and many others.
+
+Here I only want to focus on comparable tools: I'll only look into frameworks to build a React single page app.
+
+As I haven't used Vite that much, I'll only compare create-react-app and Parcel.
+
+## CRA
+
+Create React App is one of the first tools released to manage a React SPA. It's maintained by Facebook and the open source community.
+
+### Pros
+
+It comes with a long of tools out of the box:
+
+- a seamless webpack & babel config,
+- a test runner,
+- an ESLint integration (integrated with an overlay),
+- TypeScript / Flow,
+- Fast Refresh,
+- CSS modules / SASS,
+- web vitals,
+- and many other good things out of the box.
+
+It's also the default template proposed by [Code Sandbox](https://codesandbox.io/) when starting a new React Project.
+
+### Cons
+
+The first drawback is related to its primary advantage: it provides out of the box configuration for most tools. But as soon as you want to have a little customisation, CRA won't be nice to you:
+
+- If you want to customize the webpack configuration, you either need to [eject](https://create-react-app.dev/docs/available-scripts/#npm-run-eject), or to work against the package (with yarn patch, forking react-scripts, or using [CRACO](https://github.com/dilanx/craco) which is the easiest). But none of them are officially maintained by the CRA team.
+- You cannot have a version of ESLint or babel locally that differs from react-scripts' version, otherwise the build will crash.
+- You cannot have any ESLint error / warning, otherwise the build will crash.
+- Adding new loaders can be tricky.
+
+I also noticed over the years a few issues with particular versions of Node, or yarn.
+
+## Parcel
+
+Parcel is a zero configuration build tool. It comes out of the box with a lot of resolvers, plus it proposes a large set of plugins.
+
+### Pros
+
+Just like CRA, Parcel comes out of the box with:
+
+- no config (or almost no config),
+- TypeScript resolver,
+- Fast Refresh,
+- CSS modules / SASS.
+
+Thanks to [its plugins system](https://parceljs.org/features/plugins/), if something doesn't come out of the box, the community can come with their own plugins (for instance a MDX plugin).
+
+As Parcel doesn't depend on babel nor on webpack, it also installs way fewer packages, so the node_modules folder is way smaller.
+
+### Cons
+
+As Parcel is just the bundler, it doesn't come with a test runner, nor any CLI tool to simply start a project.
+
+Note: About test runners, for smaller projects we don't necessarily need one.
+
+## Code samples
+
+### CRA
+
+I'll compare the same architecture between CRA and Parcel. Let's start with the initial CRA project with `npx create-react-app test-cra`:
+
+```
+$ npx create-react-app test-cra
+Need to install the following packages:
+  create-react-app@5.0.1
+Ok to proceed? (y)
+npm WARN deprecated tar@2.2.2: This version of tar is no longer supported, and will not receive security updates. Please upgrade asap.
+
+Creating a new React app in /code/test-cra.
+
+Installing packages. This might take a couple of minutes.
+Installing react, react-dom, and react-scripts with cra-template...
+
+
+added 1394 packages in 58s
+
+209 packages are looking for funding
+  run `npm fund` for details
+
+Initialized a git repository.
+
+Installing template dependencies using npm...
+
+added 56 packages in 4s
+
+209 packages are looking for funding
+  run `npm fund` for details
+Removing template package using npm...
+
+
+removed 1 package, and audited 1450 packages in 1s
+
+209 packages are looking for funding
+  run `npm fund` for details
+
+6 high severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+Created git commit.
+
+Success! Created test-cra at /code/test-cra
+Inside that directory, you can run several commands:
+
+  npm start
+    Starts the development server.
+
+  npm run build
+    Bundles the app into static files for production.
+
+  npm test
+    Starts the test runner.
+
+  npm run eject
+    Removes this tool and copies build dependencies, configuration files
+    and scripts into the app directory. If you do this, you can’t go back!
+
+We suggest that you begin by typing:
+
+  cd test-cra
+  npm start
+
+Happy hacking!
+```
+
+We can see that the install took almost **a minute**, and it installed 1394 packages, including **6 high severity vulnerabilities**.
+
+The project itself looks like this:
+
+![Content of the project after the npx command for CRA](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/f7hssdymps5lg2b164zj.png)
+
+### Migration to Parcel
+
+Let's try to replicate the same architecture with Parcel.
+
+```
+$ npm i
+npm WARN deprecated stable@0.1.8: Modern JS already guarantees Array#sort() is a stable sort, so this library is deprecated. See the compatibility table on MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#browser_compatibility
+
+added 171 packages, and audited 172 packages in 5s
+
+72 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+```
+
+We can see here that the install is way faster: only 5s, and fewer packages were installed.
+
+Except for modifying a bit the dependencies and the public/index.html file, I haven't changed the rest. (The `devDependencies` were automatically added by parcel in the following image)
+
+![Content of the project after npm i for Parcel](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1krgnawdnkc7h24s90ez.png)
+
+And here are the modifications I did to the index.html:
+
+- I removed a "magical" env variable `%PUBLIC_URL%` and instead used direct paths,
+- Added a hard coded `<script>` tag:
+
+![diff between CRA's index.html and Parcel's index.html](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3ky8dvgyrc6shb9trauz.png)
+
+## Conclusion
+
+I stopped using CRA when working for my React projects, and instead I always go to Parcel:
+
+- it's **way** faster (both for the install **and** to run) and smaller,
+- it comes with fewer "magical" tools that cannot be configured,
+- it's easier to customize and to maintain.

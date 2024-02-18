@@ -1,0 +1,17 @@
+---
+import { LinkCard } from "@astrojs/starlight/components";
+import { getEntry } from "astro:content";
+
+export interface Props {
+    slug: string;
+}
+
+const { slug } = Astro.props;
+
+const entry = (await getEntry('docs', 'posts/' + slug));
+if (entry == null) {
+	throw new Error(`slug ${slug} isn’t valid`);
+}
+---
+
+<LinkCard href={'projects/' + entry.slug} title={entry.data.title} />

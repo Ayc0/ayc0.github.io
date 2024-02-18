@@ -1,0 +1,51 @@
+---
+title: "Semver: The unknown buildMetadata"
+tags: ["discuss", "npm", "semver", "versioning"]
+created: 2022-07-14
+lastUpdated: 2022-07-14
+---
+
+I was reading [semver's spec](https://semver.org/) and I noticed something weird in the regex:
+
+![Screenshot of semver spec saying "And one with numbered capture groups instead (so cg1 = major, cg2 = minor, cg3 = patch, cg4 = prerelease and cg5 = buildmetadata)"](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dyn2hb56xwjex3cyd6hr.png)
+
+This is the 1st time that I ever encountered the mention of `buildmetadata`.
+
+### Let's deconstruct that a bit
+
+When you read the regex, it mentions at the beginning the required `major`, `minor`, and `patch`: a valid semver version needs to be at least `MAJOR.MINOR.PATCH`, for instance `1.2.3`.
+
+Then the version can contain an option `prerelease` tag starting with a **`-`**, for instance `1.2.3-hello` and this prelease tag can be anything made of alpha numerics (0-9 or a-z or A-Z), `.` and `-`.
+
+But what surprised me is the last one: the `buildmetadata` prefixed with a **`+`** (same thing as the prerelease so any alpha numerics, or `.`, or `-`).
+So for instance `1.2.3+build` is valid, and so is `1.2.3-beta.1+build.linux`
+
+### Verification
+
+Just to be sure, I run this in runkit, and indeed it can properly parse `1.2.3-pre.release.4+build.meta.5.6` as:
+
+```json5
+{
+  major: 1,
+  minor: 2,
+  patch: 3,
+  prerelease: ["pre", "release", 4], // here 4 is even a number
+  build: ["build", "meta", "5", "6"], // but here 5 and 6 are strings
+  version: "1.2.3-pre.release.4",
+  raw: "1.2.3-pre.release.4+build.meta.5.6",
+}
+```
+
+See for yourselves:
+
+![semver properly parses `1.2.3-pre.release.4.5+build.meta.6.7`](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/niejqzhlppdlxyaj1tez.png)
+
+### Discussion
+
+I've seen plenty of times the prerelease being used (and I used it myself a few times too).
+
+For instance, React uses it a lot:
+
+![Sample of React versions on NPM with a lot of prereleases](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/p00o9cthqgf0s4dlhymu.png)
+
+My topic for a conversation with you is: Have you ever seen this used anywhere on NPM (or else where)? And if so, for what purpose?

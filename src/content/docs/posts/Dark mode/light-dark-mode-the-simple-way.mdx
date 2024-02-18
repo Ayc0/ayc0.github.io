@@ -1,0 +1,66 @@
+---
+title: "Light/dark mode: the simple way"
+tags: ["webdev", "css"]
+created: 2021-05-30
+lastUpdated: 2021-06-24
+sidebar:
+  order: 2
+---
+
+import Codepen from "../../../../components/Codepen.astro";
+import LinkToPost from "../../../../components/LinkToPost.astro";
+
+In the previous post, we've seen how to use the `color-scheme` html meta tag to benefit from the browser default themes.
+
+<LinkToPost slug="dark-mode/light-dark-mode-the-lazy-way" />
+
+In this post, we’ll iterate on that and use our own styles.
+
+## CSS variables
+
+CSS variables ([documentation](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)) are runtime variables that you can dynamically re-assign. For instance, consider this example:
+
+```css
+:root {
+  --color: orange;
+}
+.color-blue {
+  --color: blue;
+}
+* {
+  color: var(--color);
+}
+```
+
+By default, all elements will be in orange. But when wrapped in an element with the classname `color-blue`, their color will now be blue (and as usual in css, it cascades).
+
+## Media query
+
+Media queries aren't only useful for responsive design and changing the layout based on the screen size. When using [`prefers-color-scheme`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme), you can modify your rendering based on if your user prefer to view their website in light/dark mode.
+
+## End result
+
+By combining both, you can create a color palette that will automatically adapt to your users preferences:
+
+```css
+:root {
+  --text: black;
+  --background: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: white;
+    --background: black;
+  }
+}
+
+body {
+  color: var(--text);
+  background: var(--background);
+}
+```
+
+I'd still recommend adding a `<meta name="color-scheme" content="light dark" />` in your HTML as seen in the previous post to have native inputs that will look good in dark mode.
+
+<Codepen user="ayc0" id="yLMPbLz" />

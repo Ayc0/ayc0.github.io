@@ -1,0 +1,115 @@
+---
+title: "Yarn.lock: How to Read it"
+tags: ["yarn", "config", "lockfile"]
+created: 2021-07-27
+lastUpdated: 2021-09-05
+sidebar:
+  order: 1
+---
+
+import { LinkCard } from "@astrojs/starlight/components";
+
+## Introduction
+
+Looking at the `yarn.lock` file can be a bit overwhelming, but it's actually not that complicated. There isn't that much difference between yarn v1's lock files and yarn v2's lock files so I'll consider them equal for this blog post (if you want to see the differences, see the [changelog](https://dev.to/arcanis/introducing-yarn-2-4eh1#new-lockfile-format)).
+
+## Simple dependency
+
+```lock
+wrappy@1:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
+  integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
+```
+
+Here we can see that the package `wrappy` is the dependency and requested at the version `1` (`wrappy@1`).
+But the resolved, imported version is the version `1.0.2` (with its hash and the URL for the download).
+
+## Multiple resolutions
+
+```lock
+whatwg-mimetype@^2.2.0, whatwg-mimetype@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/whatwg-mimetype/-/whatwg-mimetype-2.3.0.tgz#3d4b1e0312d2079879f826aff18dbeeca5960fbf"
+  integrity sha512-M4yMwr6mAnQz76TbJm914+gPpB/nCwvZbJU28cUD6dR004SAxDLOOSUaB1JDRqLtaOV/vi0IC5lEAGFgrjGv/g==
+```
+
+In this snippet, we can see that the package `whatwg-mimetype` is imported in 2 versions: `^2.2.0` and `^2.3.0`. But at the time of the resolution, both were resolving to the same version: `2.3.0`. So both, in the end, will use the same node module with the same version.
+
+## Dependency with dependencies
+
+```lock
+which-boxed-primitive@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/which-boxed-primitive/-/which-boxed-primitive-1.0.2.tgz#13757bc89b209b049fe5d86430e21cf40a89a8e6"
+  integrity sha512-bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg==
+  dependencies:
+    is-bigint "^1.0.1"
+    is-boolean-object "^1.1.0"
+    is-number-object "^1.0.4"
+    is-string "^1.0.5"
+    is-symbol "^1.0.3"
+```
+
+Here we can see that `which-boxed-primitive` is imported with the version `^1.0.2`, resolved with the version `1.0.2`. But this version requires other modules (here `is-bigint`, `is-boolean-object`, `is-number-object`, `is-string`, and `is-symbol`.
+
+Their requested versions are written next to them, but not their resolved versions, and you'll find them above or below in the lockfile.
+
+## Last more complicated example
+
+```lock
+"@babel/core@7.12.9":
+  version "7.12.9"
+  resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.12.9.tgz#fd450c4ec10cdbb980e2928b7aa7a28484593fc8"
+  integrity sha512-gTXYh3M5wb7FRXQy+FErKFAv90BnlOuNn1QkCK2lREoPAjrQCO49+HVSrFoe5uakFAF5eenS75KbO2vQiLrTMQ==
+  dependencies:
+    "@babel/code-frame" "^7.10.4"
+    "@babel/generator" "^7.12.5"
+    "@babel/helper-module-transforms" "^7.12.1"
+    "@babel/helpers" "^7.12.5"
+    "@babel/parser" "^7.12.7"
+    "@babel/template" "^7.12.7"
+    "@babel/traverse" "^7.12.9"
+    "@babel/types" "^7.12.7"
+    convert-source-map "^1.7.0"
+    debug "^4.1.0"
+    gensync "^1.0.0-beta.1"
+    json5 "^2.1.2"
+    lodash "^4.17.19"
+    resolve "^1.3.2"
+    semver "^5.4.1"
+    source-map "^0.5.0"
+
+"@babel/core@^7.12.0", "@babel/core@^7.12.2", "@babel/core@^7.12.3":
+  version "7.13.15"
+  resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.13.15.tgz#a6d40917df027487b54312202a06812c4f7792d0"
+  integrity sha512-6GXmNYeNjS2Uz+uls5jalOemgIhnTMeaXo+yBUA72kC2uX/8VW6XyhVIo2L8/q0goKQA3EVKx0KOQpVKSeWadQ==
+  dependencies:
+    "@babel/code-frame" "^7.12.13"
+    "@babel/generator" "^7.13.9"
+    "@babel/helper-compilation-targets" "^7.13.13"
+    "@babel/helper-module-transforms" "^7.13.14"
+    "@babel/helpers" "^7.13.10"
+    "@babel/parser" "^7.13.15"
+    "@babel/template" "^7.12.13"
+    "@babel/traverse" "^7.13.15"
+    "@babel/types" "^7.13.14"
+    convert-source-map "^1.7.0"
+    debug "^4.1.0"
+    gensync "^1.0.0-beta.2"
+    json5 "^2.1.2"
+    semver "^6.3.0"
+    source-map "^0.5.0"
+```
+
+Here you can see that `@babel/core` is requested in 4 versions `7.12.9`, `^7.12.0`, `^7.12.2`, and `^7.12.3`. But as, at the time of the resolution of `^7.12.0` and `^7.12.2`, the latest version was `7.13.15`, those 2 were resolved to `7.13.15`.
+And when `7.12.9` was added, as changing the previously resolved versions could lead to breaking changes, they were kept and `@babel/core` was duplicated.
+
+## Editing the lock file
+
+If you're interested in editing this file, you can read:
+
+<LinkCard
+  title="Yarn.lock: How to Update it"
+  href="/projects/posts/yarn/yarn-lock-how-to-update-it/"
+/>

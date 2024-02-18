@@ -1,0 +1,167 @@
+---
+title: "Light/dark mode: system mode + user preferences"
+tags: ["webdev", "css", "javascript"]
+created: 2021-05-31
+lastUpdated: 2023-01-16
+sidebar:
+  order: 4
+---
+
+import Codepen from "../../../../components/Codepen.astro";
+import LinkToPost from "../../../../components/LinkToPost.astro";
+
+In the previous posts, we saw:
+
+- how to use CSS variables to adapt the display to user system preferences,
+- how to use JS to toggle between light/dark mode.
+
+But if you want to provide a way for your users to pick light/dark and still provide a way to also follow their native system, you'll need something else.
+
+This is what this article will tackle.
+
+⚠️ Warning, this is going to be more advanced than the previous parts
+
+## The logic
+
+You’ll have to be able to handle 4 different configurations:
+
+- the user picked "light mode"
+- the user picked "dark mode"
+- the user picked "system mode" and their system is in light
+- the user picked "system mode" and their system is in dark
+
+You have 2 possibilities for dealing with this:
+
+- 1 variable that can be light/dark/system and then within the CSS/JS have a way to get the "visual theme" from the system mode
+- 2 variables:
+  - user choice: light/dark/system
+  - applied mode: light/dark
+
+The second method is a bit more complex to set up, but easier to reason with. And also it will match the CSS done in our previous part.
+
+## The CSS
+
+As the CSS only deals with the visual appearance, we'll only have to care about the applied mode: light/dark.
+
+The easiest is to apply a data attribute to the html light/dark. Also, as we chose the 2nd method with 2 distinct sets of variables, we only have to deal with light/dark. Dealing with the system will be done by another tool. So we don't have to use media queries.
+
+> **Note:** I'd still recommend setting the `color-scheme` to `light` and `dark` for native inputs.
+
+The CSS is still fairly simple (and the exact same one as before):
+
+```css
+:root[data-applied-mode="light"] {
+  color-scheme: light;
+  --text: black;
+  --background: white;
+}
+:root[data-applied-mode="dark"] {
+  color-scheme: dark;
+  --text: white;
+  --background: black;
+}
+```
+
+## The JS
+
+We’ll have to store the user preference for future visits to the website. You can do that with the method you prefer:
+
+- localStorage (if everything is done in the frontend)
+- cookie (if you want to have access to it from the backend)
+- remote database (if you want to apply the same theme to multiple devices)
+
+> If you store the preferences in a remote database, I'd still recommend to double save it in a cookie/localStorage, because we'll see later how to avoid blinks when loading the pages. And this needs synchronous access to the stored value.
+
+I'm gonna stick with localStorage here, because it's the easiest to deal with, but it doesn't really matter for this example.
+
+### Reading and writing the user preference
+
+We can use this couple of function as first class getters/setters of the user preference:
+
+```js
+function getUserPreference() {
+  return localStorage.getItem("theme") || "system";
+}
+function saveUserPreference(userPreference) {
+  localStorage.setItem("theme", userPreference);
+}
+```
+
+### Translating the user preference in the applied mode
+
+Now that we have a way to get the saved user preference, we need a way to translate it to an applied mode.
+
+The equivalence is simple:
+
+- the user picked "light mode" => light
+- the user picked "dark mode" => dark
+- the user picked "system mode" and their system is in light => light
+- the user picked "system mode" and their system is in dark => dark
+
+The complicated part relies on the last 2 possibilities. Before we were using CSS media queries to handle this. Fortunately we can query CSS media queries with JS: `matchMedia(<media query>).matches` will return true/false depending on whether or not the browser is matching this media query:
+
+```js
+function getAppliedMode(userPreference) {
+  if (userPreference === "light") {
+    return "light";
+  }
+  if (userPreference === "dark") {
+    return "dark";
+  }
+  // system
+  if (matchMedia("(prefers-color-scheme: light)").matches) {
+    return "light";
+  }
+  return "dark";
+}
+```
+
+### Setting the applied mode
+
+As we only used an attribute on the html, applying only corresponds to setting the attribute on it.
+
+This leaves us with this function:
+
+```js
+function setAppliedMode(mode) {
+  document.documentElement.dataset.appliedMode = mode;
+}
+```
+
+### Assembling the whole ensemble
+
+Now that we have all the elements, this is basically like legos: we need to assemble everything.
+
+You still need to define 2 things:
+
+- an input that will trigger the rotation of your user preferences,
+- a function that will return the next preference based on the current one.
+
+But then, you can do the following:
+
+```js
+const themeToggler = document.getElementById("theme-toggle");
+let userPreference = getUserPreference();
+setAppliedMode(getAppliedMode(userPreference));
+
+themeToggler.onclick = () => {
+  const newUserPref = rotatePreferences(userPreference);
+  userPreference = newUserPref;
+  saveUserPreference(newUserPref);
+  setAppliedMode(getAppliedMode(newUserPref));
+};
+```
+
+<Codepen user="ayc0" id="MWpOmbQ" />
+
+---
+
+**Note:**
+If you don't want any blink when users will load the page (seeing an empty white page when reloading the page for instance while they picked a dark mode for your website), it's important that this JS is executed in a blocking way, so that browsers won't render the html/css without having first computed this JS and applied the data attribute on the html. See:
+
+<LinkToPost slug="dark-mode/light-dark-mode-avoid-flickering-on-reload" />
+
+---
+
+**Note 2:**
+The system mode we built here only resolves the theme when `system` is picked. But it won’t follow the system’s value in real time.

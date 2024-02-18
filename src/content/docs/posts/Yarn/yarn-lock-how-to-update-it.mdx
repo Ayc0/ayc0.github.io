@@ -1,0 +1,140 @@
+---
+title: "Yarn.lock: How to Update it"
+tags: ["yarn", "config", "lockfile"]
+created: 2021-09-05
+lastUpdated: 2021-09-05
+sidebar:
+  order: 2
+---
+
+import LinkToPost from "../../../../components/LinkToPost.astro";
+
+## Introduction
+
+Knowing how to read a `yarn.lock` file is important: it lists the packages that your application will end up using. Sure, your dependencies are listed in your `package.json`, it only lists your direct deps, not the deps of your deps.
+
+So, if you really care about your app, you should be able to read this lock file, and here is another post about this:
+
+<LinkToPost slug="yarn/yarn-lock-how-to-read-it" />
+
+If you spot something weird in the lockfile, this article will tell you how to fix it.
+
+1. [Problem](#problem)
+2. [Solutions](#solutions)
+   1. [Manually editing the lock file](#manually-editing-the-lock-file)
+   2. [The `resolutions` field](#the-resolutions-field)
+   3. [Removing the `yarn.lock` file](#removing-the-yarnlock-file)
+   4. [`yarn dedupe` (recommended)](#yarn-dedupe-recommended)
+3. [Bonus: listing all versions of a package](#bonus-listing-all-versions-of-a-package)
+   1. [Yarn 1](#yarn-1)
+   2. [Yarn 2+](#yarn-2)
+4. [Conclusion](#conclusion)
+
+## Problem
+
+Note: I'll use the semver syntax, more information on it here: https://jubianchi.github.io/semver-check/.
+
+Let's say you depend on a module `A` that itself depends on `B` with the version `^1.1.1`. When `A` will be installed, yarn will resolve the latest version of `B` matching this version range (let say here `1.1.4`). Now you'll have in your lock file something like: "A depends on B@^1.1.1, resolved resolved to 1.1.4".
+
+Later, you want to install a package `C`, depending on `B@^1.1.5`. And when `C` is added, `B@1.1.5` just came out. So you end up with `B@1.1.4` **AND** `B@1.1.5` in your node_modules.
+
+You ended up here:
+
+![Illustration showing that A imports B@^1.1.1 resolved in B@1.1.4, and that C imports B@^1.1.5 resolved in B@1.1.5, resulting in having 2 versions of B](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4x6b8eid6ue1tyjzsy43.png)
+
+But ideally, you should end up like that:
+
+![Illustration showing that A imports B@^1.1.1 resolved, and C imports B@^1.1.5, both resolved in B@1.1.5, resulting in having only 1 version of B](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/m4pt38rne6ghcz9rx3yj.png)
+
+The behaviour is indeed intended: the main goal of lock file is to ensure that your dependencies won't change if you don't ask for it. As you didn't ask for an update of A, it shouldn't update neither it nor its dependencies. And as updating B from 1.1.4 to 1.1.5 could introduce some regression, `yarn` won't update it.
+
+**Real world example:** you are using [`create-react-app`](https://github.com/facebook/create-react-app), and you want to also to use [`xo`](https://github.com/xojs/xo), as both come with their own version of ESLint pre-installed, you could end up with 2 ESLint installed.
+
+## Solutions
+
+### Manually editing the lock file
+
+I personally really like this solution, as this is the one that allows you to fully manipulate the resolution mechanism.
+
+With our previous example, we should have something like the following in the `yarn.lock` file:
+
+```lock
+"B@^1.1.1":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/B-1.1.4.tgz#???"
+  integrity sha512-???==
+
+"B@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/B-1.1.5.tgz#???"
+  integrity sha512-???==
+```
+
+We can simply edit the file, and merge the 2 versions like that:
+
+```lock
+"B@^1.1.1", "B@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/B-1.1.5.tgz#???"
+  integrity sha512-???==
+```
+
+Once this has been changed, we just have to run `yarn install` and 💥, B@1.1.4 will no longer be installed, only B@1.1.5.
+
+### The `resolutions` field
+
+`Yarn` comes with a custom `resolutions` field you can set in your package.json
+
+```json
+{
+  "resolutions": {
+    "B": "1.1.5"
+  }
+}
+```
+
+This will force **all** versions of B to resolve to this one version `1.1.5`.
+
+I don't like this approach, as it'll force all versions (even incompatible ones like a potential v2 that could also be used in your deps) to be updated to this unique one. So I'd reserve this for modules you **know** cannot exist in multiple versions, but I wouldn't use it otherwise.
+
+### Removing the `yarn.lock` file
+
+If you remove the lock file completely and then run `yarn install`, yarn will re-resolve all versions to the latest allowed by their specified ranges, and thus fix all those duplicated deps.
+
+I don't recommend doing that as not all packages respect the semver convention. So you could introduce a lot of regressions in your code.
+
+### `yarn dedupe` (recommended)
+
+If you're using yarn 2+, you have access to the command `yarn dedupe B` (to dedupe all the B packages).
+
+If you're running on yarn 2+, I strongly recommend using this, as it's the easiest and safest method of all of those listed here.
+
+https://yarnpkg.com/cli/dedupe
+
+## Bonus: listing all versions of a package
+
+### Yarn 1
+
+If you using yarn 1, you can use `yarn list --pattern <package-name>` to see all the different versions (and where they are coming from) of a package:
+
+![output of yarn 1' "yarn list" command](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/mcsxmz3rhti0lro89ur0.png)
+
+https://classic.yarnpkg.com/en/docs/cli/list
+
+### Yarn 2+
+
+Yarn berry (version 2 and above), has the command `yarn why` (it already existed in yarn 1, but the output was completely different).
+
+![Output of the command "yarn why {'<'}package{'>'}", showing all the versions of this package installed, why it was installed, what version range was required each time, and which versions were resolved](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ep7g6avdbbj7qgalznb6.png)
+
+The main difference between `yarn list` in yarn 1 and `yarn why` in yarn 2+ is that, in addition to having the version installed + the parent that required this package, you also have the version ranges that were requested each time.
+
+Also, the tree is flatten here to only have the most meaningful information. But if you want to have a deep tree (like in yarn 1), you can run `yarn why <package> -R`:
+
+![Output of the command "yarn why {'<'}package{'>'} -R", showing the same results as before, but also including all of the parent deps of those deps, recursively](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/g7z3svnxfq8oz43ogycn.png)
+
+## Conclusion
+
+When working on removing duplicated packages, knowing how to read and modify your `yarn.lock` file is quite empowering.
+
+And if you're running yarn 2+, you can just use `yarn dedupe <package>`, which will save you a lot of work.

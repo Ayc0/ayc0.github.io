@@ -1,0 +1,220 @@
+---
+title: "How does CSS work? The specificity"
+tags: ["css", "webdev"]
+created: 2023-01-30
+lastUpdated: 2023-01-30
+sidebar:
+  order: 4
+---
+
+import Codepen from "../../../../components/Codepen.astro";
+
+## Introduction
+
+Let’s take this piece of code:
+
+```html
+<style>
+  .red {
+    color: red;
+  }
+  .blue {
+    color: blue;
+  }
+</style>
+<div class="red blue">Hello world</div>
+```
+
+What is the color of the text? Let’s try it out:
+
+<Codepen user="ayc0" id="NWBBGbG" />
+
+Congratulations if you picked blue!
+
+The reason why the color appears blue is because the selector was defined last.
+
+---
+
+Now let’s try the same thing with:
+
+```html
+<style>
+  #id {
+    color: green;
+  }
+  .red {
+    color: red;
+  }
+  div {
+    color: blue;
+  }
+</style>
+<div id="id" class="blue">Hello world</div>
+```
+
+What is the color of the text now? Let’s try it out:
+
+<Codepen user="ayc0" id="qByymPr" />
+
+It appears green. But why so?
+
+## Specificity
+
+### General rule
+
+CSS uses multiple rules to determine how to apply styles and selectors to elements. One of them is the **specificity**: this is a score computed for each selector. Once all of them are computed, CSS will pick the selector with the **highest** specificity.
+
+Let’s circle back to our 2nd example. If we display the specificity of each selectors, we have:
+
+```css
+#id {
+  color: green;
+} /* Specificity: (1, 0, 0) → WINS */
+.red {
+  color: red;
+} /* Specificity: (0, 1, 0) */
+div {
+  color: blue;
+} /* Specificity: (0, 0, 1) */
+```
+
+Which explains why the text appears `green`: `#id` has the highest specificity.
+
+### Egality
+
+If 2 selectors have the same specificity, then the last defined will take over, which explains the situation in our 1st example:
+
+```css
+.red {
+  color: red;
+} /* Specificity: (0, 1, 0) */
+.blue {
+  color: blue;
+} /* Specificity: (0, 1, 0) & last one → WINS */
+```
+
+## How to compute the specificity
+
+## General rules
+
+The specificity is a list of 3 elements: `(A, B, C)`, where:
+
+1. `A` is the ID selectors (e.g., `#example`)
+2. `B` is the class selectors (e.g., `.example`), attributes selectors (e.g., `[type="radio"]`) and pseudo-classes (e.g., `:hover`)
+3. `C` is the type selectors (e.g., `h1`) and pseudo-elements (e.g., `::before`)
+
+> If you want to check the differences between pseudo-classes (like `:hover`) and pseudo-elements (like `::before`), you can check this post: https://dev.to/ayc0/css-before-vs-before-1d35.
+
+### Edge cases
+
+- [`*`](https://developer.mozilla.org/en-US/docs/Web/CSS/Universal_selectors) (universal selector) and [`:where()`](https://developer.mozilla.org/en-US/docs/Web/CSS/:where) have **no specificity** `(0, 0, 0)`.
+- `:is(…)`, `:not(…)`, and `:has(…)` pseudo-classes have the specificity of their most specific complex selector in their selector list argument.
+  For instance: `:not(.class)` will have the same specificity as `.class` (aka `(0, 1, 0)`)
+- `:nth-child(…)` and `:nth-last-child(…)` have the specificity of their most specific complex selector in their selector list argument **plus** their own specificity
+  For instance: `:nth-child(2n of .class)` will have the same specificity as `.class` + `:nth-child` (aka `(0, 1, 0) + (0, 1, 0) = (0, 2, 0)`).
+
+### Examples
+
+- `.a.b.c` -> `(0, 3, 0)` (3 classes)
+- `div#id` -> `(1, 0, 1)` (1 id + 1 element)
+- `html` -> `(0, 0, 1)` | `:root` -> `(0, 1, 0)` (which in https://dev.to/ayc0/lightdark-mode-corrections-5e19#-raw-root-endraw-with-class-names I said that they both represent the same element with just different specificity
+- `span > a[href$=".org"]:not([disabled])` -> `(0, 2, 2)` (2 elements (span & a) & 2 attributes selectors (href & not disabled)
+
+### Combining selectors
+
+When writing CSS rules, multiple selectors can be passed:
+
+```css
+[type="password"],
+input:focus,
+:root #myApp input:required {
+  color: blue;
+}
+```
+
+In those cases, it won’t create 1 giant agglomerated selector. Instead CSS will treat those as 3 distinct rules:
+
+```css
+[type="password"] {
+  color: blue;
+}
+input:focus {
+  color: blue;
+}
+:root #myApp input:required {
+  color: blue;
+}
+```
+
+And then it’ll continue as normal: find the selector with the highest specificity and apply it.
+
+> If you want to know how to bump or increase the specificity of a selector, I’ll shortly release a separate article about it.
+
+### Inline style
+
+There are 2 ways of injecting styles in HTML:
+
+- CSS style sheet that use selectors with specificity,
+- inline style in HTML.
+
+Inline style doesn't use selectors, and thus cannot have specificity. So how do they fit in this system?
+
+We can think about it as a 4th element in the list `I`: `(I, A, B, C)`, that has more importance than the 3 others we’ve seen previously.
+
+With this logic, in this example, "Hello World" should appear purple:
+
+```html
+<style>
+  #id {
+    color: green;
+  }
+  .red {
+    color: red;
+  }
+  div {
+    color: blue;
+  }
+</style>
+<div id="id" class="blue" style="color: RebeccaPurple">Hello world</div>
+```
+
+<Codepen user="ayc0" id="VwBBqeo" />
+
+### `!important`
+
+Even if `!important` has nothing to do with specificity, it allows styles to be applied no matter what their specificity.
+
+Which means that in this example: even if `div` has the lowest specificity, its style will be applied and the text will appear blue:
+
+```html
+<style>
+  #id {
+    color: green;
+  }
+  .red {
+    color: red;
+  }
+  div {
+    color: blue !important;
+  }
+</style>
+<div id="id" class="blue" style="color: RebeccaPurple">Hello world</div>
+```
+
+<Codepen user="ayc0" id="YzjjdYy" />
+
+Another article dedicated to how `!important` works will be released in the future.
+
+### Tools
+
+#### Parsel
+
+When selectors become too complex, you can use [Parsel](https://projects.verou.me/parsel/), a library built by [Lea Verou](https://lea.verou.me/):
+
+![Parsel parsing "#foo > .bar + div.k1.k2 [id='baz']:nth-child(2n of .k3):not(:where(#yolo))::before" and determining its specificity (1,6,2)](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/umseei3lx99qfkg9ip65.png)
+
+#### VSCode
+
+Similarly, VSCode can parse selectors and display their specificity on hover.
+
+![VSCode parsing "#foo > .bar + div.k1.k2 [id='baz']:nth-child(2n):not(:where(#yolo))::before"](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0inob8t4o2jow1j5rwc2.png)

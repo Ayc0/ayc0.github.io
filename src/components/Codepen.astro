@@ -1,0 +1,29 @@
+---
+export interface Props {
+	user: string;
+	id: string;
+	height?: number;
+	defaultTabs?: Array<"result" | "html" | "css" | "js">;
+}
+
+const { user, id, defaultTabs = ["result"], height = 500 } = Astro.props;
+if (user == null) {
+	throw new Error('"user" is a required prop');
+}
+if (id == null) {
+	throw new Error('"id" is a required prop');
+}
+---
+
+<iframe
+	style={`width: 100%; height: ${height}px`}
+	scrolling="no"
+	src={`https://codepen.io/${user}/embed/${id}?default-tab=${encodeURIComponent(
+		defaultTabs.join(",")
+	)}&height=${height}`}
+	frameborder="no"
+	loading="lazy"
+	allowtransparency="true"
+	allowfullscreen="true"
+>
+</iframe>

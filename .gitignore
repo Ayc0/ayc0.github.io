@@ -12,5 +12,6 @@ node_modules
 !.yarn/cache
 !.yarn/releases
 
-# Parcel
-dist/
+# Astro
+.astro
+dist

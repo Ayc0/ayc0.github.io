@@ -1,0 +1,150 @@
+---
+title: "Light/dark mode: Corrections"
+tags: ["webdev", "css", "javascript"]
+created: 2023-01-16
+lastUpdated: 2023-01-16
+sidebar:
+  order: 7
+---
+
+import LinkToPost from "../../../../components/LinkToPost.astro";
+
+In this post, I want to fix some mistakes I made in other posts, and also include new elements I discovered on this topic since I wrote them.
+
+When this will be released, all other related posts will also be edited to avoid mentioning those errors. I wanted to reference all of them for posterity.
+
+## CSS color scheme
+
+<LinkToPost slug="dark-mode/light-dark-mode-the-lazy-way" />
+
+In this post, I only mentioned the meta tag with the name `color-scheme`:
+
+```html
+<meta name="color-scheme" content="light dark" />
+```
+
+But I forgot to mention that this can also be set in the CSS ([see MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme)):
+
+```css
+:root {
+  color-scheme: light dark;
+}
+```
+
+I also wrote:
+
+> **Note:** this will work on both Chrome and Safari, but not Firefox
+
+This has been fixed in Firefox 96 🎉 (see [caniuse](https://caniuse.com/mdn-css_properties_color-scheme)).
+
+## Native system colors
+
+<LinkToPost slug="dark-mode/light-dark-mode-the-lazy-way" />
+
+In this post, I only mentioned the use of `color-scheme`. But there is also another powerful tool available to us: native system themed colors.
+
+In CSS, you can say that a color should follow the system color for multiple semantic elements, like `LinkText`, or `Canvas` (background color):
+
+![A few examples of system colors](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/itysdasc4tlijyvg12og.png)
+
+The best is that those colors will have automated variants in dark mode (which is why they should have been mentioned in the “Lazy way” post).
+
+For the whole list of system colors, and their semantic meaning, you can out the [MDN page](https://developer.mozilla.org/en-US/docs/Web/CSS/system-color).
+
+## `:root` with class names
+
+<LinkToPost slug="dark-mode/light-dark-mode-user-input" />
+
+In this post, I wrote:
+
+> And as we are using classnames, we cannot use :root as before.
+
+This is wrong 😕. When we read [its MDN page](https://developer.mozilla.org/en-US/docs/Web/CSS/:root), it says:
+
+> The `:root` [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) [pseudo-class](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes) matches the root element of a tree representing the document. In HTML, `:root` represents the [`<html>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html) element and is identical to the selector `html`, except that its [specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity) is higher.
+
+After some tests, I can confirm that the following works fine:
+
+```css
+:root.dark-mode {
+  /* Works great! */
+}
+/* Equivalent to html but with a greater specificity */
+html.dark-mode {
+  /* Works great! */
+}
+```
+
+`:root` has specificity of `(0, 1, 0)`, and `html` has a specificity of `(0, 0, 1)`.
+
+## Using data attributes instead of class names
+
+<LinkToPost slug="dark-mode/light-dark-mode-user-input" />
+
+In this post, I mentioned that we were using 2 classes `.light` and `.dark`. And that we were using this function to control those classes:
+
+```js
+const colorScheme = document.querySelector('meta[name="color-scheme"]');
+function applyTheme(theme) {
+  document.body.className = theme;
+  colorScheme.content = theme;
+}
+```
+
+The issue with it, is that it overrides all classes set on the body. This is fine for this post, as we don’t have any other classes, but it may not be in your own application.
+
+A more realistic function would be something like:
+
+```js
+const colorScheme = document.querySelector('meta[name="color-scheme"]');
+function applyTheme(theme) {
+  document.body.classList.remove("light");
+  document.body.classList.remove("dark");
+  document.body.classList.add(theme);
+  colorScheme.content = theme;
+}
+```
+
+You can see that it's a bit tedious to have to remove all classes, especially if you start to add more themes, like low/high contrast, etc.
+
+A better solution would be to use data attributes, to which we can add the correction we did for the [`color-scheme`](#css-color-scheme), and for the root [`:root`](#-raw-root-endraw-with-class-names):
+
+```css
+:root[data-theme="light"] {
+  color-scheme: light;
+  --text: black;
+  --background: white;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --text: white;
+  --background: black;
+}
+
+body {
+  color: var(--text);
+  background: var(--background);
+}
+```
+
+And to set it:
+
+```js
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+}
+```
+
+(`document.documentElement` is the `<html>` node, see on [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Document/documentElement))
+
+## Real time system mode
+
+<LinkToPost slug="dark-mode/light-dark-mode-system-mode-user-preferences" />
+
+In this post, I explained how to use a custom picker and how to use a `system` mode.
+
+I forgot to say that this system mode won’t follow the current theme users have on their machine. Instead it just computes this theme when the mode is picked.
+
+This mechanism is more complicated and can be explained in its own post. But in the meantime, the React implementation includes this feature:
+
+<LinkToPost slug="dark-mode/light-dark-mode-react-implementation" />

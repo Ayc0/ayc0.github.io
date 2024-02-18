@@ -1,0 +1,55 @@
+---
+title: "CSS :before vs ::before & :after vs ::after"
+tags: ["html", "webdev", "fundamentals", "css"]
+created: 2023-01-17
+lastUpdated: 2023-01-23
+sidebar:
+  order: 2
+---
+
+When reading CSS code, we sometimes see code using `:before` and other times with `::before` (same for `::after`).
+
+Is there a difference between the 2 notations? Is one correct?
+
+## A bit of history
+
+In CSS2, the syntax used at the time was `:before`. This was confusing because CSS also had _selectors_ like `:hover`, but they both had different semantic meanings.
+
+So in [Selectors Level 3](https://drafts.csswg.org/selectors-3/#gen-content), they decided to change the syntax for `:before` to `::before` (and for legacy reasons, we can still use `:before`, but it is now deprecated).
+The `:` notation isn’t deprecated as a whole, instead the old syntax was split into two:
+
+- `:` now represents pseudo-classes (and is still valid for `:hover` for instance),
+- `::` represents pseudo-elements (and should be used for `::before`).
+
+## `:pseudo-class`
+
+Pseudo-classes represent variations of a state of an element.
+When the condition is satisfied, the **whole** element is selected.
+
+> A CSS pseudo-class is a keyword added to a selector that specifies a special state of the selected element(s).
+
+![Visual representation of `span::hover`](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8pbfu10w6omks0zpp7pn.png)
+
+### Example
+
+- `:hover` matches an element on hover
+- `:not(p)` matches an element if it's not a `p`
+- `:last-of-type` matches an element that is the last of its siblings, and also matches a certain type selector.
+
+See the full list in [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes)
+
+## `::pseudo-element`
+
+On the other hand, pseudo-elements are **parts** of the original element. They represent fake HTML nodes within the selected element.
+
+> A CSS **pseudo-element** is a keyword added to a selector that lets you style a specific part of the selected element(s).
+
+![Visual representation of `span::first-letter`](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/msnfwiraud02blaskatr.png)
+
+### Example
+
+- `::before` corresponds to a slot just before this element,
+- `::first-line` selects the first line in the current element,
+- `::first-letter` retrieves the very first letter of the element.
+
+See the full list in [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements)

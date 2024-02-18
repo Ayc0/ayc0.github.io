@@ -1,0 +1,202 @@
+---
+title: "TypeScript 5.0: new mode bundler & ESM"
+tags: ["typescript", "javascript"]
+created: 2023-04-11
+lastUpdated: 2023-04-11
+sidebar:
+  order: 2
+---
+
+In TypeScript 5.0, 2 new features were released:
+
+- `moduleResolution: bundler`
+- `allowImportingTsExtensions`
+
+([see release note](https://devblogs.microsoft.com/typescript/announcing-typescript-5-0/#moduleresolution-bundler))
+
+Let’s dive into what these allow us to solve.
+
+## Problem
+
+### Introduction
+
+Let’s take this piece of code:
+
+```ts
+// INPUT
+// foo.ts
+export const foo = "foo";
+
+// bar.ts
+import { foo } from "./foo";
+
+export const bar = `${foo} sets a new bar`;
+```
+
+If we want to transpile this plain JavaScript, with `module: CommonJS` set in our `tsconfig.json`, we’d get something like:
+
+```js
+// OUTPUT
+// foo.js
+exports.foo = "foo";
+
+// bar.js
+const { foo } = require("./foo");
+
+exports.bar = `${foo} sets a new bar`;
+```
+
+But now you could tell me:
+
+> “Wait, I thought that JS now supports import/export? Also, isn’t this require/exports only for Node.js?”
+
+Yes, you’re totally right! import/export are part of [ESM (ECMAScript Modules)](https://nodejs.org/api/esm.html). And require/exports are indeed only valid in Node.js.
+
+Let’s try to use ESM!
+
+### ESM
+
+You can enable this via `module: es6 / es2020 / esnext / node16` in your `tsconfig.json`.
+With the same input, we’d get:
+
+```js
+// OUTPUT
+// foo.js
+export const foo = "foo";
+
+// bar.js
+import { foo } from "./foo";
+
+export const bar = `${foo} sets a new bar`;
+```
+
+> “Wait, what’s the catch here? This seems to be valid!”
+
+In the ECMAScript spec, they mention that imports need to have a **file extension**, so `import { foo } from './foo';` is **not** valid (see in [Node.js’s doc](https://nodejs.org/api/esm.html#mandatory-file-extensions)).
+
+### Which extension should we pick?
+
+Okay, let’s say I want to build for ESM, what extension should I write in my source code?
+Let’s try a different code samples:
+
+#### `.ts`
+
+With a `.ts` extension:
+
+```ts
+// INPUT
+// foo.ts
+export const foo = "foo";
+
+// bar.ts
+import { foo } from "./foo.ts";
+
+export const bar = `${foo} sets a new bar`;
+```
+
+we’d get this code in JS:
+
+```js
+// OUTPUT
+// foo.js
+export const foo = "foo";
+
+// bar.js
+import { foo } from "./foo.ts";
+
+export const bar = `${foo} sets a new bar`;
+```
+
+You can see that this **cannot** work: `foo.ts` doesn’t exist in the generated code as the generated file is named `foo.js`
+
+#### `.js`
+
+Okay, so what about with a `.js` file then?
+
+```ts
+// INPUT
+// foo.ts
+export const foo = "foo";
+
+// bar.ts
+import { foo } from "./foo.js";
+
+export const bar = `${foo} sets a new bar`;
+```
+
+This would generate:
+
+```js
+// OUTPUT
+// foo.js
+export const foo = "foo";
+
+// bar.js
+import { foo } from "./foo.js";
+
+export const bar = `${foo} sets a new bar`;
+```
+
+This indeed works!
+Hoorah! We have some working code with TypeScript & ESM 🎉
+This is the official way of supporting ESM in TS files: https://www.typescriptlang.org/docs/handbook/esm-node.html.
+
+The only issue is that we have to write down `foo.js` in the source TS file, which is weird 😕 (as the file doesn’t exist during dev time).
+
+#### Why are extensions required in ESM?
+
+Due to how the web works, it has to work with files that are fully pre-determined, otherwise when writing `import './foo'`, if it implemented the same logic as node, we’d have to download: `foo.js`, `foo.cjs`, `foo.mjs`, `foo/index.js`, etc.
+So for browsers, it makes more sense to treat the import as the reference.
+
+#### Why isn’t the transform of the extension automatically done by TypeScript?
+
+TypeScript never rewrites module specifiers in its JavaScript emit.
+
+I don’t have the exact reasons why they don’t do it, but to me this would counterproductive as there are more differences between CommonJS & ESM (see [TS v4.7 release note](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-7.html#type-in-packagejson-and-new-extensions)).
+So enforcing the use of the extensions, is a great way to tell people that we are in ESM, and also is closer to the underlying generated JS logic.
+
+### Summary of the issue
+
+To support ESM, we need to:
+
+- Change all imports use `.js`, `.cjs`, or `.mjs` -> large update,
+- The new imports don’t match the source files,
+- Tools like webpack/esbuild/deno do support `.ts` files in paths, so why is this an issue?
+
+## Solution: `allowImportingTsExtensions`
+
+In TypeScript 5.0, a new option was added: `allowImportingTsExtensions`, which allows users to use `.ts` in imports!
+
+The only requirement with it, is that we [**cannot emit code anymore**](https://www.typescriptlang.org/tsconfig#allowImportingTsExtensions) (as this wouldn’t produce any valid JavaScript code).
+
+So either `noEmit: true` needs to be set, or `emitDeclarationOnly: true` (as importing `.ts` files is allowed in `.d.ts` files).
+
+We can now write the following (useful for Deno for instance):
+
+```ts
+// INPUT
+// foo.ts
+export const foo = "foo";
+
+// bar.ts
+import { foo } from "./foo.ts";
+
+export const bar = `${foo} sets a new bar`;
+```
+
+## Solution: `moduleResolution: bundler`
+
+Enabling the `.ts` extension is already a bonus, but why should we write any extension at all when the code is bundled anyway by Webpack, Vite, esbuild, Parcel, rollup, swc?
+
+If your **code is bundled**, there is now a new option that you can use starting with TypeScript 5.0: `moduleResolution: bundler` ([see PR that added it](https://github.com/microsoft/TypeScript/pull/51669)).
+
+This:
+
+- tells TypeScript that you’re code will be bundled by another tool, and thus to loosen the rules with imports (can have no extension, or use `.ts` extensions)
+- requires to use `module` set to `es2015` or later (which enables parsing `exports` in package.json and other changes)
+
+Note: Using es2015 or later will enable new rules in TS (e.g.: like disabling `require`), so it won’t be a no-op.
+
+## Conclusion
+
+Module resolution in TypeScript is complex, and has evolved over the years. TypeScript 5.0 added 2 new tools to allow adapting the tool in more contexts than before. But they all come with requirements.

@@ -1,0 +1,199 @@
+---
+title: "Intl.Segmenter(): Don't use string.split() nor string.length"
+tags: ["javascript", "intl", "encoding", "unicode"]
+created: 2023-07-25
+lastUpdated: 2023-10-10
+---
+
+1. [TL;DR](#tldr)
+2. [Explanation](#explanation)
+   1. [Definitions](#definitions)
+   2. [UTF-16](#utf-16)
+   3. [String.prototype.length](#stringprototypelength)
+   4. [Unicode composition](#unicode-composition)
+   5. [Emoji Sequence](#emoji-sequence)
+3. [Intl.Segmenter](#intlsegmenter)
+   1. [Browser compatibility](#browser-compatibility)
+
+The other day I was playing with JS and I saw this:
+
+```js
+"é".length;
+// 1
+"é".length;
+// 2, not the same output as the line before
+"é".split("").join("|");
+// 'e|́'
+```
+
+(Yes, all of those are valid, you can copy paste them 😅)
+
+## TL;DR
+
+As an image is worth 1000 words:
+
+![Grapheme vs code unit vs code point](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fty25unybapraxyaslkr.png)
+
+You can use [Intl.Segmenter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter)
+
+```js
+const seg = new Intl.Segmenter('en', { granularity: "grapheme" });
+
+[...seg.segment('🙌🏾')].length
+// 1
+[...seg.segment('é')].length
+// 1
+```
+
+## Explanation
+
+This article will talk about _character_ vs _code unit_ vs _code point_ vs _grapheme_ vs _glyph_.
+
+### Definitions
+
+- `Character`: generic term that can mean any of the other 4 terms.
+- `Code Unit`: A code unit is the smallest unit of data in UTF-16 encoding. In UTF-16, each code unit is 16 bits (2 bytes) in size. It can represent a part of a character or a complete character, depending on the character's Unicode value.
+- `Code Point`: A code point is a numerical value assigned to a specific character in the Unicode standard. It's a unique identifier for each character and is typically represented in hexadecimal. For example, the code point for the letter "A" is U+0041. In UTF-16, every code point is composed by either 1 or 2 code unit.
+- `Grapheme`: A grapheme is the smallest unit of a writing system that carries meaning and represents a single "user-perceived" character. In UTF-16, every grapheme is composed by at least 1 code point. Not all code points are part of graphemes, like the zero-width non-joiner.
+- `Glyph`: A glyph is a visual representation or image of a character. It is the actual shape or form of a character as it appears on a screen or in print. A single character can have multiple glyphs associated with it, representing different typographic variations or font styles.
+
+You can check https://stackoverflow.com/questions/27331819/whats-the-difference-between-a-character-a-code-point-a-glyph-and-a-grapheme for more details.
+
+### UTF-16
+
+JavaScript uses [UTF-16](https://en.wikipedia.org/wiki/UTF-16) (and not UTF-8 as opposed as many other languages. To note: UTF-8 would also have all of those issues).
+
+In UTF-16, _characters_ are encoded in 16-bit chunks (_code unit_). For instance `$` is encoded in hexadecimal into `0024` (thus its notation `U+0024` or `'\u0024'`); and `€` is encoded as `20AC`.
+
+Problem: Using a 16-bit _code unit_ can only result in 65536 possible characters, so how do we represent the other _characters_? UTF-16 has a system where it can use 2 _code units_ to encode some _code points_. For instance `𐐷` is the _code point_ `U+10437` will be encoded as `D801 DC37` (a high surrogate `D801` and a low surrogate `DC37`).
+
+![$, €, and 𐐷 encoded in UTF-16 in code units](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sd3zmt59k7stx73bffh2.png)
+
+### String.prototype.length
+
+According [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/length), the `length` is based on _code units_:
+
+> The length data property of a String value contains the length of the string in UTF-16 code units.
+
+This explains why for 🙌 (U+1F64C) or 𐐷 (U+10437), using `.length` doesn’t return 1 as those are encoded in 2 code units:
+
+```js
+"𐐷".length; // U+10437
+// 2
+"🙌".length; // U+1F64C
+// 2
+```
+
+One possible fix for this case is to use `iterators`. According to [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/length) again, iterators work on code points (they say characters, but they mean code points):
+
+> Since length counts code units instead of characters, if you want to get the number of characters, you can first split the string with its iterator, which iterates by characters
+
+And it does work indeed…
+
+```js
+[...'𐐷'].length // U+10437
+// 1
+[...'🙌'].length // U+1F64C
+// 1
+[...'é'].length
+// 2
+[...'🙌🏾']
+// 2
+```
+
+… but not for all _characters_. Why?
+
+### Unicode composition
+
+Another specificity of Unicode is that it can combines multiple code points to form a grapheme. This is called canonical equivalence
+(see https://unicode.org/reports/tr15/#Canon_Compat_Equivalence).
+
+For instance the letter "Ç" can either be the code point for this character, or the code point for "C" followed by the diacritic mark "◌̧"
+
+![Ç {'<->'} C+◌̧](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/5dhf9yjoybqftvm6l3a7.png)
+
+We can also use normalization NFD and NFC to switch between the precomposed and decomposed forms (see https://unicode.org/reports/tr15/#Norm_Forms):
+
+> Many characters are known as canonical composites, or precomposed characters. In the D forms, they are decomposed; in the C forms, they are _usually_ precomposed.
+
+!["Å" can be decomposed into "A+̊ " or precomposed as "Å"](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/uxrpqqryzmd2ol5od655.png)
+
+This explains why `é`’s length was either 1 or 2 in the initial example:
+
+- decomposed form → 2 code points
+- precomposed form → 1 code point
+
+In JavaScript, you can use `String.prototype.normalize` ([MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize)):
+
+```js
+"é".length;
+// 1
+"é".normalize("NFD").length;
+// 2
+"é".normalize("NFD").normalize("NFC").length;
+// 1
+```
+
+### Emoji Sequence
+
+Similarly to character compositions, emojis can be combined together with special characters (this is not an exhaustive list):
+
+- **Skin tone modifiers** can be used to customize the color skin of emojis
+  For instance "🙌🏾" is composed of "🙌" + "🏾" ([Medium-Dark Skin Tone modifier](https://emojipedia.org/medium-dark-skin-tone/))
+
+  ```js
+  [..."🙌🏾"];
+  // ['🙌', '🏾']
+  ```
+
+- **Zero-Width Joiner** (ZWJ) can be used to merge some emojis together
+  For instance "😮‍💨" is composed of "😮" + "‍" ([ZWJ](https://emojipedia.org/zero-width-joiner/)) + "💨"
+  And "👩‍👩‍👧‍👦" is composed of each individual family members plus ZWJs:
+
+  ```js
+  [..."👩‍👩‍👧‍👦"];
+  // ['👩', '‍', '👩', '‍', '👧', '‍', '👦']
+  ```
+
+- **Variation Selectors** can be used to choose a different glyph variant for a code point
+  For instance "ℹ️" is composed of "ℹ" + "️" ([Variation Selector-16](https://emojipedia.org/variation-selector-16/) to force the display as an emoji)
+
+## Intl.Segmenter
+
+In 2021, the TC39 committee added to ECMAScript [Intl.Segmenter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter):
+
+> The Intl.Segmenter object enables locale-sensitive text segmentation, enabling you to get meaningful items (graphemes, words or sentences) from a string.
+
+Once a locale is picked, you can use `.segment` to generate an iterator with each grapheme of a string:
+
+```js
+const seg = new Intl.Segmenter("en", { granularity: "grapheme" });
+
+for (const grapheme of seg.segment("Hélô 👩‍👩‍👧‍👦 🙌🏾")) {
+  console.log(grapheme.segment);
+}
+// "H"
+// "é"
+// "l"
+// "ô"
+// " "
+// "👩‍👩‍👧‍👦"
+// " "
+// "🙌🏾"
+```
+
+And if you want to get the number of grapheme (like `.length`), you can transform it to an array first:
+
+```js
+[...seg.segment("🙌🏾")].length;
+// 1
+
+[...seg.segment("é")].length;
+// 1
+```
+
+### Browser compatibility
+
+Sadly, at the date of the writing (July 2023) is not supported on Firefox yet – check on [caniuse.com](https://caniuse.com/mdn-javascript_builtins_intl_segmenter). You can track [this issue](https://bugzilla.mozilla.org/show_bug.cgi?id=1423593) if you want to follow its development.
+
+![Browser compatibility table](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/be4uvsnzw835ppsh6tqq.png)

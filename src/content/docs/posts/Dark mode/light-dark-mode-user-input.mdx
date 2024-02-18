@@ -1,0 +1,103 @@
+---
+title: "Light/dark mode: user input"
+tags: ["webdev", "css", "javascript"]
+created: 2021-05-30
+lastUpdated: 2023-01-15
+sidebar:
+  order: 3
+---
+
+import Codepen from "../../../../components/Codepen.astro";
+import LinkToPost from "../../../../components/LinkToPost.astro";
+
+In the previous post, we saw how to use CSS variables to adapt the display to user system preferences.
+
+<LinkToPost slug="dark-mode/light-dark-mode-the-simple-way" />
+
+But users of your website cannot change their theme directly from the website, they have to change their system mode to change it. Which can be a bit annoying when you want your OS to be in light mode and the website in dark mode for instance.
+
+## The CSS
+
+The easiest is to apply a data attribute to the html light/dark.
+
+> Note: I'd still recommend setting the `:color-scheme` to `light` and `dark` for native inputs.
+
+The CSS is still fairly simple:
+
+```css
+:root[data-theme="light"] {
+  color-scheme: light;
+  --text: black;
+  --background: white;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --text: white;
+  --background: black;
+}
+
+body {
+  color: var(--text);
+  background: var(--background);
+}
+```
+
+## The JS
+
+We’ll have to store the user preference for future visits to the website. You can do that with the method you prefer:
+
+- localStorage (if everything is done in the frontend)
+- cookie (if you want to have access to it from the backend)
+- remote database (if you want to apply the same theme to multiple devices)
+
+> If you store the preferences in a remote database, I'd still recommend to double save it in a cookie/localStorage, because we'll see later how to avoid blinks when loading the pages. And this needs synchronous access to the stored value.
+
+I'm gonna stick with localStorage here, because it's the easiest to deal with, but it doesn't really matter for this example.
+
+### Reading and writing the theme
+
+We can use this couple of function as first class getters/setters of the theme:
+
+```js
+function getTheme() {
+  return localStorage.getItem("theme") || "light";
+}
+function saveTheme(theme) {
+  localStorage.setItem("theme", theme);
+}
+```
+
+### Setting the theme
+
+As we only used a data attribute on the html, applying only corresponds to setting the attribute on it.
+
+This leaves us with this function:
+
+```js
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+}
+```
+
+### Assembling the whole ensemble
+
+Now that we have all the elements, this is basically like legos: we need to assemble everything.
+
+```js
+const themeToggler = document.getElementById("theme-toggle");
+
+let theme = getTheme();
+applyTheme(theme);
+
+themeToggler.onclick = () => {
+  const newTheme = rotateTheme(theme);
+  applyTheme(newTheme);
+  saveTheme(newTheme);
+
+  theme = newTheme;
+};
+```
+
+> Note: if you don't want any blink when users will load the page (seeing an empty white page when reloading the page for instance while they picked a dark mode for your website), it's important that this JS is executed in a blocking way, so that browsers won't render the html/css without having first computed this JS and applied the data attribute on the html.
+
+<Codepen user="ayc0" id="NWpwgqM" />

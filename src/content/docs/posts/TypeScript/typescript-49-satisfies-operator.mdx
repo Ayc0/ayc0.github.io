@@ -1,0 +1,77 @@
+---
+title: "TypeScript 4.9: satisfies operator"
+tags: ["typescript", "operator"]
+created: 2022-09-25
+lastUpdated: 2022-11-21
+sidebar:
+  order: 1
+---
+
+In their v4.9, the TypeScript team is releasing a new operator: `satisfies` (see blog post https://devblogs.microsoft.com/typescript/announcing-typescript-4-9-beta/#the-satisfies-operator).
+
+## Purpose
+
+The purpose of `satisfies` is to enforce a constraint on a variable, without changing its type.
+
+For instance, you want to say that a color is "either a string, or a RGB tuple", which would give something like that:
+
+```ts
+type RGB = readonly [red: number, green: number, blue: number];
+type Color = { value: RGB | string };
+
+const myColor: Color = { value 'red' };
+```
+
+But now, we don't know whether `myColor.value` is a string or a tuple. So we cannot do something like `myColor.value.toUpperCase()` (even if it's actually a string).
+
+In TS 4.9, it'll be possible to do this ([TypeScript Playground](https://www.typescriptlang.org/play?ts=4.9.0-dev.20220921#code/C4TwDgpgBASg4gISgXigJwgQwCYHsB2ANiFANobYBcU+ArgLYBGEaANFAOYYT7V1Mt2jQrQh8GzNAF0A3AChQkKAGFchXGhRQA3lABumEWNiIoAHygBnYGgCW+DlAC+8uQGMC1qPRCr1m1F0DI2oAcgpQ5ytMYFtLADNbCEsVNQ0ZKAB6TKgAdw0Aa0t3T2BvEABJfA80DDdgPw0tIMNRagBGAAZOqMsYuMTk1P8M7KhgAAs0XFyUlmm0OTkfRrQAOmDRNeBcAFUwSDRlTEsIAAoASlGc4NtsKFxD-oIoE-LVqDjXqxt7DiA)):
+
+```ts
+type RGB = readonly [red: number, green: number, blue: number];
+type Color = { value: RGB | string };
+
+const myColor = { value: "red" } satisfies Color; // works
+const myIncorrectColor = { value: 100 } satisfies Color; // throws error
+
+myColor.value.toUpperCase(); // valid operation as myColor is a string
+```
+
+## Combining `as const` and satisfies
+
+As expected, you combine `as const` and `satisfies` ([TypeScript Playground](https://www.typescriptlang.org/play?ts=4.9.0-dev.20220921#code/C4TwDgpgBASg4gISgXigJwgQwCYHsB2ANiFANobYBcU+ArgLYBGEaANFAOYYT7V1Mt2jQrQh8GzNAF0A3AChQkKAGFchXGhSxEUAD5QAzsDQBLfB3lyAxgSNQwmQhGDBoqAN5yo39BCpkAJgBWIPYABnCpVi8fLggeagAiAGIwsIAzdLTE6J8oYVFqUgBGVgDWAGYouQBfQ0xgEwN0kwgDWAgbNGwAHiNTc3ZVdTQAPksbfAM1CAA6dQ4ACgcnFzm4ngBKeQB6HbyDw7yAPQB+OQvJuyvgTHxgAAVHZ1ctTzyKIuDQqAjf6ryG14UBSaUy2VyPgKYjIpXKVWidUw7Ru9UazVa7RgnQ0vX6Zg4QzUGnGl1sM3muCWNzuj2ea1mQO2cj2RzZ7O8ZzkQA)).
+
+```ts
+type RGB = readonly [red: number, green: number, blue: number];
+type Color = RGB | string;
+
+const palette = {
+  red: [255, 0, 0],
+  green: "#00ff00",
+  blue: [1, 2, 3],
+} satisfies Record<string, Color>;
+
+console.log(palette.green);
+//                   ^? green is string
+
+const constantPalette = {
+  red: [255, 0, 0],
+  green: "#00ff00",
+  blue: [1, 2, 3],
+} as const satisfies Record<string, Color>;
+
+console.log(constantPalette.green);
+//                          ^? green is "#00ff00"
+```
+
+Note: the order matters. While `as const satisfies <type>` works, the opposite isn't true: `satisfies <type> as const` will throw a TS error ([TypeScript Playground](https://www.typescriptlang.org/play?ts=4.9.0-dev.20220921#code/C4TwDgpgBASg4gISgXigJwgQwCYHsB2ANiFANobYBcU+ArgLYBGEaANFAOYYT7V1Mt2jQrQh8GzNAF0A3AChQkKAGFchXGhSxEUAD5QAzsDQBLfB3lyAxgSNQzAN0yET2AArOIwYNFQBvOSgg9AgqMgAmAFZI9gAGOKlWQOCuCB5qACIAYljYgDM83Iyk4KhhUWpSAEZWcNYAZkS5AF9DTGATAzyTCANYCBs0bAAeI1NzdjGzDj1tBAA+KEw+m3wjGSgAek2oYAALNFwAdz7MfCgWQ7QgA)):
+
+```ts
+type RGB = readonly [red: number, green: number, blue: number];
+type Color = RGB | string;
+
+const invalidPalette = {
+  red: [255, 0, 0],
+  green: "#00ff00",
+  blue: [1, 2, 3],
+} satisfies Record<string, string | RGB> as const; // throws an error
+```

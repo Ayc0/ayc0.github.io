@@ -1,0 +1,18 @@
+---
+export interface Props {
+	id: string;
+	height?: number;
+}
+
+const { id, height = 500 } = Astro.props;
+if (id == null) {
+	throw new Error('"id" is a required prop');
+}
+---
+
+<iframe
+	src={`https://codesandbox.io/embed/${id}?fontsize=14&theme=dark`}
+	style={`width:100%; height:${height}px; border:0; border-radius: 4px; overflow:hidden;`}
+	title="Light/Dark mode, React implementation"
+	sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+	loading="lazy"></iframe>
