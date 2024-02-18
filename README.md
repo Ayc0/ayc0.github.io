@@ -15,3 +15,7 @@ Experimental lab to try how & when React life cycles happen.
 ## Hexagons
 
 Experiment to play with React & Canvas to place hexagons in a compact way
+
+## Color Visualizer
+
+Live playground to convert colors from different color spaces

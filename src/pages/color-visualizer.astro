@@ -1,0 +1,45 @@
+---
+import Page from '../layouts/Page.astro';
+---
+
+<Page title="Color visualizer" description="Live playground to convert colors from different color spaces">
+    <script src="../components/page-color-visualizer/index.ts"></script>
+
+    <style is:global>
+      :root {
+        --black: #2c2d2f;
+        --white: white;
+        --contrast: var(--black);
+      }
+
+      html {
+        padding: 1em;
+      }
+
+      body {
+        background-color: var(--white);
+        color: var(--black);
+        max-width: 50em;
+        margin: auto;
+        padding: 0.5em;
+        font-family: "Inter", sans-serif;
+        border-radius: 0.5em;
+        box-shadow: 0 0 0 1px var(--black), inset 0 0 0 1px var(--white);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --contrast: var(--white);
+        }
+        body {
+          background-color: var(--black);
+          color: var(--white);
+        }
+      }
+    </style>
+
+    <color-picker></color-picker>
+
+    <div style="margin-top: 2em; display: grid; place-items: center">
+        <lch-paint></lch-paint>
+    </div>
+</Page>

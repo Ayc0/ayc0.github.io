@@ -1,6 +1,8 @@
 {
   "extends": "astro/tsconfigs/strictest",
   "compilerOptions": {
-    "jsx": "react"
+    "jsx": "react",
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false // For Lit, https://lit.dev/docs/components/properties/#avoiding-issues-with-class-fields
   }
 }

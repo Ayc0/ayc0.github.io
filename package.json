@@ -15,13 +15,17 @@
     "yarn": "1.22.18"
   },
   "dependencies": {
+    "d3-color": "3.1.0",
     "konva": "9.3.3",
+    "lit": "2.2.1",
+    "manatea": "0.6.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-konva": "18.2.10"
   },
   "devDependencies": {
     "@astrojs/react": "^3.0.10",
+    "@types/d3-color": "^3.0.2",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "astro": "^4.4.0",
