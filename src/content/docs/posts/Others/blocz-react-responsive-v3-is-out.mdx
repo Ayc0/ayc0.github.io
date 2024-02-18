@@ -1,0 +1,168 @@
+---
+title: "@blocz/react-responsive v3 is out"
+tags: ["react", "responsive", "package"]
+created: 2021-03-12
+lastUpdated: 2021-03-12
+---
+
+import LinkToPost from "../../../../components/LinkToPost.astro";
+
+The v3 of `@blocz/react-responsive` was just released with few bug fixes and new names. You can check out the full release details here: https://github.com/bloczjs/react-responsive/releases/tag/v3.0.0
+
+## Features
+
+- performance
+- TypeScript support
+- CSS-in-JS compatibilities
+- customizable
+- SSR compatible
+
+### Some history
+
+3 years ago, I needed a way in react to display a component or another one, depending on whether or not the page was viewed on mobile or in desktop. I had 2 things in mind:
+
+- avoid rendering some components depending on the viewport size (and not using `display: null`),
+- define a set of predefined breakpoints and not having to redefine them every time,
+- breakpoints should be ranges of sizes instead of actual breakpoints: when someone uses `md`, they usually don't want to apply this to `sm` too (except if you specify `md down`).
+
+And none of the libraries that existed at the time were able to provide those features. So I created mine: `react-only`.
+
+This library evolved as the react community evolved too:
+
+- in the v0 we had breakpoints, providers, and support for CSS-in-JS
+- the v1 was a major re-write in TypeScript and around react hooks (checkout out the following post for tips on how to upgrade class components to hooks)
+  <LinkToPost slug="others/migrating-class-components-to-hooks" />
+- the v2 was a major re-write for react contexts (the previous implementation didn't work if we had multiple providers in the same app)
+
+### v3
+
+All this time, we kept the name `react-only` but it never described what this library was for. So in this v3, we decided to rename it to `@blocz/react-responsive` and in general to use better names for the exported functions.
+
+## API
+
+### Hooks
+
+`@blocz/react-responsive` is centered around 2 hooks:
+
+- `useMediaQuery` to detect if the current view matches the given media query (string)
+- `useBreakpoint` to detect if the current view matches predefined breakpoints
+
+Example:
+
+```jsx
+import { useBreakpoint, useMediaQuery } from "@blocz/react-responsive";
+
+const Breakpoints = () => {
+  const matchXl = useBreakpoint("xl");
+  const matchMdDown = useBreakpoint("mdDown");
+  const matchMdOrLg = useBreakpoint("md lg");
+  return (
+    <ul>
+      {matchXl && <li>Visible on every "large" device</li>}
+      {matchMdDown && (
+        <li>Visible on every device smaller or equal than "medium"</li>
+      )}
+      {matchMdOrLg && <li>Visible on every "medium" or "large" device</li>}
+    </ul>
+  );
+};
+
+const MediaQuery = () => {
+  const matchMediaQuery = useMediaQuery(
+    "(min-width:768px) and (max-width:992px)"
+  );
+  return (
+    <ul>
+      {matchMediaQuery && (
+        <li>Visible at (min-width:768px) and (max-width:992px)</li>
+      )}
+    </ul>
+  );
+};
+```
+
+### Performance
+
+To check if a breakpoint / media query matches or not the current viewport, we don't use event listeners on the resize event, but instead we use `matchMedia` so that we only run JS code when the media queries start/stop matching and not at each resize.
+
+### Breakpoints
+
+By default, those predefined breakpoints are used:
+
+| Breakpoint | From   | To       |
+| ---------- | ------ | -------- |
+| xs         | 0px    | 575px    |
+| sm         | 576px  | 767px    |
+| md         | 768px  | 991px    |
+| lg         | 992px  | 1199px   |
+| xl         | 1200px | Infinity |
+
+And also all those breakpoints exist in Up and Down variants: `smDown` is from 0px to 767px, etc.
+
+But if you need other breakpoints, you can use the [`<BreakpointProvider>` component](https://github.com/bloczjs/react-responsive#breakpointsprovider)
+
+#### Direction
+
+Breakpoints are by default set on the horizontal axis, but you can also set them on the vertical axis to check the height of the viewport.
+
+#### Unit
+
+By default, breakpoint will use `px` but you can use `em` or any valid CSS unit.
+
+### CSS-in-JS
+
+When we created the library, we were using [styletron](https://github.com/styletron/styletron) for our styles, and we wanted to bind the breakpoints we defined in `@blocz/react-responsive` with the breakpoints used for our styles.
+
+So we added support for CSS-in-JS with our `toJSON` (for a library like `styletron`) and `toCSS` (for a library like `emotion`) utility functions:
+
+```jsx
+import React from "react";
+import { toJSON as createToJSON, toCSS as createToCSS , BreakpointsContext } from "@blocz/react-responsive";
+
+const styles = {
+  mdDown: {
+    color: "red",
+    ":hover": { color: "blue" },
+  },
+  lgUp: {
+    color: "green",
+  },
+};
+
+const App = () => {
+  const breakpoints = React.useContext(BreakpointsContext);
+
+  const toJSON = createToJSON(breakpoints);
+  // toJSON(styles) returns:
+  // {
+  //   "@media  (max-width:991px)": {
+  //     "color": "red",
+  //     ":hover": {
+  //       "color": "blue"
+  //     }
+  //   },
+  //   "@media  (min-width:992px)": {
+  //     "color": "green"
+  //   }
+  // }
+
+  const toCSS = createToCSS(breakpoints);
+  // toCSS(styles) returns:
+  // `@media  (max-width:991px) {
+  //   color: red;
+  //   :hover {
+  //     color: blue;
+  //   }
+  // }
+  // @media  (min-width:992px) {
+  //   color: green;
+  // }`
+```
+
+### SSR
+
+The library by itself doesn’t provide any mocks for window.matchMedia for SSR. But if you use one, like [mock-match-media](https://github.com/Ayc0/mock-match-media/), `@blocz/react-responsive` will listen to it.
+
+If you need an example, you can check out the tests done here: https://github.com/bloczjs/react-responsive/blob/b8e6611/packages/tests/src/__tests__/ssr.ts
+
+We render a page with `@testing-library/react`'s render function on multiple different screen sizes with mock-match-media's `setMedia` function.

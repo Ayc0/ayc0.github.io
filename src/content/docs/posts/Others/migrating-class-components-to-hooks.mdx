@@ -1,0 +1,529 @@
+---
+title: "Migrating class components to hooks"
+tags: ["react", "hooks", "migration"]
+created: 2020-05-03
+lastUpdated: 2020-05-03
+---
+
+I've been working with React for some time (more than 3 years now) and when hooks came out, I was really eager to use it in order to simplify the code I was writing.
+
+I am [react-only](http://github.com/Ayc0/react-only)'s creator and when I updated the package from the v0.8.3 to the v1.0.0, I migrated the codebase to hooks (and to TypeScript).
+Even if it was one of the first libraries I wrote using hooks, the migration was still painless.
+
+Here is how I did it.
+
+- [Introduction](#introduction)
+- [Code samples](#code-samples)
+  - [Code with class component](#code-with-class-component)
+  - [Issues with classes](#issues-with-classes)
+  - [Code with hooks](#code-with-hooks)
+  - [Hooks' benefits](#hooks-benefits)
+- [Migration rules](#migration-rules)
+- [Migration](#migration)
+  - [Render and state](#render-and-state)
+  - [updateInterval and effect](#updateinterval-and-effect)
+  - [updateInterval inline in effect](#updateinterval-inline-in-effect)
+  - [mediaQueryList.removeListener](#mediaquerylistremovelistener)
+  - [componentDidMount](#componentdidmount)
+  - [Final step](#final-step)
+- [Conclusion](#conclusion)
+
+## Introduction
+
+The idea behind [react-only](http://github.com/Ayc0/react-only) is to have a library that only displays components on specific viewports (for instance only if the viewport has a width from 500px to 700px), like [`.d-none .d-md-block .d-lg-none`](https://getbootstrap.com/docs/4.4/utilities/display/#hiding-elements) in bootstrap 4.
+
+Before reading the rest of this article, I'd recommend you read [react's doc about hooks](https://reactjs.org/docs/hooks-intro.html) because I won't explain their individual purpose or which arguments they accept.
+
+We'll see how the code was before and after the migration, and the steps I took / and what I did to port the code.
+
+## Code samples
+
+### Code with class component
+
+If you want to take a look at the real code at the time, you can check [this file](https://github.com/Ayc0/react-only/blob/d8d32888667ad32d069fb4d1e5322e6ec4fdb04f/src/Only.js). I simplified it a bit (removed unless variables/imports) but the core stays the same.
+
+```js
+class Only extends Component {
+  constructor(props) {
+    super(props);
+
+    // initialization
+    this.state = { isShown: false };
+    this.mediaQueryList = null;
+
+    // define the media query + listener
+    this.updateInterval(props);
+  }
+
+  componentDidMount() {
+    // immediately set the state based on the media query's status
+    this.updateMediaQuery(this.mediaQueryList);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // cleanup
+    if (this.mediaQueryList) {
+      this.mediaQueryList.removeListener(this.updateMediaQuery);
+      this.mediaQueryList = null;
+    }
+    // redefine the media query + listener
+    this.updateInterval(nextProps);
+  }
+
+  componentWillUnmount() {
+    // cleanup
+    if (this.mediaQueryList) {
+      this.mediaQueryList.removeListener(this.updateMediaQuery);
+      this.mediaQueryList = null;
+    }
+  }
+
+  // define the media query + listener
+  updateInterval = ({ matchMedia, on, strict }) => {
+    const mediaQuery = toMediaQuery(on, matchMedia, strict);
+    this.mediaQueryList = matchMedia(mediaQuery);
+    this.mediaQueryList.addListener(this.updateMediaQuery);
+  };
+
+  // set the state based on the media query's status
+  updateMediaQuery = (event) => {
+    this.setState((prevState) => {
+      const isShown = event.matches;
+      if (isShown === prevState.isShown) {
+        return null;
+      }
+      return { isShown };
+    });
+  };
+
+  render() {
+    if (!this.state.isShown) {
+      return null;
+    }
+    return createElement(Fragment, null, this.props.children);
+  }
+}
+```
+
+The logic is the following:
+
+- set the media query list to `null`
+- call `updateInterval` that
+  - computes the media query relative to the props given by the user
+  - uses `matchMedia(mediaQuery).addListener` to add a listener
+- when the media query's state changes (aka when the viewport changes), change the state `isShown`
+- if a prop changes, reset the media query list, clear the previous listener and recall `updateInterval` to be in sync with the new media query + start the new listener
+- remove the listener at the end
+
+### Issues with classes
+
+We can see that we re-use the same code multiple times:
+
+- `updateInterval` is called in the constructor and at the end of `componentWillReceiveProps`
+- `this.mediaQueryList.removeListener` is done at the beginning of `componentWillReceiveProps` and in `componentWillUnmount` (for the cleanup)
+
+### Code with hooks
+
+Let's use hooks to factorize all of this. As before, this won't be the exact code. If you want to take a look at the currently used code, you can look at [this file](https://github.com/Ayc0/react-only/blob/07452e445c7dae9650ac3c71a662b58295fcb284/packages/react-only/src/Only.tsx) written in TypeScript.
+
+```js
+const Only = ({ matchMedia, on, strict, children }) => {
+  // initialization
+  const [isShown, setIsShown] = React.useState(false);
+
+  React.useEffect(() => {
+    // define the media query
+    const mediaQuery = toMediaQuery(on, matchMedia, strict);
+    const mediaQueryList = matchMedia(mediaQuery);
+
+    // immediately set the state based on the media query's status
+    setIsShown(mediaQueryList.matches);
+
+    // define the listener
+    const updateMediaQuery = (event) => {
+      const show = event.matches;
+      setIsShown(show);
+    };
+    mediaQueryList.addListener(updateMediaQuery);
+    return () => {
+      // cleanup
+      mediaQueryList.removeListener(updateMediaQuery);
+    };
+  }, [matchMedia, on, strict]);
+
+  if (!isShown) {
+    return null;
+  }
+  return React.createElement(React.Fragment, null, children);
+};
+```
+
+Let's dive in:
+
+- First we initialize the state `isShown` to `false`
+- then we define an effect that will run after each render **if** one of the following props changes: `matchMedia`, `on`, `strict`.
+- In the effect, we:
+  - compute the media query related to our props,
+  - set the state based on whether or not the viewport matches this media query,
+  - and then we define the event listener.
+- And finally the listener's cleanup is done in the effect's cleanup.
+
+### Hooks' benefits
+
+- the number of lines was reduced (react-only went down from [7kB](https://bundlephobia.com/result?p=react-only@0.8.3) to [4.1kB](https://bundlephobia.com/result?p=react-only@1.0.0)),
+- the important logic is only written once,
+- the event listener's definition and its cleanup are collocated, here is an example on another codebase:
+  [![hook example](https://pbs.twimg.com/media/DquJO7rVsAAcYYr?format=jpg&name=4096x4096)](https://twitter.com/prchdk/status/1056960391543062528)
+- fix **potential bugs** (thanks to the eslint rule [`react-hooks/exhaustive-deps `](https://github.com/facebook/react/issues/14920)),
+- the code is easier to understand as everything is grouped instead of spread all across the file (and this is a small example).
+
+## Migration rules
+
+When transitioning from classes to hooks, there are a few rules:
+
+First, a few changes need to be done in the class component:
+
+- remove as much code as possible from the constructor,
+- use `componentDid<Cycle>` instead of unsafe `componentWill<Cycle>`:
+
+| Instead of                  | Use these                  |
+| --------------------------- | -------------------------- |
+| `componentWillMount`        | `componentDidMount`        |
+| `componentWillReceiveProps` | `componentDidReceiveProps` |
+| `componentWillUpdate`       | `componentDidUpdate`       |
+
+I recommend you to check [react's doc](https://reactjs.org/docs/react-component.html#unsafe_componentwillreceiveprops) if you want more informations on the deprecation of these methods.
+
+Then those are the main hooks you will want to use:
+
+- use one `useState` hook per field in the state,
+- use `useEffect` instead of `componentDidMount`, `componentDidReceiveProps`, `componentDidUpdate` and `componentWillUnmount`,
+- use local variables instead of attributes / methods.
+
+If those aren't enough, these are the final rules:
+
+- if using local variables isn't possible, use `useCallback` for methods and `useMemo` for attributes,
+- use `useRef` for refs or if you need to mutate a method/attribute in different places without triggering a re-render,
+- and if you need a `useEffect` that runs synchronously after each render (for specific ui interactions), use `useLayoutEffect`.
+
+## Migration
+
+Now that we have the basic steps, let's apply them on our initial code.
+
+As a reminder, this is our initial code:
+
+```js
+class Only extends Component {
+  constructor(props) {
+    super(props);
+
+    // initialization
+    this.state = { isShown: false };
+    this.mediaQueryList = null;
+
+    // define the media query + listener
+    this.updateInterval(props);
+  }
+
+  componentDidMount() {
+    // immediately set the state based on the media query's status
+    this.updateMediaQuery(this.mediaQueryList);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // cleanup
+    if (this.mediaQueryList) {
+      this.mediaQueryList.removeListener(this.updateMediaQuery);
+      this.mediaQueryList = null;
+    }
+    // redefine the media query + listener
+    this.updateInterval(nextProps);
+  }
+
+  componentWillUnmount() {
+    // cleanup
+    if (this.mediaQueryList) {
+      this.mediaQueryList.removeListener(this.updateMediaQuery);
+      this.mediaQueryList = null;
+    }
+  }
+
+  // define the media query + listener
+  updateInterval = ({ matchMedia, on, strict }) => {
+    const mediaQuery = toMediaQuery(on, matchMedia, strict);
+    this.mediaQueryList = matchMedia(mediaQuery);
+    this.mediaQueryList.addListener(this.updateMediaQuery);
+  };
+
+  // set the state based on the media query's status
+  updateMediaQuery = (event) => {
+    this.setState((prevState) => {
+      const isShown = event.matches;
+      if (isShown === prevState.isShown) {
+        return null;
+      }
+      return { isShown };
+    });
+  };
+
+  render() {
+    if (!this.state.isShown) {
+      return null;
+    }
+    return createElement(Fragment, null, this.props.children);
+  }
+}
+```
+
+### Render and state
+
+Let's start with the render and the constructor. I'll start by porting the state and copy pasting the render:
+
+```js
+const Only = ({ matchMedia, on, strict, children }) => {
+  const [isShown, setIsShown] = useState(false);
+
+  // To fill-in
+
+  if (!isShown) {
+    return null;
+  }
+  return React.createElement(React.Fragment, null, children);
+};
+```
+
+### updateInterval and effect
+
+Now, we can see that in the `constructor` and `componentDidReceiveProps` we do `this.updateInterval(props)`, and in `componentDidReceiveProps` and `componentWillUnmount`, we clear the listener. Let's try to refactor that.
+We'll start with `this.updateInterval(props)`. As it is defined in the `constructor` and in `componentDidReceiveProps`, this is something that needs to run for each render. So we'll use an effect (for now, we don't define the dependencies array):
+
+```js
+const Only = ({ matchMedia, on, strict, children }) => {
+  const [isShown, setIsShown] = useState(false);
+
+  // For now, I copy paste this.updateInterval and this.updateMediaQuery in the render
+  const updateMediaQuery = (event) => {
+    setIsShown((prevIsShown) => {
+      const show = event.matches;
+      if (show === prevIsShown) {
+        return null;
+      }
+      return show;
+    });
+  };
+
+  const updateInterval = ({ matchMedia, on, strict }) => {
+    const mediaQuery = toMediaQuery(on, matchMedia, strict);
+    const mediaQueryList = matchMedia(mediaQuery);
+    const mediaQueryList.addListener(updateMediaQuery);
+  };
+
+  React.useEffect(() => {  //
+    updateInterval(props); // <-
+  });                      //
+
+  if (!isShown) {
+    return null;
+  }
+  return React.createElement(React.Fragment, null, children);
+};
+```
+
+### updateInterval inline in effect
+
+As `updateInterval` is now only used in the effect, let's remove the function and put its content in the effect:
+
+```js
+const Only = ({ matchMedia, on, strict, children }) => {
+  const [isShown, setIsShown] = useState(false);
+
+  const updateMediaQuery = (event) => {
+    setIsShown((prevIsShown) => {
+      const show = event.matches;
+      if (show === prevIsShown) {
+        return null;
+      }
+      return show;
+    });
+  };
+
+  React.useEffect(() => {
+    const mediaQuery = toMediaQuery(on, matchMedia, strict);
+    const mediaQueryList = matchMedia(mediaQuery);
+    const mediaQueryList.addListener(this.updateMediaQuery);
+  }); // For now, we don't define the dependencies array
+
+  if (!isShown) {
+    return null;
+  }
+  return React.createElement(React.Fragment, null, children);
+};
+```
+
+### mediaQueryList.removeListener
+
+Now let's add `mediaQueryList.removeListener`. As it is defined in at the beginning of `componentDidReceiveProps` to cleanup variables before re-using them in the rest of `componentDidReceiveProps`, and in `componentWillUnmount`, this is a function that needs to run to clean an effect from a previous render. So we can use the cleanup function of the effect for this purpose:
+
+```js
+const Only = ({ matchMedia, on, strict, children }) => {
+  const [isShown, setIsShown] = useState(false);
+
+  const updateMediaQuery = (event) => {
+    setIsShown((prevIsShown) => {
+      const show = event.matches;
+      if (show === prevIsShown) {
+        return null;
+      }
+      return show;
+    });
+  };
+
+  React.useEffect(() => {
+    const mediaQuery = toMediaQuery(on, matchMedia, strict);
+    const mediaQueryList = matchMedia(mediaQuery);
+    const mediaQueryList.addListener(this.updateMediaQuery);
+
+    return () => {                                          //
+      mediaQueryList.removeListener(this.updateMediaQuery); // <-
+      // this.mediaQueryList = null isn't necessary because this is an local variable
+    };                                                      //
+  }); // For now, we don't define the dependencies array
+
+  if (!isShown) {
+    return null;
+  }
+  return React.createElement(React.Fragment, null, children);
+};
+```
+
+### componentDidMount
+
+Now let's add `this.updateMediaQuery(this.mediaQueryList)` that was in `componentDidMount`. For this, we can simply add it to our main `useEffect`. It won't be run only at the mount but also at every render but this is actually a good thing: if the media query changes, we'll have an immediate change in the UI. So **we fixed a potential issue** in the previous code:
+
+```js
+const Only = ({ matchMedia, on, strict, children }) => {
+  const [isShown, setIsShown] = useState(false);
+
+  const updateMediaQuery = (event) => {
+    setIsShown((prevIsShown) => {
+      const show = event.matches;
+      if (show === prevIsShown) {
+        return null;
+      }
+      return show;
+    });
+  };
+
+  React.useEffect(() => {
+    const mediaQuery = toMediaQuery(on, matchMedia, strict);
+    const mediaQueryList = matchMedia(mediaQuery);
+    updateMediaQuery(mediaQueryList);                        // <-
+
+    const mediaQueryList.addListener(updateMediaQuery);
+
+    return () => {
+      mediaQueryList.removeListener(updateMediaQuery);
+    };
+  }); // For now, we don't define the dependencies array
+
+  if (!isShown) {
+    return null;
+  }
+  return React.createElement(React.Fragment, null, children);
+};
+```
+
+### Final step
+
+We are getting close but we have a few issues:
+
+- contrary to `this.setState`, `setIsShown(() => null)` doesn't cancel the update, it sets the value to `null`,
+- we define `updateMediaQuery` at every render, this can be improved,
+- we don't use a dependencies array so the effect runs at each render.
+
+About the `setState` issue, if the new state has the same value as the previous one, React will automatically bail out the render. So we can fix it by using this function instead:
+
+```js
+const updateMediaQuery = (event) => {
+  const show = event.matches;
+  setIsShown(show);
+};
+```
+
+About `updateMediaQuery`, as it is only used in the effect, we can move it inside.
+
+And finally about the dependencies array, as the effect only uses the variables `matchMedia`, `on`, and `strict` defined top-level, let's set them in the deps array.
+
+Fix those 3 modifications, we now have the following code:
+
+```js
+const Only = ({ matchMedia, on, strict, children }) => {
+  const [isShown, setIsShown] = useState(false);
+
+  React.useEffect(() => {
+    const mediaQuery = toMediaQuery(on, matchMedia, strict);
+    const mediaQueryList = matchMedia(mediaQuery);
+    updateMediaQuery(mediaQueryList);
+
+    const updateMediaQuery = (event) => { //
+      const show = event.matches;         // <-
+      setIsShown(show);                   //
+    };                                    //
+    const mediaQueryList.addListener(updateMediaQuery);
+    return () => {
+      mediaQueryList.removeListener(updateMediaQuery);
+    };
+  }, [matchMedia, on, strict]);           // <-
+
+  if (!isShown) {
+    return null;
+  }
+  return React.createElement(React.Fragment, null, children);
+};
+```
+
+And we successfully ported the component from a class to a function with hooks!
+
+## Conclusion
+
+For a long time, I wanted to add the possibility in react-only to retrieve the current active breakpoint. But due to how breakpoints are defined in react-only, [it isn't possible](https://github.com/Ayc0/react-only/blob/master/FAQ.md#why-isnt-there-an-option-to-retrieve-the-current-breakpoint). But now that we refactored `Only` we can split its logic and the rendering, which gives the following code:
+
+```js
+const useOnly = (matchMedia, on, strict) => {
+  const [isShown, setIsShown] = useState(false);
+
+  React.useEffect(() => {
+    const mediaQuery = toMediaQuery(on, matchMedia, strict);
+    const mediaQueryList = matchMedia(mediaQuery);
+
+    setIsShown(mediaQueryList.matches);
+
+    const updateMediaQuery = (event) => {
+      const show = event.matches;
+      setIsShown(show);
+    };
+    const mediaQueryList.addListener(updateMediaQuery);
+    return () => {
+      mediaQueryList.removeListener(updateMediaQuery);
+    };
+  }, [matchMedia, on, strict]);
+
+  return isShown;
+}
+```
+
+```js
+const Only = ({ matchMedia, on, strict, children }) => {
+  const isShown = useOnly(matchMedia, on, strict);
+  if (!isShown) {
+    return null;
+  }
+  return React.createElement(React.Fragment, null, children);
+};
+```
+
+The best thing about this is that `useOnly` can be exposed to our users. So that they can use it in their logic and not necessarily to alter to rendering of their components.
+
+With the new hook, we also solved the concern I previously had: we still cannot retrieve the current active breakpoint, but we can programmatically know if a breakpoint is active.
+
+Finally, `Only`'s code became ridiculously small and we completely split our logic (which is now re-usable in other components), and the rendering.

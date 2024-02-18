@@ -1,0 +1,39 @@
+---
+title: "Responsive design in React"
+tags: ["react", "responsive", "breakpoints"]
+created: 2021-05-09
+lastUpdated: 2021-05-09
+---
+
+import LinkToPost from "../../../../components/LinkToPost.astro";
+
+Hi, I'm Ayc0, maintainer of the library [`@blocz/react-responsive`](https://www.npmjs.com/package/@blocz/react-responsive) that aims to provide easy utils in React to handle Responsive design.
+
+If you want to learn more about it, you can check this post:
+
+<LinkToPost slug="others/blocz-react-responsive-v3-is-out" />
+
+This article will tell you how **not** to use this library.
+
+## When not to use `@blocz/react-responsive`
+
+Often, I get people asking me how to use `@blocz/react-responsive` to handle different display at different screen sizes, or on mobile.
+Usually my answer is: use plain **CSS and media queries**.
+
+CSS is my go-to method when I want handle responsive design:
+
+- it's easy `@media (max-width: Xpx)`
+- it's static and doesn't require JS to run (more efficient for the end user)
+
+## Then why did you create this library if you don't recommend it?
+
+I do recommend it, but not for all use-cases.
+
+1. `@blocz/react-responsive` was developed to allow developers to **render different components** depending of viewport size.
+   For instance, you want to render a dropdown option on desktop and a floating button action on mobile and you already have both components developed.
+
+2. The second use-case was to be able to have breakpoints that could be used at the same time in the JS and in **CSS-in-JS**, that you can set top level in your app and re-use in an easy way.
+
+## To sum up
+
+If you just need to change how a component looks depending on the viewport size, you should use plain CSS. But if you need a finer control in your JS, you can look at ways to do that in JS and why not give a try to `@blocz/react-responsive`.

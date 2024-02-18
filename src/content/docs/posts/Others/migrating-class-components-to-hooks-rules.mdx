@@ -1,0 +1,37 @@
+---
+title: "Migrating class components to hooks – rules"
+tags: ["react", "hooks", "migration"]
+created: 2020-08-18
+lastUpdated: 2020-08-18
+---
+
+When transitioning from classes to hooks, there are a few rules:
+
+First, a few changes need to be done in the class component:
+
+- remove as much code as possible from the constructor,
+- use `componentDid<Cycle>` instead of unsafe `componentWill<Cycle>`:
+
+| Instead of                  | Use these                  |
+| --------------------------- | -------------------------- |
+| `componentWillMount`        | `componentDidMount`        |
+| `componentWillReceiveProps` | `componentDidReceiveProps` |
+| `componentWillUpdate`       | `componentDidUpdate`       |
+
+I recommend you to check [react's doc](https://reactjs.org/docs/react-component.html#unsafe_componentwillreceiveprops) if you want more informations on the deprecation of these methods.
+
+Then those are the main hooks you will want to use:
+
+- use one `useState` hook per field in the state,
+- use `useEffect` instead of `componentDidMount`, `componentDidReceiveProps`, `componentDidUpdate` and `componentWillUnmount`,
+- use local variables instead of attributes / methods.
+
+If those aren't enough, these are the final rules:
+
+- if using local variables isn't possible, use `useCallback` for methods and `useMemo` for attributes,
+- use `useRef` for refs or if you need to mutate a method/attribute in different places without triggering a re-render,
+- and if you need a `useEffect` that runs synchronously after each render (for specific ui interactions), use `useLayoutEffect`.
+
+---
+
+If you want to see a concrete application of these rules, you can check [this post](/projects/posts/others/migrating-class-components-to-hooks/) in which I wrote a detailed migration of [react-only](https://www.npmjs.com/package/react-only)

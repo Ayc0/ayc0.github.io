@@ -1,0 +1,107 @@
+---
+title: "React refs and dom references"
+tags: ["react", "refs", "dom"]
+created: 2020-08-21
+lastUpdated: 2020-08-21
+---
+
+## Introduction
+
+Sometimes you need to have access to a DOM element in React (like for focusing an input). To do so, React has a system of [refs](https://reactjs.org/docs/refs-and-the-dom.html#gatsby-focus-wrapper) that you can use:
+
+- with hooks:
+
+```jsx
+const MyComponent = () => {
+  const inputRef = React.useRef();
+
+  React.useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
+  return <input ref={inputRef} />;
+};
+```
+
+- with classes:
+
+```jsx
+class MyComponent extends React.Component {
+  inputRef = React.createRef();
+
+  componentDidMount() {
+    this.inputRef.current.focus();
+  }
+
+  render() {
+    return <input ref={this.inputRef} />;
+  }
+}
+```
+
+## Render lag
+
+What I call "render lag" is the fact that refs that are bound to DOM elements will always be 1 render late: when doing `ref={inputRef}`, react-dom attached the domElement once it is created and added to DOM tree. So in order for the ref **to be bound to the right DOM element**, a **render need to occur**.
+
+Which is why, if you want to **safely use refs** + dom nodes, you should **only access them in methods that run after the renders** (useEffect / useLayoutEffect / componentDidMount / componentDidUpdate).
+But you shouldn't read refs' value directly within the render itself (render method / useMemo).
+
+### Illustration
+
+Let's say we are rendering an input and then dispatching one re-render, this is what will happen:
+
+```
+# Initial render
+ref.current == null 🚫
+render() is called
+ref.current <- domElement
+
+# Effect after the initial render
+ref.current == domElement ✅
+
+## 2nd render
+ref.current == domElement ❗️
+render() is called
+ref.current <- domElement²
+
+# Effect after the initial render
+ref.current == domElement² ✅
+```
+
+In most cases, domElement and domElement² are the same, but if you do something like this, it won't be the case:
+
+```jsx
+const MyComponent = () => {
+  const elementRef = React.useRef();
+  const [state, setState] = React.useState();
+  ...
+  return (
+    state
+      ? <elementA ref={elementRef} />
+      : <elementB ref={elementRef} />
+  );
+}
+```
+
+## Conclusion
+
+Refs can be a bit tricky to use but as long as we keep in mind that they should only be used in effects, it should be fine.
+
+And if you really need to use the dom element in your render (like to trigger other effects), you may want to store it in a state:
+
+```jsx
+const MyComponent = () => {
+  const ref = React.useRef();
+  const [element, setElement] = React.useState(null);
+
+  // Effect without dependencies to run it at every render
+  // but setElement won't trigger a re-render if the value didn't change so that's fine
+  React.useEffect(() => {
+    setElement(inputRef.current);
+  });
+
+  // now it is safe to use the variable `element` within the render
+
+  return <element ref={ref} />;
+};
+```
