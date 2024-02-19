@@ -8,7 +8,6 @@ const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/*.{jpeg
 let path: string | undefined;
 if (image && images[image]) {
     path = (await (images[image]!())).default.src
-    console.log((await (images[image]!())).default)
 }
 ---
 
