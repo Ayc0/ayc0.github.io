@@ -1,23 +1,25 @@
 ---
 import Page from '../layouts/Page.astro';
+
+const currentPath = Astro.url.pathname;
 ---
 
 <Page title="Ayc0’s projects">
     <ul>
       <li>
-        <a href="./length-units">CSS Length Units</a>
+        <a href={`${currentPath}length-units`}>CSS Length Units</a>
       </li>
       <li>
-        <a href="./react-timings">React timings</a>
+        <a href={`${currentPath}react-timings`}>React timings</a>
       </li>
       <li>
-        <a href="./hexagons-without-rules">Hexagons</a>
+        <a href={`${currentPath}hexagons-without-rules`}>Hexagons</a>
       </li>
       <li>
-        <a href="./color-visualizer">Color Visualizer</a>
+        <a href={`${currentPath}color-visualizer`}>Color Visualizer</a>
       </li>
       <li>
-        <a href="./posts">Blog posts</a>
+        <a href={`${currentPath}posts`}>Blog posts</a>
       </li>
     </ul>
 </Page>

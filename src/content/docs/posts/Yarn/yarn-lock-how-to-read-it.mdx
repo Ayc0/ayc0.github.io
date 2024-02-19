@@ -7,7 +7,7 @@ sidebar:
   order: 1
 ---
 
-import { LinkCard } from "@astrojs/starlight/components";
+import LinkToPost from "../../../../components/LinkToPost.astro";
 
 ## Introduction
 
@@ -109,7 +109,4 @@ And when `7.12.9` was added, as changing the previously resolved versions could 
 
 If you're interested in editing this file, you can read:
 
-<LinkCard
-  title="Yarn.lock: How to Update it"
-  href="/projects/posts/yarn/yarn-lock-how-to-update-it/"
-/>
+<LinkToPost slug="yarn/yarn-lock-how-to-update-it" />
