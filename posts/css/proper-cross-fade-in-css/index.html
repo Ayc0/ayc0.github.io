@@ -49,7 +49,7 @@
 
 
 
-<table><thead><tr><th>Incorrect 75% opacity</th><th>Fixed version</th></tr></thead><tbody><tr><td><img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kqwj9v3ap0pxazqo77pk.png" alt="double 0.5 opacity"/></td><td><img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/imlrcqgemsvdatj0al51.png" alt="double 0.5 opacity with proper cross fade"/></td></tr></tbody></table>
+<table><thead><tr><th>Incorrect 75% opacity</th><th>Fixed version</th></tr></thead><tbody><tr><td><img src="/_astro/kqwj9v3ap0pxazqo77pk.C3dTt_ez_ZyAg5B.webp" alt="double 0.5 opacity" width="1200" height="1202" loading="lazy" decoding="async"></td><td><img src="/_astro/imlrcqgemsvdatj0al51.BgI70cMa_Z2wM2i8.webp" alt="double 0.5 opacity with proper cross fade" width="1202" height="1204" loading="lazy" decoding="async"></td></tr></tbody></table>
 <h2 id="how-to-achieve-this">How to achieve this</h2>
 <p>The way to do it is to add <code dir="auto">mix-blend-mode: plus-lighter</code> on the second text, so that CSS knows how to blend this layer with the other ones.</p>
 <p>In addition to setting the <code dir="auto">mix-blend-mode</code>, we should add <code dir="auto">isolation: isolate</code> on the container so that CSS knows that the composition operation should only be computed within this element, and that we shouldn’t also apply it with the full background.</p>
