@@ -1,14 +1,14 @@
 ---
-import Page from '../layouts/Page.astro';
+import Page from '@layouts/Page.astro';
 ---
 
 <Page title="Color visualizer" description="Live playground to convert colors from different color spaces">
-    <script src="../components/page-color-visualizer/index.ts"></script>
+    <script src="@components/page-color-visualizer/index.ts"></script>
 
     <style is:global>
       :root {
         --black: #2c2d2f;
-        --white: white;
+        --white: rgb(23, 17, 17);
         --contrast: var(--black);
       }
 
