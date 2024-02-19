@@ -32,7 +32,7 @@ The other day I was playing with JS and I saw this:
 
 As an image is worth 1000 words:
 
-![Grapheme vs code unit vs code point](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fty25unybapraxyaslkr.png)
+![Grapheme vs code unit vs code point](@assets/fty25unybapraxyaslkr.png)
 
 You can use [Intl.Segmenter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter)
 
@@ -67,7 +67,7 @@ In UTF-16, _characters_ are encoded in 16-bit chunks (_code unit_). For instance
 
 Problem: Using a 16-bit _code unit_ can only result in 65536 possible characters, so how do we represent the other _characters_? UTF-16 has a system where it can use 2 _code units_ to encode some _code points_. For instance `𐐷` is the _code point_ `U+10437` will be encoded as `D801 DC37` (a high surrogate `D801` and a low surrogate `DC37`).
 
-![$, €, and 𐐷 encoded in UTF-16 in code units](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sd3zmt59k7stx73bffh2.png)
+![$, €, and 𐐷 encoded in UTF-16 in code units](@assets/sd3zmt59k7stx73bffh2.png)
 
 ### String.prototype.length
 
@@ -110,13 +110,13 @@ Another specificity of Unicode is that it can combines multiple code points to f
 
 For instance the letter "Ç" can either be the code point for this character, or the code point for "C" followed by the diacritic mark "◌̧"
 
-![Ç {'<->'} C+◌̧](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/5dhf9yjoybqftvm6l3a7.png)
+![Ç {'<->'} C+◌̧](@assets/5dhf9yjoybqftvm6l3a7.png)
 
 We can also use normalization NFD and NFC to switch between the precomposed and decomposed forms (see https://unicode.org/reports/tr15/#Norm_Forms):
 
 > Many characters are known as canonical composites, or precomposed characters. In the D forms, they are decomposed; in the C forms, they are _usually_ precomposed.
 
-!["Å" can be decomposed into "A+̊ " or precomposed as "Å"](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/uxrpqqryzmd2ol5od655.png)
+!["Å" can be decomposed into "A+̊ " or precomposed as "Å"](@assets/uxrpqqryzmd2ol5od655.png)
 
 This explains why `é`’s length was either 1 or 2 in the initial example:
 
@@ -196,4 +196,4 @@ And if you want to get the number of grapheme (like `.length`), you can transfor
 
 Sadly, at the date of the writing (July 2023) is not supported on Firefox yet – check on [caniuse.com](https://caniuse.com/mdn-javascript_builtins_intl_segmenter). You can track [this issue](https://bugzilla.mozilla.org/show_bug.cgi?id=1423593) if you want to follow its development.
 
-![Browser compatibility table](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/be4uvsnzw835ppsh6tqq.png)
+![Browser compatibility table](@assets/be4uvsnzw835ppsh6tqq.png)

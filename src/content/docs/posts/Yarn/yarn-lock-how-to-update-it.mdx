@@ -40,11 +40,11 @@ Later, you want to install a package `C`, depending on `B@^1.1.5`. And when `C` 
 
 You ended up here:
 
-![Illustration showing that A imports B@^1.1.1 resolved in B@1.1.4, and that C imports B@^1.1.5 resolved in B@1.1.5, resulting in having 2 versions of B](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4x6b8eid6ue1tyjzsy43.png)
+![Illustration showing that A imports B@^1.1.1 resolved in B@1.1.4, and that C imports B@^1.1.5 resolved in B@1.1.5, resulting in having 2 versions of B](@assets/4x6b8eid6ue1tyjzsy43.png)
 
 But ideally, you should end up like that:
 
-![Illustration showing that A imports B@^1.1.1 resolved, and C imports B@^1.1.5, both resolved in B@1.1.5, resulting in having only 1 version of B](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/m4pt38rne6ghcz9rx3yj.png)
+![Illustration showing that A imports B@^1.1.1 resolved, and C imports B@^1.1.5, both resolved in B@1.1.5, resulting in having only 1 version of B](@assets/m4pt38rne6ghcz9rx3yj.png)
 
 The behaviour is indeed intended: the main goal of lock file is to ensure that your dependencies won't change if you don't ask for it. As you didn't ask for an update of A, it shouldn't update neither it nor its dependencies. And as updating B from 1.1.4 to 1.1.5 could introduce some regression, `yarn` won't update it.
 
@@ -117,7 +117,7 @@ https://yarnpkg.com/cli/dedupe
 
 If you using yarn 1, you can use `yarn list --pattern <package-name>` to see all the different versions (and where they are coming from) of a package:
 
-![output of yarn 1' "yarn list" command](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/mcsxmz3rhti0lro89ur0.png)
+![output of yarn 1' "yarn list" command](@assets/mcsxmz3rhti0lro89ur0.png)
 
 https://classic.yarnpkg.com/en/docs/cli/list
 
@@ -125,13 +125,13 @@ https://classic.yarnpkg.com/en/docs/cli/list
 
 Yarn berry (version 2 and above), has the command `yarn why` (it already existed in yarn 1, but the output was completely different).
 
-![Output of the command "yarn why {'<'}package{'>'}", showing all the versions of this package installed, why it was installed, what version range was required each time, and which versions were resolved](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ep7g6avdbbj7qgalznb6.png)
+![Output of the command "yarn why {'<'}package{'>'}", showing all the versions of this package installed, why it was installed, what version range was required each time, and which versions were resolved](@assets/ep7g6avdbbj7qgalznb6.png)
 
 The main difference between `yarn list` in yarn 1 and `yarn why` in yarn 2+ is that, in addition to having the version installed + the parent that required this package, you also have the version ranges that were requested each time.
 
 Also, the tree is flatten here to only have the most meaningful information. But if you want to have a deep tree (like in yarn 1), you can run `yarn why <package> -R`:
 
-![Output of the command "yarn why {'<'}package{'>'} -R", showing the same results as before, but also including all of the parent deps of those deps, recursively](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/g7z3svnxfq8oz43ogycn.png)
+![Output of the command "yarn why {'<'}package{'>'} -R", showing the same results as before, but also including all of the parent deps of those deps, recursively](@assets/g7z3svnxfq8oz43ogycn.png)
 
 ## Conclusion
 

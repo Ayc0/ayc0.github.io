@@ -7,7 +7,7 @@ lastUpdated: 2022-07-14
 
 I was reading [semver's spec](https://semver.org/) and I noticed something weird in the regex:
 
-![Screenshot of semver spec saying "And one with numbered capture groups instead (so cg1 = major, cg2 = minor, cg3 = patch, cg4 = prerelease and cg5 = buildmetadata)"](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dyn2hb56xwjex3cyd6hr.png)
+![Screenshot of semver spec saying "And one with numbered capture groups instead (so cg1 = major, cg2 = minor, cg3 = patch, cg4 = prerelease and cg5 = buildmetadata)"](@assets/dyn2hb56xwjex3cyd6hr.png)
 
 This is the 1st time that I ever encountered the mention of `buildmetadata`.
 
@@ -38,7 +38,7 @@ Just to be sure, I run this in runkit, and indeed it can properly parse `1.2.3-p
 
 See for yourselves:
 
-![semver properly parses `1.2.3-pre.release.4.5+build.meta.6.7`](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/niejqzhlppdlxyaj1tez.png)
+![semver properly parses `1.2.3-pre.release.4.5+build.meta.6.7`](@assets/niejqzhlppdlxyaj1tez.png)
 
 ### Discussion
 
@@ -46,6 +46,6 @@ I've seen plenty of times the prerelease being used (and I used it myself a few 
 
 For instance, React uses it a lot:
 
-![Sample of React versions on NPM with a lot of prereleases](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/p00o9cthqgf0s4dlhymu.png)
+![Sample of React versions on NPM with a lot of prereleases](@assets/p00o9cthqgf0s4dlhymu.png)
 
 My topic for a conversation with you is: Have you ever seen this used anywhere on NPM (or else where)? And if so, for what purpose?

@@ -148,7 +148,7 @@ We can see that the install took almost **a minute**, and it installed 1394 pack
 
 The project itself looks like this:
 
-![Content of the project after the npx command for CRA](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/f7hssdymps5lg2b164zj.png)
+![Content of the project after the npx command for CRA](@assets/f7hssdymps5lg2b164zj.png)
 
 ### Migration to Parcel
 
@@ -170,14 +170,14 @@ We can see here that the install is way faster: only 5s, and fewer packages were
 
 Except for modifying a bit the dependencies and the public/index.html file, I haven't changed the rest. (The `devDependencies` were automatically added by parcel in the following image)
 
-![Content of the project after npm i for Parcel](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1krgnawdnkc7h24s90ez.png)
+![Content of the project after npm i for Parcel](@assets/1krgnawdnkc7h24s90ez.png)
 
 And here are the modifications I did to the index.html:
 
 - I removed a "magical" env variable `%PUBLIC_URL%` and instead used direct paths,
 - Added a hard coded `<script>` tag:
 
-![diff between CRA's index.html and Parcel's index.html](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3ky8dvgyrc6shb9trauz.png)
+![diff between CRA's index.html and Parcel's index.html](@assets/3ky8dvgyrc6shb9trauz.png)
 
 ## Conclusion
 
