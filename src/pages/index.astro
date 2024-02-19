@@ -1,25 +1,25 @@
 ---
 import Page from '../layouts/Page.astro';
 
-const currentPath = Astro.url.pathname;
+const base = import.meta.env.BASE_URL;
 ---
 
 <Page title="Ayc0’s projects">
     <ul>
       <li>
-        <a href={`${currentPath}length-units`}>CSS Length Units</a>
+        <a href={`${base}length-units`}>CSS Length Units</a>
       </li>
       <li>
-        <a href={`${currentPath}react-timings`}>React timings</a>
+        <a href={`${base}react-timings`}>React timings</a>
       </li>
       <li>
-        <a href={`${currentPath}hexagons-without-rules`}>Hexagons</a>
+        <a href={`${base}hexagons-without-rules`}>Hexagons</a>
       </li>
       <li>
-        <a href={`${currentPath}color-visualizer`}>Color Visualizer</a>
+        <a href={`${base}color-visualizer`}>Color Visualizer</a>
       </li>
       <li>
-        <a href={`${currentPath}posts`}>Blog posts</a>
+        <a href={`${base}posts`}>Blog posts</a>
       </li>
     </ul>
 </Page>
