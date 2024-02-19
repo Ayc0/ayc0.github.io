@@ -6,13 +6,13 @@ import starlight from "@astrojs/starlight";
 // https://astro.build/config
 export default defineConfig({
   site: "https://ayc0.github.io",
-  base: "/projects/", // We need the trailing / here otherwise links in the site will be broken
+  base: "/", // We need the trailing / here otherwise links in the site will be broken
   integrations: [
     react({
       exclude: ["**/page-react-timings/*"],
     }),
     starlight({
-      title: "Ayc0's Projects",
+      title: "Ayc0's Blog",
       lastUpdated: true,
       sidebar: [
         {
