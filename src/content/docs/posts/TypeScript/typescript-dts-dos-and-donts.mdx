@@ -1,0 +1,54 @@
+---
+title: "TypeScript .d.ts: dos and don'ts"
+tags: ["typescript"]
+sidebar:
+  hidden: true
+pagefind: false
+---
+
+:::caution[Warning]
+Still in draft
+:::
+
+## Typing JS files
+
+```ts
+// ❌❌
+declare module "./my-file";
+```
+
+```ts
+// ❌ less bad, but to avoid too when possible
+declare module "./my-file" {}
+```
+
+```ts
+// ✅ but could be better
+export const a: any;
+```
+
+✅✅ Enable `"allowJs": true` in your TSConfig.
+
+## Node modules
+
+```ts
+// ✅ but could be better
+declare module "jquery";
+```
+
+```ts
+// ✅
+declare module "jquery" {}
+```
+
+## New kinds of types
+
+```ts
+// ✅ but could be better
+declare module "*.png";
+```
+
+```ts
+// ✅
+declare module "*.png" {}
+```
