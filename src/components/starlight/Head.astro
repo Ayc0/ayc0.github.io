@@ -4,9 +4,15 @@ import Default from '@astrojs/starlight/components/Head.astro';
 
 const image = Astro.props.entry.data.image;
 
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/*.{jpeg,jpg,png,gif}');
+let path: string | undefined;
+if (image && images[image]) {
+    path = (await (images[image]!())).default.src
+    console.log((await (images[image]!())).default)
+}
 ---
 
 <Default {...Astro.props}></Default>
 
-{image ? <meta property="og:image" content={Astro.url.origin + import.meta.env.BASE_URL + image} /> : null}
-{image ? <meta name="twitter:image" content={Astro.url.origin + import.meta.env.BASE_URL + image} /> : null}
+{path ? <meta property="og:image" content={Astro.url.origin + path} /> : null}
+{path ? <meta name="twitter:image" content={Astro.url.origin + path} /> : null}
