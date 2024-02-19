@@ -14,6 +14,9 @@ export default defineConfig({
     starlight({
       title: "Ayc0's Blog",
       lastUpdated: true,
+      components: {
+        Head: "./src/components/starlight/Head.astro",
+      },
       sidebar: [
         {
           label: "Dark mode",
