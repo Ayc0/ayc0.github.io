@@ -45,7 +45,9 @@ As the CSS only deals with the visual appearance, we'll only have to care about 
 
 The easiest is to apply a data attribute to the html light/dark. Also, as we chose the 2nd method with 2 distinct sets of variables, we only have to deal with light/dark. Dealing with the system will be done by another tool. So we don't have to use media queries.
 
-> **Note:** I'd still recommend setting the `color-scheme` to `light` and `dark` for native inputs.
+:::note
+I'd still recommend setting `<meta name="color-scheme" content="light dark" />` for native inputs.
+:::
 
 The CSS is still fairly simple (and the exact same one as before):
 
