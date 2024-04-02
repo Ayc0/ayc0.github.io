@@ -12,7 +12,7 @@ export default defineConfig({
       exclude: ["**/page-react-timings/*"],
     }),
     starlight({
-      title: "Ayc0's Blog",
+      title: "Ayc0",
       lastUpdated: true,
       components: {
         Head: "./src/components/starlight/Head.astro",
