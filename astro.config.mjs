@@ -14,6 +14,7 @@ export default defineConfig({
     starlight({
       title: "Ayc0",
       lastUpdated: true,
+      favicon: "/images/favicon.png",
       components: {
         Head: "./src/components/starlight/Head.astro",
       },
