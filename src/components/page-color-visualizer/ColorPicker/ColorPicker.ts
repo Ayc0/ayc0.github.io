@@ -186,7 +186,7 @@ export class ColorPicker extends LitElement {
           </div>
         </details>
 
-        <details open>
+        <details ?open=${!this.isMobile}>
           <summary><h2>LCH</h2></summary>
           <div class="group">
             ${this.renderInput({
