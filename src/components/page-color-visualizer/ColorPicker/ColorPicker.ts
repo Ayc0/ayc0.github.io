@@ -114,6 +114,79 @@ export class ColorPicker extends LitElement {
     return html`
       <div class="wrapper">
         <details open>
+          <summary><h2>OkLCH</h2></summary>
+          <div class="group">
+            ${this.renderInput({
+              category: "oklch",
+              kind: "l",
+              label: "luminance",
+              min: 0,
+              step: 0.01,
+              max: 1,
+              unit: "%",
+              mod: (v) => toFixed(v * 100, 1),
+            })}
+            ${this.renderInput({
+              category: "oklch",
+              kind: "c",
+              label: "chroma",
+              min: 0,
+              step: 0.01,
+              max: 0.4,
+            })}
+            ${this.renderInput({
+              category: "oklch",
+              kind: "h",
+              label: "hue",
+              min: 0,
+              max: 360,
+            })}
+
+            <pre class="code-wrapper"><code class="code">${stored
+              .to("oklch")
+              .toString({ precision: 3 })}</code></pre>
+          </div>
+        </details>
+
+        <details ?open=${!this.isMobile}>
+          <summary><h2>OkLab</h2></summary>
+          <div class="group">
+            ${this.renderInput({
+              category: "oklab",
+              kind: "l",
+              label: "luminance",
+              min: 0,
+              step: 0.01,
+              max: 1,
+              unit: "%",
+              mod: (v) => toFixed(v * 100, 1),
+            })}
+            ${this.renderInput({
+              category: "oklab",
+              kind: "a",
+              label: "a",
+              shortName: "a",
+              min: -0.4,
+              step: 0.01,
+              max: 0.4,
+            })}
+            ${this.renderInput({
+              category: "oklab",
+              kind: "b",
+              label: "b",
+              shortName: "b",
+              min: -0.4,
+              step: 0.01,
+              max: 0.4,
+            })}
+
+            <pre class="code-wrapper"><code class='code'>${stored
+              .to("oklab")
+              .toString({ precision: 3 })}</code></pre>
+          </div>
+        </details>
+
+        <details open>
           <summary><h2>LCH</h2></summary>
           <div class="group">
             ${this.renderInput({

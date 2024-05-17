@@ -1,12 +1,14 @@
 import { orderCup } from "manatea";
 import Color from "colorjs.io";
 
-export type Type = "lch" | "lab" | "srgb" | "hsl";
+export type Type = "lch" | "lab" | "srgb" | "hsl" | "oklch" | "oklab";
 export interface Kind {
   lch: "l" | "c" | "h";
   lab: "l" | "a" | "b";
   srgb: "r" | "g" | "b";
   hsl: "h" | "s" | "l";
+  oklch: "l" | "c" | "h";
+  oklab: "l" | "a" | "b";
 }
 interface TriggerUpdate<T extends Type = Type, K extends Kind[T] = Kind[T]> {
   type: T;
