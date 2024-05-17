@@ -4,7 +4,7 @@ import { query } from "lit/decorators/query.js";
 
 import { colorController } from "../color-controller";
 
-import { createGenerateColors } from "./generate-colors";
+import { createGenerateColors } from "./generate-lch-colors";
 
 @customElement("lch-paint")
 export class LCHPaint extends LitElement {
@@ -58,7 +58,7 @@ export class LCHPaint extends LitElement {
       return;
     }
     const rect = canvas.getBoundingClientRect();
-    const lch = colorController().lch.values;
+    const lch = colorController().to("lch");
     const x = Math.floor((lch.c / 132) * rect.width);
     const y = Math.floor((1 - lch.l / 100) * rect.height);
 
@@ -75,7 +75,7 @@ export class LCHPaint extends LitElement {
       return;
     }
 
-    const lch = colorController().lch.values;
+    const lch = colorController().to("lch");
 
     this.generateColors(lch.h, this.width, this.height).then((colorArray) => {
       const imageData = new ImageData(colorArray, this.width, this.height);

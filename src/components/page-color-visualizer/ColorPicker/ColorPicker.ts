@@ -7,11 +7,7 @@ import "./ColorSlider";
 import { colorController, type Type, type Kind } from "../color-controller";
 import { ManateaController } from "../manatea-controller";
 
-function toHex(color: number) {
-  return Math.floor(color).toString(16).padStart(2, "0");
-}
-
-function toFixed(number: number, decimal: number = 2) {
+function toFixed(number: number, decimal: number = 0) {
   const dec = 10 ** decimal;
   return Math.round(number * dec) / dec;
 }
@@ -63,8 +59,8 @@ export class ColorPicker extends LitElement {
     const clamp = (n: number) => Math.min(max, Math.max(min, n));
 
     const stored = colorController();
-    // @ts-expect-error
-    const value = stored[category].values[kind];
+    const colorInSpace = stored.to(category);
+    const value = colorInSpace[kind];
 
     const id = `${category}--${kind}`;
 
@@ -76,7 +72,7 @@ export class ColorPicker extends LitElement {
         .max=${max}
         .step=${step}
         .value=${value}
-        .referenceColor=${stored[category].raw}
+        .referenceColor=${colorInSpace}
         .valueToModify=${kind}
         @input=${(event: Event) => {
           const element = event.target as ColorSlider;
@@ -114,9 +110,7 @@ export class ColorPicker extends LitElement {
 
   override render() {
     const stored = colorController();
-    const hexRGB = `#${toHex(stored.rgb.values.r)}${toHex(
-      stored.rgb.values.g
-    )}${toHex(stored.rgb.values.b)}`;
+
     return html`
       <div class="wrapper">
         <details open>
@@ -145,11 +139,9 @@ export class ColorPicker extends LitElement {
               max: 360,
             })}
 
-            <pre class="code-wrapper"><code class="code">LCH(${toFixed(
-              stored.lch.values.l
-            )}% ${toFixed(stored.lch.values.c)} ${toFixed(
-              stored.lch.values.h
-            )})</code></pre>
+            <pre class="code-wrapper"><code class="code">${stored
+              .to("lch")
+              .toString({ precision: 3 })}</code></pre>
           </div>
         </details>
 
@@ -181,45 +173,47 @@ export class ColorPicker extends LitElement {
               max: 127,
             })}
 
-            <pre class="code-wrapper"><code class='code'>Lab(${toFixed(
-              stored.lab.values.l
-            )}% ${toFixed(stored.lab.values.a)} ${toFixed(
-              stored.lab.values.b
-            )})</code></pre>
+            <pre class="code-wrapper"><code class='code'>${stored
+              .to("lab")
+              .toString({ precision: 3 })}</code></pre>
           </div>
         </details>
-        <!--  -->
+
         <details ?open=${!this.isMobile}>
           <summary><h2>RGB</h2></summary>
           <div class="group">
             ${this.renderInput({
-              category: "rgb",
+              category: "srgb",
               kind: "r",
               label: "red",
               min: 0,
-              max: 255,
+              max: 1,
+              step: 0.01,
+              mod: (v) => toFixed(v * 255),
             })}
             ${this.renderInput({
-              category: "rgb",
+              category: "srgb",
               kind: "g",
               label: "green",
               min: 0,
-              max: 255,
+              max: 1,
+              step: 0.01,
+              mod: (v) => toFixed(v * 255),
             })}
             ${this.renderInput({
-              category: "rgb",
+              category: "srgb",
               kind: "b",
               label: "blue",
               min: 0,
-              max: 255,
+              max: 1,
+              step: 0.01,
+              mod: (v) => toFixed(v * 255),
             })}
 
-            <pre class="code-wrapper"><code class='code'>rgb(${toFixed(
-              stored.rgb.values.r
-            )} ${toFixed(stored.rgb.values.g)} ${toFixed(
-              stored.rgb.values.b
-            )})</code>
-<code class='code'>${hexRGB}</code></pre>
+            <pre class="code-wrapper"><code class='code'>${stored
+              .to("srgb")
+              .toString({ precision: 3 })}</code>
+<code class='code'>${stored.to("srgb").toString({ format: "hex" })}</code></pre>
           </div>
         </details>
 
@@ -238,9 +232,7 @@ export class ColorPicker extends LitElement {
               kind: "s",
               label: "saturation",
               min: 0,
-              step: 0.01,
-              max: 1,
-              mod: (v) => v * 100,
+              max: 100,
               unit: "%",
             })}
             ${this.renderInput({
@@ -248,17 +240,13 @@ export class ColorPicker extends LitElement {
               kind: "l",
               label: "lightness",
               min: 0,
-              step: 0.01,
-              max: 1,
-              mod: (v) => v * 100,
+              max: 100,
               unit: "%",
             })}
 
-            <pre class="code-wrapper"><code class='code'>hsl(${toFixed(
-              stored.hsl.values.h
-            )} ${toFixed(stored.hsl.values.s) * 100}% ${toFixed(
-              stored.hsl.values.l * 100
-            )}%)</code></pre>
+            <pre class="code-wrapper"><code class='code'>${stored
+              .to("hsl")
+              .toString({ precision: 3 })}</code></pre>
           </div>
         </details>
       </div>

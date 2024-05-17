@@ -1,7 +1,7 @@
 import { LitElement, html, css } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 
-import { type ColorSpaceObject, rgb } from "d3-color";
+import Color from "colorjs.io";
 import type { Kind, Type } from "../color-controller";
 
 const height = 20;
@@ -47,7 +47,7 @@ export class ColorSlider extends LitElement {
   value: number | undefined;
 
   @state()
-  referenceColor: ColorSpaceObject = rgb(0, 0, 0);
+  referenceColor: Color = new Color("srgb", [0, 0, 0]);
   @state()
   valueToModify: Kind[Type] = "h";
 
@@ -58,8 +58,11 @@ export class ColorSlider extends LitElement {
 
   getBackgroundRange = () => {
     clearTimeout(this.throttleId);
-    const color = this.referenceColor.copy();
-    const colorToCompare: Record<string, any> = { ...color };
+    const color = new Color(this.referenceColor);
+    const keys = Object.keys(color.space.coords);
+    const colorToCompare: Record<string, any> = Object.fromEntries(
+      keys.map((key) => [key as Kind[Type], color[key as Kind[Type]]])
+    );
     delete colorToCompare[this.valueToModify];
     const stringColorToCompare = JSON.stringify(colorToCompare);
     if (this.prevBackgroundRange) {
@@ -80,13 +83,12 @@ export class ColorSlider extends LitElement {
 
     const colorArray = new Uint8ClampedArray(nbOfPoints * 4);
     for (let i = 0; i <= nbOfPoints; i++) {
-      // @ts-ignore
       color[this.valueToModify] = i * this.step + this.min;
-      const rgb = color.rgb();
+      const rgb = color.to("srgb");
       const position = 4 * i;
-      colorArray[position + 0] = rgb.r; // R value
-      colorArray[position + 1] = rgb.g; // G value
-      colorArray[position + 2] = rgb.b; // B value
+      colorArray[position + 0] = rgb.r * 255; // R value
+      colorArray[position + 1] = rgb.g * 255; // G value
+      colorArray[position + 2] = rgb.b * 255; // B value
       colorArray[position + 3] = 255; // A value
     }
 

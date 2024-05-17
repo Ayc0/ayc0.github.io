@@ -1,7 +1,6 @@
-import { generateColors } from "./generate-colors";
+import { generateColors } from "./generate-lch-colors";
 
 function send(message: Uint8ClampedArray) {
-  // @ts-ignore
   postMessage(message);
 }
 
