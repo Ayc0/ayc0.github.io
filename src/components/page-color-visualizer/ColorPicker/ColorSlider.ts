@@ -1,7 +1,7 @@
 import { LitElement, html, css } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 
-import { type ColorSpaceObject, rgb } from "d3-color";
+import Color from "colorjs.io";
 import type { Kind, Type } from "../color-controller";
 
 const height = 20;
@@ -21,7 +21,7 @@ const thumbStyles = css`
 `;
 
 // Use both the previous and the current to avoid flickers on FF / Safari
-const trackBackground = css`var(--track-background, #9e9e9e), var(--previous-track-background, #9e9e9e)`;
+const trackBackground = css`var(--track-background, #9e9e9e)`;
 // const trackBackgroundHover = css`var(--track-background-hover, #bbbbbb)`;
 // const trackBackgroundFocus = css`var(--track-background-focus, #cbcbcb)`;
 const trackStyles = css`
@@ -47,7 +47,7 @@ export class ColorSlider extends LitElement {
   value: number | undefined;
 
   @state()
-  referenceColor: ColorSpaceObject = rgb(0, 0, 0);
+  referenceColor: Color = new Color("srgb", [0, 0, 0]);
   @state()
   valueToModify: Kind[Type] = "h";
 
@@ -57,52 +57,28 @@ export class ColorSlider extends LitElement {
   throttleId?: number;
 
   getBackgroundRange = () => {
-    clearTimeout(this.throttleId);
-    const color = this.referenceColor.copy();
-    const colorToCompare: Record<string, any> = { ...color };
-    delete colorToCompare[this.valueToModify];
-    const stringColorToCompare = JSON.stringify(colorToCompare);
-    if (this.prevBackgroundRange) {
-      // If the color hasn't changed, no need to re-compute
-      if (this.prevColor === stringColorToCompare) {
-        return this.prevBackgroundRange;
-      }
-      const now = performance.now();
-      // Only compute every 100ms
-      if (this.timePrevOp != null && now - this.timePrevOp < 100) {
-        // Start a timeout of 100ms so that if the last update was cancelled, we'll still have a correct render
-        this.throttleId = window.setTimeout(() => this.requestUpdate(), 100);
-        return this.prevBackgroundRange;
-      }
+    const coord = this.referenceColor.space.coords[this.valueToModify];
+    if (!coord) {
+      return this.prevBackgroundRange;
+    }
+    const range = coord.refRange || coord.range;
+    if (!range) {
+      return this.prevBackgroundRange;
     }
 
-    const nbOfPoints = Math.round((this.max - this.min) / this.step);
+    const from = new Color(this.referenceColor);
+    from[this.valueToModify] = range[0];
 
-    const colorArray = new Uint8ClampedArray(nbOfPoints * 4);
-    for (let i = 0; i <= nbOfPoints; i++) {
-      // @ts-ignore
-      color[this.valueToModify] = i * this.step + this.min;
-      const rgb = color.rgb();
-      const position = 4 * i;
-      colorArray[position + 0] = rgb.r; // R value
-      colorArray[position + 1] = rgb.g; // G value
-      colorArray[position + 2] = rgb.b; // B value
-      colorArray[position + 3] = 255; // A value
-    }
+    const to = new Color(this.referenceColor);
+    to[this.valueToModify] = range[1];
 
-    const canvas = document.createElement("canvas");
-    canvas.width = nbOfPoints;
-    canvas.height = 1;
+    const stops = Color.steps(
+      from.range(to, { space: this.referenceColor.space.id, hue: "raw" }),
+      { steps: 50 }
+    );
 
-    const imageData = new ImageData(colorArray, nbOfPoints, 1);
-    const ctx = canvas.getContext("2d", { alpha: false })!;
-    ctx.putImageData(imageData, 0, 0);
-
-    const dataUrl = canvas.toDataURL();
-    this.prevBackgroundRange = dataUrl;
-    this.prevColor = stringColorToCompare;
-    this.timePrevOp = performance.now();
-    return dataUrl;
+    this.prevBackgroundRange = `linear-gradient(to right, ${stops.join(", ")})`;
+    return this.prevBackgroundRange;
   };
 
   override render() {
@@ -111,8 +87,7 @@ export class ColorSlider extends LitElement {
       .max=${this.max}
       .step=${this.step}
       .value=${this.value}
-      style="--previous-track-background: url(${this
-        .prevBackgroundRange}); --track-background: url(${this.getBackgroundRange()})"
+      style="--track-background: ${this.getBackgroundRange()}"
       type="range"
       @input=${(event: Event) => {
         const element = event.target as HTMLInputElement;

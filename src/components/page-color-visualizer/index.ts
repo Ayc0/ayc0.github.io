@@ -1,10 +1,12 @@
 import "./LCHPaint/LCHPaint.ts";
+import "./OkLCHPaint/OkLCHPaint.ts";
 import "./ColorPicker/ColorPicker.ts";
 import { colorController } from "./color-controller.ts";
 
-document.documentElement.style.backgroundColor =
-  colorController().rgb.raw.formatHex();
+document.documentElement.style.backgroundColor = colorController()
+  .to("srgb")
+  .toString();
 
-colorController.on(({ rgb }) => {
-  document.documentElement.style.backgroundColor = rgb.raw.formatHex();
+colorController.on((raw) => {
+  document.documentElement.style.backgroundColor = raw.to("srgb").toString();
 });

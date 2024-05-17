@@ -4,10 +4,10 @@ import { query } from "lit/decorators/query.js";
 
 import { colorController } from "../color-controller";
 
-import { createGenerateColors } from "./generate-lch-colors";
+import { createGenerateColors } from "./generate-oklch-colors";
 
-@customElement("lch-paint")
-export class LCHPaint extends LitElement {
+@customElement("oklch-paint")
+export class OkLCHPaint extends LitElement {
   @property({ type: Number })
   width = 300;
   @property({ type: Number })
@@ -34,17 +34,17 @@ export class LCHPaint extends LitElement {
     const x = Math.min(Math.max(event.clientX - rect.x, 0), rect.width);
     const y = Math.min(Math.max(event.clientY - rect.y, 0), rect.height);
 
-    const l = Math.floor((1 - y / rect.height) * 100);
-    const c = Math.floor((x / rect.width) * 132);
+    const l = 1 - y / rect.height;
+    const c = (x / rect.width) * 0.4;
 
     colorController([
       {
-        type: "lch",
+        type: "oklch",
         kind: "l",
         value: l,
       },
       {
-        type: "lch",
+        type: "oklch",
         kind: "c",
         value: c,
       },
@@ -58,9 +58,9 @@ export class LCHPaint extends LitElement {
       return;
     }
     const rect = canvas.getBoundingClientRect();
-    const lch = colorController().to("lch");
-    const x = Math.floor((lch.c / 132) * rect.width);
-    const y = Math.floor((1 - lch.l / 100) * rect.height);
+    const oklch = colorController().to("oklch");
+    const x = Math.floor((oklch.c / 0.4) * rect.width);
+    const y = Math.floor((1 - oklch.l) * rect.height);
 
     marker.style.cssText = `transform: translate(calc(${x}px - 50%), calc(${y}px - 50%))`;
   };
@@ -75,9 +75,9 @@ export class LCHPaint extends LitElement {
       return;
     }
 
-    const lch = colorController().to("lch");
+    const oklch = colorController().to("oklch");
 
-    this.generateColors(lch.h, this.width, this.height).then((colorArray) => {
+    this.generateColors(oklch.h, this.width, this.height).then((colorArray) => {
       const imageData = new ImageData(colorArray, this.width, this.height);
       ctx.putImageData(imageData, 0, 0);
     });
@@ -158,6 +158,6 @@ export class LCHPaint extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "lch-paint": LCHPaint;
+    "oklch-paint": OkLCHPaint;
   }
 }
