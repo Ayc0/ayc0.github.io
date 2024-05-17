@@ -9,9 +9,9 @@ import { createGenerateColors } from "./generate-lch-colors";
 @customElement("lch-paint")
 export class LCHPaint extends LitElement {
   @property({ type: Number })
-  width = 500;
+  width = 300;
   @property({ type: Number })
-  height = 300;
+  height = 200;
 
   @query("canvas")
   canvas?: HTMLCanvasElement | null;
@@ -133,7 +133,7 @@ export class LCHPaint extends LitElement {
     :host canvas {
       border-radius: 5px;
       border: 1px solid grey;
-      max-width: calc(100vw - 4em);
+      width: 100%;
       /* Avoid making the page scroll on mobile when we are pressing on it */
       touch-action: none;
     }
