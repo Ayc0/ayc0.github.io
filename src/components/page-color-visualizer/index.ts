@@ -1,4 +1,5 @@
 import "./LCHPaint/LCHPaint.ts";
+import "./OkLCHPaint/OkLCHPaint.ts";
 import "./ColorPicker/ColorPicker.ts";
 import { colorController } from "./color-controller.ts";
 

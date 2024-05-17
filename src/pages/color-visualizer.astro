@@ -40,6 +40,13 @@ import Page from '@layouts/Page.astro';
     <color-picker></color-picker>
 
     <div style="margin-top: 2em; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(calc(100vw - 4em), 200px), 1fr)); gap: 1em;">
-        <lch-paint></lch-paint>
+        <div>
+          In LCH:
+          <lch-paint></lch-paint>
+        </div>
+        <div>
+          In OkLCH:
+          <oklch-paint></oklch-paint>
+        </div>
     </div>
 </Page>
