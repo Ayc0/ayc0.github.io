@@ -43,8 +43,6 @@ export class ColorPicker extends LitElement {
     min,
     max,
     step = 1,
-    mod = (v) => v,
-    unit = "",
   }: {
     category: T;
     kind: Kind[T];
@@ -53,8 +51,6 @@ export class ColorPicker extends LitElement {
     min: number;
     max: number;
     step?: number;
-    mod?: (v: number) => number;
-    unit?: string;
   }) {
     const clamp = (n: number) => Math.min(max, Math.max(min, n));
 
@@ -87,12 +83,6 @@ export class ColorPicker extends LitElement {
           ]);
         }}
       ></color-slider>
-      <span
-        >${toFixed(
-          mod(value),
-          Math.floor(-Math.log(step) / Math.log(10))
-        )}${unit}</span
-      >
     `;
   }
 
@@ -123,8 +113,6 @@ export class ColorPicker extends LitElement {
               min: 0,
               step: 0.01,
               max: 1,
-              unit: "%",
-              mod: (v) => toFixed(v * 100, 1),
             })}
             ${this.renderInput({
               category: "oklch",
@@ -158,8 +146,6 @@ export class ColorPicker extends LitElement {
               min: 0,
               step: 0.01,
               max: 1,
-              unit: "%",
-              mod: (v) => toFixed(v * 100, 1),
             })}
             ${this.renderInput({
               category: "oklab",
@@ -195,7 +181,6 @@ export class ColorPicker extends LitElement {
               label: "luminance",
               min: 0,
               max: 100,
-              unit: "º",
             })}
             ${this.renderInput({
               category: "lch",
@@ -227,7 +212,6 @@ export class ColorPicker extends LitElement {
               label: "luminance",
               min: 0,
               max: 100,
-              unit: "º",
             })}
             ${this.renderInput({
               category: "lab",
@@ -306,7 +290,6 @@ export class ColorPicker extends LitElement {
               label: "saturation",
               min: 0,
               max: 100,
-              unit: "%",
             })}
             ${this.renderInput({
               category: "hsl",
@@ -314,7 +297,6 @@ export class ColorPicker extends LitElement {
               label: "lightness",
               min: 0,
               max: 100,
-              unit: "%",
             })}
 
             <pre class="code-wrapper"><code class='code'>${stored
@@ -346,9 +328,8 @@ export class ColorPicker extends LitElement {
 
     :host .group {
       display: grid;
-      grid-template-columns: 1fr 5ch;
+      grid-template-columns: 1fr;
       grid-template-rows: repeat(6, auto) 1fr;
-      column-gap: 1em;
       row-gap: 0.5em;
 
       margin-top: 1em;
@@ -359,18 +340,11 @@ export class ColorPicker extends LitElement {
       margin: 0;
     }
 
-    :host label {
-      grid-column: span 2;
-    }
-
     :host color-slider {
       /* Avoid making the page scroll on mobile when we are pressing on it */
       touch-action: none;
     }
 
-    :host .code-wrapper {
-      grid-column: span 2;
-    }
     :host .code {
       font-family: "Fira Code", monospace;
     }
