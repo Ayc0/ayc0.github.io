@@ -6,6 +6,9 @@ import { colorController } from "../color-controller";
 
 import { createGenerateColors } from "./generate-lch-colors";
 
+const clamp = (min: number, value: number, max: number) =>
+  Math.min(Math.max(value, min), max);
+
 @customElement("lch-paint")
 export class LCHPaint extends LitElement {
   @property({ type: Number })
@@ -35,7 +38,7 @@ export class LCHPaint extends LitElement {
     const y = Math.min(Math.max(event.clientY - rect.y, 0), rect.height);
 
     const l = Math.floor((1 - y / rect.height) * 100);
-    const c = Math.floor((x / rect.width) * 132);
+    const c = Math.floor((x / rect.width) * 150);
 
     colorController([
       {
@@ -59,8 +62,8 @@ export class LCHPaint extends LitElement {
     }
     const rect = canvas.getBoundingClientRect();
     const lch = colorController().to("lch");
-    const x = Math.floor((lch.c / 132) * rect.width);
-    const y = Math.floor((1 - lch.l / 100) * rect.height);
+    const x = Math.floor((clamp(0, lch.c, 150) / 150) * rect.width);
+    const y = Math.floor((1 - clamp(0, lch.l, 100) / 100) * rect.height);
 
     marker.style.cssText = `transform: translate(calc(${x}px - 50%), calc(${y}px - 50%))`;
   };
@@ -152,7 +155,8 @@ export class LCHPaint extends LitElement {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      border: 1px solid var(--contrast);
+      box-shadow: 0px 0px 0px 0.5px var(--black),
+        inset 0px 0px 0px 0.5px var(--white);
       z-index: 1;
     }
   `;

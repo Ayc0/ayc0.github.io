@@ -187,7 +187,7 @@ export class ColorPicker extends LitElement {
               kind: "c",
               label: "chroma",
               min: 0,
-              max: 132,
+              max: 150,
             })}
             ${this.renderInput({
               category: "lch",
@@ -246,7 +246,6 @@ export class ColorPicker extends LitElement {
               min: 0,
               max: 1,
               step: 0.01,
-              mod: (v) => toFixed(v * 255),
             })}
             ${this.renderInput({
               category: "srgb",
@@ -255,7 +254,6 @@ export class ColorPicker extends LitElement {
               min: 0,
               max: 1,
               step: 0.01,
-              mod: (v) => toFixed(v * 255),
             })}
             ${this.renderInput({
               category: "srgb",
@@ -264,7 +262,6 @@ export class ColorPicker extends LitElement {
               min: 0,
               max: 1,
               step: 0.01,
-              mod: (v) => toFixed(v * 255),
             })}
 
             <pre class="code-wrapper"><code class='code'>${stored
