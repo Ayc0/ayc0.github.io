@@ -1,4 +1,5 @@
 import React from "react";
+import { log } from "./tasks";
 
 const getRandomColor = () => {
   return `lch(${Math.floor(Math.random() * 20) + 50}% ${
@@ -19,60 +20,10 @@ declare global {
   };
 }
 
-const TimingContext = React.createContext(false);
-
-function measureTiming(label: string, color: string, withTiming: boolean) {
-  if (withTiming) {
-    console.log(performance.now().toFixed(1) + "ms " + label, color);
-    queueMicrotask(function measureTiming_microTask() {
-      console.log(
-        performance.now().toFixed(1) + "ms microtask " + label,
-        color
-      );
-    });
-    requestAnimationFrame(function measureTiming_requestAnimationFrame() {
-      console.log(
-        performance.now().toFixed(1) + "ms requestAnimationFrame " + label,
-        color
-      );
-    });
-    scheduler.postTask(
-      function measureTiming_userBlockingTask() {
-        console.log(
-          performance.now().toFixed(1) + "ms user-blocking task " + label,
-          color
-        );
-      },
-      {
-        priority: "user-blocking",
-      }
-    );
-    scheduler.postTask(
-      function measureTiming_userVisibleTask() {
-        console.log(
-          performance.now().toFixed(1) + "ms user-visible task " + label,
-          color
-        );
-      },
-      {
-        priority: "user-visible",
-      }
-    );
-    scheduler.postTask(
-      function measureTiming_backgroundTask() {
-        console.log(
-          performance.now().toFixed(1) + "ms background task " + label,
-          color
-        );
-      },
-      {
-        priority: "background",
-      }
-    );
-  } else {
-    console.log(label, color);
-  }
-}
+const TimingContext = React.createContext({
+  tasks: false,
+  timings: false,
+});
 
 class ErrorBoundary extends React.Component<
   { children?: React.ReactNode },
@@ -141,8 +92,8 @@ class ClassWithMetrics extends React.Component<{
   color = getRandomColor();
   componentId = String.fromCharCode(i++);
 
-  log(message: string) {
-    measureTiming(
+  boundLog(message: string) {
+    log(
       `%cComponent ${this.componentId}: ${message}`,
       `color: ${this.color}`,
       this.context
@@ -152,48 +103,48 @@ class ClassWithMetrics extends React.Component<{
   constructor(props: { children?: React.ReactNode; dashed?: boolean }) {
     super(props);
 
-    this.log("constructor");
+    this.boundLog("constructor");
   }
 
   override componentWillMount() {
-    this.log("componentWillMount");
+    this.boundLog("componentWillMount");
   }
 
   override componentWillReceiveProps() {
-    this.log("componentWillReceiveProps");
+    this.boundLog("componentWillReceiveProps");
   }
 
   override componentWillUpdate() {
-    this.log("componentWillUpdate");
+    this.boundLog("componentWillUpdate");
   }
 
   override componentDidMount() {
-    this.log("componentDidMount");
+    this.boundLog("componentDidMount");
   }
 
   override componentDidUpdate() {
-    this.log("componentDidUpdate");
+    this.boundLog("componentDidUpdate");
   }
 
   override shouldComponentUpdate() {
-    this.log("shouldComponentUpdate");
+    this.boundLog("shouldComponentUpdate");
     return true;
   }
 
   override getSnapshotBeforeUpdate() {
-    this.log("getSnapshotBeforeUpdate");
+    this.boundLog("getSnapshotBeforeUpdate");
   }
 
   override componentWillUnmount() {
-    this.log("componentWillUnmount");
+    this.boundLog("componentWillUnmount");
   }
 
   override render() {
-    this.log("render");
+    this.boundLog("render");
     return (
       <div
         ref={function ref(this: ClassWithMetrics, node: HTMLDivElement) {
-          this.log("ref " + (node ? "node" : "null"));
+          this.boundLog("ref " + (node ? "node" : "null"));
         }.bind(this)}
         style={{
           border: `2px ${this.props.dashed ? "dashed" : "solid"} ${this.color}`,
@@ -217,11 +168,11 @@ class ClassWithMetrics extends React.Component<{
 
 class ClassWithChildrenWithMetrics extends ClassWithMetrics {
   override render() {
-    this.log("render");
+    this.boundLog("render");
     return (
       <div
         ref={function ref(this: ClassWithMetrics, node: HTMLDivElement) {
-          this.log("ref " + (node ? "node" : "null"));
+          this.boundLog("ref " + (node ? "node" : "null"));
         }.bind(this)}
         style={{ border: `2px solid ${this.color}` }}
       >
@@ -263,9 +214,9 @@ const useMetrics = () => {
   const componentId = React.useMemo(() => String.fromCharCode(i++), []);
   const withTiming = React.useContext(TimingContext);
 
-  const log = React.useCallback(
+  const boundLog = React.useCallback(
     (message: string) => {
-      measureTiming(
+      log(
         `%cComponent ${componentId}: ${message}`,
         `color: ${color}`,
         withTiming
@@ -274,18 +225,18 @@ const useMetrics = () => {
     [withTiming]
   );
 
-  log("render");
+  boundLog("render");
   const [s, forceUpdate] = React.useState({});
 
   React.useMemo(function useMemo() {
-    log("useMemo");
+    boundLog("useMemo");
   }, []);
 
   React.useInsertionEffect(
     function useInsertionEffect() {
-      log("useInsertionEffect");
+      boundLog("useInsertionEffect");
       return function useInsertionEffect_cleanup() {
-        log("useInsertionEffect cleanup");
+        boundLog("useInsertionEffect cleanup");
       };
     },
     [s]
@@ -293,9 +244,9 @@ const useMetrics = () => {
 
   React.useLayoutEffect(
     function useLayoutEffect() {
-      log("useLayoutEffect");
+      boundLog("useLayoutEffect");
       return function useLayoutEffect_cleanup() {
-        log("useLayoutEffect cleanup");
+        boundLog("useLayoutEffect cleanup");
       };
     },
     [s]
@@ -303,15 +254,15 @@ const useMetrics = () => {
 
   React.useEffect(
     function useEffect() {
-      log("useEffect");
+      boundLog("useEffect");
       return function useEffect_cleanup() {
-        log("useEffect cleanup");
+        boundLog("useEffect cleanup");
       };
     },
     [s]
   );
 
-  return { log, color, componentId, forceUpdate };
+  return { log: boundLog, color, componentId, forceUpdate };
 };
 
 function FunctionWithMetrics({
@@ -403,21 +354,39 @@ export default function App() {
   );
   const Example: (() => JSX.Element) | undefined = examples[example!];
 
-  const [withTiming, setTiming] = React.useState(false);
+  const [withTimings, setTiming] = React.useState(false);
+  const [withTasks, setTasks] = React.useState(false);
+  const contextValue = React.useMemo(
+    () => ({ timings: withTimings, tasks: withTasks }),
+    [withTimings, withTasks]
+  );
 
   return (
     <div className="App">
       <div>
-        Timing {withTiming ? "enabled " : "disabled "}
+        Timing {withTimings ? "enabled " : "disabled "}
         <button
-          title={`Toggle timing to ${!withTiming ? "enabled " : "disabled "}`}
+          title={`Toggle timing to ${!withTimings ? "enabled " : "disabled "}`}
           onClick={() => {
             console.clear();
             i = 65;
-            setTiming(!withTiming);
+            setTiming((t) => !t);
           }}
         >
-          {withTiming ? "️⌛" : "⏳"}
+          {withTimings ? "️⌛" : "⏳"}
+        </button>
+      </div>
+      <div>
+        Tasks {withTasks ? "enabled " : "disabled "}
+        <button
+          title={`Toggle tasks to ${!withTasks ? "enabled " : "disabled "}`}
+          onClick={() => {
+            console.clear();
+            i = 65;
+            setTasks((t) => !t);
+          }}
+        >
+          {withTasks ? "️🪫" : "🔋"}
         </button>
       </div>
       <div>
@@ -444,9 +413,11 @@ export default function App() {
           </button>
         ))}
       </div>
-      <TimingContext.Provider value={withTiming}>
+      <TimingContext.Provider value={contextValue}>
         <ErrorBoundary>
-          {Example && <Example key={String(withTiming)} />}
+          {Example && (
+            <Example key={String(withTimings) + "-" + String(withTasks)} />
+          )}
         </ErrorBoundary>
       </TimingContext.Provider>
     </div>
