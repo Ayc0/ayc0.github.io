@@ -6,6 +6,9 @@ import { colorController } from "../color-controller";
 
 import { createGenerateColors } from "./generate-oklch-colors";
 
+const clamp = (min: number, value: number, max: number) =>
+  Math.min(Math.max(value, min), max);
+
 @customElement("oklch-paint")
 export class OkLCHPaint extends LitElement {
   @property({ type: Number })
@@ -59,8 +62,8 @@ export class OkLCHPaint extends LitElement {
     }
     const rect = canvas.getBoundingClientRect();
     const oklch = colorController().to("oklch");
-    const x = Math.floor((oklch.c / 0.4) * rect.width);
-    const y = Math.floor((1 - oklch.l) * rect.height);
+    const x = Math.floor((clamp(0, oklch.c, 0.4) / 0.4) * rect.width);
+    const y = Math.floor((1 - clamp(0, oklch.l, 1)) * rect.height);
 
     marker.style.cssText = `transform: translate(calc(${x}px - 50%), calc(${y}px - 50%))`;
   };
@@ -152,7 +155,8 @@ export class OkLCHPaint extends LitElement {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      border: 1px solid var(--contrast);
+      box-shadow: 0px 0px 0px 0.5px var(--black),
+        inset 0px 0px 0px 0.5px var(--white);
       z-index: 1;
     }
   `;
