@@ -70,7 +70,7 @@ export class OkLCHPaint extends LitElement {
     if (!canvas) {
       return;
     }
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { colorSpace: "display-p3" });
     if (!ctx) {
       return;
     }
