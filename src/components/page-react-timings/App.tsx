@@ -349,10 +349,16 @@ const examples = {
   function: ExampleWithFunction,
 };
 
+function resetConsole() {
+  console.clear();
+  i = 65;
+}
+
 export default function App() {
   const [example, setExample] = React.useState<null | keyof typeof examples>(
     null
   );
+  const [, forRerender] = React.useState({});
   const Example: (() => JSX.Element) | undefined = examples[example!];
 
   const [withTimings, setTiming] = React.useState(false);
@@ -369,8 +375,7 @@ export default function App() {
         <button
           title={`Toggle timing to ${!withTimings ? "enabled " : "disabled "}`}
           onClick={() => {
-            console.clear();
-            i = 65;
+            resetConsole();
             setTiming((t) => !t);
           }}
         >
@@ -382,8 +387,7 @@ export default function App() {
         <button
           title={`Toggle tasks to ${!withTasks ? "enabled " : "disabled "}`}
           onClick={() => {
-            console.clear();
-            i = 65;
+            resetConsole();
             setTasks((t) => !t);
           }}
         >
@@ -394,19 +398,28 @@ export default function App() {
         Pick example:
         <button
           onClick={() => {
-            console.clear();
-            i = 65;
+            resetConsole();
             setExample(null);
           }}
         >
           Remove all
         </button>
+        <button
+          onClick={() => {
+            resetConsole();
+            forRerender({});
+          }}
+        >
+          Re-render
+        </button>
         {Object.keys(examples).map((example) => (
           <button
             key={example}
             onClick={() => {
-              console.clear();
-              i = 65;
+              if (examples[example as keyof typeof examples] === Example) {
+                return;
+              }
+              resetConsole();
               setExample(example as keyof typeof examples);
             }}
           >
