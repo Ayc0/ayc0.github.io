@@ -300,4 +300,4 @@
     :host .code {
       font-family: "Fira Code", monospace;
     }
-  `;is([jt()],st.prototype,"isMobile",2);st=is([ot("color-picker")],st);document.documentElement.style.backgroundColor=E().to("srgb").toString();E.on(t=>{document.documentElement.style.backgroundColor=t.to("srgb").toString()});
+  `;is([jt()],st.prototype,"isMobile",2);st=is([ot("color-picker")],st);document.documentElement.style.backgroundColor=E().toString();E.on(t=>{document.documentElement.style.backgroundColor=t.toString()});
