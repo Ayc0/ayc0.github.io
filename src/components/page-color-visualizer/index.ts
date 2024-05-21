@@ -3,10 +3,8 @@ import "./OkLCHPaint/OkLCHPaint.ts";
 import "./ColorPicker/ColorPicker.ts";
 import { colorController } from "./color-controller.ts";
 
-document.documentElement.style.backgroundColor = colorController()
-  .to("srgb")
-  .toString();
+document.documentElement.style.backgroundColor = colorController().toString();
 
 colorController.on((raw) => {
-  document.documentElement.style.backgroundColor = raw.to("srgb").toString();
+  document.documentElement.style.backgroundColor = raw.toString();
 });

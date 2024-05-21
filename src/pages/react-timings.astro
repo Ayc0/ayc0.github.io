@@ -8,19 +8,32 @@ import Page from '@layouts/Page.astro';
 
     <div class="content">
         <div id="switcher"></div>
+        <hr />
         <div id="root"></div>
     </div>
 
     <style is:global>
         .content {
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
+        #root {
+            display: contents;
+        }
+
+        .grow {
+            align-self: stretch;
+        }
+
 
         .content :is(button, a) {
             background: transparent;
 
-            border: 1px solid black;
+            border: 1px solid rgb(36, 36, 36);
             border-radius: 4px;
+            margin-inline: 1px;
 
             cursor: pointer;
 
@@ -30,6 +43,12 @@ import Page from '@layouts/Page.astro';
             &:active {
                 background: #0002;
             }
+        }
+
+        .content hr {
+            align-self: stretch;
+            margin-inline: 0;
+            margin-block: 1em;
         }
     </style>
 
