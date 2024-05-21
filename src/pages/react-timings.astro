@@ -8,6 +8,7 @@ import Page from '@layouts/Page.astro';
 
     <div class="content">
         <div id="switcher"></div>
+        <hr />
         <div id="root"></div>
     </div>
 
@@ -42,6 +43,12 @@ import Page from '@layouts/Page.astro';
             &:active {
                 background: #0002;
             }
+        }
+
+        .content hr {
+            align-self: stretch;
+            margin-inline: 0;
+            margin-block: 1em;
         }
     </style>
 

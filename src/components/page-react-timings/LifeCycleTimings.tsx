@@ -9,7 +9,10 @@ const getRandomColor = () => {
 
 let i = 65;
 
-const TimingContext = React.createContext({
+const TimingContext = React.createContext<{
+  tasks: boolean | "all";
+  timings: boolean;
+}>({
   tasks: false,
   timings: false,
 });
@@ -111,17 +114,14 @@ class ClassWithMetrics extends React.Component<{
   componentId = String.fromCharCode(i++);
 
   boundLog(message: string) {
-    log(
-      `%cComponent ${this.componentId}: ${message}`,
-      `color: ${this.color}`,
-      this.context
-    );
+    log(`%cComponent ${this.componentId}: ${message}`, {
+      ...this.context,
+      style: `color: ${this.color}`,
+    });
   }
 
   constructor(props: { children?: React.ReactNode }) {
     super(props);
-
-    console.log(this.context);
 
     this.boundLog("constructor");
   }
@@ -250,11 +250,10 @@ const useMetrics = () => {
 
   const boundLog = React.useCallback(
     (message: string) => {
-      log(
-        `%cComponent ${componentId}: ${message}`,
-        `color: ${color}`,
-        withTiming
-      );
+      log(`%cComponent ${componentId}: ${message}`, {
+        ...withTiming,
+        style: `color: ${color}`,
+      });
     },
     [withTiming]
   );
@@ -408,13 +407,16 @@ export function LifeCycleTimings() {
   const [withTimings, setTiming] = React.useState(false);
   const [withTasks, setTasks] = React.useState(false);
   const contextValue = React.useMemo(
-    () => ({ timings: withTimings, tasks: withTasks }),
+    () => ({
+      timings: withTimings,
+      tasks: withTasks ? ("all" as const) : false,
+    }),
     [withTimings, withTasks]
   );
 
   return (
     <>
-      <div style={{ marginBlock: "1em" }}>
+      <div>
         Pick example:
         {Object.keys(examples).map((example) => (
           <button
@@ -432,9 +434,35 @@ export function LifeCycleTimings() {
         ))}
       </div>
 
+      <div style={{ marginTop: "0.5em" }}>
+        Timing {withTimings ? "enabled " : "disabled "}
+        <button
+          title={`Toggle timing to ${!withTimings ? "enabled " : "disabled "}`}
+          onClick={() => {
+            resetConsole();
+            setTiming((t) => !t);
+          }}
+        >
+          {withTimings ? "️⌛" : "⏳"}
+        </button>
+      </div>
+
+      <div style={{ marginBottom: "0.5em" }}>
+        Tasks {withTasks ? "enabled " : "disabled "}
+        <button
+          title={`Toggle tasks to ${!withTasks ? "enabled " : "disabled "}`}
+          onClick={() => {
+            resetConsole();
+            setTasks((t) => !t);
+          }}
+        >
+          {withTasks ? "️🪫" : "🔋"}
+        </button>
+      </div>
+
       {Example && (
         <>
-          <div>
+          <div style={{ marginBottom: "0.5em" }}>
             <button
               onClick={() => {
                 resetConsole();
@@ -450,34 +478,6 @@ export function LifeCycleTimings() {
               }}
             >
               Re-render
-            </button>
-          </div>
-
-          <div style={{ marginTop: "0.5em" }}>
-            Timing {withTimings ? "enabled " : "disabled "}
-            <button
-              title={`Toggle timing to ${
-                !withTimings ? "enabled " : "disabled "
-              }`}
-              onClick={() => {
-                resetConsole();
-                setTiming((t) => !t);
-              }}
-            >
-              {withTimings ? "️⌛" : "⏳"}
-            </button>
-          </div>
-
-          <div style={{ marginBottom: "0.5em" }}>
-            Tasks {withTasks ? "enabled " : "disabled "}
-            <button
-              title={`Toggle tasks to ${!withTasks ? "enabled " : "disabled "}`}
-              onClick={() => {
-                resetConsole();
-                setTasks((t) => !t);
-              }}
-            >
-              {withTasks ? "️🪫" : "🔋"}
             </button>
           </div>
 
