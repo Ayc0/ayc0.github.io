@@ -78,7 +78,9 @@ export class OkLCHPaint extends LitElement {
     const oklch = colorController().to("oklch");
 
     this.generateColors(oklch.h, this.width, this.height).then((colorArray) => {
-      const imageData = new ImageData(colorArray, this.width, this.height);
+      const imageData = new ImageData(colorArray, this.width, this.height, {
+        colorSpace: "display-p3",
+      });
       ctx.putImageData(imageData, 0, 0);
     });
   };
