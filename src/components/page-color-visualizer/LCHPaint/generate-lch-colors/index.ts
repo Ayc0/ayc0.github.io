@@ -5,6 +5,8 @@ import GenerateColorsWorker from "./generate-lch-colors.worker.ts?worker";
 let prevWorker: Worker | null = null;
 const isRunningMap = new WeakMap<Worker, boolean>();
 
+const doesSupportColorSpace = new ImageData(1, 1).colorSpace !== undefined;
+
 export const createGenerateColors = () => {
   return (
     hue: number,
@@ -25,7 +27,12 @@ export const createGenerateColors = () => {
       };
 
       isRunningMap.set(worker, true);
-      worker.postMessage([hue, width, height]);
+      worker.postMessage([
+        hue,
+        width,
+        height,
+        doesSupportColorSpace ? "display-p3" : "srgb",
+      ]);
     });
   };
 };
