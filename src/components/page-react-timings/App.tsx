@@ -133,6 +133,7 @@ class ClassWithMetrics extends React.Component<{
 
   override getSnapshotBeforeUpdate() {
     this.boundLog("getSnapshotBeforeUpdate");
+    return "";
   }
 
   override componentWillUnmount() {
