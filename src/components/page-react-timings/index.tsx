@@ -3,8 +3,8 @@ import React from "react";
 import { render } from "react-dom";
 import { createRoot } from "react-dom/client";
 
-import App from "./App.tsx";
-import Switcher, { isLegacyRoot } from "./Switcher.tsx";
+import { App } from "./App";
+import Switcher, { isLegacyRoot } from "./Switcher";
 
 const rootElement = document.getElementById("root")!;
 

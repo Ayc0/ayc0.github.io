@@ -1,3 +1,14 @@
+declare global {
+  const scheduler: {
+    postTask: (
+      task: Function,
+      opts: {
+        priority: "user-blocking" | "user-visible" | "background";
+      }
+    ) => void;
+  };
+}
+
 const div = document.createElement("div");
 document.body.appendChild(div);
 
