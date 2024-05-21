@@ -1,5 +1,7 @@
 import GenerateColorsWorker from "./generate-lch-colors.worker.ts?worker";
 
+// TODO: use https://docs.rs/palette/latest/palette/ and WASM instead of a web worker
+
 let prevWorker: Worker | null = null;
 const isRunningMap = new WeakMap<Worker, boolean>();
 
