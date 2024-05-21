@@ -78,9 +78,11 @@ function Legend() {
     height: "0.5ex",
   };
   return (
-    <div style={{ textAlign: "left" }}>
+    <>
       <div>
-        <span style={{ ...style, borderTop: "2px solid lch(68 91 180)" }} />{" "}
+        <span
+          style={{ ...style, borderTop: "2px solid " + getRandomColor() }}
+        />{" "}
         Component
       </div>
       <div>
@@ -95,7 +97,7 @@ function Legend() {
         <span style={{ ...style, borderTop: "4px dotted blue" }} /> Suspense in
         progress
       </div>
-    </div>
+    </>
   );
 }
 
@@ -227,19 +229,16 @@ class ClassWithChildrenWithMetrics extends ClassWithMetrics {
 
 function ExampleWithClass() {
   return (
-    <>
-      <ClassWithMetrics>
-        <ErrorBoundary>
-          <ClassWithMetrics>
-            <ClassWithMetrics />
-          </ClassWithMetrics>
-        </ErrorBoundary>
-        <ErrorBoundary>
-          <ClassWithChildrenWithMetrics />
-        </ErrorBoundary>
-      </ClassWithMetrics>
-      <Legend />
-    </>
+    <ClassWithMetrics>
+      <ErrorBoundary>
+        <ClassWithMetrics>
+          <ClassWithMetrics />
+        </ClassWithMetrics>
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <ClassWithChildrenWithMetrics />
+      </ErrorBoundary>
+    </ClassWithMetrics>
   );
 }
 
@@ -376,19 +375,16 @@ function FunctionWithChildrenWithMetrics(this: unknown) {
 
 function ExampleWithFunction() {
   return (
-    <>
-      <FunctionWithMetrics>
-        <ErrorBoundary>
-          <FunctionWithMetrics>
-            <FunctionWithMetrics />
-          </FunctionWithMetrics>
-        </ErrorBoundary>
-        <ErrorBoundary>
-          <FunctionWithChildrenWithMetrics />
-        </ErrorBoundary>
-      </FunctionWithMetrics>
-      <Legend />
-    </>
+    <FunctionWithMetrics>
+      <ErrorBoundary>
+        <FunctionWithMetrics>
+          <FunctionWithMetrics />
+        </FunctionWithMetrics>
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <FunctionWithChildrenWithMetrics />
+      </ErrorBoundary>
+    </FunctionWithMetrics>
   );
 }
 
@@ -417,49 +413,9 @@ export function LifeCycleTimings() {
   );
 
   return (
-    <div className="App">
-      <div>
-        Timing {withTimings ? "enabled " : "disabled "}
-        <button
-          title={`Toggle timing to ${!withTimings ? "enabled " : "disabled "}`}
-          onClick={() => {
-            resetConsole();
-            setTiming((t) => !t);
-          }}
-        >
-          {withTimings ? "️⌛" : "⏳"}
-        </button>
-      </div>
-      <div>
-        Tasks {withTasks ? "enabled " : "disabled "}
-        <button
-          title={`Toggle tasks to ${!withTasks ? "enabled " : "disabled "}`}
-          onClick={() => {
-            resetConsole();
-            setTasks((t) => !t);
-          }}
-        >
-          {withTasks ? "️🪫" : "🔋"}
-        </button>
-      </div>
-      <div>
+    <>
+      <div style={{ marginBlock: "1em" }}>
         Pick example:
-        <button
-          onClick={() => {
-            resetConsole();
-            setExample(null);
-          }}
-        >
-          Remove all
-        </button>
-        <button
-          onClick={() => {
-            resetConsole();
-            forceUpdate({});
-          }}
-        >
-          Re-render
-        </button>
         {Object.keys(examples).map((example) => (
           <button
             key={example}
@@ -475,13 +431,69 @@ export function LifeCycleTimings() {
           </button>
         ))}
       </div>
-      <TimingContext.Provider value={contextValue}>
-        <ErrorBoundary>
-          {Example && (
-            <Example key={String(withTimings) + "-" + String(withTasks)} />
-          )}
-        </ErrorBoundary>
-      </TimingContext.Provider>
-    </div>
+
+      {Example && (
+        <>
+          <div>
+            <button
+              onClick={() => {
+                resetConsole();
+                setExample(null);
+              }}
+            >
+              Remove all
+            </button>
+            <button
+              onClick={() => {
+                resetConsole();
+                forceUpdate({});
+              }}
+            >
+              Re-render
+            </button>
+          </div>
+
+          <div style={{ marginTop: "0.5em" }}>
+            Timing {withTimings ? "enabled " : "disabled "}
+            <button
+              title={`Toggle timing to ${
+                !withTimings ? "enabled " : "disabled "
+              }`}
+              onClick={() => {
+                resetConsole();
+                setTiming((t) => !t);
+              }}
+            >
+              {withTimings ? "️⌛" : "⏳"}
+            </button>
+          </div>
+
+          <div style={{ marginBottom: "0.5em" }}>
+            Tasks {withTasks ? "enabled " : "disabled "}
+            <button
+              title={`Toggle tasks to ${!withTasks ? "enabled " : "disabled "}`}
+              onClick={() => {
+                resetConsole();
+                setTasks((t) => !t);
+              }}
+            >
+              {withTasks ? "️🪫" : "🔋"}
+            </button>
+          </div>
+
+          <div className="grow">
+            <TimingContext.Provider value={contextValue}>
+              <ErrorBoundary>
+                <Example key={String(withTimings) + "-" + String(withTasks)} />
+              </ErrorBoundary>
+            </TimingContext.Provider>
+          </div>
+
+          <div style={{ marginTop: "0.5em" }}>
+            <Legend />
+          </div>
+        </>
+      )}
+    </>
   );
 }
