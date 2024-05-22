@@ -4,6 +4,7 @@ import { LifeCycleTimings } from "./LifeCycleTimings";
 import { Render } from "./Render";
 import { Event } from "./Event";
 import { Rerender } from "./Rerender";
+import { Context } from "./Context";
 
 export function App() {
   return (
@@ -19,6 +20,9 @@ export function App() {
       <hr />
       <h2>Test re-renders</h2>
       <Rerender />
+      <hr />
+      <h2>Context re-rendering</h2>
+      <Context />
     </>
   );
 }
