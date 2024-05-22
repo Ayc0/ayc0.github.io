@@ -17,6 +17,8 @@ const TimingContext = React.createContext<{
   timings: false,
 });
 
+const SuspenseContext = React.createContext<Set<() => void>>(new Set());
+
 class ErrorBoundary extends React.Component<
   { children?: React.ReactNode },
   { error: boolean }
@@ -31,21 +33,39 @@ class ErrorBoundary extends React.Component<
     };
   }
 
+  suspenses = new Set<() => void>();
+
+  static override contextType = TimingContext;
+  declare context: React.ContextType<typeof TimingContext>;
+
   override render() {
     if (this.state.error) {
       return <div style={{ border: `4px dotted red` }}>Oops</div>;
     }
 
     return (
-      <React.Suspense
-        fallback={
-          <div style={{ border: `4px dotted blue`, padding: "4px" }}>⏸️</div>
-        }
-      >
-        <div style={{ border: `2px double OrangeRed`, padding: "4px" }}>
-          {this.props.children}
-        </div>
-      </React.Suspense>
+      <SuspenseContext.Provider value={this.suspenses}>
+        <React.Suspense
+          fallback={
+            <div
+              style={{ border: `4px dotted blue`, padding: "4px" }}
+              onClick={() => {
+                log("resolve promises", this.context);
+                for (const res of this.suspenses) {
+                  res();
+                }
+                this.suspenses.clear();
+              }}
+            >
+              ⏸️
+            </div>
+          }
+        >
+          <div style={{ border: `2px double OrangeRed`, padding: "4px" }}>
+            {this.props.children}
+          </div>
+        </React.Suspense>
+      </SuspenseContext.Provider>
     );
   }
 }
@@ -62,13 +82,33 @@ function ErrorThrower() {
   );
 }
 
+const PromiseMap = new Map<{}, Promise<void>>();
+const createSuspense = (set: Set<() => void>) => {
+  const key = {};
+  const promise = new Promise<void>((res) => {
+    set.add(() => {
+      res();
+      PromiseMap.delete(key);
+    });
+  });
+  PromiseMap.set(key, promise);
+  return key;
+};
+
 function Suspenser() {
-  const [hasSuspense, setSuspense] = React.useState(false);
-  if (hasSuspense) {
-    throw new Promise((res) => {});
+  const [suspenseKey, setSuspenseKey] = React.useState({});
+  const suspense = PromiseMap.get(suspenseKey);
+  const suspenses = React.useContext(SuspenseContext);
+
+  if (suspense) {
+    throw suspense;
   }
+
   return (
-    <span onClick={() => setSuspense(true)} title="trigger infinite suspense">
+    <span
+      onClick={() => setSuspenseKey(createSuspense(suspenses))}
+      title="trigger infinite suspense"
+    >
       🚧
     </span>
   );
