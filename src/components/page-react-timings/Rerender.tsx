@@ -1,10 +1,16 @@
 import * as React from "react";
+import { animationFrame, log, microTask, task } from "./tasks";
 
 export function Rerender() {
   return (
     <>
       <DisplayHideButton label="re-render in useEffect">
         <RerenderInUseEffect />
+      </DisplayHideButton>
+
+      <DisplayHideButton style={{ marginTop: "1em" }} label="re-render timings">
+        <MultipleRerenderTimingsFunction />
+        <MultipleRerenderTimingsClass />
       </DisplayHideButton>
     </>
   );
@@ -13,15 +19,20 @@ export function Rerender() {
 function DisplayHideButton({
   label,
   children,
+  style,
 }: {
   label: string;
   children?: React.ReactNode;
+  style?: React.CSSProperties;
 }) {
   const [isDisplayed, setIsDisplayed] = React.useState(false);
 
   return (
     <>
-      <button onClick={() => setIsDisplayed((d) => !d)}>
+      <button
+        style={{ marginBottom: isDisplayed ? "0.5em" : undefined, ...style }}
+        onClick={() => setIsDisplayed((d) => !d)}
+      >
         {isDisplayed ? "Hide" : "Display"} {label}
       </button>
       {isDisplayed && children}
@@ -44,4 +55,72 @@ function RerenderInUseEffect() {
   });
 
   return "✅";
+}
+
+function MultipleRerenderTimingsFunction() {
+  const [a, setA] = React.useState(1);
+  const [b, setB] = React.useState(1);
+
+  console.log("render", { a, b });
+
+  const update = () => {
+    console.clear();
+    log("click (before re-renders)", { tasks: true });
+    setA((a) => a + 1);
+    log("click (between re-renders)", { tasks: true });
+    setB((b) => b + 1);
+    log("click (after re-renders)", { tasks: true });
+  };
+
+  return (
+    <div>
+      <div>Function:</div>
+      <button onClick={update}>onClick</button>
+      <button onClick={() => microTask(update)}>Micro task</button>
+      <button onClick={() => task(update)}>Task</button>
+      <button onClick={() => animationFrame(update)}>Animation frame</button>
+    </div>
+  );
+}
+
+class MultipleRerenderTimingsClass extends React.Component<
+  {},
+  { a: number; b: number }
+> {
+  override state = { a: 1, b: 1 };
+
+  update = () => {
+    console.clear();
+    log("click (before re-renders)", { tasks: true });
+    this.setState(
+      (s) => ({ ...s, a: s.a + 1 }),
+      () => {
+        console.log("Set state for a is done");
+      }
+    );
+    log("click (between re-renders)", { tasks: true });
+    this.setState(
+      (s) => ({ ...s, b: s.b + 1 }),
+      () => {
+        console.log("Set state for b is done");
+      }
+    );
+    log("click (after re-renders)", { tasks: true });
+  };
+
+  override render() {
+    console.log("render", this.state);
+
+    return (
+      <div>
+        <div>Class:</div>
+        <button onClick={this.update}>onClick</button>
+        <button onClick={() => microTask(this.update)}>Micro task</button>
+        <button onClick={() => task(this.update)}>Task</button>
+        <button onClick={() => animationFrame(this.update)}>
+          Animation frame
+        </button>
+      </div>
+    );
+  }
 }
