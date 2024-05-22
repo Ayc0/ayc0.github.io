@@ -265,14 +265,14 @@ const useMetrics = () => {
     boundLog("useMemo");
   }, []);
 
-  React.useInsertionEffect(function useInsertionEffect() {
-    boundLog("useInsertionEffect " + (elementRef.current ? "node" : "null"));
-    return function useInsertionEffect_cleanup() {
-      boundLog(
-        "useInsertionEffect cleanup " + (elementRef.current ? "node" : "null")
-      );
-    };
-  });
+  // React.useInsertionEffect(function useInsertionEffect() {
+  //   boundLog("useInsertionEffect " + (elementRef.current ? "node" : "null"));
+  //   return function useInsertionEffect_cleanup() {
+  //     boundLog(
+  //       "useInsertionEffect cleanup " + (elementRef.current ? "node" : "null")
+  //     );
+  //   };
+  // });
 
   React.useLayoutEffect(function useLayoutEffect() {
     boundLog("useLayoutEffect " + (elementRef.current ? "node" : "null"));
