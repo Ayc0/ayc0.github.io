@@ -259,45 +259,36 @@ const useMetrics = () => {
   );
 
   boundLog("render");
-  const [s, forceUpdate] = React.useState({});
+  const [, forceUpdate] = React.useState({});
 
   React.useMemo(function useMemo() {
     boundLog("useMemo");
   }, []);
 
-  React.useInsertionEffect(
-    function useInsertionEffect() {
-      boundLog("useInsertionEffect " + (elementRef.current ? "node" : "null"));
-      return function useInsertionEffect_cleanup() {
-        boundLog(
-          "useInsertionEffect cleanup " + (elementRef.current ? "node" : "null")
-        );
-      };
-    },
-    [s]
-  );
+  React.useInsertionEffect(function useInsertionEffect() {
+    boundLog("useInsertionEffect " + (elementRef.current ? "node" : "null"));
+    return function useInsertionEffect_cleanup() {
+      boundLog(
+        "useInsertionEffect cleanup " + (elementRef.current ? "node" : "null")
+      );
+    };
+  });
 
-  React.useLayoutEffect(
-    function useLayoutEffect() {
-      boundLog("useLayoutEffect " + (elementRef.current ? "node" : "null"));
-      return function useLayoutEffect_cleanup() {
-        boundLog(
-          "useLayoutEffect cleanup " + (elementRef.current ? "node" : "null")
-        );
-      };
-    },
-    [s]
-  );
+  React.useLayoutEffect(function useLayoutEffect() {
+    boundLog("useLayoutEffect " + (elementRef.current ? "node" : "null"));
+    return function useLayoutEffect_cleanup() {
+      boundLog(
+        "useLayoutEffect cleanup " + (elementRef.current ? "node" : "null")
+      );
+    };
+  });
 
-  React.useEffect(
-    function useEffect() {
-      boundLog("useEffect " + (elementRef.current ? "node" : "null"));
-      return function useEffect_cleanup() {
-        boundLog("useEffect cleanup " + (elementRef.current ? "node" : "null"));
-      };
-    },
-    [s]
-  );
+  React.useEffect(function useEffect() {
+    boundLog("useEffect " + (elementRef.current ? "node" : "null"));
+    return function useEffect_cleanup() {
+      boundLog("useEffect cleanup " + (elementRef.current ? "node" : "null"));
+    };
+  });
 
   return {
     log: boundLog,
