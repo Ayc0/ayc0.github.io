@@ -1,5 +1,8 @@
 import * as React from "react";
 import { animationFrame, log, microTask, task } from "./tasks";
+import { flushSync } from "react-dom";
+
+let includeFlushSync = false;
 
 export function Rerender() {
   return (
@@ -9,6 +12,15 @@ export function Rerender() {
       </DisplayHideButton>
 
       <DisplayHideButton style={{ marginTop: "1em" }} label="re-render timings">
+        <button
+          onClick={(event) => {
+            includeFlushSync = !includeFlushSync;
+            event.currentTarget.innerHTML = includeFlushSync
+              ? "Disable flushSync"
+              : "Enable flushSync";
+          }}
+          dangerouslySetInnerHTML={{ __html: "Enable flushSync" }}
+        />
         <MultipleRerenderTimingsFunction />
         <MultipleRerenderTimingsClass />
       </DisplayHideButton>
@@ -66,8 +78,13 @@ function MultipleRerenderTimingsFunction() {
   const update = () => {
     console.clear();
     log("click (before re-renders)", { tasks: true });
-    setA((a) => a + 1);
-    log("click (between re-renders)", { tasks: true });
+    if (includeFlushSync) {
+      flushSync(() => setA((a) => a + 1));
+      log("click (between re-renders, after flushSync)", { tasks: true });
+    } else {
+      setA((a) => a + 1);
+      log("click (between re-renders)", { tasks: true });
+    }
     setB((b) => b + 1);
     log("click (after re-renders)", { tasks: true });
   };
@@ -92,13 +109,27 @@ class MultipleRerenderTimingsClass extends React.Component<
   update = () => {
     console.clear();
     log("click (before re-renders)", { tasks: true });
-    this.setState(
-      (s) => ({ ...s, a: s.a + 1 }),
-      () => {
-        console.log("Set state for a is done");
-      }
-    );
-    log("click (between re-renders)", { tasks: true });
+
+    if (includeFlushSync) {
+      flushSync(() =>
+        this.setState(
+          (s) => ({ ...s, a: s.a + 1 }),
+          () => {
+            console.log("Set state for a is done");
+          }
+        )
+      );
+      log("click (between re-renders, after flushSync)", { tasks: true });
+    } else {
+      this.setState(
+        (s) => ({ ...s, a: s.a + 1 }),
+        () => {
+          console.log("Set state for a is done");
+        }
+      );
+      log("click (between re-renders)", { tasks: true });
+    }
+
     this.setState(
       (s) => ({ ...s, b: s.b + 1 }),
       () => {
