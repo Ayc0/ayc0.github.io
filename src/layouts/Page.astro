@@ -20,6 +20,7 @@ const { title, description, image } = Astro.props;
     <!-- HTML Meta Tags -->
     <title>{title}</title>
     {description ? <meta name="description" content={description} /> : null}
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
 
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content={Astro.url.href} />
