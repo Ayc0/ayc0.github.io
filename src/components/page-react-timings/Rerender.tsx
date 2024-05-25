@@ -12,6 +12,13 @@ export function Rerender() {
         <RerenderInUseEffect />
       </DisplayHideButton>
 
+      <DisplayHideButton
+        style={{ marginTop: "1em" }}
+        label="re-render in render"
+      >
+        <RerenderInRender />
+      </DisplayHideButton>
+
       <DisplayHideButton style={{ marginTop: "1em" }} label="re-render timings">
         <button
           onClick={(event) => {
@@ -32,17 +39,54 @@ export function Rerender() {
 function RerenderInUseEffect() {
   const [, forceUpdate] = React.useState({});
 
-  console.log("render");
+  log("render");
 
   React.useEffect(() => {
-    console.log("mount that has a re-render");
+    log("mount that has a re-render");
     forceUpdate({});
   }, []);
 
   React.useEffect(() => {
-    console.log("effect with no side effects");
+    log("effect with no side effects");
   });
 
+  return "✅";
+}
+
+function RerenderInRender() {
+  const [count, setCount] = React.useState(0);
+
+  log("%crender parent", { style: "color:green" });
+
+  if (count < 2) {
+    setCount(count + 1);
+  }
+
+  React.useLayoutEffect(() => {
+    log("%cuseLayoutEffect parent", { style: "color:green" });
+  });
+  React.useEffect(() => {
+    log("%cuseEffect parent", { style: "color:green" });
+  });
+
+  return (
+    <div
+      ref={(node) =>
+        log(`%cref ${node ? "node" : "null"}`, { style: "color:green" })
+      }
+    >
+      <RerenderInRenderChild />
+    </div>
+  );
+}
+function RerenderInRenderChild() {
+  log("%crender child", { style: "color:blue" });
+  React.useLayoutEffect(() => {
+    log("%cuseLayoutEffect child", { style: "color:blue" });
+  });
+  React.useEffect(() => {
+    log("%cuseEffect child", { style: "color:blue" });
+  });
   return "✅";
 }
 
@@ -92,7 +136,7 @@ class MultipleRerenderTimingsClass extends React.Component<
         this.setState(
           (s) => ({ ...s, a: s.a + 1 }),
           () => {
-            console.log("Set state for a is done");
+            log("Set state for a is done");
           }
         )
       );
@@ -101,7 +145,7 @@ class MultipleRerenderTimingsClass extends React.Component<
       this.setState(
         (s) => ({ ...s, a: s.a + 1 }),
         () => {
-          console.log("Set state for a is done");
+          log("Set state for a is done");
         }
       );
       log("click (between re-renders)", { tasks: true });
@@ -110,7 +154,7 @@ class MultipleRerenderTimingsClass extends React.Component<
     this.setState(
       (s) => ({ ...s, b: s.b + 1 }),
       () => {
-        console.log("Set state for b is done");
+        log("Set state for b is done");
       }
     );
     log("click (after re-renders)", { tasks: true });
