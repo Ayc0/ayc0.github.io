@@ -1511,6 +1511,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/reveal.js@npm:^5":
+  version: 5.0.3
+  resolution: "@types/reveal.js@npm:5.0.3"
+  checksum: 10c0/5a4f3ca5b6bc58acd4321ad39aaa5c6d390339657937c2462cdd0ffeede06136c794a81568ded62efa2470edd0b22893c33508232bcd9405ad286fa6857d341f
+  languageName: node
+  linkType: hard
+
 "@types/sax@npm:^1.2.1":
   version: 1.2.7
   resolution: "@types/sax@npm:1.2.7"
@@ -5027,6 +5034,7 @@ __metadata:
     "@astrojs/starlight": "npm:^0.23.0"
     "@types/react": "npm:^18.3.2"
     "@types/react-dom": "npm:^18.3.0"
+    "@types/reveal.js": "npm:^5"
     astro: "npm:^4.8.6"
     colorjs.io: "npm:^0.5.0"
     konva: "npm:^9.3.8"
@@ -5035,6 +5043,7 @@ __metadata:
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     react-konva: "npm:^18.2.10"
+    reveal.js: "npm:^5.1.0"
     typescript: "npm:^5.4.5"
   languageName: unknown
   linkType: soft
@@ -5455,6 +5464,13 @@ __metadata:
   version: 1.0.4
   resolution: "reusify@npm:1.0.4"
   checksum: 10c0/c19ef26e4e188f408922c46f7ff480d38e8dfc55d448310dfb518736b23ed2c4f547fb64a6ed5bdba92cd7e7ddc889d36ff78f794816d5e71498d645ef476107
+  languageName: node
+  linkType: hard
+
+"reveal.js@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "reveal.js@npm:5.1.0"
+  checksum: 10c0/951843da5abe03d7f8e4d5c1ae1140b56786c7e82526500c46f943fdef5b2273c185be1bec5dc19a0a87d2b23129303d944e0529257f9d16daba4f446318fc82
   languageName: node
   linkType: hard
 
