@@ -166,16 +166,21 @@ class ClassWithMetrics extends React.Component<{
     this.boundLog("constructor");
   }
 
-  override componentWillMount() {
-    this.boundLog("componentWillMount");
+  // static getDerivedStateFromProps() {
+  //   console.log("getDerivedStateFromProps");
+  //   return {};
+  // }
+
+  override UNSAFE_componentWillMount() {
+    this.boundLog("UNSAFE_componentWillMount");
   }
 
-  override componentWillReceiveProps() {
-    this.boundLog("componentWillReceiveProps");
+  override UNSAFE_componentWillReceiveProps() {
+    this.boundLog("UNSAFE_componentWillReceiveProps");
   }
 
-  override componentWillUpdate() {
-    this.boundLog("componentWillUpdate");
+  override UNSAFE_componentWillUpdate() {
+    this.boundLog("UNSAFE_componentWillUpdate");
   }
 
   override componentDidMount() {
@@ -191,10 +196,10 @@ class ClassWithMetrics extends React.Component<{
     return true;
   }
 
-  override getSnapshotBeforeUpdate() {
-    this.boundLog("getSnapshotBeforeUpdate");
-    return "";
-  }
+  // override getSnapshotBeforeUpdate() {
+  //   this.boundLog("getSnapshotBeforeUpdate");
+  //   return "";
+  // }
 
   override componentWillUnmount() {
     this.boundLog("componentWillUnmount");
