@@ -56,23 +56,33 @@ function RerenderInUseEffect() {
 function RerenderInRender() {
   const [count, setCount] = React.useState(0);
 
-  log("%crender parent", { style: "color:green" });
+  log("%cparent | render", { style: "color:green" });
+
+  React.useMemo(() => {
+    log("%cparent |  useMemo before setState", { style: "color:green" });
+  }, [count]);
 
   if (count < 2) {
     setCount(count + 1);
   }
 
+  React.useMemo(() => {
+    log("%cparent |  useMemo after setState", { style: "color:green" });
+  }, [count]);
+
   React.useLayoutEffect(() => {
-    log("%cuseLayoutEffect parent", { style: "color:green" });
+    log("%cparent |  useLayoutEffect", { style: "color:green" });
   });
   React.useEffect(() => {
-    log("%cuseEffect parent", { style: "color:green" });
+    log("%cparent |  useEffect", { style: "color:green" });
   });
 
   return (
     <div
       ref={(node) =>
-        log(`%cref ${node ? "node" : "null"}`, { style: "color:green" })
+        log(`%cparent |  ref ${node ? "node" : "null"}`, {
+          style: "color:green",
+        })
       }
     >
       <RerenderInRenderChild />
@@ -80,14 +90,24 @@ function RerenderInRender() {
   );
 }
 function RerenderInRenderChild() {
-  log("%crender child", { style: "color:blue" });
+  log("%cchild  | render", { style: "color:blue" });
   React.useLayoutEffect(() => {
-    log("%cuseLayoutEffect child", { style: "color:blue" });
+    log("%cchild  |  useLayoutEffect", { style: "color:blue" });
   });
   React.useEffect(() => {
-    log("%cuseEffect child", { style: "color:blue" });
+    log("%cchild  |  useEffect", { style: "color:blue" });
   });
-  return "✅";
+  return (
+    <div
+      ref={(node) =>
+        log(`%cchild  |  ref ${node ? "node" : "null"}`, {
+          style: "color:blue",
+        })
+      }
+    >
+      ✅
+    </div>
+  );
 }
 
 function MultipleRerenderTimingsFunction() {
