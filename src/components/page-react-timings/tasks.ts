@@ -1,16 +1,16 @@
 // === TASKS ===
 
 declare global {
-  const scheduler:
-    | {
-        postTask: (
-          task: Function,
-          opts: {
-            priority: "user-blocking" | "user-visible" | "background";
-          }
-        ) => void;
-      }
-    | undefined;
+  interface Window {
+    scheduler?: {
+      postTask: (
+        task: Function,
+        opts: {
+          priority: "user-blocking" | "user-visible" | "background";
+        }
+      ) => void;
+    };
+  }
 }
 
 export function syncTask(cb: (type: string) => void) {
@@ -24,7 +24,7 @@ export function microTask(cb: (type: string) => void) {
   });
 }
 export function userBlockingTask(cb: (type: string) => void) {
-  scheduler?.postTask(
+  window.scheduler?.postTask(
     function userBlockingTaskCallback() {
       cb("task (user-blocking)");
     },
@@ -32,7 +32,7 @@ export function userBlockingTask(cb: (type: string) => void) {
   );
 }
 export function userVisibleTask(cb: (type: string) => void) {
-  scheduler?.postTask(
+  window.scheduler?.postTask(
     function userVisibleTaskCallback() {
       cb("task (user-visible)");
     },
@@ -40,7 +40,7 @@ export function userVisibleTask(cb: (type: string) => void) {
   );
 }
 export function backgroundTask(cb: (type: string) => void) {
-  scheduler?.postTask(
+  window.scheduler?.postTask(
     function backgroundTaskCallback() {
       cb("task (background)");
     },
