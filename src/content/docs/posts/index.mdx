@@ -1,0 +1,14 @@
+---
+title: Blog posts
+---
+
+import LinkToPost from "@components/LinkToPost.astro";
+import { getPublishablePosts } from "@components/get-publishable-posts";
+
+### Latest posts
+
+{(await getPublishablePosts()).slice(0, 10).map((post) => <LinkToPost slug={post.slug} includeDate />)}
+
+### See more
+
+[Click here](/posts/full) to see the full list of posts.

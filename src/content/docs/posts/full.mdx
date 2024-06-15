@@ -1,0 +1,11 @@
+---
+title: Full list of posts
+sidebar:
+  hidden: true
+pagefind: false
+---
+
+import LinkToPost from "@components/LinkToPost.astro";
+import { getPublishablePosts } from "@components/get-publishable-posts";
+
+{(await getPublishablePosts()).map((post) => <LinkToPost slug={post.slug} includeDate />)}
