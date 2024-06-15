@@ -1,5 +1,5 @@
 ---
-title: Blog posts
+title: Full list of posts
 sidebar:
   hidden: true
 pagefind: false
@@ -7,7 +7,5 @@ pagefind: false
 
 import LinkToPost from "@components/LinkToPost.astro";
 import { getPublishablePosts } from "@components/get-publishable-posts";
-
-### Full list of posts
 
 {(await getPublishablePosts()).map((post) => <LinkToPost slug={post.slug} includeDate />)}
