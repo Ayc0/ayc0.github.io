@@ -1,11 +1,14 @@
 ---
 title: Full list of posts
-sidebar:
-  hidden: true
-pagefind: false
+template: splash
 ---
 
 import LinkToPost from "@components/LinkToPost.astro";
-import { getPublishablePosts } from "@components/get-publishable-posts";
+import { getPublishablePostsBySection } from "@components/get-publishable-posts";
 
-{(await getPublishablePosts()).map((post) => <LinkToPost slug={post.slug} includeDate />)}
+{
+Object.entries(await getPublishablePostsBySection()).map(([section, posts]) => {
+return (<><h2 id={section}>{section}</h2>
+{posts.map(post => <LinkToPost slug={post.slug} includeDate />)}</>)
+})
+}
