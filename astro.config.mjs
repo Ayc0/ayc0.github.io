@@ -17,6 +17,7 @@ export default defineConfig({
       favicon: "/images/favicon.png",
       components: {
         Head: "./src/components/starlight/Head.astro",
+        PageFrame: "./src/components/starlight/PageFrame.astro",
       },
       sidebar: [
         {
