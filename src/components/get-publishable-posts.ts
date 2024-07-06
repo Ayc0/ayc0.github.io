@@ -6,7 +6,6 @@ export const getPublishablePosts = async () => {
     (post) =>
       post.data.lastUpdated &&
       post.data.lastUpdated instanceof Date &&
-      !post.data.sidebar?.hidden &&
       !post.data.draft &&
       post.data.pagefind
   );

@@ -19,28 +19,6 @@ export default defineConfig({
         Head: "./src/components/starlight/Head.astro",
         PageFrame: "./src/components/starlight/PageFrame.astro",
       },
-      sidebar: [
-        {
-          label: "Dark mode",
-          autogenerate: { directory: "posts/Dark mode" },
-        },
-        {
-          label: "CSS",
-          autogenerate: { directory: "posts/CSS" },
-        },
-        {
-          label: "TypeScript",
-          autogenerate: { directory: "posts/TypeScript" },
-        },
-        {
-          label: "Yarn",
-          autogenerate: { directory: "posts/Yarn" },
-        },
-        {
-          label: "Others",
-          autogenerate: { directory: "posts/Others" },
-        },
-      ],
     }),
   ],
 });
