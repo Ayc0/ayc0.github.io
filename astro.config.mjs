@@ -19,6 +19,29 @@ export default defineConfig({
         Head: "./src/components/starlight/Head.astro",
         PageFrame: "./src/components/starlight/PageFrame.astro",
       },
+      // Technically not required, but to avoid having the next/prev buttons at the bottom of other pages
+      sidebar: [
+        {
+          label: "Dark mode",
+          autogenerate: { directory: "posts/Dark mode" },
+        },
+        {
+          label: "CSS",
+          autogenerate: { directory: "posts/CSS" },
+        },
+        {
+          label: "TypeScript",
+          autogenerate: { directory: "posts/TypeScript" },
+        },
+        {
+          label: "Yarn",
+          autogenerate: { directory: "posts/Yarn" },
+        },
+        {
+          label: "Others",
+          autogenerate: { directory: "posts/Others" },
+        },
+      ],
     }),
   ],
 });
