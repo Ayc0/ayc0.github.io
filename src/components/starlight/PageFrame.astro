@@ -16,7 +16,11 @@ import Default from '@astrojs/starlight/components/PageFrame.astro';
 <style is:global>
     .main-frame {
         max-width: 80ch;
-        margin-inline: auto;
+    }
+    @media (min-width: 50rem) {
+        .main-frame {
+            margin-inline: auto;
+        }
     }
 </style>
 
