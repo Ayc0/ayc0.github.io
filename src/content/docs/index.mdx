@@ -13,22 +13,39 @@ lastUpdated: false
 
 import { CardGrid, Card, LinkCard } from "@astrojs/starlight/components";
 
+<a href="/posts/" style="text-decoration: none; color: initial; display: grid">
+  <Card title="Blog posts">List of all the blog posts I wrote</Card>
+</a>
+
+## Projects
+
 <CardGrid stagger>
-  <a href="/posts/" style="text-decoration: none; color: initial">
-    <Card title="Blog posts">List of all the blog posts I wrote</Card>
-  </a>
-  <a href="/length-units/" style="text-decoration: none; color: initial">
+  <a
+    href="/length-units/"
+    style="text-decoration: none; color: initial; display: grid"
+  >
     <Card title="CSS length units">
       Listing of all CSS length units available, with their definitions, links
       to doc, and live visualization of their sizes
     </Card>
   </a>
-  <a href="/color-visualizer/" style="text-decoration: none; color: initial">
+  <a
+    href="/color-visualizer/"
+    style="text-decoration: none; color: initial; display: grid"
+  >
     <Card title="Color visualizer">
       Page to play with colors, and represent then in different color spaces
     </Card>
   </a>
-  <a href="/react-timings/" style="text-decoration: none; color: initial">
+</CardGrid>
+
+## Experiments
+
+<CardGrid stagger>
+  <a
+    href="/react-timings/"
+    style="text-decoration: none; color: initial; display: grid"
+  >
     <Card title="React timings">
       Experiment around React, life cycles, timings, and different rendering
       modes
@@ -36,7 +53,7 @@ import { CardGrid, Card, LinkCard } from "@astrojs/starlight/components";
   </a>
   <a
     href="/hexagons-without-rules/"
-    style="text-decoration: none; color: initial"
+    style="text-decoration: none; color: initial; display: grid"
   >
     <Card title="Hexagons">
       Small sandbox to play with hexagons, and with React & canvas.
