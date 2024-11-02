@@ -16,7 +16,7 @@ export const getPublishablePosts = async () => {
   );
 };
 
-const sections = ["Dark mode", "CSS", "TypeScript", "Yarn", "Others"];
+const sections = ["React", "Dark mode", "CSS", "TypeScript", "Yarn", "Others"];
 
 export const getPublishablePostsBySection = async () => {
   const posts = await getPublishablePosts();
