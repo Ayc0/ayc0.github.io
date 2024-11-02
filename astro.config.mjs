@@ -22,6 +22,10 @@ export default defineConfig({
       // Technically not required, but to avoid having the next/prev buttons at the bottom of other pages
       sidebar: [
         {
+          label: "React",
+          autogenerate: { directory: "posts/React" },
+        },
+        {
           label: "Dark mode",
           autogenerate: { directory: "posts/Dark mode" },
         },
@@ -44,4 +48,16 @@ export default defineConfig({
       ],
     }),
   ],
+
+  // Add redirects for old URLs (before the creation of the React section)
+  redirects: {
+    "/posts/other/responsive-design-in-react":
+      "/posts/react/responsive-design-in-react",
+    "/posts/other/react-refs-and-dom-references":
+      "/posts/react/react-refs-and-dom-references",
+    "/posts/other/migrating-class-components-to-hooks-rules":
+      "/posts/react/migrating-class-components-to-hooks-rules",
+    "/posts/other/migrating-class-components-to-hooks":
+      "/posts/react/migrating-class-components-to-hooks",
+  },
 });
