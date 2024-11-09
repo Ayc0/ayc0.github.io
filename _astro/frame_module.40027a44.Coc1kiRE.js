@@ -1,0 +1,1 @@
+const o="_frame_1a1zb_1",_="_window_1a1zb_13",a="_console_1a1zb_17",s="_log_1a1zb_32",c={frame:o,window:_,console:a,log:s,"log-separator":"_log-separator_1a1zb_36","clear-console":"_clear-console_1a1zb_42"};export{c};
