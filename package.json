@@ -13,7 +13,7 @@
     "node": "20.10.0",
     "yarn": "1.22.18"
   },
-  "packageManager": "yarn@4.3.1",
+  "packageManager": "yarn@4.5.1",
   "dependencies": {
     "@astrojs/starlight": "^0.29.0",
     "colorjs.io": "^0.5.2",
