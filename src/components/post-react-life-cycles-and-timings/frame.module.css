@@ -17,6 +17,7 @@
 .console[class] {
   margin-top: 0;
   background: var(--sl-color-gray-7);
+  min-height: 15rem;
 }
 @media screen and (min-width: 591px) {
   .console[class] {

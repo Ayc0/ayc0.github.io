@@ -88,7 +88,7 @@ export function A() {
         style={{
           borderTop: "1px solid var(--sl-color-gray-5)",
           padding: "1rem",
-          minHeight: "10rem",
+          minHeight: "4rem",
         }}
       >
         {state ? <Component /> : null}
