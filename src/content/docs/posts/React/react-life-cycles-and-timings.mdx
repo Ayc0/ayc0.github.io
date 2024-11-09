@@ -1,0 +1,51 @@
+---
+title: "React life-cycles & timings"
+tags: ["lifecycle", "task", "async"]
+created: 2024-11-07
+lastUpdated: 2024-11-07
+sidebar:
+  order: 5
+  hidden: true
+pagefind: false
+---
+
+:::caution[Warning]
+Still in draft
+:::
+
+Hello, I’m Ayc0 👋. I started coding in React in 2016, around the [v15.3.1](https://www.npmjs.com/package/react/v/15.3.1) (which is around {new Date().getFullYear() - 2016} years ago!). I’m the maintainer of [`@blocz/react-responsive`](https://www.npmjs.com/package/@blocz/react-responsive), did a few open-source contributions, and have been working professionally with React for also a few years.
+
+Why am I saying this? I do not consider myself bad with React (not the best either 🙈). But even after so many years spent working with it, there are a lot of elements that I never truly understood, nor even really questioned before.
+
+This article will be about all of those elements 😅
+
+### Disclaimer
+
+- Everything I will present in this article is based on my understanding & findings while playing with React.\
+  So not everything may be 100% accurate,
+- All of those could change in new versions of React, already have changed actually in the past (which is a good thing).
+
+I’ll be using the latest version of the time of writing, being the v18.x.x.
+
+You can find all those experiments on https://ayc0.github.io/react-timings/. \
+And the source code is available in my [GitHub](https://github.com/Ayc0/ayc0.github.io/tree/0a265b6/src/components/page-react-timings).
+
+## Life-cycles
+
+First question we need answering: in which order are life cycles called?
+
+:::note[Note]
+The concept of lifecycle in React is classically associated with class components: methods like `componentDidMount`, etc.
+
+I’ll also use this name to refer to hooks provided by React, such as `useEffect` (for simplicity).
+:::
+
+To measure this, we can use a code snippet like such:
+
+import { Code } from "@astrojs/starlight/components";
+import aRaw from "@components/post-react-life-cycles-and-timings/a.tsx?raw";
+import { A } from "@components/post-react-life-cycles-and-timings/a.tsx";
+
+<Code lang="tsx" code={aRaw.split("// ---")[1].trim()} />
+
+<A client:only="react" />
