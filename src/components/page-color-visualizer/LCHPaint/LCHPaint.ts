@@ -24,7 +24,21 @@ export class LCHPaint extends LitElement {
 
   isPressed = false;
 
-  generateColors = createGenerateColors();
+  #_generateColors?: ReturnType<typeof createGenerateColors>;
+  get generateColors() {
+    if (this.#_generateColors) {
+      return this.#_generateColors;
+    }
+
+    const canvas = this.canvas;
+    if (!canvas) {
+      return undefined;
+    }
+    this.#_generateColors = createGenerateColors(
+      canvas.transferControlToOffscreen()
+    );
+    return this.#_generateColors;
+  }
 
   @eventOptions({ passive: true })
   onPositionChange(event: PointerEvent) {
@@ -69,23 +83,8 @@ export class LCHPaint extends LitElement {
   };
 
   updateCanvasColors = () => {
-    const canvas = this.canvas;
-    if (!canvas) {
-      return;
-    }
-    const ctx = canvas.getContext("2d", { colorSpace: "display-p3" });
-    if (!ctx) {
-      return;
-    }
-
     const lch = colorController().to("lch");
-
-    this.generateColors(lch.h, this.width, this.height).then((colorArray) => {
-      const imageData = new ImageData(colorArray, this.width, this.height, {
-        colorSpace: "display-p3",
-      });
-      ctx.putImageData(imageData, 0, 0);
-    });
+    this.generateColors?.(lch.h, this.width, this.height);
   };
 
   constructor() {
