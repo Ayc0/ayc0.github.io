@@ -82,15 +82,15 @@ export const createOnMessage = (generateColors: GenerateColors) => {
     // ctx.putImageData takes some time to finish
     setTimeout(() => {
       isDrawing = false;
-    });
 
-    if (queuedMessage) {
-      const message = queuedMessage;
-      queuedMessage = undefined;
-      handleMessage({ data: message } as MessageEvent<
-        Message | OffscreenCanvas
-      >);
-    }
+      if (queuedMessage) {
+        const message = queuedMessage;
+        queuedMessage = undefined;
+        handleMessage({ data: message } as MessageEvent<
+          Message | OffscreenCanvas
+        >);
+      }
+    });
   }
 
   return handleMessage;
