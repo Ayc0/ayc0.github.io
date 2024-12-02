@@ -1,21 +1,10 @@
 import Color from "colorjs.io";
 
+import { task } from "../../worker-utils";
+
 interface Step {
   coordinates: { x: number; y: number };
-  colors: [number, number, number];
-}
-
-function task(cb: () => void) {
-  const mc = new MessageChannel();
-  mc.port1.postMessage(null);
-  mc.port2.addEventListener(
-    "message",
-    function taskCallback() {
-      cb();
-    },
-    { once: true }
-  );
-  mc.port2.start();
+  colors: [r: number, g: number, b: number];
 }
 
 export async function* generateColors(

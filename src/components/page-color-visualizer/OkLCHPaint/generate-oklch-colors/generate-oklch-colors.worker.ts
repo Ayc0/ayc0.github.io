@@ -1,4 +1,5 @@
 import { generateColors } from "./generate-oklch-colors";
+import { createScheduler } from "../../worker-utils";
 
 let offscreenCanvas: OffscreenCanvas | undefined;
 
@@ -9,12 +10,12 @@ type Message = [
   colorSpace: "srgb" | "display-p3"
 ];
 
-let lastMessageReceived = {};
+const scheduler = createScheduler();
 let lastSuccessfulMessage: Message | undefined;
 
 onmessage = async function (event: MessageEvent<Message | OffscreenCanvas>) {
   const key = {};
-  lastMessageReceived = key;
+  scheduler.start(key);
   if (event.data instanceof OffscreenCanvas) {
     offscreenCanvas = event.data;
     return;
@@ -37,7 +38,6 @@ onmessage = async function (event: MessageEvent<Message | OffscreenCanvas>) {
   }
 
   const ctx = offscreenCanvas.getContext("2d", { colorSpace: "display-p3" });
-
   if (!ctx) {
     return;
   }
@@ -51,7 +51,7 @@ onmessage = async function (event: MessageEvent<Message | OffscreenCanvas>) {
     height,
     colorSpace
   )) {
-    if (lastMessageReceived !== key) {
+    if (!scheduler.shouldRun(key)) {
       return;
     }
     const position = 4 * (coordinates.y * width + coordinates.x);
@@ -61,7 +61,7 @@ onmessage = async function (event: MessageEvent<Message | OffscreenCanvas>) {
     colorArray[position + 3] = 255; // A value
   }
 
-  if (lastMessageReceived !== key) {
+  if (!scheduler.shouldRun(key)) {
     return;
   }
 
@@ -69,7 +69,7 @@ onmessage = async function (event: MessageEvent<Message | OffscreenCanvas>) {
     colorSpace: "display-p3",
   });
 
-  if (lastMessageReceived !== key) {
+  if (!scheduler.shouldRun(key)) {
     return;
   }
 
