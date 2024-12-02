@@ -1,22 +1,59 @@
 import { generateColors } from "./generate-lch-colors";
 
-function send(message: Uint8ClampedArray) {
-  postMessage(message);
-}
+let offscreenCanvas: OffscreenCanvas | undefined;
 
-onmessage = function (
-  event: MessageEvent<[number, number, number, "srgb" | "display-p3"]>
-) {
+type Message = [
+  hue: number,
+  width: number,
+  height: number,
+  colorSpace: "srgb" | "display-p3"
+];
+
+let lastMessageReceived = {};
+let lastSuccessfulMessage: Message | undefined;
+
+onmessage = async function (event: MessageEvent<Message | OffscreenCanvas>) {
+  const key = {};
+  lastMessageReceived = key;
+  if (event.data instanceof OffscreenCanvas) {
+    offscreenCanvas = event.data;
+    return;
+  }
+
+  if (!offscreenCanvas) {
+    return;
+  }
+
   const [hue, width, height, colorSpace] = event.data;
+
+  if (
+    lastSuccessfulMessage &&
+    lastSuccessfulMessage[0] === hue &&
+    lastSuccessfulMessage[1] === width &&
+    lastSuccessfulMessage[2] === height &&
+    lastSuccessfulMessage[3] === colorSpace
+  ) {
+    return;
+  }
+
+  const ctx = offscreenCanvas.getContext("2d", { colorSpace: "display-p3" });
+
+  if (!ctx) {
+    return;
+  }
 
   const colorArray = new Uint8ClampedArray(width * height * 4);
 
-  for (const { coordinates, colors } of generateColors(
+  // Is a for await loop, so that we can insert a new event in the middle of the loop
+  for await (const { coordinates, colors } of generateColors(
     hue,
     width,
     height,
     colorSpace
   )) {
+    if (lastMessageReceived !== key) {
+      return;
+    }
     const position = 4 * (coordinates.y * width + coordinates.x);
     colorArray[position + 0] = colors[0] * 255; // X in P3
     colorArray[position + 1] = colors[1] * 255; // Y in P3
@@ -24,5 +61,18 @@ onmessage = function (
     colorArray[position + 3] = 255; // A value
   }
 
-  send(colorArray);
+  if (lastMessageReceived !== key) {
+    return;
+  }
+
+  const imageData = new ImageData(colorArray, width, height, {
+    colorSpace: "display-p3",
+  });
+
+  if (lastMessageReceived !== key) {
+    return;
+  }
+
+  lastSuccessfulMessage = event.data;
+  ctx.putImageData(imageData, 0, 0);
 };

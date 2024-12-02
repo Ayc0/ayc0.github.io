@@ -7,11 +7,6 @@ import "./ColorSlider";
 import { colorController, type Type, type Kind } from "../color-controller";
 import { ManateaController } from "../manatea-controller";
 
-function toFixed(number: number, decimal: number = 0) {
-  const dec = 10 ** decimal;
-  return Math.round(number * dec) / dec;
-}
-
 const view = window.matchMedia("(max-width: 595px)");
 
 @customElement("color-picker")
