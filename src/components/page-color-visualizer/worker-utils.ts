@@ -35,12 +35,6 @@ export const createOnMessage = (generateColors: GenerateColors) => {
       return;
     }
 
-    if (isDrawing) {
-      queuedMessage = event.data;
-      return;
-    }
-    isDrawing = true;
-
     const [hue, width, height, colorSpace] = event.data;
 
     if (
@@ -58,6 +52,12 @@ export const createOnMessage = (generateColors: GenerateColors) => {
       return;
     }
 
+    if (isDrawing) {
+      queuedMessage = event.data;
+      return;
+    }
+
+    isDrawing = true;
     const colorArray = new Uint8ClampedArray(width * height * 4);
 
     for (const { coordinates, colors } of generateColors(
@@ -79,6 +79,7 @@ export const createOnMessage = (generateColors: GenerateColors) => {
 
     lastSuccessfulMessage = event.data;
     ctx.putImageData(imageData, 0, 0);
+
     // ctx.putImageData takes some time to finish
     setTimeout(() => {
       isDrawing = false;
