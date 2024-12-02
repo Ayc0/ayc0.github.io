@@ -1,5 +1,5 @@
 import Color from "colorjs.io";
-import type { Step } from "@components/page-color-visualizer/worker-utils";
+import type { Step } from "../../worker-utils";
 
 export function* generateColors(
   hue: number,
