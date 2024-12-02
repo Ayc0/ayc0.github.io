@@ -1,9 +1,5 @@
 import Color from "colorjs.io";
-
-interface Step {
-  coordinates: { x: number; y: number };
-  colors: [r: number, g: number, b: number];
-}
+import type { Step } from "@components/page-color-visualizer/worker-utils";
 
 export function* generateColors(
   hue: number,
