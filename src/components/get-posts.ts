@@ -43,3 +43,12 @@ export const getPublishablePostsBySection = async () => {
 
   return groups;
 };
+
+export const getDraftPosts = async () => {
+  const posts = await getCollection(
+    "docs",
+    (post) => post.data.draft || !post.data.pagefind
+  );
+
+  return posts.sort((postA, postB) => getTime(postB) - getTime(postA));
+};

@@ -1,0 +1,11 @@
+---
+title: Drafts
+template: splash
+---
+
+import LinkToPost from "@components/LinkToPost.astro";
+import { getDraftPosts } from "@components/get-posts";
+
+List of all posts that are in the process, but not ready to be open to public:
+
+{(await getDraftPosts()).slice(0, 10).map((post) => <LinkToPost slug={post.slug} includeDate />)}
