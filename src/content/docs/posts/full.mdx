@@ -4,7 +4,7 @@ template: splash
 ---
 
 import LinkToPost from "@components/LinkToPost.astro";
-import { getPublishablePostsBySection } from "@components/get-publishable-posts";
+import { getPublishablePostsBySection } from "@components/get-posts";
 
 {
 Object.entries(await getPublishablePostsBySection()).map(([section, posts]) => {

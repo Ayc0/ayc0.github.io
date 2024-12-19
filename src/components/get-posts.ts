@@ -1,5 +1,17 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 
+const getTime = (post: CollectionEntry<"docs">): number => {
+  if (post.data.lastUpdated instanceof Date) {
+    return post.data.lastUpdated.getTime();
+  }
+
+  if (typeof post.data.lastUpdated === "number") {
+    return post.data.lastUpdated;
+  }
+
+  return 0;
+};
+
 export const getPublishablePosts = async () => {
   const posts = await getCollection(
     "docs",
@@ -9,11 +21,8 @@ export const getPublishablePosts = async () => {
       !post.data.draft &&
       post.data.pagefind
   );
-  return posts.sort(
-    (postA, postB) =>
-      (postB.data.lastUpdated as Date).getTime() -
-      (postA.data.lastUpdated as Date).getTime()
-  );
+
+  return posts.sort((postA, postB) => getTime(postB) - getTime(postA));
 };
 
 const sections = ["React", "Dark mode", "CSS", "TypeScript", "Yarn", "Others"];
