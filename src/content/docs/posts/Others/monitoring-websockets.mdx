@@ -1,0 +1,42 @@
+---
+title: "Monitoring WebSockets"
+tags: ["JS", "tip", "Monitoring"]
+sidebar:
+  hidden: true
+pagefind: false
+---
+
+:::caution[Warning]
+Still in draft
+:::
+
+```js
+const GlobalWS = globalThis.WebSocket;
+
+const onMessage = console.log;
+const onClose = console.log;
+const onError = console.log;
+const onOpen = console.log;
+
+class WebSocketWithHooks extends GlobalWS {
+  constructor(...args) {
+    super(...args);
+
+    this.addEventListener("message", onMessage);
+    this.addEventListener("close", onClose);
+    this.addEventListener("error", onError);
+    this.addEventListener("open", onOpen);
+
+    this.addEventListener("close", this.#removeListener, { once: true });
+  }
+
+  #removeListeners() {
+    this.removeEventListener("message", onMessage);
+    this.removeEventListener("close", onClose);
+    this.removeEventListener("error", onError);
+    this.removeEventListener("open", onOpen);
+  }
+}
+
+globalThis.WebSocket = WebSocketWithHooks;
+```
