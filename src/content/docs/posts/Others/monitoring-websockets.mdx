@@ -14,15 +14,16 @@ Still in draft
 
 ## Introduction
 
-When monitoring browser resources, like fetched HTML/CSS/JS files, most tools like [Sentry](https://github.com/getsentry/sentry-javascript) or [Datadog](https://github.com/DataDog/browser-sdk) use the native [PerformanceObserver](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver).
+While tools like [Sentry](https://github.com/getsentry/sentry-javascript) or [Datadog](https://github.com/DataDog/browser-sdk) are amazing to track performance issues of HTML, CSS, JavaScript, and XHR requests, they often don’t provide the best tools when it comes to [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket). WebSocket connections themselves may be logged, but the messages/errors sent over them are not captured by these tools.
 
+Why? Because they all are built on top of the native [PerformanceObserver](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver), which doesn’t include any events for WebSockets.<br/>
 You can check https://dyte.io/blog/web-api-performance-monitoring/ for how to set it up manually.
-
-Problem: this won’t work for [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket). Even if the connections were logged, messages won’t be.
 
 ## Solution
 
-This is a dirty solution but to my knowledge it’s not possible otherwise. What is this solution? A custom patch of the global object, something looking like this:
+This solution may not be the cleanest, but to the best of my knowledge, there is no other way to achieve this functionality. The approach involves creating a custom patch of the global `WebSocket` object, allowing us to hook into WebSocket events and capture the messages sent over them.
+
+Here’s an example:
 
 ```js
 const GlobalWebSocket = globalThis.WebSocket;
@@ -54,20 +55,20 @@ globalThis.WebSocket = WebSocketWithHooks;
 
 ### How does it work?
 
-By patching to global variable `WebSocket`, you take control of all created websockets. Not only yours, but also the ones created by 3rd party library. The only requirement is that it has to be the 1st line of JS executed (or amongst the 1st ones.)
+By overriding the global `WebSocket` object, you gain control over all WebSocket instances created on the page — including those instantiated by third-party libraries. The key is that this script must run as early as possible in the page's lifecycle, ideally as the first or one of the first lines of JavaScript executed.
 
-After this, you can create the listeners you want, and even customize them to fit your needs.
+After this, you can create the listeners you want, and even customize them to suit your specific needs.
 
 ### Examples
 
-You can find in this section a few samples of snippets for ideas on our to monitor WebSocket. But you can customize to your liking.
+Here are a few examples showing how you can monitor WebSocket activity. You can further tailor these examples to suit your specific needs.
 
 :::note[Pro tip]
 You can strictly type all events:
 
-- `message` is a [`MessageEvent`](https://developer.mozilla.org/en-US/docs/Web/API/MessageEvent),
-- `close` is a [`CloseEvent`](https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent),
-- both `error` and `close` events are regular events.
+- The `message` event is a [`MessageEvent`](https://developer.mozilla.org/en-US/docs/Web/API/MessageEvent).
+- The `close` event is a [`CloseEvent`](https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent).
+- Both the `error` and `close` events are standard events.
 
 :::
 
@@ -80,15 +81,17 @@ class WebSocketWithHooks extends GlobalWebSocket {
   constructor(...args) {
     super(...args);
 
+    // Log errors when they occur
     const onError = (errorEvent) => {
-      console.error("Received an error in a websocket", {
-        creationArgs: args,
+      console.error("WebSocket error occurred", {
+        creationArgs: args, // Log the arguments used to create the WebSocket
         error: errorEvent,
       });
     };
 
     this.addEventListener("error", onError);
 
+    // Clean up listeners when the WebSocket is closed
     this.addEventListener(
       "close",
       () => {
@@ -111,9 +114,10 @@ class WebSocketWithHooks extends GlobalWebSocket {
   constructor(...args) {
     super(...args);
 
+    // Log details about incoming messages
     const onMessage = (messageEvent) => {
-      console.error("Received an message in a websocket", {
-        creationArgs: args,
+      console.log("Received a message in WebSocket", {
+        creationArgs: args, // Log WebSocket creation arguments
         messageType:
           typeof messageEvent.data === "string"
             ? "string"
@@ -135,6 +139,7 @@ class WebSocketWithHooks extends GlobalWebSocket {
 
     this.addEventListener("message", onMessage);
 
+    // Clean up listeners when the WebSocket is closed
     this.addEventListener(
       "close",
       () => {
