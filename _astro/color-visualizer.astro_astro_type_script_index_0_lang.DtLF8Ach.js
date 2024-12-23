@@ -72,7 +72,8 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      box-shadow: 0px 0px 0px 0.5px var(--black),
+      box-shadow:
+        0px 0px 0px 0.5px var(--black),
         inset 0px 0px 0px 0.5px var(--white);
       z-index: 1;
     }
@@ -108,7 +109,8 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      box-shadow: 0px 0px 0px 0.5px var(--black),
+      box-shadow:
+        0px 0px 0px 0.5px var(--black),
         inset 0px 0px 0px 0.5px var(--white);
       z-index: 1;
     }
@@ -116,7 +118,8 @@
   width: ${li}px;
   height: ${hs+us*2}px;
   background: #00000000;
-  box-shadow: 0 0 0 ${Bt}px var(--black),
+  box-shadow:
+    0 0 0 ${Bt}px var(--black),
     inset 0 0 0 ${Bt}px var(--white);
   border-radius: 3px;
   cursor: pointer;
