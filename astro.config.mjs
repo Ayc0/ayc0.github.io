@@ -22,6 +22,18 @@ export default defineConfig({
         rss: "https://ayc0.github.io/rss.xml",
       },
 
+      head: [
+        {
+          tag: "link",
+          attrs: {
+            rel: "alternate",
+            type: "application/rss+xml",
+            title: "RSS Feed for ayc0.github.io",
+            href: "/rss.xml",
+          },
+        },
+      ],
+
       components: {
         Head: "./src/components/starlight/Head.astro",
         PageFrame: "./src/components/starlight/PageFrame.astro",
