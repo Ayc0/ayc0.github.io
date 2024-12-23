@@ -44,7 +44,7 @@ class WebSocketWithHooks extends GlobalWebSocket {
         this.removeEventListener("error", onError);
         this.removeEventListener("open", onOpen);
       },
-      { once: true }
+      { once: true },
     );
   }
 }
@@ -94,7 +94,7 @@ class WebSocketWithHooks extends GlobalWebSocket {
       () => {
         this.removeEventListener("error", onError);
       },
-      { once: true }
+      { once: true },
     );
   }
 }
@@ -118,18 +118,18 @@ class WebSocketWithHooks extends GlobalWebSocket {
           typeof messageEvent.data === "string"
             ? "string"
             : messageEvent.data instanceof ArrayBuffer
-            ? "ArrayBuffer"
-            : messageEvent.data instanceof Blob
-            ? "Blob"
-            : "unknown",
+              ? "ArrayBuffer"
+              : messageEvent.data instanceof Blob
+                ? "Blob"
+                : "unknown",
         size:
           typeof messageEvent.data === "string"
             ? messageEvent.data.length
             : messageEvent.data instanceof ArrayBuffer
-            ? messageEvent.data.byteLength
-            : messageEvent.data instanceof Blob
-            ? messageEvent.data.size
-            : 0,
+              ? messageEvent.data.byteLength
+              : messageEvent.data instanceof Blob
+                ? messageEvent.data.size
+                : 0,
       });
     };
 
@@ -140,7 +140,7 @@ class WebSocketWithHooks extends GlobalWebSocket {
       () => {
         this.removeEventListener("message", onMessage);
       },
-      { once: true }
+      { once: true },
     );
   }
 }

@@ -14,53 +14,59 @@ const backgrounds: { [category in Category]: string } = {
 };
 ---
 
-<Page title="CSS length units" description="Display all different CSS length units" image="css-length-units-og.png">
-    <style is:global>
-      .wrapper {
-        display: grid;
-        grid-template-columns: min-content min-content 1fr;
-        align-items: center;
-        row-gap: 4px;
-        column-gap: 1em;
-      }
+<Page
+  title="CSS length units"
+  description="Display all different CSS length units"
+  image="css-length-units-og.png"
+>
+  <style is:global>
+    .wrapper {
+      display: grid;
+      grid-template-columns: min-content min-content 1fr;
+      align-items: center;
+      row-gap: 4px;
+      column-gap: 1em;
+    }
 
-      .description {
-        grid-column: span 2;
-        min-width: 0;
-        margin-bottom: 0.5em;
-        margin-left: 0.5em;
-      }
+    .description {
+      grid-column: span 2;
+      min-width: 0;
+      margin-bottom: 0.5em;
+      margin-left: 0.5em;
+    }
 
-      /* Utility classes */
-      .whole-row {
-        grid-column: 1 / -1;
-      }
-      .escape-from-layout {
-        display: contents;
-      }
-    </style>
+    /* Utility classes */
+    .whole-row {
+      grid-column: 1 / -1;
+    }
+    .escape-from-layout {
+      display: contents;
+    }
+  </style>
 
-    <div class="wrapper">
-      {
-        Object.entries(lengthUnits).map(([category, { link, units }]) => (
-          <div
-            class="escape-from-layout"
-            style={`--color: ${backgrounds[category as Category]}`}
-          >
-            <h2 id={category} class="whole-row">
-                <a
-                  style="text-decoration-color: var(--color)"
-                  href={`#${encodeURIComponent(category)}`}
-                >
-                  {category}</a><span style={{ fontSize: "1.1rem", marginLeft: "1ch" }}><a href={link}>(more)</a>
-                </span>
-            </h2>
-            {units.map(([unit, description]) => (
-              <Unit client:load unit={unit} description={description} />
-            ))}
-          </div>
-        ))
-      }
-    </div>
-
+  <div class="wrapper">
+    {
+      Object.entries(lengthUnits).map(([category, { link, units }]) => (
+        <div
+          class="escape-from-layout"
+          style={`--color: ${backgrounds[category as Category]}`}
+        >
+          <h2 id={category} class="whole-row">
+            <a
+              style="text-decoration-color: var(--color)"
+              href={`#${encodeURIComponent(category)}`}
+            >
+              {category}
+            </a>
+            <span style={{ fontSize: "1.1rem", marginLeft: "1ch" }}>
+              <a href={link}>(more)</a>
+            </span>
+          </h2>
+          {units.map(([unit, description]) => (
+            <Unit client:load unit={unit} description={description} />
+          ))}
+        </div>
+      ))
+    }
+  </div>
 </Page>

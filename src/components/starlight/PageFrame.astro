@@ -1,31 +1,36 @@
 ---
-import type { Props } from '@astrojs/starlight/props';
-import Default from '@astrojs/starlight/components/PageFrame.astro';
+import type { Props } from "@astrojs/starlight/props";
+import Default from "@astrojs/starlight/components/PageFrame.astro";
 ---
 
 <Default {...Astro.props} hasSidebar={false}>
-    <slot name="header" slot="header" />
-    <slot name="sidebar" slot="sidebar" />
-    <slot />
+  <slot name="header" slot="header" />
+  <slot name="sidebar" slot="sidebar" />
+  <slot />
 </Default>
 
 <script>
-    delete document.documentElement.dataset.hasSidebar;
+  delete document.documentElement.dataset.hasSidebar;
 </script>
 
 <style is:global>
+  .main-frame {
+    max-width: 80ch;
+  }
+  @media (min-width: 50rem) {
     .main-frame {
-        max-width: 80ch;
+      margin-inline: auto;
     }
-    @media (min-width: 50rem) {
-        .main-frame {
-            margin-inline: auto;
-        }
-    }
+  }
 </style>
 
-
 <!-- 100% privacy-first analytics -->
-<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
-<noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
-
+<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"
+></script>
+<noscript
+  ><img
+    src="https://queue.simpleanalyticscdn.com/noscript.gif"
+    alt=""
+    referrerpolicy="no-referrer-when-downgrade"
+  /></noscript
+>

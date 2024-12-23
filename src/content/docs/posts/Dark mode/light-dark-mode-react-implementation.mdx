@@ -113,7 +113,7 @@ As we want to avoid flicker during page loads, I added a small **blocking** scri
   let theme;
   if (mode === "system") {
     const isSystemInDarkMode = matchMedia(
-      "(prefers-color-scheme: dark)"
+      "(prefers-color-scheme: dark)",
     ).matches;
     theme = isSystemInDarkMode ? "dark" : "light";
   } else {
