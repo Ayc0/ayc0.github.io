@@ -29,7 +29,7 @@ export default defineConfig({
             rel: "alternate",
             type: "application/rss+xml",
             title: "RSS Feed for ayc0.github.io",
-            href: "/rss.xml",
+            href: "https://ayc0.github.io/rss.xml",
           },
         },
       ],
