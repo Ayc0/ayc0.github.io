@@ -18,6 +18,7 @@ export default defineConfig({
       components: {
         Head: "./src/components/starlight/Head.astro",
         PageFrame: "./src/components/starlight/PageFrame.astro",
+        PageTitle: "./src/components/starlight/PageTitle.astro",
       },
       // Technically not required, but to avoid having the next/prev buttons at the bottom of other pages
       sidebar: [
