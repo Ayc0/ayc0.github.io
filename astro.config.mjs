@@ -15,6 +15,13 @@ export default defineConfig({
       title: "Ayc0",
       lastUpdated: true,
       favicon: "/images/favicon.png",
+
+      social: {
+        github: "https://github.com/Ayc0",
+        blueSky: "https://bsky.app/profile/ayc0.github.io",
+        rss: "https://ayc0.github.io/rss.xml",
+      },
+
       components: {
         Head: "./src/components/starlight/Head.astro",
         PageFrame: "./src/components/starlight/PageFrame.astro",
