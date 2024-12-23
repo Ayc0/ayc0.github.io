@@ -1,24 +1,33 @@
 ---
 title: "Monitoring WebSockets"
-tags: ["JS", "tip", "Monitoring"]
+tags: ["JS", "tip", "Monitoring", "WebSocket"]
 sidebar:
   hidden: true
 pagefind: false
+created: 2024-12-23
+lastUpdated: 2024-12-23
 ---
 
 :::caution[Warning]
 Still in draft
 :::
 
+## Introduction
+
+When monitoring browser resources, like fetched HTML/CSS/JS files, most tools like [Sentry](https://github.com/getsentry/sentry-javascript) or [Datadog](https://github.com/DataDog/browser-sdk) use the native [PerformanceObserver](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver).
+
+You can check https://dyte.io/blog/web-api-performance-monitoring/ for how to set it up manually.
+
+Problem: this won’t work for [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket). Even if the connections were logged, messages won’t be.
+
+## Solution
+
+This is a dirty solution but to my knowledge it’s not possible otherwise. What is this solution? A custom patch of the global object, something looking like this:
+
 ```js
-const GlobalWS = globalThis.WebSocket;
+const GlobalWebSocket = globalThis.WebSocket;
 
-const onMessage = console.log;
-const onClose = console.log;
-const onError = console.log;
-const onOpen = console.log;
-
-class WebSocketWithHooks extends GlobalWS {
+class WebSocketWithHooks extends GlobalWebSocket {
   constructor(...args) {
     super(...args);
 
@@ -27,14 +36,112 @@ class WebSocketWithHooks extends GlobalWS {
     this.addEventListener("error", onError);
     this.addEventListener("open", onOpen);
 
-    this.addEventListener("close", this.#removeListener, { once: true });
+    this.addEventListener(
+      "close",
+      () => {
+        this.removeEventListener("message", onMessage);
+        this.removeEventListener("close", onClose);
+        this.removeEventListener("error", onError);
+        this.removeEventListener("open", onOpen);
+      },
+      { once: true }
+    );
   }
+}
 
-  #removeListeners() {
-    this.removeEventListener("message", onMessage);
-    this.removeEventListener("close", onClose);
-    this.removeEventListener("error", onError);
-    this.removeEventListener("open", onOpen);
+globalThis.WebSocket = WebSocketWithHooks;
+```
+
+### How does it work?
+
+By patching to global variable `WebSocket`, you take control of all created websockets. Not only yours, but also the ones created by 3rd party library. The only requirement is that it has to be the 1st line of JS executed (or amongst the 1st ones.)
+
+After this, you can create the listeners you want, and even customize them to fit your needs.
+
+### Examples
+
+You can find in this section a few samples of snippets for ideas on our to monitor WebSocket. But you can customize to your liking.
+
+:::note[Pro tip]
+You can strictly type all events:
+
+- `message` is a [`MessageEvent`](https://developer.mozilla.org/en-US/docs/Web/API/MessageEvent),
+- `close` is a [`CloseEvent`](https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent),
+- both `error` and `close` events are regular events.
+
+:::
+
+#### Handling errors
+
+```js
+const GlobalWebSocket = globalThis.WebSocket;
+
+class WebSocketWithHooks extends GlobalWebSocket {
+  constructor(...args) {
+    super(...args);
+
+    const onError = (errorEvent) => {
+      console.error("Received an error in a websocket", {
+        creationArgs: args,
+        error: errorEvent,
+      });
+    };
+
+    this.addEventListener("error", onError);
+
+    this.addEventListener(
+      "close",
+      () => {
+        this.removeEventListener("error", onError);
+      },
+      { once: true }
+    );
+  }
+}
+
+globalThis.WebSocket = WebSocketWithHooks;
+```
+
+#### Message type & size
+
+```js
+const GlobalWebSocket = globalThis.WebSocket;
+
+class WebSocketWithHooks extends GlobalWebSocket {
+  constructor(...args) {
+    super(...args);
+
+    const onMessage = (messageEvent) => {
+      console.error("Received an message in a websocket", {
+        creationArgs: args,
+        messageType:
+          typeof messageEvent.data === "string"
+            ? "string"
+            : messageEvent.data instanceof ArrayBuffer
+            ? "ArrayBuffer"
+            : messageEvent.data instanceof Blob
+            ? "Blob"
+            : "unknown",
+        size:
+          typeof messageEvent.data === "string"
+            ? messageEvent.data.length
+            : messageEvent.data instanceof ArrayBuffer
+            ? messageEvent.data.byteLength
+            : messageEvent.data instanceof Blob
+            ? messageEvent.data.size
+            : 0,
+      });
+    };
+
+    this.addEventListener("message", onMessage);
+
+    this.addEventListener(
+      "close",
+      () => {
+        this.removeEventListener("message", onMessage);
+      },
+      { once: true }
+    );
   }
 }
 
