@@ -6,10 +6,24 @@ import getReadingTime from "reading-time";
 
 const readingTime = getReadingTime(Astro.props.entry.body)
 
+let lastUpdated: Date | undefined;
+if (typeof Astro.props.entry.data.lastUpdated === 'number') {
+    lastUpdated = new Date(Astro.props.entry.data.lastUpdated)
+} else if (Astro.props.entry.data.lastUpdated instanceof Date) {
+    lastUpdated = Astro.props.entry.data.lastUpdated
+}
+
+const lastUpdatedString = lastUpdated?.toLocaleDateString('en-US', { year: "numeric", month: "long", day: "numeric" })
+
 // TODO: add created at time
 ---
 
 <Default {...Astro.props}></Default>
 
-<p>{readingTime.text} • Last updated {new Date(Astro.props.entry.data.lastUpdated).toLocaleDateString('en-US', { year: "numeric", month: "long", day: "numeric" })}</p>
+{
+    // Only display the reading time & last updated when it is a doc
+    Astro.props.entry.data.template === 'doc'
+        ? <p>{readingTime.text}{lastUpdatedString ? ` • Last updated ${lastUpdatedString}` : ''}</p>
+        : null
+}
 
