@@ -6,7 +6,7 @@ import { getPublishablePosts } from "@components/get-posts";
 
 export const GET: APIRoute = async (context) => {
   const posts = await getPublishablePosts();
-  console.log(context);
+
   return rss({
     title: "Projects by Ayc0",
     description:
@@ -14,10 +14,11 @@ export const GET: APIRoute = async (context) => {
     site: context.site!,
     items: posts.map((post) => ({
       title: post.data.title,
+      link: post.slug,
       // TODO: add the pubDate
       // pubDate: post.data.pubDate,
-      description: post.data.description,
-      link: post.slug,
+      // TODO: add description to all posts (and make it required + add it to preview to LinkToPost)
+      // description: post.data.description,
     })),
   });
 };
