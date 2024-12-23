@@ -59,6 +59,9 @@ const { title, description, image } = Astro.props;
       ) : null
     }
 
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for ayc0.github.io" href="/rss.xml" />
+
     <!-- Others -->
     <meta name="generator" content={Astro.generator} />
   </head>
