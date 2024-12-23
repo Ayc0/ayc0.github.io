@@ -14,7 +14,8 @@ const thumbStyles = css`
   width: ${thumbWidth}px;
   height: ${height + offset * 2}px;
   background: #00000000;
-  box-shadow: 0 0 0 ${borderWidth}px var(--black),
+  box-shadow:
+    0 0 0 ${borderWidth}px var(--black),
     inset 0 0 0 ${borderWidth}px var(--white);
   border-radius: 3px;
   cursor: pointer;
@@ -74,7 +75,7 @@ export class ColorSlider extends LitElement {
 
     const stops = Color.steps(
       from.range(to, { space: this.referenceColor.space.id, hue: "raw" }),
-      { steps: 50 }
+      { steps: 50 },
     );
 
     this.prevBackgroundRange = `linear-gradient(to right, ${stops.join(", ")})`;

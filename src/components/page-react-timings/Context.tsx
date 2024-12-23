@@ -53,7 +53,7 @@ const PassThrough = React.memo(
         {children}
       </div>
     );
-  }
+  },
 );
 
 const Child = React.memo(() => {

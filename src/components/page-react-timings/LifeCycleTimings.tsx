@@ -300,7 +300,7 @@ const useMetrics = () => {
         style: `color: ${color}`,
       });
     },
-    [withTiming]
+    [withTiming],
   );
 
   boundLog("render");
@@ -314,7 +314,7 @@ const useMetrics = () => {
     boundLog("useInsertionEffect " + (elementRef.current ? "node" : "null"));
     return function useInsertionEffect_cleanup() {
       boundLog(
-        "useInsertionEffect cleanup " + (elementRef.current ? "node" : "null")
+        "useInsertionEffect cleanup " + (elementRef.current ? "node" : "null"),
       );
     };
   });
@@ -323,7 +323,7 @@ const useMetrics = () => {
     boundLog("useLayoutEffect " + (elementRef.current ? "node" : "null"));
     return function useLayoutEffect_cleanup() {
       boundLog(
-        "useLayoutEffect cleanup " + (elementRef.current ? "node" : "null")
+        "useLayoutEffect cleanup " + (elementRef.current ? "node" : "null"),
       );
     };
   });
@@ -435,7 +435,7 @@ function resetConsole() {
 
 export function LifeCycleTimings() {
   const [example, setExample] = React.useState<null | keyof typeof examples>(
-    null
+    null,
   );
   const [, forceUpdate] = React.useState({});
   const Example: (() => JSX.Element) | undefined = examples[example!];
@@ -447,7 +447,7 @@ export function LifeCycleTimings() {
       timings: withTimings,
       tasks: withTasks ? ("all" as const) : false,
     }),
-    [withTimings, withTasks]
+    [withTimings, withTasks],
   );
 
   return (

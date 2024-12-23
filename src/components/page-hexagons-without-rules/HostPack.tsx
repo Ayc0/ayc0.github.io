@@ -45,7 +45,7 @@ const RenderWithPacking = React.memo(
       rotation,
     });
     return children({ correctedX, correctedY });
-  }
+  },
 );
 
 export const HostPack = ({
@@ -74,7 +74,7 @@ export const HostPack = ({
         rotation={rotation}
       />
     ),
-    [radius, rotation, ...Object.entries(props).flat(1)]
+    [radius, rotation, ...Object.entries(props).flat(1)],
   );
   return (
     <PackContext.Provider value={packingFn}>

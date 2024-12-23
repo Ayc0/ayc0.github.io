@@ -15,7 +15,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@astrojs/compiler@npm:^2.10.3":
+"@astrojs/compiler@npm:^2.10.3, @astrojs/compiler@npm:^2.9.1":
   version: 2.10.3
   resolution: "@astrojs/compiler@npm:2.10.3"
   checksum: 10c0/35e7a6e9d197924a3203afd3bd7bff39c8d4271516816c30173cca872302312c3748eefc5a5832523f49b98743115628a1b96922d7d96588a8d96e110a106b88
@@ -5173,6 +5173,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prettier-plugin-astro@npm:^0.14.1":
+  version: 0.14.1
+  resolution: "prettier-plugin-astro@npm:0.14.1"
+  dependencies:
+    "@astrojs/compiler": "npm:^2.9.1"
+    prettier: "npm:^3.0.0"
+    sass-formatter: "npm:^0.7.6"
+  checksum: 10c0/f812607d422ff36df1bf58534a96590a861dedf41e70f8f36fa9546b91def65b17f4507e1c9212dab56cbbae2f4ab5ff6e7e31370b9198261360c6444daa297c
+  languageName: node
+  linkType: hard
+
+"prettier@npm:^3.0.0, prettier@npm:^3.4.2":
+  version: 3.4.2
+  resolution: "prettier@npm:3.4.2"
+  bin:
+    prettier: bin/prettier.cjs
+  checksum: 10c0/99e076a26ed0aba4ebc043880d0f08bbb8c59a4c6641cdee6cdadf2205bdd87aa1d7823f50c3aea41e015e99878d37c58d7b5f0e663bba0ef047f94e36b96446
+  languageName: node
+  linkType: hard
+
 "prismjs@npm:^1.29.0":
   version: 1.29.0
   resolution: "prismjs@npm:1.29.0"
@@ -5200,6 +5220,8 @@ __metadata:
     konva: "npm:^9.3.16"
     lit: "npm:^3.2.1"
     manatea: "npm:^0.6.1"
+    prettier: "npm:^3.4.2"
+    prettier-plugin-astro: "npm:^0.14.1"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
     react-konva: "npm:^19.0.1"
@@ -5707,10 +5729,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"s.color@npm:0.0.15":
+  version: 0.0.15
+  resolution: "s.color@npm:0.0.15"
+  checksum: 10c0/50532b1307a65ac5e1076f5b556f5ce7e5c8ea3ff1c73810a226a0109efe84ff196e10017cd906c78a87d9600a26ca7016ac78896232aa05949a98bf2100adf1
+  languageName: node
+  linkType: hard
+
 "safer-buffer@npm:>= 2.1.2 < 3.0.0":
   version: 2.1.2
   resolution: "safer-buffer@npm:2.1.2"
   checksum: 10c0/7e3c8b2e88a1841c9671094bbaeebd94448111dd90a81a1f606f3f67708a6ec57763b3b47f06da09fc6054193e0e6709e77325415dc8422b04497a8070fa02d4
+  languageName: node
+  linkType: hard
+
+"sass-formatter@npm:^0.7.6":
+  version: 0.7.9
+  resolution: "sass-formatter@npm:0.7.9"
+  dependencies:
+    suf-log: "npm:^2.5.3"
+  checksum: 10c0/172eb326121ace1a48e689a1419efab2d780623631d106ac306ac2a055e96813bda36044f20bc4cc28d761427efc136a08d07153d1b8a8ccf0a032dca5fdce3c
   languageName: node
   linkType: hard
 
@@ -6058,6 +6096,15 @@ __metadata:
   dependencies:
     inline-style-parser: "npm:0.2.4"
   checksum: 10c0/daa6646b1ff18258c0ca33ed281fbe73485c8391192db1b56ce89d40c93ea64507a41e8701d0dadfe771bc2f540c46c9b295135f71584c8e5cb23d6a19be9430
+  languageName: node
+  linkType: hard
+
+"suf-log@npm:^2.5.3":
+  version: 2.5.3
+  resolution: "suf-log@npm:2.5.3"
+  dependencies:
+    s.color: "npm:0.0.15"
+  checksum: 10c0/67edce59cce30964b2bec4f2e726c980c1e83d266adb186e3a92f8d267916cd2ae38f8e5aa14af9df675837708d93b212a7e3241505abec948d7fd3705781f0a
   languageName: node
   linkType: hard
 

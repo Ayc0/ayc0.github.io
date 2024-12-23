@@ -5,7 +5,7 @@ export function* generateColors(
   hue: number,
   width: number,
   height: number,
-  colorSpace: "srgb" | "display-p3"
+  colorSpace: "srgb" | "display-p3",
 ): Generator<Step> {
   const color = new Color("lch", [50, 50, hue]);
   for (let x = 0; x < width; x += 1) {

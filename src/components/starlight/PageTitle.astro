@@ -1,29 +1,35 @@
 ---
-import type { Props } from '@astrojs/starlight/props';
-import Default from '@astrojs/starlight/components/PageTitle.astro';
+import type { Props } from "@astrojs/starlight/props";
+import Default from "@astrojs/starlight/components/PageTitle.astro";
 
 import getReadingTime from "reading-time";
 
-const readingTime = getReadingTime(Astro.props.entry.body)
+const readingTime = getReadingTime(Astro.props.entry.body);
 
 let lastUpdated: Date | undefined;
-if (typeof Astro.props.entry.data.lastUpdated === 'number') {
-    lastUpdated = new Date(Astro.props.entry.data.lastUpdated)
+if (typeof Astro.props.entry.data.lastUpdated === "number") {
+  lastUpdated = new Date(Astro.props.entry.data.lastUpdated);
 } else if (Astro.props.entry.data.lastUpdated instanceof Date) {
-    lastUpdated = Astro.props.entry.data.lastUpdated
+  lastUpdated = Astro.props.entry.data.lastUpdated;
 }
 
-const lastUpdatedString = lastUpdated?.toLocaleDateString('en-US', { year: "numeric", month: "long", day: "numeric" })
+const lastUpdatedString = lastUpdated?.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
 
 // TODO: add created at time
 ---
 
-<Default {...Astro.props}></Default>
+<Default {...Astro.props} />
 
 {
-    // Only display the reading time & last updated when it is a doc
-    Astro.props.entry.data.template === 'doc'
-        ? <p>{readingTime.text}{lastUpdatedString ? ` • Last updated ${lastUpdatedString}` : ''}</p>
-        : null
+  // Only display the reading time & last updated when it is a doc
+  Astro.props.entry.data.template === "doc" ? (
+    <p>
+      {readingTime.text}
+      {lastUpdatedString ? ` • Last updated ${lastUpdatedString}` : ""}
+    </p>
+  ) : null
 }
-

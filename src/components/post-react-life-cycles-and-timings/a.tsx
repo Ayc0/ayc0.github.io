@@ -41,7 +41,7 @@ function Component() {
 
 export function A() {
   const [state, setState] = React.useState<null | Record<string, unknown>>(
-    null
+    null,
   );
 
   return (

@@ -1,17 +1,19 @@
 ---
-import type { Props } from '@astrojs/starlight/props';
-import Default from '@astrojs/starlight/components/Head.astro';
+import type { Props } from "@astrojs/starlight/props";
+import Default from "@astrojs/starlight/components/Head.astro";
 
 const image = Astro.props.entry.data.image;
 
-const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/*.{jpeg,jpg,png,gif}');
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/*.{jpeg,jpg,png,gif}",
+);
 let path: string | undefined;
 if (image && images[image]) {
-    path = (await (images[image]!())).default.src
+  path = (await images[image]!()).default.src;
 }
 ---
 
-<Default {...Astro.props}></Default>
+<Default {...Astro.props} />
 
 {path ? <meta property="og:image" content={Astro.url.origin + path} /> : null}
 {path ? <meta name="twitter:image" content={Astro.url.origin + path} /> : null}

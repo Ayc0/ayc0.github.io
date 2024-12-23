@@ -19,7 +19,7 @@ export const getPublishablePosts = async () => {
       post.data.lastUpdated &&
       post.data.lastUpdated instanceof Date &&
       !post.data.draft &&
-      post.data.pagefind
+      post.data.pagefind,
   );
 
   return posts.sort((postA, postB) => getTime(postB) - getTime(postA));
@@ -31,7 +31,7 @@ export const getPublishablePostsBySection = async () => {
   const posts = await getPublishablePosts();
   // console.log(posts);
   const groups: Record<string, CollectionEntry<"docs">[]> = Object.fromEntries(
-    sections.map((section) => [section, []])
+    sections.map((section) => [section, []]),
   );
   for (const post of posts) {
     const group = post.id.split("/")[1];
@@ -47,7 +47,7 @@ export const getPublishablePostsBySection = async () => {
 export const getDraftPosts = async () => {
   const posts = await getCollection(
     "docs",
-    (post) => post.data.draft || !post.data.pagefind
+    (post) => post.data.draft || !post.data.pagefind,
   );
 
   return posts.sort((postA, postB) => getTime(postB) - getTime(postA));

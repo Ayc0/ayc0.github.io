@@ -20,7 +20,7 @@ const initialLCHColor = new Color("srgb", [0.2, 0.45, 0.98]);
 
 const computeUpdate = (
   update: TriggerUpdate,
-  previouslyStored: Color
+  previouslyStored: Color,
 ): Color => {
   const newColor = new Color(previouslyStored).to(update.type);
   newColor[update.kind] = update.value;
@@ -35,5 +35,5 @@ export const colorController = orderCup<Color, TriggerUpdate[]>(
       valueToStore = computeUpdate(update, valueToStore);
     }
     return valueToStore;
-  }
+  },
 );

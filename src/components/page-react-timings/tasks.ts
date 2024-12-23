@@ -7,7 +7,7 @@ declare global {
         task: Function,
         opts: {
           priority: "user-blocking" | "user-visible" | "background";
-        }
+        },
       ) => void;
     };
   }
@@ -28,7 +28,7 @@ export function userBlockingTask(cb: (type: string) => void) {
     function userBlockingTaskCallback() {
       cb("task (user-blocking)");
     },
-    { priority: "user-blocking" }
+    { priority: "user-blocking" },
   );
 }
 export function userVisibleTask(cb: (type: string) => void) {
@@ -36,7 +36,7 @@ export function userVisibleTask(cb: (type: string) => void) {
     function userVisibleTaskCallback() {
       cb("task (user-visible)");
     },
-    { priority: "user-visible" }
+    { priority: "user-visible" },
   );
 }
 export function backgroundTask(cb: (type: string) => void) {
@@ -44,7 +44,7 @@ export function backgroundTask(cb: (type: string) => void) {
     function backgroundTaskCallback() {
       cb("task (background)");
     },
-    { priority: "background" }
+    { priority: "background" },
   );
 }
 export function task(cb: (type: string) => void) {
@@ -55,7 +55,7 @@ export function task(cb: (type: string) => void) {
     function taskCallback() {
       cb("task");
     },
-    { once: true }
+    { once: true },
   );
   mc.port2.start();
 }
@@ -67,7 +67,7 @@ export function animationFrame(cb: (type: string) => void) {
 
 export function startAllTasks(
   cb: (type: string) => void,
-  includeVariationsOfTasks = false
+  includeVariationsOfTasks = false,
 ) {
   if (includeVariationsOfTasks) {
     backgroundTask(cb);
@@ -108,7 +108,7 @@ export function log(
     timings?: boolean;
     style?: string;
     nestedLogMessage?: string | undefined;
-  } = {}
+  } = {},
 ) {
   if (!tasks) {
     console.log(getNow(timings) + label, style);
@@ -124,7 +124,7 @@ export function log(
     console.log(
       getNow(timings) + "%c" + type + "%c " + label,
       ...timingStyle,
-      style
+      style,
     );
     if (nestedLogMessage) {
       log("< " + type + " " + nestedLogMessage, {
@@ -153,7 +153,7 @@ export function find() {
       time = now;
       console.log(
         "  %cNew animation frame (frame " + now + ")",
-        "color: green"
+        "color: green",
       );
     }
     console.log("  %c" + message, "color: orange");

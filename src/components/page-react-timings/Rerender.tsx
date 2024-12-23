@@ -157,8 +157,8 @@ class MultipleRerenderTimingsClass extends React.Component<
           (s) => ({ ...s, a: s.a + 1 }),
           () => {
             log("Set state for a is done");
-          }
-        )
+          },
+        ),
       );
       log("click (between re-renders, after flushSync)", { tasks: true });
     } else {
@@ -166,7 +166,7 @@ class MultipleRerenderTimingsClass extends React.Component<
         (s) => ({ ...s, a: s.a + 1 }),
         () => {
           log("Set state for a is done");
-        }
+        },
       );
       log("click (between re-renders)", { tasks: true });
     }
@@ -175,7 +175,7 @@ class MultipleRerenderTimingsClass extends React.Component<
       (s) => ({ ...s, b: s.b + 1 }),
       () => {
         log("Set state for b is done");
-      }
+      },
     );
     log("click (after re-renders)", { tasks: true });
   };

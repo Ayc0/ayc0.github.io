@@ -7,7 +7,7 @@ type GenerateColors = (
   hue: number,
   width: number,
   height: number,
-  colorSpace: "srgb" | "display-p3"
+  colorSpace: "srgb" | "display-p3",
 ) => Generator<Step>;
 
 export const createOnMessage = (generateColors: GenerateColors) => {
@@ -17,7 +17,7 @@ export const createOnMessage = (generateColors: GenerateColors) => {
     hue: number,
     width: number,
     height: number,
-    colorSpace: "srgb" | "display-p3"
+    colorSpace: "srgb" | "display-p3",
   ];
 
   let lastSuccessfulMessage: Message | undefined;
@@ -64,7 +64,7 @@ export const createOnMessage = (generateColors: GenerateColors) => {
       hue,
       width,
       height,
-      colorSpace
+      colorSpace,
     )) {
       const position = 4 * (coordinates.y * width + coordinates.x);
       colorArray[position + 0] = colors[0] * 255; // X in P3

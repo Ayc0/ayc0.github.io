@@ -11,7 +11,7 @@ export const hexagon: Packing = ({
   radius = 10,
   origin: [x, y] = [0, 0],
   spacing = 0,
-  rotation = 0
+  rotation = 0,
 }) => {
   if (n === 1) {
     return [x, y];
@@ -49,7 +49,7 @@ export const hexagon: Packing = ({
 export function useAutochangingNumber({
   number,
   setNumber,
-  play
+  play,
 }: {
   number: number;
   setNumber: (cb: (n: number) => number) => void;
@@ -60,17 +60,20 @@ export function useAutochangingNumber({
     if (!play) {
       return;
     }
-    const id = setTimeout(() => {
-      setNumber((n) => {
-        if (n <= 1) {
-          coef.current = 1;
-        }
-        if (n >= 331) {
-          coef.current = -1;
-        }
-        return n + coef.current * 1;
-      });
-    }, 1000 / outerLayerOfSize(layerOfElement(number)));
+    const id = setTimeout(
+      () => {
+        setNumber((n) => {
+          if (n <= 1) {
+            coef.current = 1;
+          }
+          if (n >= 331) {
+            coef.current = -1;
+          }
+          return n + coef.current * 1;
+        });
+      },
+      1000 / outerLayerOfSize(layerOfElement(number)),
+    );
     return () => {
       clearTimeout(id);
     };
