@@ -7,7 +7,9 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint:check": "yarn prettier --check \"**/*.{js,astro,md,mdx}\"",
+    "lint:fix": "yarn prettier --write \"**/*.{js,astro,md,mdx}\""
   },
   "volta": {
     "node": "22.11.0",
@@ -29,6 +31,8 @@
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "astro": "^5.1.1",
+    "prettier": "^3.4.2",
+    "prettier-plugin-astro": "^0.14.1",
     "reading-time": "^1.5.0",
     "typescript": "^5.7.2"
   }
