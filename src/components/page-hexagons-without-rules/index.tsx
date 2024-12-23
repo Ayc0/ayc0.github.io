@@ -68,12 +68,12 @@ export function PageHexagonsWithoutRules() {
             sX(
               initCoordRef.current!.canvas.x +
                 event.clientX -
-                initCoordRef.current!.event.x
+                initCoordRef.current!.event.x,
             );
             sY(
               initCoordRef.current!.canvas.y +
                 event.clientY -
-                initCoordRef.current!.event.y
+                initCoordRef.current!.event.y,
             );
           }
         }}

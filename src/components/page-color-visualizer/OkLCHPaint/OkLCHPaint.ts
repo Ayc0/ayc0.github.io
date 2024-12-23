@@ -35,7 +35,7 @@ export class OkLCHPaint extends LitElement {
       return undefined;
     }
     this.#_generateColors = createGenerateColors(
-      canvas.transferControlToOffscreen()
+      canvas.transferControlToOffscreen(),
     );
     return this.#_generateColors;
   }
@@ -112,7 +112,7 @@ export class OkLCHPaint extends LitElement {
           @pointerdown=${(event: PointerEvent) => {
             // If we were pressing on the canvas and the mouse moved out of the canvas, it’ll keep the canvas focused
             (event.currentTarget as HTMLCanvasElement).setPointerCapture(
-              event.pointerId
+              event.pointerId,
             );
             this.isPressed = true;
             this.onPositionChange(event);
@@ -121,7 +121,7 @@ export class OkLCHPaint extends LitElement {
           @pointerup=${(event: PointerEvent) => {
             // On pointer up, we can release the pointer
             (event.currentTarget as HTMLCanvasElement).releasePointerCapture(
-              event.pointerId
+              event.pointerId,
             );
             this.isPressed = false;
           }}
@@ -154,7 +154,8 @@ export class OkLCHPaint extends LitElement {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      box-shadow: 0px 0px 0px 0.5px var(--black),
+      box-shadow:
+        0px 0px 0px 0.5px var(--black),
         inset 0px 0px 0px 0.5px var(--white);
       z-index: 1;
     }

@@ -10,7 +10,7 @@ export const createFrame = () => {
 
     console.log = (...messages: string[]) => {
       React.startTransition(() =>
-        setLogs((logs) => [...logs, messages.join(" ")])
+        setLogs((logs) => [...logs, messages.join(" ")]),
       );
     };
 
@@ -18,7 +18,7 @@ export const createFrame = () => {
       React.startTransition(() =>
         setLogs([
           <span className={classes["clear-console"]}>Console was cleared</span>,
-        ])
+        ]),
       );
     };
 
