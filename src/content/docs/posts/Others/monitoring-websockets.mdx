@@ -1,7 +1,7 @@
 ---
 title: "Monitoring WebSockets"
 tags: ["JavaScript", "Tip", "Monitoring", "WebSocket"]
-created: 2024-12-23
+createdAt: 2024-12-23
 lastUpdated: 2024-12-23
 image: /src/assets/monitoring-websockets.png
 ---
@@ -53,7 +53,7 @@ globalThis.WebSocket = WebSocketWithHooks;
 
 ### How does it work?
 
-By overriding the global `WebSocket` object, you gain control over all WebSocket instances created on the page — including those instantiated by third-party libraries. The key is that this script must run as early as possible in the page's lifecycle, ideally as the first or one of the first lines of JavaScript executed.
+By overriding the global `WebSocket` object, you gain control over all WebSocket instances createdAt on the page — including those instantiated by third-party libraries. The key is that this script must run as early as possible in the page's lifecycle, ideally as the first or one of the first lines of JavaScript executed.
 
 After this, you can create the listeners you want, and even customize them to suit your specific needs.
 

@@ -19,6 +19,7 @@ if (entry == null) {
 
 let description: undefined | string;
 if (includeDate && entry.data.lastUpdated) {
+  // TODO: rework
   description =
     "Last updated " +
     new Date(entry.data.lastUpdated).toLocaleDateString("en-US", {

@@ -1,7 +1,7 @@
 ---
 title: "React refs and dom references"
 tags: ["react", "refs", "dom"]
-created: 2020-08-21
+createdAt: 2020-08-21
 lastUpdated: 2020-08-21
 sidebar:
   order: 3
@@ -43,7 +43,7 @@ class MyComponent extends React.Component {
 
 ## Render lag
 
-What I call "render lag" is the fact that refs that are bound to DOM elements will always be 1 render late: when doing `ref={inputRef}`, react-dom attached the domElement once it is created and added to DOM tree. So in order for the ref **to be bound to the right DOM element**, a **render need to occur**.
+What I call "render lag" is the fact that refs that are bound to DOM elements will always be 1 render late: when doing `ref={inputRef}`, react-dom attached the domElement once it is createdAt and added to DOM tree. So in order for the ref **to be bound to the right DOM element**, a **render need to occur**.
 
 Which is why, if you want to **safely use refs** + dom nodes, you should **only access them in methods that run after the renders** (useEffect / useLayoutEffect / componentDidMount / componentDidUpdate).
 But you shouldn't read refs' value directly within the render itself (render method / useMemo).
