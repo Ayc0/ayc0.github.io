@@ -4,22 +4,12 @@ import Default from "@astrojs/starlight/components/PageTitle.astro";
 
 import getReadingTime from "reading-time";
 
+import { getCreatedDate } from "@components/get-posts";
+
 const readingTime = getReadingTime(Astro.props.entry.body);
 
-let lastUpdated: Date | undefined;
-if (typeof Astro.props.entry.data.lastUpdated === "number") {
-  lastUpdated = new Date(Astro.props.entry.data.lastUpdated);
-} else if (Astro.props.entry.data.lastUpdated instanceof Date) {
-  lastUpdated = Astro.props.entry.data.lastUpdated;
-}
+const createdDate = getCreatedDate(Astro.props.entry)
 
-const lastUpdatedString = lastUpdated?.toLocaleDateString("en-US", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
-
-// TODO: add created at time
 ---
 
 <Default {...Astro.props} />
@@ -29,7 +19,7 @@ const lastUpdatedString = lastUpdated?.toLocaleDateString("en-US", {
   Astro.props.entry.data.template === "doc" ? (
     <p>
       {readingTime.text}
-      {lastUpdatedString ? ` • Last updated ${lastUpdatedString}` : ""}
+      {createdDate ? ` • ${createdDate}` : ''}
     </p>
   ) : null
 }

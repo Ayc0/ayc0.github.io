@@ -1,12 +1,8 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 
 const getTime = (post: CollectionEntry<"docs">): number => {
-  if (post.data.lastUpdated instanceof Date) {
-    return post.data.lastUpdated.getTime();
-  }
-
-  if (typeof post.data.lastUpdated === "number") {
-    return post.data.lastUpdated;
+  if (post.data.createdAt) {
+    return post.data.createdAt.getTime();
   }
 
   return 0;
@@ -15,11 +11,7 @@ const getTime = (post: CollectionEntry<"docs">): number => {
 export const getPublishablePosts = async () => {
   const posts = await getCollection(
     "docs",
-    (post) =>
-      post.data.lastUpdated &&
-      post.data.lastUpdated instanceof Date &&
-      !post.data.draft &&
-      post.data.pagefind,
+    (post) => post.data.createdAt && !post.data.draft && post.data.pagefind,
   );
 
   return posts.sort((postA, postB) => getTime(postB) - getTime(postA));
@@ -51,4 +43,33 @@ export const getDraftPosts = async () => {
   );
 
   return posts.sort((postA, postB) => getTime(postB) - getTime(postA));
+};
+
+export const getCreatedDate = (
+  post: Pick<CollectionEntry<"docs">, "data">,
+): string => {
+  if (!post.data.createdAt) {
+    return "";
+  }
+
+  let full = `Posted on ${post.data.createdAt.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  })}`;
+
+  if (post.data.lastUpdated instanceof Date) {
+    if (
+      post.data.createdAt.toLocaleDateString("en-US") !==
+      post.data.lastUpdated.toLocaleDateString("en-US")
+    ) {
+      full += ` (Edited on ${post.data.lastUpdated.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      })})`;
+    }
+  }
+
+  return full;
 };

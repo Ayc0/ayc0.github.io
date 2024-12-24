@@ -1,6 +1,8 @@
 ---
-import { LinkCard } from "@astrojs/starlight/components";
 import { getEntry } from "astro:content";
+import { LinkCard } from "@astrojs/starlight/components";
+
+import { getCreatedDate } from "@components/get-posts";
 
 export interface Props {
   slug: string;
@@ -17,15 +19,10 @@ if (entry == null) {
   throw new Error(`slug ${slug} isn’t valid`);
 }
 
-let description: undefined | string;
-if (includeDate && entry.data.lastUpdated) {
-  description =
-    "Last updated " +
-    new Date(entry.data.lastUpdated).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+// TODO: rework to include the real description
+let description: string | undefined
+if (includeDate) {
+  description = getCreatedDate(entry)
 }
 ---
 
