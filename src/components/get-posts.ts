@@ -44,3 +44,32 @@ export const getDraftPosts = async () => {
 
   return posts.sort((postA, postB) => getTime(postB) - getTime(postA));
 };
+
+export const getCreatedDate = (
+  post: Pick<CollectionEntry<"docs">, "data">,
+): string => {
+  if (!post.data.createdAt) {
+    return "";
+  }
+
+  let full = `Posted on ${post.data.createdAt.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  })}`;
+
+  if (post.data.lastUpdated instanceof Date) {
+    if (
+      post.data.createdAt.toLocaleDateString("en-US") !==
+      post.data.lastUpdated.toLocaleDateString("en-US")
+    ) {
+      full += ` (Edited on ${post.data.lastUpdated.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      })})`;
+    }
+  }
+
+  return full;
+};
