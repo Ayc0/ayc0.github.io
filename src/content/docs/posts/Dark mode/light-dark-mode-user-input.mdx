@@ -5,6 +5,7 @@ createdAt: 2021-05-30
 lastUpdated: 2023-01-15
 sidebar:
   order: 3
+description: "In this article, we’ll see how we can implement the logic to switch back & forth between light/dark mode"
 ---
 
 import Codepen from "@components/Codepen.astro";
@@ -20,7 +21,9 @@ But users of your website cannot change their theme directly from the website, t
 
 The easiest is to apply a data attribute to the html light/dark.
 
-> Note: I'd still recommend setting the `:color-scheme` to `light` and `dark` for native inputs.
+:::note
+I’d still recommend setting the `:color-scheme` to `light` and `dark` for native inputs.
+:::
 
 The CSS is still fairly simple:
 
@@ -98,6 +101,8 @@ themeToggler.onclick = () => {
 };
 ```
 
-> Note: if you don't want any blink when users will load the page (seeing an empty white page when reloading the page for instance while they picked a dark mode for your website), it's important that this JS is executed in a blocking way, so that browsers won't render the html/css without having first computed this JS and applied the data attribute on the html.
+:::note
+if you don't want any blink when users will load the page (seeing an empty white page when reloading the page for instance while they picked a dark mode for your website), it's important that this JS is executed in a blocking way, so that browsers won't render the html/css without having first computed this JS and applied the data attribute on the html.
+:::
 
 <Codepen user="ayc0" id="NWpwgqM" />

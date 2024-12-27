@@ -5,6 +5,7 @@ createdAt: 2020-08-18
 lastUpdated: 2020-08-18
 sidebar:
   order: 2
+description: "Migrating class components to hooks can be difficult. There is no official guideline to help you migrate to them. This article will list the major advices you may want to follow during those migrations"
 ---
 
 import LinkToPost from "@components/LinkToPost.astro";
@@ -22,7 +23,7 @@ First, a few changes need to be done in the class component:
 | `componentWillReceiveProps` | `componentDidReceiveProps` |
 | `componentWillUpdate`       | `componentDidUpdate`       |
 
-I recommend you to check [react's doc](https://reactjs.org/docs/react-component.html#unsafe_componentwillreceiveprops) if you want more informations on the deprecation of these methods.
+I recommend you to check [react's doc](https://reactjs.org/docs/react-component.html#unsafe_componentwillreceiveprops) if you want more information on the deprecation of these methods.
 
 Then those are the main hooks you will want to use:
 
