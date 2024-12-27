@@ -16,8 +16,7 @@ export const GET: APIRoute = async (context) => {
       title: post.data.title,
       link: post.slug,
       pubDate: post.data.createdAt,
-      // TODO: add description to all posts (and make it required + add it to preview to LinkToPost)
-      // description: post.data.description,
+      description: post.data.description,
     })),
   });
 };

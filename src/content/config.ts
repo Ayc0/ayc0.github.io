@@ -7,6 +7,7 @@ export const collections = {
       extend: z
         .object({
           image: z.string().optional(),
+          createdAt: z.date().optional(), // only required to make it available on all types (for the RSS)
         })
         .and(
           // Draft pages don’t have any requirements
@@ -33,7 +34,7 @@ export const collections = {
                 pagefind: z.literal(true).optional(), // To avoid matching with the draft
                 createdAt: z.date(),
                 lastUpdated: z.date().optional(),
-                description: z.string().optional(), // TODO: mark as required
+                description: z.string(),
               }),
             ),
         ),
