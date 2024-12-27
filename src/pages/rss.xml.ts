@@ -17,6 +17,13 @@ export const GET: APIRoute = async (context) => {
       link: post.slug,
       pubDate: post.data.createdAt,
       description: post.data.description,
+      enclosure: post.data.image
+        ? {
+            url: context.site! + post.data.image,
+            length: 0, // no need to pass a real one, but potentially it could be better? nerdy.dev uses 0 too
+            type: `image/${post.data.image.split(".").at(-1)}`,
+          }
+        : undefined,
     })),
   });
 };
