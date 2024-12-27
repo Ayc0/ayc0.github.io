@@ -6,10 +6,7 @@ export const collections = {
     schema: docsSchema({
       extend: z
         .object({
-          image: z
-            .string()
-            .regex(/^\/src\/assets\/[^/.]+.(png|jpeg)$/)
-            .optional(),
+          image: z.string().optional(),
           createdAt: z.date().optional(), // only required to make it available on all types (for the RSS)
         })
         .and(
