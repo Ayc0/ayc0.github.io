@@ -6,6 +6,10 @@ interface Props {
 }
 
 const { title, description, image } = Astro.props;
+import { getImagePath } from '@components/images'
+
+
+let imagePath: string | undefined = await getImagePath(image);
 ---
 
 <!doctype html>
@@ -32,10 +36,10 @@ const { title, description, image } = Astro.props;
       ) : null
     }
     {
-      image ? (
+      imagePath ? (
         <meta
           property="og:image"
-          content={Astro.url.origin + import.meta.env.BASE_URL + image}
+          content={Astro.url.origin + import.meta.env.BASE_URL + imagePath}
         />
       ) : null
     }
@@ -51,10 +55,10 @@ const { title, description, image } = Astro.props;
       ) : null
     }
     {
-      image ? (
+      imagePath ? (
         <meta
           name="twitter:image"
-          content={Astro.url.origin + import.meta.env.BASE_URL + image}
+          content={Astro.url.origin + import.meta.env.BASE_URL + imagePath}
         />
       ) : null
     }
