@@ -6,8 +6,7 @@ interface Props {
 }
 
 const { title, description, image } = Astro.props;
-import { getImagePath } from '@components/images'
-
+import { getImagePath } from "@components/images";
 
 let imagePath: string | undefined = await getImagePath(image);
 ---
@@ -64,7 +63,12 @@ let imagePath: string | undefined = await getImagePath(image);
     }
 
     <!-- RSS Feed -->
-    <link rel="alternate" type="application/rss+xml" title="RSS Feed for ayc0.github.io" href={Astro.url.origin + "/rss.xml"} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="RSS Feed for ayc0.github.io"
+      href={Astro.url.origin + "/rss.xml"}
+    />
 
     <!-- Others -->
     <meta name="generator" content={Astro.generator} />

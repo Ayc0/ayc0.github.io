@@ -8,8 +8,7 @@ import { getCreatedDate } from "@components/get-posts";
 
 const readingTime = getReadingTime(Astro.props.entry.body);
 
-const createdDate = getCreatedDate(Astro.props.entry)
-
+const createdDate = getCreatedDate(Astro.props.entry);
 ---
 
 <Default {...Astro.props} />
@@ -19,7 +18,7 @@ const createdDate = getCreatedDate(Astro.props.entry)
   Astro.props.entry.data.template === "doc" ? (
     <p>
       {readingTime.text}
-      {createdDate ? ` • ${createdDate}` : ''}
+      {createdDate ? ` • ${createdDate}` : ""}
     </p>
   ) : null
 }

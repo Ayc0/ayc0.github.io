@@ -20,19 +20,18 @@ if (entry == null) {
 }
 
 // TODO: rework to include the real description
-let description: string | undefined
+let description: string | undefined;
 if (includeDate) {
-  description = getCreatedDate(entry)
+  description = getCreatedDate(entry);
 }
 
 if (entry.data.description) {
   if (!description) {
-    description = entry.data.description
+    description = entry.data.description;
   } else {
-    description = `<p>${description}</p><p>${entry.data.description}</p>`
+    description = `<p>${description}</p><p>${entry.data.description}</p>`;
   }
 }
-
 ---
 
 <LinkCard

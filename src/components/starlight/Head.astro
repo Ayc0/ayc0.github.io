@@ -2,13 +2,28 @@
 import type { Props } from "@astrojs/starlight/props";
 import Default from "@astrojs/starlight/components/Head.astro";
 
-import { getImagePath } from '@components/images'
+import { getImagePath } from "@components/images";
 
-
-let imagePath: string | undefined = await getImagePath(Astro.props.entry.data.image);
+let imagePath: string | undefined = await getImagePath(
+  Astro.props.entry.data.image,
+);
 ---
 
 <Default {...Astro.props} />
 
-{imagePath ? <meta property="og:image" content={Astro.url.origin + import.meta.env.BASE_URL + imagePath} /> : null}
-{imagePath ? <meta name="twitter:image" content={Astro.url.origin + import.meta.env.BASE_URL + imagePath} /> : null}
+{
+  imagePath ? (
+    <meta
+      property="og:image"
+      content={Astro.url.origin + import.meta.env.BASE_URL + imagePath}
+    />
+  ) : null
+}
+{
+  imagePath ? (
+    <meta
+      name="twitter:image"
+      content={Astro.url.origin + import.meta.env.BASE_URL + imagePath}
+    />
+  ) : null
+}
