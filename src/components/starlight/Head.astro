@@ -2,15 +2,10 @@
 import type { Props } from "@astrojs/starlight/props";
 import Default from "@astrojs/starlight/components/Head.astro";
 
-const image = Astro.props.entry.data.image;
+import { getImagePath } from '@components/images'
 
-const images = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/*.{jpeg,jpg,png,gif}",
-);
-let path: string | undefined;
-if (image && images[image]) {
-  path = (await images[image]!()).default.src;
-}
+
+let path: string | undefined = await getImagePath(Astro.props.entry.data.image);
 ---
 
 <Default {...Astro.props} />
