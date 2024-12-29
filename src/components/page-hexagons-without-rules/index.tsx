@@ -27,7 +27,7 @@ export function PageHexagonsWithoutRules() {
   } | null>(null);
 
   const containerRef = React.useRef<HTMLDivElement | null>(null);
-  const prevCursorRef = React.useRef<string | undefined>();
+  const prevCursorRef = React.useRef<string | undefined>(undefined);
 
   const defferedAngle = React.useDeferredValue(angle);
   const defferedNumber = React.useDeferredValue(number);
@@ -77,7 +77,7 @@ export function PageHexagonsWithoutRules() {
             );
           }
         }}
-        onWheel={({ evt: event, currentTarget, ...rest }) => {
+        onWheel={({ evt: event, currentTarget }) => {
           // stop default scrolling
           event.preventDefault();
 
