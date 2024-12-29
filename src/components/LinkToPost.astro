@@ -32,10 +32,14 @@ if (entry.data.description) {
     description = `<p>${description}</p><p>${entry.data.description}</p>`;
   }
 }
+
+const props: { href: string; title: string; description?: string } = {
+  href: import.meta.env.BASE_URL + entry.slug,
+  title: entry.data.title,
+};
+if (description) {
+  props.description = description;
+}
 ---
 
-<LinkCard
-  href={import.meta.env.BASE_URL + entry.slug}
-  title={entry.data.title}
-  description={description}
-/>
+<LinkCard {...props} />

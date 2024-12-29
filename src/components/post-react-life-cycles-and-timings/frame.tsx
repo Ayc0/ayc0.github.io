@@ -3,7 +3,7 @@ import * as React from "react";
 import classes from "./frame.module.css";
 
 export const createFrame = () => {
-  const console = { log: (...messages: string[]) => {}, clear: () => {} };
+  const console = { log: (..._messages: string[]) => {}, clear: () => {} };
 
   const Logs = () => {
     const [logs, setLogs] = React.useState<React.ReactNode[]>([]);

@@ -438,7 +438,7 @@ export function LifeCycleTimings() {
     null,
   );
   const [, forceUpdate] = React.useState({});
-  const Example: (() => JSX.Element) | undefined = examples[example!];
+  const Example: (() => React.ReactElement) | undefined = examples[example!];
 
   const [withTimings, setTiming] = React.useState(false);
   const [withTasks, setTasks] = React.useState(false);

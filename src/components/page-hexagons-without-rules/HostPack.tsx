@@ -34,7 +34,10 @@ const RenderWithPacking = React.memo(
     x: number;
     y: number;
     rotation: number;
-    children: (args: { correctedX: number; correctedY: number }) => JSX.Element;
+    children: (args: {
+      correctedX: number;
+      correctedY: number;
+    }) => React.ReactElement;
   }) => {
     const packingFn = React.useContext(PackContext);
     const [correctedX, correctedY] = packingFn({
