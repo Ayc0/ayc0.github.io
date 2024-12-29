@@ -27,6 +27,7 @@
     "react-konva": "^19.0.1"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.4",
     "@astrojs/react": "^4.1.2",
     "@astrojs/rss": "^4.0.10",
     "@types/react": "^19.0.2",
