@@ -19,7 +19,7 @@
   "dependencies": {
     "@astrojs/starlight": "^0.30.3",
     "colorjs.io": "^0.5.2",
-    "konva": "^9.3.16",
+    "konva": "^9.3.18",
     "lit": "^3.2.1",
     "manatea": "^0.6.1",
     "react": "^19.0.0",
