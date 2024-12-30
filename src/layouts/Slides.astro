@@ -1,0 +1,52 @@
+---
+import Head from "@layouts/Head.astro";
+import Analytics from "@layouts/Analytics.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <Head title="React Timing">
+    <link rel="stylesheet" href="/node_modules/reveal.js/dist/reveal.css" />
+    <link
+      rel="stylesheet"
+      href="/node_modules/reveal.js/dist/theme/white.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --r-main-font: "IBM Plex Sans", sans-serif;
+        --r-main-color: #434343;
+
+        --r-heading-font: "IBM Plex Sans", sans-serif;
+        --r-heading-color: #434343;
+        --r-heading-text-transform: normal;
+      }
+    </style>
+  </Head>
+
+  <body>
+    <script>
+      import Reveal from "reveal.js";
+      import Markdown from "reveal.js/plugin/markdown/markdown.esm.js";
+      import Notes from "reveal.js/plugin/notes/notes.esm.js";
+
+      let deck = new Reveal({
+        plugins: [Markdown, Notes],
+      });
+      deck.initialize();
+    </script>
+
+    <div class="reveal">
+      <div class="slides">
+        <slot />
+      </div>
+    </div>
+
+    <Analytics />
+  </body>
+</html>
