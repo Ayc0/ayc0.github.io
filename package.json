@@ -24,7 +24,8 @@
     "manatea": "^0.6.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-konva": "^19.0.1"
+    "react-konva": "^19.0.1",
+    "reveal.js": "^5.1.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
@@ -32,6 +33,7 @@
     "@astrojs/rss": "^4.0.10",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
+    "@types/reveal.js": "^5.0.4",
     "astro": "^5.1.1",
     "prettier": "^3.4.2",
     "prettier-plugin-astro": "^0.14.1",
