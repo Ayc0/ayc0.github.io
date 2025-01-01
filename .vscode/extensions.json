@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "unifiedjs.vscode-mdx",
+    "streetsidesoftware.code-spell-checker",
+    "pomdtr.excalidraw-editor"
+  ]
+}
