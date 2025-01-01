@@ -42,7 +42,7 @@ export const collections = {
 
                 // Required for published posts to have those defined
                 description: z.string(),
-                tags: z.array(z.string()),
+                tags: z.array(z.string()), // TODO: use a set list of tags to avoid typos
               }),
             ),
         ),
