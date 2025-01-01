@@ -24,6 +24,7 @@ export const GET: APIRoute = async (context) => {
           link: post.slug,
           pubDate: post.data.createdAt,
           description: post.data.description,
+          categories: post.data.tags,
           enclosure: image
             ? {
                 url: new URL(image, context.url).href,
