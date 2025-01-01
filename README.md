@@ -12,7 +12,7 @@ This page lists all possible available length units in CSS (see [spec here](http
 
 It also groups & displays them in a readable manner. Visit https://ayc0.github.io/length-units/ to view it.
 
-![Preview](./public/css-length-units-og.png)
+![Preview](./src/assets/css-length-units-og.png)
 
 ### Color Visualizer
 
