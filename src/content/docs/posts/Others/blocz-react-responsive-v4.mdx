@@ -83,3 +83,11 @@ This v4 officially adds support for React 19. Even if technically it was already
 ### Node version
 
 This shouldn’t impact any users as this is mostly for our internal tooling: we upgraded the supported Node.js version to 20 & 22 (the current LTS), and dropped support for all other versions.
+
+### Bundle size
+
+With the removal of `toJSON`, `toCSS`, and `<Match>`, we were able to reduce the bundle size (according to [bundlephobia](https://bundlephobia.com/package/@blocz/react-responsive@4.0.0)) from 3.8kB in the v3.0.3 to 2.7kB in the v4.0.0 minified (and from 1.7kB to 1.3kB gzipped).
+
+This wasn’t a goal per se, but we can always appreciate reducing the impact we have on our end customers.
+
+![evolution of the @blocz/react-responsive bundle size using bundlephobia](@assets/react-responsive-v4-bundle-size.png)
