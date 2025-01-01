@@ -6,11 +6,13 @@ export const collections = {
     schema: docsSchema({
       extend: z
         .object({
+          // All of those params are here so that they can be available on all types (for the RSS)
           image: z
             .string()
             .regex(/^\/src\/assets\/[^.]+.(png|jpeg)$/)
             .optional(),
-          createdAt: z.date().optional(), // only required to make it available on all types (for the RSS)
+          createdAt: z.date().optional(),
+          tags: z.array(z.string()).optional(),
         })
         .and(
           // Draft pages don’t have any requirements
@@ -37,7 +39,10 @@ export const collections = {
                 pagefind: z.literal(true).optional(), // To avoid matching with the draft
                 createdAt: z.date(),
                 lastUpdated: z.date().optional(),
+
+                // Required for published posts to have those defined
                 description: z.string(),
+                tags: z.array(z.string()), // TODO: use a set list of tags to avoid typos
               }),
             ),
         ),
