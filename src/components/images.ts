@@ -8,5 +8,5 @@ export async function getImagePath(
   if (!image || !images[image]) {
     return undefined;
   }
-  return (await images[image]!()).default.src;
+  return (await images[image]()).default.src;
 }
