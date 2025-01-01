@@ -1,5 +1,5 @@
 const images = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/**/*.{jpeg,jpg,png,gif}",
+  "/src/assets/**/*.{jpeg,png}",
 );
 
 export async function getImagePath(
