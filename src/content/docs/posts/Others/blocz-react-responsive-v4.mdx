@@ -1,0 +1,85 @@
+---
+title: "@blocz/react-responsive v4"
+tags: ["react", "responsive", "package"]
+createdAt: 2024-01-01
+description: "@blocz/react-responsive v4 was just released. Let’s go through all the different features and changes added by this new major version"
+sidebar:
+  hidden: true
+pagefind: false
+---
+
+:::caution[Warning]
+Still in draft
+:::
+
+import LinkToPost from "@components/LinkToPost.astro";
+
+`@blocz/react-responsive` v4 was just released with a few removal of deprecated APIs. Those are `<Match>` and the CSS-in-JS support. You can check out the full release details here: https://github.com/bloczjs/react-responsive/releases/tag/v4.0.0
+
+## Breaking changes
+
+### No more `<Match>`
+
+In the v3, `@blocz/react-responsive` exposed a `<Match>` component that was reading the props `only` and `matchMedia` in any of its children. This was inspired from `@reach/router` v1’s `<Router>` component. It could be used such as (from the previous README.md):
+
+> ```jsx
+> import React from "react";
+> import { Match } from "@blocz/react-responsive";
+>
+> const App = () => (
+>   <Match>
+>     <div only="xs">xs</div>
+>     <div only="sm">sm</div>
+>     <div only="md">md</div>
+>     <div only="sm lg">sm and lg</div>
+>     <div only="xl">xl</div>
+>     <div>
+>       <div>
+>         <div>
+>           <div only="smDown">nested smDown</div>
+>         </div>
+>       </div>
+>     </div>
+>     <div matchMedia="(min-width:768px) and (max-width:992px),(max-width:576px)">
+>       {"(min-width:768px) and (max-width:992px),(max-width:576px)"}
+>     </div>
+>   </Match>
+> );
+> ```
+
+This has 3 major issues:
+
+1. It requires using [`React.Children`](https://react.dev/reference/react/Children) to manually crawl all the children and wrap each of the ones matching either a `only` or `matchMedia` prop in a `<Only>` component. Problem: this API is considered as legacy in React and they even mention this:
+   :::caution[Pitfall]
+   Using Children is uncommon and can lead to fragile code. See common alternatives.
+   :::
+2. If any child was a custom component that was using one of those props, you’d get a conflict,
+3. This is not compatible with TypeScript. The README mentioned a way to make it work with custom components. But for regular HTML elements, we had to hack around. And this hack was injected into all projects depending on `@blocz/react-responsive` to all HTML elements those 2 props `only` and `matchMedia`.
+
+Also this wasn’t creating a great DX as it wouldn’t work with spread props, and similar situations.
+
+So in this v4, we decided to fully drop this API, and instead push for either `<Only>` (more declarative than `<Match>`), or hooks like `useBreakpoint()` (more composable).
+
+### Removal of CSS-in-JS support
+
+Initially, `toJSON` and `toCSS` were designed to work in a project using [`styletron`](https://styletron.org/), and within this project, we wanted to make it possible to plug styletron into `@blocz/react-responsive` breakpoints for responsive designs.
+
+But this was a long time ago, and a lot of things changed since:
+
+- We stopped working on this website, so we have less direct incentive to make those 2 coincide,
+- In general, CSS-in-JS fell in terms of usages, and more specifically `styletron`,
+- Our support for CSS-in-JS was not great: it could be adapted to a lot of use-cases as `toJSON` could work for any nesting of objects, but `toCSS` couldn’t and we didn’t want to have to maintain a CSS parser. And in general we didn’t want to keep up with all the new features of either CSS in general or CSS-in-JS engines.
+
+Moreover, this layer of connection between `@blocz/react-responsive` and CSS-in-JS can still be replicated using `useBreakpoint()` and custom wrapper in user-land.
+
+All of those reasons lead to the full removal of both `toJSON` and `toCSS`.
+
+## Other changes
+
+### React 19 support
+
+This v4 officially adds support for React 19. Even if technically it was already compatible and you can use the v3, you may have warnings with your package managers. Also we added tests for React 19.
+
+### Node version
+
+This shouldn’t impact any users as this is mostly for our internal tooling: we upgraded the supported Node.js version to 20 & 22 (the current LTS), and dropped support for all other versions.
