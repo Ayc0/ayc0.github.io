@@ -8,7 +8,7 @@ export const collections = {
         .object({
           image: z
             .string()
-            .regex(/^\/src\/assets\/[^/.]+.(png|jpeg)$/)
+            .regex(/^\/src\/assets\/[^.]+.(png|jpeg)$/)
             .optional(),
           createdAt: z.date().optional(), // only required to make it available on all types (for the RSS)
         })
