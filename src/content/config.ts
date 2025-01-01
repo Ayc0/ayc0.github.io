@@ -39,7 +39,10 @@ export const collections = {
                 pagefind: z.literal(true).optional(), // To avoid matching with the draft
                 createdAt: z.date(),
                 lastUpdated: z.date().optional(),
+
+                // Required for published posts to have those defined
                 description: z.string(),
+                tags: z.array(z.string()),
               }),
             ),
         ),
