@@ -42,11 +42,11 @@ Later, you want to install a package `C`, depending on `B@^1.1.5`. And when `C` 
 
 You ended up here:
 
-![Illustration showing that A imports B@^1.1.1 resolved in B@1.1.4, and that C imports B@^1.1.5 resolved in B@1.1.5, resulting in having 2 versions of B](@assets/4x6b8eid6ue1tyjzsy43.png)
+![Illustration showing that A imports B@^1.1.1 resolved in B@1.1.4, and that C imports B@^1.1.5 resolved in B@1.1.5, resulting in having 2 versions of B](@assets/excalidraw/yarn-deps-initial.png)
 
 But ideally, you should end up like that:
 
-![Illustration showing that A imports B@^1.1.1 resolved, and C imports B@^1.1.5, both resolved in B@1.1.5, resulting in having only 1 version of B](@assets/m4pt38rne6ghcz9rx3yj.png)
+![Illustration showing that A imports B@^1.1.1 resolved, and C imports B@^1.1.5, both resolved in B@1.1.5, resulting in having only 1 version of B](@assets/excalidraw/yarn-deps-desired.png)
 
 The behaviour is indeed intended: the main goal of lock file is to ensure that your dependencies won't change if you don't ask for it. As you didn't ask for an update of A, it shouldn't update neither it nor its dependencies. And as updating B from 1.1.4 to 1.1.5 could introduce some regression, `yarn` won't update it.
 
