@@ -14,6 +14,12 @@ export const getPublishablePosts = async () => {
     (post) => post.data.createdAt && !post.data.draft && post.data.pagefind,
   );
 
+  posts.forEach((post) => {
+    if (post.slug.startsWith("posts/drafts/")) {
+      throw new Error(`Public post ${post.id} cannot be in the drafts folder`);
+    }
+  });
+
   return posts.sort((postA, postB) => getTime(postB) - getTime(postA));
 };
 
