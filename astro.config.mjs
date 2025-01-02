@@ -2,6 +2,7 @@ import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 
 import starlight from "@astrojs/starlight";
+import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,6 +12,7 @@ export default defineConfig({
     react({
       exclude: ["**/page-react-timings/*"],
     }),
+
     starlight({
       title: "Ayc0",
       lastUpdated: true,
@@ -66,6 +68,22 @@ export default defineConfig({
           autogenerate: { directory: "posts/Others" },
         },
       ],
+    }),
+
+    // Starlight comes with its own sitemap, but it makes all private pages public (and in general all pages public)
+    sitemap({
+      filter: (page) => {
+        // No slides should be exposed
+        if (page.startsWith("https://ayc0.github.io/slides/")) {
+          return false;
+        }
+        // Same for the listing of draft posts
+        if (page.startsWith("https://ayc0.github.io/posts/drafts/")) {
+          return false;
+        }
+
+        return true;
+      },
     }),
   ],
 
