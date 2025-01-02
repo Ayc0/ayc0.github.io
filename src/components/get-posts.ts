@@ -42,6 +42,12 @@ export const getDraftPosts = async () => {
     (post) => post.data.draft || !post.data.pagefind,
   );
 
+  posts.forEach((post) => {
+    if (!post.slug.startsWith("posts/drafts/")) {
+      throw new Error(`Draft post ${post.id} is not in the drafts folder`);
+    }
+  });
+
   return posts.sort((postA, postB) => getTime(postB) - getTime(postA));
 };
 
