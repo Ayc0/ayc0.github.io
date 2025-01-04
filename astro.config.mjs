@@ -4,10 +4,17 @@ import react from "@astrojs/react";
 import starlight from "@astrojs/starlight";
 import sitemap from "@astrojs/sitemap";
 
+import remarkBreaks from "remark-breaks";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://ayc0.github.io",
   base: "/", // We need the trailing / here otherwise links in the site will be broken
+
+  markdown: {
+    remarkPlugins: [remarkBreaks],
+  },
+
   integrations: [
     react({
       exclude: ["**/page-react-timings/*"],

@@ -4413,6 +4413,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mdast-util-newline-to-break@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "mdast-util-newline-to-break@npm:2.0.0"
+  dependencies:
+    "@types/mdast": "npm:^4.0.0"
+    mdast-util-find-and-replace: "npm:^3.0.0"
+  checksum: 10c0/756a5660b0a821e0d6d6a0b2d9b13ac32e41cc028c485a91bccf6300977e2557236c6cc93dbd55c68b785f1ed6eae69209a4ffe182533cd1cdfda369021bebd2
+  languageName: node
+  linkType: hard
+
 "mdast-util-phrasing@npm:^4.0.0":
   version: 4.1.0
   resolution: "mdast-util-phrasing@npm:4.1.0"
@@ -5582,6 +5592,7 @@ __metadata:
     react-dom: "npm:^19.0.0"
     react-konva: "npm:^19.0.1"
     reading-time: "npm:^1.5.0"
+    remark-breaks: "npm:^4.0.0"
     reveal.js: "npm:^5.1.0"
     typescript: "npm:^5.7.2"
   languageName: unknown
@@ -5855,6 +5866,17 @@ __metadata:
     rehype-stringify: "npm:^10.0.0"
     unified: "npm:^11.0.0"
   checksum: 10c0/13d82086b673b3ce1fddb54cc8d30be16bde83fb62f1507f0af06070c94b85d07c3780fa994357bad2c9d51b84e4108ff661677b71d187e4f2167cab22d84363
+  languageName: node
+  linkType: hard
+
+"remark-breaks@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "remark-breaks@npm:4.0.0"
+  dependencies:
+    "@types/mdast": "npm:^4.0.0"
+    mdast-util-newline-to-break: "npm:^2.0.0"
+    unified: "npm:^11.0.0"
+  checksum: 10c0/d7b319a7993b54c5d574e9255080c5de68cfa24f993873b0ee296af13f478521c41d4b7ae0fc14b4607ea70c8f6967e998ab7a467de13139141e66a1a34cb6be
   languageName: node
   linkType: hard
 
