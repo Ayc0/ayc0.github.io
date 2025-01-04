@@ -52,24 +52,6 @@ svg:where(.astro-c6vsoqas){color:var(--sl-icon-color);font-size:var(--sl-icon-si
 <p>So, if you really care about your app, you should be able to read this lock file, and here is another post about this:</p>
 <div class="sl-link-card astro-mf7fz2mj"> <span class="sl-flex stack astro-mf7fz2mj"> <a href="/posts/yarn/yarn-lock-how-to-read-it" class="astro-mf7fz2mj"> <span class="title astro-mf7fz2mj">Yarn.lock: How to Read it</span> </a> <span class="description astro-mf7fz2mj">Yarn comes with a lock file `yarn.lock` that isn’t made for human to read it. But when using the tool, you sometimes need to go through it to be able to understand it (specially when reviewing PRs)</span> </span> <svg aria-hidden="true" class="icon rtl:flip astro-mf7fz2mj astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.333em;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg>  </div> 
 <p>If you spot something weird in the lockfile, this article will tell you how to fix it.</p>
-<ol>
-<li><a href="#problem">Problem</a></li>
-<li><a href="#solutions">Solutions</a>
-<ol>
-<li><a href="#manually-editing-the-lock-file">Manually editing the lock file</a></li>
-<li><a href="#the-resolutions-field">The <code dir="auto">resolutions</code> field</a></li>
-<li><a href="#removing-the-yarnlock-file">Removing the <code dir="auto">yarn.lock</code> file</a></li>
-<li><a href="#yarn-dedupe-recommended"><code dir="auto">yarn dedupe</code> (recommended)</a></li>
-</ol>
-</li>
-<li><a href="#bonus-listing-all-versions-of-a-package">Bonus: listing all versions of a package</a>
-<ol>
-<li><a href="#yarn-1">Yarn 1</a></li>
-<li><a href="#yarn-2">Yarn 2+</a></li>
-</ol>
-</li>
-<li><a href="#conclusion">Conclusion</a></li>
-</ol>
 <h2 id="problem">Problem</h2>
 <p>Note: I’ll use the semver syntax, more information on it here: <a href="https://jubianchi.github.io/semver-check/">https://jubianchi.github.io/semver-check/</a>.</p>
 <p>Let’s say you depend on a module <code dir="auto">A</code> that itself depends on <code dir="auto">B</code> with the version <code dir="auto">^1.1.1</code>. When <code dir="auto">A</code> will be installed, yarn will resolve the latest version of <code dir="auto">B</code> matching this version range (let say here <code dir="auto">1.1.4</code>). Now you’ll have in your lock file something like: “A depends on B@^1.1.1, resolved resolved to 1.1.4”.</p>
