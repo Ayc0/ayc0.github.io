@@ -51,15 +51,14 @@ svg:where(.astro-c6vsoqas){color:var(--sl-icon-color);font-size:var(--sl-icon-si
 <p>Is there a difference between the 2 notations? Is one correct?</p>
 <h2 id="a-bit-of-history">A bit of history</h2>
 <p>In CSS2, the syntax used at the time was <code dir="auto">:before</code>. This was confusing because CSS also had <em>selectors</em> like <code dir="auto">:hover</code>, but they both had different semantic meanings.</p>
-<p>So in <a href="https://drafts.csswg.org/selectors-3/#gen-content">Selectors Level 3</a>, they decided to change the syntax for <code dir="auto">:before</code> to <code dir="auto">::before</code> (and for legacy reasons, we can still use <code dir="auto">:before</code>, but it is now deprecated).
+<p>So in <a href="https://drafts.csswg.org/selectors-3/#gen-content">Selectors Level 3</a>, they decided to change the syntax for <code dir="auto">:before</code> to <code dir="auto">::before</code> (and for legacy reasons, we can still use <code dir="auto">:before</code>, but it is now deprecated).<br>
 The <code dir="auto">:</code> notation isn’t deprecated as a whole, instead the old syntax was split into two:</p>
 <ul>
 <li><code dir="auto">:</code> now represents pseudo-classes (and is still valid for <code dir="auto">:hover</code> for instance),</li>
 <li><code dir="auto">::</code> represents pseudo-elements (and should be used for <code dir="auto">::before</code>).</li>
 </ul>
 <h2 id="pseudo-class"><code dir="auto">:pseudo-class</code></h2>
-<p>Pseudo-classes represent variations of a state of an element.
-When the condition is satisfied, the <strong>whole</strong> element is selected.</p>
+<p>Pseudo-classes represent variations of a state of an element. When the condition is satisfied, the <strong>whole</strong> element is selected.</p>
 <blockquote>
 <p>A CSS pseudo-class is a keyword added to a selector that specifies a special state of the selected element(s).</p>
 </blockquote>

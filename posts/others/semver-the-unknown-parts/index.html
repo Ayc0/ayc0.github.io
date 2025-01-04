@@ -53,7 +53,7 @@ svg:where(.astro-c6vsoqas){color:var(--sl-icon-color);font-size:var(--sl-icon-si
 <h3 id="lets-deconstruct-that-a-bit">Let’s deconstruct that a bit</h3>
 <p>When you read the regex, it mentions at the beginning the required <code dir="auto">major</code>, <code dir="auto">minor</code>, and <code dir="auto">patch</code>: a valid semver version needs to be at least <code dir="auto">MAJOR.MINOR.PATCH</code>, for instance <code dir="auto">1.2.3</code>.</p>
 <p>Then the version can contain an option <code dir="auto">prerelease</code> tag starting with a <strong><code dir="auto">-</code></strong>, for instance <code dir="auto">1.2.3-hello</code> and this prelease tag can be anything made of alpha numerics (0-9 or a-z or A-Z), <code dir="auto">.</code> and <code dir="auto">-</code>.</p>
-<p>But what surprised me is the last one: the <code dir="auto">buildmetadata</code> prefixed with a <strong><code dir="auto">+</code></strong> (same thing as the prerelease so any alpha numerics, or <code dir="auto">.</code>, or <code dir="auto">-</code>).
+<p>But what surprised me is the last one: the <code dir="auto">buildmetadata</code> prefixed with a <strong><code dir="auto">+</code></strong> (same thing as the prerelease so any alpha numerics, or <code dir="auto">.</code>, or <code dir="auto">-</code>).<br>
 So for instance <code dir="auto">1.2.3+build</code> is valid, and so is <code dir="auto">1.2.3-beta.1+build.linux</code></p>
 <h3 id="verification">Verification</h3>
 <p>Just to be sure, I run this in runkit, and indeed it can properly parse <code dir="auto">1.2.3-pre.release.4+build.meta.5.6</code> as:</p>

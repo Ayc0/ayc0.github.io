@@ -85,9 +85,9 @@ svg:where(.astro-c6vsoqas){color:var(--sl-icon-color);font-size:var(--sl-icon-si
 <h3 id="edge-cases">Edge cases</h3>
 <ul>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Universal_selectors"><code dir="auto">*</code></a> (universal selector) and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:where"><code dir="auto">:where()</code></a> have <strong>no specificity</strong> <code dir="auto">(0, 0, 0)</code>.</li>
-<li><code dir="auto">:is(…)</code>, <code dir="auto">:not(…)</code>, and <code dir="auto">:has(…)</code> pseudo-classes have the specificity of their most specific complex selector in their selector list argument.
+<li><code dir="auto">:is(…)</code>, <code dir="auto">:not(…)</code>, and <code dir="auto">:has(…)</code> pseudo-classes have the specificity of their most specific complex selector in their selector list argument.<br>
 For instance: <code dir="auto">:not(.class)</code> will have the same specificity as <code dir="auto">.class</code> (aka <code dir="auto">(0, 1, 0)</code>)</li>
-<li><code dir="auto">:nth-child(…)</code> and <code dir="auto">:nth-last-child(…)</code> have the specificity of their most specific complex selector in their selector list argument <strong>plus</strong> their own specificity
+<li><code dir="auto">:nth-child(…)</code> and <code dir="auto">:nth-last-child(…)</code> have the specificity of their most specific complex selector in their selector list argument <strong>plus</strong> their own specificity<br>
 For instance: <code dir="auto">:nth-child(2n of .class)</code> will have the same specificity as <code dir="auto">.class</code> + <code dir="auto">:nth-child</code> (aka <code dir="auto">(0, 1, 0) + (0, 1, 0) = (0, 2, 0)</code>).</li>
 </ul>
 <h3 id="examples">Examples</h3>

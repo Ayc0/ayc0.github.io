@@ -71,7 +71,7 @@ svg:where(.astro-c6vsoqas){color:var(--sl-icon-color);font-size:var(--sl-icon-si
 <p>Yes, you’re totally right! import/export are part of <a href="https://nodejs.org/api/esm.html">ESM (ECMAScript Modules)</a>. And require/exports are indeed only valid in Node.js.</p>
 <p>Let’s try to use ESM!</p>
 <h3 id="esm">ESM</h3>
-<p>You can enable this via <code dir="auto">module: es6 / es2020 / esnext / node16</code> in your <code dir="auto">tsconfig.json</code>.
+<p>You can enable this via <code dir="auto">module: es6 / es2020 / esnext / node16</code> in your <code dir="auto">tsconfig.json</code>.<br>
 With the same input, we’d get:</p>
 <div class="expressive-code"><figure class="frame has-title not-content"><figcaption class="header"><span class="title">foo.js</span></figcaption><pre data-language="js"><code><div class="ec-line"><div class="code"><span style="--0:#809191;--1:#5E6578">// OUTPUT</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8D46B4">export const </span><span style="--0:#82AAFF;--1:#3C63B3">foo</span><span style="--0:#C792EA;--1:#8D46B4"> = </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">foo</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">;</span></div></div><div class="ec-line"><div class="code">
 </div></div><div class="ec-line"><div class="code"><span style="--0:#809191;--1:#5E6578">// bar.js</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8D46B4">import</span><span style="--0:#D6DEEB;--1:#403F53"> { foo } </span><span style="--0:#C792EA;--1:#8D46B4">from</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">./foo</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">;</span></div></div><div class="ec-line"><div class="code">
@@ -81,7 +81,7 @@ With the same input, we’d get:</p>
 </blockquote>
 <p>In the ECMAScript spec, they mention that imports need to have a <strong>file extension</strong>, so <code dir="auto">import { foo } from './foo';</code> is <strong>not</strong> valid (see in <a href="https://nodejs.org/api/esm.html#mandatory-file-extensions">Node.js’s doc</a>).</p>
 <h3 id="which-extension-should-we-pick">Which extension should we pick?</h3>
-<p>Okay, let’s say I want to build for ESM, what extension should I write in my source code?
+<p>Okay, let’s say I want to build for ESM, what extension should I write in my source code?<br>
 Let’s try a different code samples:</p>
 <h4 id="ts"><code dir="auto">.ts</code></h4>
 <p>With a <code dir="auto">.ts</code> extension:</p>
@@ -102,16 +102,15 @@ Let’s try a different code samples:</p>
 <div class="expressive-code"><figure class="frame has-title not-content"><figcaption class="header"><span class="title">foo.js</span></figcaption><pre data-language="js"><code><div class="ec-line"><div class="code"><span style="--0:#809191;--1:#5E6578">// OUTPUT</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8D46B4">export const </span><span style="--0:#82AAFF;--1:#3C63B3">foo</span><span style="--0:#C792EA;--1:#8D46B4"> = </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">foo</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">;</span></div></div><div class="ec-line"><div class="code">
 </div></div><div class="ec-line"><div class="code"><span style="--0:#809191;--1:#5E6578">// bar.js</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8D46B4">import</span><span style="--0:#D6DEEB;--1:#403F53"> { foo } </span><span style="--0:#C792EA;--1:#8D46B4">from</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">./foo.js</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">;</span></div></div><div class="ec-line"><div class="code">
 </div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8D46B4">export const </span><span style="--0:#82AAFF;--1:#3C63B3">bar</span><span style="--0:#C792EA;--1:#8D46B4"> = </span><span style="--0:#D6DEEB;--1:#403F53">`</span><span style="--0:#DD6B68;--1:#B73936">${</span><span style="--0:#D7DBE0;--1:#403F53">foo</span><span style="--0:#DD6B68;--1:#B73936">}</span><span style="--0:#ECC48D;--1:#3C63B3"> sets a new bar</span><span style="--0:#D6DEEB;--1:#403F53">`</span><span style="--0:#D6DEEB;--1:#403F53">;</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="// OUTPUTexport const foo = &#x22;foo&#x22;;// bar.jsimport { foo } from &#x22;./foo.js&#x22;;export const bar = &#x60;${foo} sets a new bar&#x60;;"><div></div></button></div></figure></div>
-<p>This indeed works!
-Hoorah! We have some working code with TypeScript &#x26; ESM 🎉
+<p>This indeed works! Hoorah! We have some working code with TypeScript &#x26; ESM 🎉<br>
 This is the official way of supporting ESM in TS files: <a href="https://www.typescriptlang.org/docs/handbook/esm-node.html">https://www.typescriptlang.org/docs/handbook/esm-node.html</a>.</p>
 <p>The only issue is that we have to write down <code dir="auto">foo.js</code> in the source TS file, which is weird 😕 (as the file doesn’t exist during dev time).</p>
 <h4 id="why-are-extensions-required-in-esm">Why are extensions required in ESM?</h4>
-<p>Due to how the web works, it has to work with files that are fully pre-determined, otherwise when writing <code dir="auto">import './foo'</code>, if it implemented the same logic as node, we’d have to download: <code dir="auto">foo.js</code>, <code dir="auto">foo.cjs</code>, <code dir="auto">foo.mjs</code>, <code dir="auto">foo/index.js</code>, etc.
+<p>Due to how the web works, it has to work with files that are fully pre-determined, otherwise when writing <code dir="auto">import './foo'</code>, if it implemented the same logic as node, we’d have to download: <code dir="auto">foo.js</code>, <code dir="auto">foo.cjs</code>, <code dir="auto">foo.mjs</code>, <code dir="auto">foo/index.js</code>, etc.<br>
 So for browsers, it makes more sense to treat the import as the reference.</p>
 <h4 id="why-isnt-the-transform-of-the-extension-automatically-done-by-typescript">Why isn’t the transform of the extension automatically done by TypeScript?</h4>
 <p>TypeScript never rewrites module specifiers in its JavaScript emit.</p>
-<p>I don’t have the exact reasons why they don’t do it, but to me this would counterproductive as there are more differences between CommonJS &#x26; ESM (see <a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-7.html#type-in-packagejson-and-new-extensions">TS v4.7 release note</a>).
+<p>I don’t have the exact reasons why they don’t do it, but to me this would counterproductive as there are more differences between CommonJS &#x26; ESM (see <a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-7.html#type-in-packagejson-and-new-extensions">TS v4.7 release note</a>).<br>
 So enforcing the use of the extensions, is a great way to tell people that we are in ESM, and also is closer to the underlying generated JS logic.</p>
 <h3 id="summary-of-the-issue">Summary of the issue</h3>
 <p>To support ESM, we need to:</p>
