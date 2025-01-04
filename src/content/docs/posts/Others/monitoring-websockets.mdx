@@ -11,7 +11,7 @@ description: "Tools like Sentry or Datadog provide amazing monitoring tools for 
 
 While tools like [Sentry](https://github.com/getsentry/sentry-javascript) or [Datadog](https://github.com/DataDog/browser-sdk) are amazing to track performance issues of HTML, CSS, JavaScript, and XHR requests, they often don’t provide the best tools when it comes to [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket). WebSocket connections themselves may be logged, but the messages/errors sent over them are not captured by these tools.
 
-Why? Because they all are built on top of the native [PerformanceObserver](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver), which doesn’t include any events for WebSockets.<br/>
+Why? Because they all are built on top of the native [PerformanceObserver](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver), which doesn’t include any events for WebSockets.
 You can check https://dyte.io/blog/web-api-performance-monitoring/ for how to set it up manually.
 
 ## Solution

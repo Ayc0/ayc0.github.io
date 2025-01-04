@@ -159,12 +159,16 @@ themeToggler.onclick = () => {
 
 ---
 
-**Note:**
-If you don't want any blink when users will load the page (seeing an empty white page when reloading the page for instance while they picked a dark mode for your website), it's important that this JS is executed in a blocking way, so that browsers won't render the html/css without having first computed this JS and applied the data attribute on the html. See:
+:::note
+If you don't want any blink when users will load the page (seeing an empty white page when reloading the page for instance while they picked a dark mode for your website), it's important that this JS is executed in a blocking way, so that browsers won't render the html/css without having first computed this JS and applied the data attribute on the html.
+
+See:
 
 <LinkToPost slug="dark-mode/light-dark-mode-avoid-flickering-on-reload" />
+:::
 
 ---
 
-**Note 2:**
+:::note[Note 2]
 The system mode we built here only resolves the theme when `system` is picked. But it won’t follow the system’s value in real time.
+:::

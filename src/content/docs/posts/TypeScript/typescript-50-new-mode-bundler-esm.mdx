@@ -139,8 +139,7 @@ import { foo } from "./foo.js";
 export const bar = `${foo} sets a new bar`;
 ```
 
-This indeed works!
-Hoorah! We have some working code with TypeScript & ESM 🎉
+This indeed works! Hoorah! We have some working code with TypeScript & ESM 🎉
 This is the official way of supporting ESM in TS files: https://www.typescriptlang.org/docs/handbook/esm-node.html.
 
 The only issue is that we have to write down `foo.js` in the source TS file, which is weird 😕 (as the file doesn’t exist during dev time).
