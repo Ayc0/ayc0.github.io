@@ -22,31 +22,6 @@ In the previous posts, we saw how to:
 In this post, we'll see how we can use everything together, and add **React** and a remote database (for fun) in this mix.
 The goal is to show the backbone of what could be the actual code you'd use to handle themes in your app.
 
-## Table of contents
-
-1. [Introduction](#introduction)
-2. [Table of contents](#table-of-contents)
-3. [Flow of the logic we'll implement](#flow-of-the-logic-well-implement)
-   1. [First visit ever](#first-visit-ever)
-   2. [First visit on a new browser](#first-visit-on-a-new-browser)
-   3. [Re-visit](#re-visit)
-4. [Results](#results)
-5. [Explanations](#explanations)
-   1. [HTML](#html)
-      1. [CSS](#css)
-      2. [Blocking script](#blocking-script)
-   2. [JavaScript](#javascript)
-      1. [Base variables](#base-variables)
-      2. [React context](#react-context)
-      3. [Initialization of the mode](#initialization-of-the-mode)
-      4. [Database sync](#database-sync)
-      5. [Save back the mode](#save-back-the-mode)
-      6. [Initialization of the mode](#initialization-of-the-mode-1)
-      7. [System theme update](#system-theme-update)
-      8. [Apply the theme back to the HTML](#apply-the-theme-back-to-the-html)
-      9. [Defining the context](#defining-the-context)
-6. [Conclusion](#conclusion)
-
 ## Flow of the logic we'll implement
 
 The following flow is related to a frontend app, not a server-side rendered website (like what you would have in PHP):
