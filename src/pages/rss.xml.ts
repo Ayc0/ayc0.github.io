@@ -21,7 +21,7 @@ export const GET: APIRoute = async (context) => {
         }
         return {
           title: post.data.title,
-          link: post.slug,
+          link: `${post.slug}?utm_source=rss`,
           pubDate: post.data.createdAt,
           description: post.data.description,
           categories: post.data.tags,
