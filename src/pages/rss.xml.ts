@@ -13,6 +13,7 @@ export const GET: APIRoute = async (context) => {
     description:
       "Various personal projects (finished or not), and all the blog posts I wrote",
     site: "https://ayc0.github.io/",
+    trailingSlash: false, // For RSS
     items: await Promise.all(
       posts.map(async (post) => {
         let image: string | undefined;
