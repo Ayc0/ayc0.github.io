@@ -16,6 +16,20 @@ import { CardGrid, Card, LinkCard } from "@astrojs/starlight/components";
   <Card title="Blog posts">List of all the blog posts I wrote</Card>
 </a>
 
+export const textFragments = {
+  css: "Listing of all CSS length units available, with their definitions, links to doc, and live visualization of their sizes",
+  colorVisualizer:
+    "Page to play with colors, and represent then in different color spaces",
+  reactResponsive:
+    "🔍 <Only /> displays some contents for particular screen sizes",
+  mdx: "Set of tools to work with MDX:",
+  manatea:
+    "Micro state management library, similar to signals, with react bindings via",
+  reactTimings:
+    "Experiment around React, life cycles, timings, and different rendering modes",
+  hexagons: "Small sandbox to play with hexagons, and with React & canvas.",
+};
+
 ## Projects
 
 <CardGrid stagger>
@@ -23,20 +37,55 @@ import { CardGrid, Card, LinkCard } from "@astrojs/starlight/components";
     href="/length-units/"
     style="text-decoration: none; color: initial; display: grid"
   >
-    <Card title="CSS length units">
-      {
-        "Listing of all CSS length units available, with their definitions, links to doc, and live visualization of their sizes"
-      }
-    </Card>
+    <Card title="CSS length units">{textFragments.css}</Card>
   </a>
   <a
     href="/color-visualizer/"
     style="text-decoration: none; color: initial; display: grid"
   >
-    <Card title="Color visualizer">
-      Page to play with colors, and represent then in different color spaces
-    </Card>
+    <Card title="Color visualizer">{textFragments.colorVisualizer}</Card>
   </a>
+</CardGrid>
+
+## Libraries
+
+<CardGrid stagger>
+
+<a
+  href="https://github.com/bloczjs/react-responsive"
+  style="text-decoration: none; color: initial; display: grid"
+>
+  <Card title="@blocz/react-responsive">{textFragments.reactResponsive}</Card>
+</a>
+
+<a
+  href="https://github.com/bloczjs/mdx"
+  style="text-decoration: none; color: initial; display: grid"
+>
+  <Card title="@blocz/mdx-*">
+    {textFragments.mdx} `@blocz/mdx-live` & `@blocz/mdx-plugin-detect-imports`
+  </Card>
+</a>
+
+<a
+  href="https://github.com/ayc0/manatea"
+  style="text-decoration: none; color: initial; display: grid"
+>
+  <Card title="manatea">{textFragments.manatea} `react-manatea`</Card>
+</a>
+
+<a
+  href="https://github.com/Ayc0/mock-match-media"
+  style="text-decoration: none; color: initial; display: grid"
+>
+  <Card title="mock-match-media">
+    Mock window.matchMedia for Node.JS environments (like tests or NextJS)
+  </Card>
+</a>
+
+{/* yarn-plugin-envs */}
+{/* eslint-plugin-blocz */}
+
 </CardGrid>
 
 ## Experiments
@@ -46,18 +95,12 @@ import { CardGrid, Card, LinkCard } from "@astrojs/starlight/components";
     href="/react-timings/"
     style="text-decoration: none; color: initial; display: grid"
   >
-    <Card title="React timings">
-      {
-        "Experiment around React, life cycles, timings, and different rendering modes"
-      }
-    </Card>
+    <Card title="React timings">{textFragments.reactTimings}</Card>
   </a>
   <a
     href="/hexagons-without-rules/"
     style="text-decoration: none; color: initial; display: grid"
   >
-    <Card title="Hexagons">
-      Small sandbox to play with hexagons, and with React & canvas.
-    </Card>
+    <Card title="Hexagons">{textFragments.hexagons}</Card>
   </a>
 </CardGrid>
