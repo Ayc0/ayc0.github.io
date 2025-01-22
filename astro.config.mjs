@@ -85,6 +85,10 @@ export default defineConfig({
         if (page.startsWith("https://ayc0.github.io/slides/")) {
           return false;
         }
+        // No experiments should be exposed
+        if (page.startsWith("https://ayc0.github.io/experiments/")) {
+          return false;
+        }
         // Same for the listing of draft posts
         if (page.startsWith("https://ayc0.github.io/posts/drafts/")) {
           return false;
