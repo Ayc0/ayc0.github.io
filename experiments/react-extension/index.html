@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Experiment-react</title><script type="module" src="/_astro/page.7qqag-5g.js"></script></head> <body> <script>
+      const renderers = new Map();
+      let uidCounter = 0;
+
+      var customDevTools = false;
+      if (!window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
+        customDevTools = true;
+        console.log(
+          "%cInjecting custom React DevTools hook!",
+          "color:orangered",
+        );
+        window.__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
+          // rendererInterfaces: new Map(),
+          // listeners: {},
+
+          // backends: new Map(),
+
+          // Fast Refresh for web relies on this.
+          renderers,
+          // hasUnsupportedRendererAttached: false,
+
+          // emit: () => {},
+          // getFiberRoots: () => {},
+          inject: (renderer) => {
+            const id = ++uidCounter;
+            renderers.set(id, renderer);
+          },
+          // on: () => {},
+          // off: () => {},
+          // sub: () => {},
+
+          // This is a legacy flag.
+          // React v16 checks the hook for this to ensure DevTools is new enough.
+          supportsFiber: true,
+
+          // React Flight Client checks the hook for this to ensure DevTools is new enough.
+          supportsFlight: true,
+
+          // React calls these methods.
+          // checkDCE: () => {},
+          // onCommitFiberUnmount: () => {},
+          // onCommitFiberRoot: () => {},
+          // // React v18.0+
+          // onPostCommitFiberRoot: () => {},
+          // setStrictMode: () => {},
+
+          // // Schedule Profiler runtime helpers.
+          // // These internal React modules to report their own boundaries
+          // // which in turn enables the profiler to dim or filter internal frames.
+          // getInternalModuleRanges: () => {},
+          // registerInternalModuleStart: () => {},
+          // registerInternalModuleStop: () => {},
+        };
+      }
+    </script> <script crossorigin="anonymous" src="https://unpkg.com/react@18/umd/react.production.min.js"></script> <script crossorigin="anonymous" src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script> <button onclick="ReactDOM.createRoot(document.getElementById(`node`)).render(React.createElement(`div`, null, `Hello World`));this.disabled=true;">Click me to render react node</button> <div>Open your console</div> <div id="node"></div> <script>
+      if (window.React) {
+        console.log("global React", React.version);
+      }
+
+      if (window.ReactDOM) {
+        console.log("global ReactDOM", ReactDOM.version);
+      }
+
+      if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
+        console.log(
+          customDevTools ? "From custom DevTools" : "From DevTools",
+          [...window.__REACT_DEVTOOLS_GLOBAL_HOOK__.renderers.values()].map(
+            (renderer) => ({
+              reactVersion: renderer.reconcilerVersion,
+              rendererPackageName: renderer.rendererPackageName,
+              rendererVersion: renderer.version,
+            }),
+          ),
+        );
+        if (customDevTools) {
+          delete window.__REACT_DEVTOOLS_GLOBAL_HOOK__;
+        }
+      }
+    </script> </body> </html>
