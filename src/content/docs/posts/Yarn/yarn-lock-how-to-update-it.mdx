@@ -2,7 +2,7 @@
 title: "Yarn.lock: How to Update it"
 tags: ["yarn", "config", "lockfile"]
 createdAt: 2021-09-05
-lastUpdated: 2021-09-05
+lastUpdated: 2025-01-24
 sidebar:
   order: 2
 image: /src/assets/pkcen3s6x5403jl6usey.jpeg
@@ -71,6 +71,10 @@ We can simply edit the file, and merge the 2 versions like that:
 ```
 
 Once this has been changed, we just have to run `yarn install` and 💥, B@1.1.4 will no longer be installed, only B@1.1.5.
+
+:::note[Note]
+All of those examples are using yarn v1's lock file’s syntax. And technically yarn v1 & yarn v2+ syntaxes for the lock file are not exactly the same. But they are very similar, so I'll consider them equal for this blog post (if you want to see the differences, see the [changelog](https://dev.to/arcanis/introducing-yarn-2-4eh1#new-lockfile-format)).
+:::
 
 ### The `resolutions` field
 
