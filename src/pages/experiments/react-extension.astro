@@ -35,6 +35,7 @@
           // getFiberRoots: () => {},
           inject: (renderer) => {
             const id = ++uidCounter;
+            // console.log("inject", renderer);
             renderers.set(id, renderer);
           },
           // on: () => {},
@@ -66,6 +67,24 @@
       }
     </script>
 
+    <script is:inline>
+      const initialOnCommitFiberRoot =
+        window.__REACT_DEVTOOLS_GLOBAL_HOOK__.onCommitFiberRoot;
+
+      window.__REACT_DEVTOOLS_GLOBAL_HOOK__.onCommitFiberRoot = (...args) => {
+        try {
+          initialOnCommitFiberRoot(...args);
+        } catch (e) {}
+
+        // console.log("onCommitFiberRoot", args);
+        // See https://unpkg.com/browse/react-dom@18.3.1/umd/react-dom.development.js#L12003
+        console.log(
+          "Root mode:",
+          args[1].tag === 1 ? "ConcurrentRoot" : "LegacyRoot",
+        );
+      };
+    </script>
+
     <script
       is:inline
       crossorigin="anonymous"
@@ -78,12 +97,19 @@
 
     <button
       onclick="ReactDOM.createRoot(document.getElementById(`node`)).render(React.createElement(`div`, null, `Hello World`));this.disabled=true;"
-      >Click me to render react node</button
+      >Click me to render react node (createRoot)</button
     >
 
-    <div>Open your console</div>
-
     <div id="node"></div>
+
+    <button
+      onclick="ReactDOM.render(React.createElement(`div`, null, `Hello World`), document.getElementById(`legacy`));this.disabled=true;"
+      >Click me to render react node (legacy)</button
+    >
+
+    <div id="legacy"></div>
+
+    <div>Open your console</div>
 
     <script is:inline>
       if (window.React) {
