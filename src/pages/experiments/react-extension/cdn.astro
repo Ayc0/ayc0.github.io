@@ -1,0 +1,45 @@
+---
+
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Experiment-react</title>
+  </head>
+  <body>
+    <script src="@components/experiments/page-react-extension/extension.js"
+    ></script>
+
+    <script
+      is:inline
+      crossorigin="anonymous"
+      src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script
+      is:inline
+      crossorigin="anonymous"
+      src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+    ></script>
+
+    <button
+      onclick="ReactDOM.createRoot(document.getElementById(`node`)).render(React.createElement(`div`, null, `Hello World`));this.disabled=true;"
+      >Click me to render react node (createRoot)</button
+    >
+
+    <div id="node"></div>
+
+    <button
+      onclick="ReactDOM.render(React.createElement(`div`, null, `Hello World`), document.getElementById(`legacy`));this.disabled=true;"
+      >Click me to render react node (legacy)</button
+    >
+
+    <div id="legacy"></div>
+
+    <div>Open your console</div>
+
+    <script src="@components/experiments/page-react-extension/metadata.js"
+    ></script>
+  </body>
+</html>

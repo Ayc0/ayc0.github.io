@@ -18,6 +18,7 @@
   "packageManager": "yarn@4.5.1",
   "dependencies": {
     "@astrojs/starlight": "^0.30.3",
+    "bippy": "^0.2.24",
     "colorjs.io": "^0.5.2",
     "konva": "^9.3.18",
     "lit": "^3.2.1",
