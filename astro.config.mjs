@@ -17,7 +17,7 @@ export default defineConfig({
 
   integrations: [
     react({
-      exclude: ["**/page-react-timings/*"],
+      exclude: ["**/page-react-timings/*", "**/page-react-extension/*"],
     }),
 
     starlight({
