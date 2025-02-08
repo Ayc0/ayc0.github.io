@@ -1,5 +1,5 @@
 import * as React from "react";
-import { getFiberStack, getDisplayName, type Fiber } from "bippy";
+// import { getFiberStack, getDisplayName, type Fiber } from "bippy";
 import { getFiberData, getFiberFromElement } from "./fiber";
 
 class ErrorBoundary extends React.Component<
@@ -13,14 +13,14 @@ class ErrorBoundary extends React.Component<
 
   static displayName = "ErrorBoundary";
 
-  static getDerivedStateFromError(error: Error) {
+  static getDerivedStateFromError(_error: Error) {
     // Update state so the next render will show the fallback UI.
     return { hasError: true };
   }
 
-  override componentDidCatch(error: Error, info: React.ErrorInfo) {
-    // console.log("componentDidCatch", { error, info, this: this });
-  }
+  //   override componentDidCatch(error: Error, info: React.ErrorInfo) {
+  //     // console.log("componentDidCatch", { error, info, this: this });
+  //   }
 
   override render() {
     if (this.state.hasError) {

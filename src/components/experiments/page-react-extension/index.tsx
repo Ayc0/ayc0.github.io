@@ -3,8 +3,9 @@ import * as React from "react";
 import { createRoot } from "react-dom/client";
 
 import { App } from "./App";
-import { getMutatedHostFibers, instrument, secure, type Fiber } from "bippy";
-import { getFiberData, getRoot } from "./fiber";
+import type { Fiber } from "bippy";
+// import { getMutatedHostFibers, instrument, secure, type Fiber } from "bippy";
+import { getFiberData /* , getRoot */ } from "./fiber";
 import { getErrorStackFromInfo } from "./error";
 
 // instrument(
@@ -26,7 +27,7 @@ const button = document.getElementById("button") as HTMLButtonElement;
 
 button.addEventListener("click", () => {
   createRoot(document.getElementById(`node`)!, {
-    onCaughtError(error, errorInfo) {
+    onCaughtError(_error, errorInfo) {
       // @ts-expect-error
       const fiber = errorInfo.errorBoundary?._reactInternals as
         | Fiber
