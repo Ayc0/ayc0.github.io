@@ -33,7 +33,7 @@ button.addEventListener("click", () => {
         | Fiber
         | undefined;
 
-      // TODO: even with displayName, getErrorStackFromInfo(errorInfo) can use the minified version. Why may want to go through the fiber manually to match the error stack
+      // TODO: even with displayName, getErrorStackFromInfo(errorInfo) can use the minified version. Why may want to go through the fiber manually to match the error stack, or via source maps
       console.log("Error caught by Error Boundary", {
         boundaryStack: fiber ? getFiberData(fiber).fiberStack : null,
         errorStack: getErrorStackFromInfo(errorInfo),
