@@ -11,6 +11,7 @@ node_modules
 .yarn/*
 !.yarn/cache
 !.yarn/releases
+!.yarn/patches
 
 # Astro
 .astro
