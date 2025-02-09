@@ -1,6 +1,7 @@
 import * as React from "react-18";
 // import { getFiberStack, getDisplayName, type Fiber } from "bippy";
 import { getFiberData, getFiberFromElement } from "./fiber";
+import { getErrorStackFromInfo } from "./error";
 
 // Can't use JSX as it will collide with Astro rendering
 
@@ -17,16 +18,24 @@ class ErrorBoundary extends React.Component {
     return { hasError: true };
   }
 
-  //   componentDidCatch(error: Error, info: React.ErrorInfo) {
-  //     // console.log("componentDidCatch", { error, info, this: this });
-  //   }
+  componentDidCatch(error, errorInfo) {
+    console.log("componentDidCatch", {
+      errorStack: getErrorStackFromInfo(errorInfo),
+      error,
+    });
+  }
 
   render() {
     if (this.state.hasError) {
       return this.props.fallback || null;
     }
 
-    return this.props.children;
+    return React.createElement(
+      "fieldset",
+      { style: { display: "inline", border: "1px solid red" } },
+      React.createElement("legend", null, "Error Boundary"),
+      this.props.children,
+    );
   }
 }
 
@@ -111,16 +120,13 @@ const Bar = () => {
     null,
     React.createElement(ErrorThrowerOnClick),
     React.createElement(ErrorThrowerOnRender),
+    React.createElement(ErrorThrowerOnEffect),
     React.createElement(
       ErrorBoundary,
       null,
-      React.createElement(
-        "fieldset",
-        { style: { display: "inline", border: "1px solid red" } },
-        React.createElement("legend", null, "Error Boundary"),
-        React.createElement(ErrorThrowerOnRender),
-        React.createElement(ErrorThrowerOnEffect),
-      ),
+      React.createElement(ErrorThrowerOnClick),
+      React.createElement(ErrorThrowerOnRender),
+      React.createElement(ErrorThrowerOnEffect),
     ),
   );
 };
