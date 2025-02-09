@@ -1,6 +1,7 @@
 import * as React from "react";
 // import { getFiberStack, getDisplayName, type Fiber } from "bippy";
 import { getFiberData, getFiberFromElement } from "./fiber";
+import { getErrorStackFromInfo } from "./error";
 
 class ErrorBoundary extends React.Component<
   React.PropsWithChildren<{ fallback?: React.ReactNode }>,
@@ -18,16 +19,24 @@ class ErrorBoundary extends React.Component<
     return { hasError: true };
   }
 
-  //   override componentDidCatch(error: Error, info: React.ErrorInfo) {
-  //     // console.log("componentDidCatch", { error, info, this: this });
-  //   }
+  override componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.log("componentDidCatch", {
+      errorStack: getErrorStackFromInfo(errorInfo),
+      error,
+    });
+  }
 
   override render() {
     if (this.state.hasError) {
       return this.props.fallback || null;
     }
 
-    return this.props.children;
+    return (
+      <fieldset style={{ display: "inline", border: "1px solid red" }}>
+        <legend>Error Boundary</legend>
+        {this.props.children}
+      </fieldset>
+    );
   }
 }
 
@@ -110,15 +119,13 @@ const Bar = () => {
   return (
     <ClickTracker>
       <ErrorThrowerOnClick />
-
       <ErrorThrowerOnRender />
+      <ErrorThrowerOnEffect />
 
       <ErrorBoundary>
-        <fieldset style={{ display: "inline", border: "1px solid red" }}>
-          <legend>Error Boundary</legend>
-          <ErrorThrowerOnRender />
-          <ErrorThrowerOnEffect />
-        </fieldset>
+        <ErrorThrowerOnClick />
+        <ErrorThrowerOnRender />
+        <ErrorThrowerOnEffect />
       </ErrorBoundary>
     </ClickTracker>
   );
