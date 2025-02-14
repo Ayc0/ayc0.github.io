@@ -1,6 +1,7 @@
 ---
 import type { Props } from "@astrojs/starlight/props";
 import Default from "@astrojs/starlight/components/PageFrame.astro";
+import Analytics from "@components/Analytics.astro";
 ---
 
 <Default {...Astro.props} hasSidebar={false}>
@@ -24,13 +25,4 @@ import Default from "@astrojs/starlight/components/PageFrame.astro";
   }
 </style>
 
-<!-- 100% privacy-first analytics -->
-<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"
-></script>
-<noscript
-  ><img
-    src="https://queue.simpleanalyticscdn.com/noscript.gif"
-    alt=""
-    referrerpolicy="no-referrer-when-downgrade"
-  /></noscript
->
+<Analytics />
