@@ -50,3 +50,25 @@ import { A } from "@components/post-react-life-cycles-and-timings/a.tsx";
 <Code lang="tsx" code={aRaw.split("// ---")[1].trim()} />
 
 <A client:only="react" />
+
+Here are the results we can gather from this test:
+
+| Mount                | Re-render                    | Unmount                      |
+| -------------------- | ---------------------------- | ---------------------------- |
+| render null          | render node                  | useLayoutEffect cleanup node |
+| ref node             | ref null                     | ref null                     |
+| useLayoutEffect node | useLayoutEffect cleanup null | useEffect cleanup null       |
+| useEffect node       | ref node                     |                              |
+|                      | useLayoutEffect node         |
+|                      | useEffect cleanup node       |                              |
+|                      | useEffect node               |
+
+| Mount                | Re-render                    | Unmount                      |
+| -------------------- | ---------------------------- | ---------------------------- |
+| render null          | render node                  |                              |
+|                      | ref null                     |                              |
+|                      | useLayoutEffect cleanup null | useLayoutEffect cleanup node |
+| ref node             | ref node                     | ref null                     |
+| useLayoutEffect node | useLayoutEffect node         |
+|                      | useEffect cleanup node       | useEffect cleanup null       |
+| useEffect node       | useEffect node               |
