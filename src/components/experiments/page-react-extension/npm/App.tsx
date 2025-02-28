@@ -1,7 +1,7 @@
 import * as React from "react";
 // import { getFiberStack, getDisplayName, type Fiber } from "bippy";
-import { getFiberData, getFiberFromElement } from "./fiber";
-import { getErrorStackFromInfo } from "./error";
+import { getFiberData, getFiberFromElement } from "../fiber";
+import { getErrorStackFromInfo } from "../error";
 
 class ErrorBoundary extends React.Component<
   React.PropsWithChildren<{ fallback?: React.ReactNode }>,

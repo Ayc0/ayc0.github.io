@@ -1,7 +1,7 @@
 import * as React from "react-18";
 // import { getFiberStack, getDisplayName, type Fiber } from "bippy";
-import { getFiberData, getFiberFromElement } from "./fiber";
-import { getErrorStackFromInfo } from "./error";
+import { getFiberData, getFiberFromElement } from "../fiber";
+import { getErrorStackFromInfo } from "../error";
 
 // Can't use JSX as it will collide with Astro rendering
 

@@ -5,8 +5,8 @@ import { createRoot } from "react-dom/client";
 import { App } from "./App";
 import type { Fiber } from "bippy";
 // import { getMutatedHostFibers, instrument, secure, type Fiber } from "bippy";
-import { getFiberData /* , getRoot */ } from "./fiber";
-import { getErrorStackFromInfo } from "./error";
+import { getFiberData /* , getRoot */ } from "../fiber";
+import { getErrorStackFromInfo } from "../error";
 
 // instrument(
 //   secure({
