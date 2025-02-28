@@ -20,7 +20,7 @@ class ErrorBoundary extends React.Component<
   }
 
   override componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.log("componentDidCatch", {
+    console.log("[CUSTOM] componentDidCatch", {
       errorStack: getErrorStackFromInfo(errorInfo),
       error,
     });
@@ -101,7 +101,7 @@ const ClickTracker = ({ children }: { children?: React.ReactNode }) => {
           return;
         }
         const fiberData = getFiberData(fiber);
-        console.log("Clicked on", {
+        console.log("[CUSTOM] Clicked on", {
           element: event.target,
           fiber: fiber,
           ...fiberData,

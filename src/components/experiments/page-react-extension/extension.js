@@ -4,7 +4,10 @@ let uidCounter = 0;
 window.customDevTools = false;
 if (!window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
   customDevTools = true;
-  console.log("%cInjecting custom React DevTools hook!", "color:orangered");
+  console.log(
+    "%c[CUSTOM] Injecting custom React DevTools hook!",
+    "color:orangered",
+  );
   window.__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
     // rendererInterfaces: new Map(),
     // listeners: {},

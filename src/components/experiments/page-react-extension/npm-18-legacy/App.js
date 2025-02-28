@@ -19,7 +19,7 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.log("componentDidCatch", {
+    console.log("[CUSTOM] componentDidCatch", {
       errorStack: getErrorStackFromInfo(errorInfo),
       error,
     });
@@ -102,7 +102,7 @@ const ClickTracker = ({ children }) => {
           return;
         }
         const fiberData = getFiberData(fiber);
-        console.log("Clicked on", {
+        console.log("[CUSTOM] Clicked on", {
           element: event.target,
           fiber: fiber,
           ...fiberData,
