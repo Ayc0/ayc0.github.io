@@ -1,7 +1,7 @@
 import * as React from "react";
 // import { getFiberStack, getDisplayName, type Fiber } from "bippy";
-import { getFiberData, getFiberFromElement } from "./fiber";
-import { getErrorStackFromInfo } from "./error";
+import { getFiberData, getFiberFromElement } from "../fiber";
+import { getErrorStackFromInfo } from "../error";
 
 class ErrorBoundary extends React.Component<
   React.PropsWithChildren<{ fallback?: React.ReactNode }>,
@@ -20,7 +20,7 @@ class ErrorBoundary extends React.Component<
   }
 
   override componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.log("componentDidCatch", {
+    console.log("[CUSTOM] componentDidCatch", {
       errorStack: getErrorStackFromInfo(errorInfo),
       error,
     });
@@ -101,7 +101,7 @@ const ClickTracker = ({ children }: { children?: React.ReactNode }) => {
           return;
         }
         const fiberData = getFiberData(fiber);
-        console.log("Clicked on", {
+        console.log("[CUSTOM] Clicked on", {
           element: event.target,
           fiber: fiber,
           ...fiberData,

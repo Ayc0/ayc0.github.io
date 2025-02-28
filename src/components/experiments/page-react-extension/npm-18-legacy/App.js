@@ -1,7 +1,7 @@
 import * as React from "react-18";
 // import { getFiberStack, getDisplayName, type Fiber } from "bippy";
-import { getFiberData, getFiberFromElement } from "./fiber";
-import { getErrorStackFromInfo } from "./error";
+import { getFiberData, getFiberFromElement } from "../fiber";
+import { getErrorStackFromInfo } from "../error";
 
 // Can't use JSX as it will collide with Astro rendering
 
@@ -19,7 +19,7 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.log("componentDidCatch", {
+    console.log("[CUSTOM] componentDidCatch", {
       errorStack: getErrorStackFromInfo(errorInfo),
       error,
     });
@@ -102,7 +102,7 @@ const ClickTracker = ({ children }) => {
           return;
         }
         const fiberData = getFiberData(fiber);
-        console.log("Clicked on", {
+        console.log("[CUSTOM] Clicked on", {
           element: event.target,
           fiber: fiber,
           ...fiberData,
