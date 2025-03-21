@@ -17,11 +17,11 @@
   },
   "packageManager": "yarn@4.5.1",
   "dependencies": {
-    "@astrojs/starlight": "^0.32.2",
+    "@astrojs/starlight": "^0.32.4",
     "bippy": "^0.3.7",
     "colorjs.io": "^0.5.2",
     "diff": "^7.0.0",
-    "konva": "^9.3.18",
+    "konva": "^9.3.20",
     "lit": "^3.2.1",
     "manatea": "^0.6.1",
     "react": "^19.0.0",
@@ -35,16 +35,16 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/react": "^4.2.1",
     "@astrojs/rss": "^4.0.11",
-    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/sitemap": "^3.3.0",
     "@types/diff": "^7.0.1",
-    "@types/react": "^19.0.10",
+    "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "@types/reveal.js": "^5.0.5",
-    "astro": "^5.4.0",
-    "prettier": "^3.5.2",
+    "astro": "^5.5.3",
+    "prettier": "^3.5.3",
     "prettier-plugin-astro": "^0.14.1",
     "reading-time": "^1.5.0",
     "remark-breaks": "^4.0.0",
-    "typescript": "^5.7.3"
+    "typescript": "^5.8.2"
   }
 }
