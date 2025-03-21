@@ -1,0 +1,28 @@
+---
+
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Experiment-react</title>
+  </head>
+  <body>
+    <script src="@components/experiments/page-react-extension/extension.js"
+    ></script>
+
+    <script is:inline>
+      addEventListener("error", (event) => {
+        console.error("Error", { event, error: event.error });
+      });
+    </script>
+
+    <div id="root"><div>Hello</div></div>
+
+    <script
+      src="@components/experiments/page-react-extension/hydration/nothing.tsx"
+    ></script>
+  </body>
+</html>
