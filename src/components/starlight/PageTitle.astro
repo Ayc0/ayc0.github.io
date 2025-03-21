@@ -1,21 +1,20 @@
 ---
-import type { Props } from "@astrojs/starlight/props";
 import Default from "@astrojs/starlight/components/PageTitle.astro";
 
 import getReadingTime from "reading-time";
 
 import { getCreatedDate } from "@components/get-posts";
 
-const readingTime = getReadingTime(Astro.props.entry.body);
+const readingTime = getReadingTime(Astro.locals.starlightRoute.entry.body);
 
-const createdDate = getCreatedDate(Astro.props.entry);
+const createdDate = getCreatedDate(Astro.locals.starlightRoute.entry);
 ---
 
-<Default {...Astro.props} />
+<Default />
 
 {
   // Only display the reading time & last updated when it is a doc
-  Astro.props.entry.data.template === "doc" ? (
+  Astro.locals.starlightRoute.entry.data.template === "doc" ? (
     <p>
       {readingTime.text}
       {createdDate ? ` • ${createdDate}` : ""}
