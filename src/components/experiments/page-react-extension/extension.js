@@ -71,7 +71,7 @@ window.__REACT_DEVTOOLS_GLOBAL_HOOK__.onCommitFiberRoot = (...args) => {
   // console.log("onCommitFiberRoot", args);
   // See https://unpkg.com/browse/react-dom@18.3.1/umd/react-dom.development.js#L12003
   console.log(
-    "Root mode:",
+    "[CUSTOM] Root mode:",
     args[1].tag === 1 ? "ConcurrentRoot" : "LegacyRoot",
   );
 };
