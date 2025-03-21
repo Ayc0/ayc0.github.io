@@ -10,6 +10,10 @@ hydrateRoot(wrapper, <div>World</div>, {
     console.warn("[CUSTOM] Recoverable error", error);
     const after = wrapper.innerHTML;
 
-    console.log({ diff: Diff.diffChars(before, after) });
+    console.log({
+      before,
+      after,
+      diff: Diff.diffChars(before, after),
+    });
   },
 });
