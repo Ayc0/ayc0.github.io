@@ -1,15 +1,14 @@
 ---
-import type { Props } from "@astrojs/starlight/props";
 import Default from "@astrojs/starlight/components/Head.astro";
 
 import { getImagePath } from "@components/images";
 
 let imagePath: string | undefined = await getImagePath(
-  Astro.props.entry.data.image,
+  Astro.locals.starlightRoute.entry.data.image,
 );
 ---
 
-<Default {...Astro.props} />
+<Default />
 
 {
   imagePath ? (
