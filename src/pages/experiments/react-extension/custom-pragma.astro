@@ -21,5 +21,10 @@ import { CustomPragma } from "@components/experiments/page-react-extension/stack
     </script>
 
     <CustomPragma client:only />
+
+    <script>
+      import { startClickListening } from "@components/experiments/page-react-extension/stack/click-listener";
+      startClickListening();
+    </script>
   </body>
 </html>
