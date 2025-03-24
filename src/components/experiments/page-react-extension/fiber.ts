@@ -1,6 +1,6 @@
 import { getFiberStack, getDisplayName, type Fiber } from "bippy";
 
-function getName(fiber: Fiber | null) {
+export function getFiberName(fiber: Fiber | null) {
   if (!fiber) {
     return null;
   }
@@ -31,9 +31,13 @@ export function getRoot(fiber: Fiber) {
 
 export function getFiberData(fiber: Fiber | null) {
   return {
-    fiberName: getName(fiber),
+    fiberName: getFiberName(fiber),
     fiberStack: fiber
-      ? getFiberStack(fiber).map(getName).filter(Boolean).reverse().join(" > ")
+      ? getFiberStack(fiber)
+          .map(getFiberName)
+          .filter(Boolean)
+          .reverse()
+          .join(" > ")
       : null,
   };
 }
