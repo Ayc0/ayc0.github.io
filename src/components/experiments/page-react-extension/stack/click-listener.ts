@@ -39,5 +39,10 @@ export const startClickListening = () => {
       "[CUSTOM] Clicked on " +
         [getFiberName(fiber), "\n", ...formattedErrorStack].join(""),
     );
+
+    const error = new Error(`[CUSTOM] Clicked on ${getFiberName(fiber)}`);
+    error.stack = formattedErrorStack.join("");
+
+    window.DD_RUM.addError(error);
   });
 };
