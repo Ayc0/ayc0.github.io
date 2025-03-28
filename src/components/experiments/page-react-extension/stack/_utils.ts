@@ -76,10 +76,10 @@ export function formatStack(error: Error): string {
   return stack;
 }
 
-// Doesn't work for `<div>` aka native string element, but works for components
-const MAPPED_TYPES = new WeakMap<any, Error>();
-
-// Doesn't work for `<A />` aka prop-less components, should work okay-ish for others
+// Every JSX created is mapped to unique objects. So we can identify every render of every JSX with the props
+// And even when we do `<div />` or `React.createElement('div')`, or `React.createElement('div', null)`, React uses `{}` in the end for the created props
+// See https://github.com/facebook/react/blob/ef4bc8b4f91023afac437be9179beef350b32db3/packages/react/src/jsx/ReactJSXElement.js#L658-L659
+// The only one I noticed that was `null` here was the root of the app, which we frankly don't care about
 const MAPPED_PROPS = new WeakMap<any, Error>();
 const conflictProps = new WeakSet<any>();
 
@@ -102,12 +102,10 @@ export const h: typeof React.createElement = (type, ...args) => {
     // const name = type.displayName || type.name;
     // setName(cloned, name);
 
-    MAPPED_TYPES.set(cloned, debugStack);
     type = cloned;
     // console.log("[CUSTOM] function", debugStack.stack?.split("\n"));
   } else if (type && typeof type === "object" && "$$typeof" in type) {
     if (type.$$typeof === Symbol.for("react.memo")) {
-      MAPPED_TYPES.set(type, debugStack); // Set for fiber.elementType
       // MAPPED_TYPES.set(type.type, debugStack); // Set for fiber.type
 
       // For Object.memo, often we use them with anonymous functions, like React.memo(() => <div />)
@@ -153,7 +151,7 @@ export const h: typeof React.createElement = (type, ...args) => {
   if (element.props) {
     if (MAPPED_PROPS.has(element.props)) {
       console.warn(
-        "[CUSTOM] THIS SHOULD NOT EXIST: CONFLICT ON ",
+        "[CUSTOM][PROPS] THIS SHOULD NOT EXIST: CONFLICT ON ",
         element.props,
         element,
       );
@@ -168,7 +166,5 @@ export const h: typeof React.createElement = (type, ...args) => {
   return element;
 };
 
-// @ts-expect-error
-window._DEBUG_MAPPED_TYPES = MAPPED_TYPES;
 // @ts-expect-error
 window._DEBUG_MAPPED_PROPS = MAPPED_PROPS;

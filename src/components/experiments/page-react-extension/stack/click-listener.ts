@@ -12,35 +12,20 @@ export const startClickListening = () => {
     const formattedErrorStack = [];
     let current: Fiber | null = fiber;
     while (current) {
-      // @ts-expect-error
-      const foundStackViaType = window._DEBUG_MAPPED_TYPES.get(
-        current.elementType,
-      );
-
+      console.log("current.pendingProps", current.pendingProps);
+      if (!current.pendingProps) {
+        console.log(current);
+      }
       // @ts-expect-error
       const foundStackViaProps = window._DEBUG_MAPPED_PROPS.get(
         current.pendingProps,
       );
 
-      if (
-        foundStackViaProps &&
-        foundStackViaType &&
-        foundStackViaProps !== foundStackViaType
-      ) {
-        console.error("[CUSTOM] CONFLICT", {
-          current,
-          foundStackViaType,
-          foundStackViaProps,
-        });
-      }
-      const foundStack = foundStackViaProps || foundStackViaType;
-
-      if (foundStack) {
-        formattedErrorStack.push(formatStack(foundStack));
+      if (foundStackViaProps) {
+        formattedErrorStack.push(formatStack(foundStackViaProps));
       } else {
         console.warn(
-          "[CUSTOM] No stack for",
-          current.elementType?.name,
+          `[CUSTOM] No stack for "${current.elementType?.name}"`,
           current,
         );
       }

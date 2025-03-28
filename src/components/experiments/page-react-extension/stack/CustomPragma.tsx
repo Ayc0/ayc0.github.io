@@ -20,7 +20,7 @@ class Foo extends React.Component {
     );
     console.trace();
     // console.log("Class current fiber:", this._reactInternals);
-    return h(Bar);
+    return h("div", null, h(Bar), h(Paz));
   }
 }
 setName(Foo, "Foo");
