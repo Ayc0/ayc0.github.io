@@ -31,7 +31,7 @@ jobs:
         run: |
           yarn install
           yarn build
-          yarn datadog-ci sourcemaps upload dist --service ayc0.github.io --minified-path-prefix https://ayc0.github.io/
+          yarn datadog-ci sourcemaps upload dist --service ayc0.github.io --minified-path-prefix https://ayc0.github.io/ --release-version $GITHUB_RUN_ID
           echo "" > ./dist/.nojekyll
 
       - name: Deploy 🚀
