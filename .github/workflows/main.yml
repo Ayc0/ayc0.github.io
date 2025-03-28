@@ -25,9 +25,13 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('./yarn.lock') }}
 
       - name: Install and Build
+        env:
+          DATADOG_SITE: datadoghq.eu
+          DATADOG_API_KEY: ${{ secrets.DD_API_KEY }}
         run: |
           yarn install
           yarn build
+          yarn datadog-ci sourcemaps upload dist --service ayc0.github.io --minified-path-prefix https://ayc0.github.io/
           echo "" > ./dist/.nojekyll
 
       - name: Deploy 🚀
