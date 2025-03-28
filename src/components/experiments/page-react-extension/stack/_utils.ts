@@ -20,13 +20,14 @@ import * as React from "react";
 // - CustomPragma ✅
 // - Foo ❌ (says O.render, not Foo.render)
 // - Bar ❌ (says "", not BarInternal nor Bar)
-export function setName(obj: any, name: string) {
-  Object.defineProperty(obj, "name", {
-    writable: false,
-    enumerable: false,
-    configurable: true,
-    value: name,
-  });
+export function setName(_obj: any, _name: string) {
+  // Disable for now, to see how RUM works here
+  // Object.defineProperty(obj, "name", {
+  //   writable: false,
+  //   enumerable: false,
+  //   configurable: true,
+  //   value: name,
+  // });
 }
 
 // Inspired from https://github.com/facebook/react/blob/4a9df08157f001c01b078d259748512211233dcf/packages/shared/ReactOwnerStackFrames.js#L12 but swapped `react-stack-top-frame` with `========`

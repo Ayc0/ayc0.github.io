@@ -1,6 +1,7 @@
 ---
 // @ts-expect-error
 import { CustomPragma } from "@components/experiments/page-react-extension/stack/CustomPragma";
+import Analytics from "@components/Analytics.astro";
 ---
 
 <!doctype html>
@@ -21,6 +22,8 @@ import { CustomPragma } from "@components/experiments/page-react-extension/stack
     </script>
 
     <CustomPragma client:only />
+
+    <Analytics />
 
     <script>
       import { startClickListening } from "@components/experiments/page-react-extension/stack/click-listener";
