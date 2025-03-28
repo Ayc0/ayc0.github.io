@@ -45,6 +45,7 @@ export function formatStack(error: Error): string {
     // Pop the h frame.
     // For Chrome & FF
     stack = stack.slice(idx + 1);
+    // We could use `Error.captureStackTrace(debugStack, h)` in the h function, but it doesn't work in Firefox and older browsers
   }
 
   // Only keep 1 line:
