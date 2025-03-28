@@ -7,7 +7,7 @@ declare global {
 }
 
 const MODE = import.meta.env.MODE;
-const GITHUB_RUN_ID = import.meta.env.GITHUB_RUN_ID;
+const GITHUB_RUN_ID = import.meta.env.GITHUB_RUN_ID || "local";
 const datadogClientToken = "pub65a306a096de7824a32d9879df04de68";
 ---
 
