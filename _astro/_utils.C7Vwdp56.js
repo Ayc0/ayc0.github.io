@@ -1,6 +1,0 @@
-import{g as s}from"./chunk-ELVWOSDS.DplWDq_q.js";import{r as l}from"./index.F28aNuxU.js";function m(e,n){Object.defineProperty(e,"name",{writable:!1,enumerable:!1,configurable:!0,value:n})}function i(e){let n=e.stack;n.startsWith(`Error: ========
-`)&&(n=n.slice(16));let o=n.indexOf(`
-`);return o!==-1&&(n=n.slice(o+1)),o=n.indexOf(`
-`),o!==-1&&(n=n.slice(0,o+1)),o=n.indexOf("react-stack-bottom-frame"),o===0?"":(o!==-1&&(o=n.lastIndexOf(`
-`,o)),o!==-1&&(n=n.slice(0,o)),n)}const a=new WeakMap,t=new WeakMap,c=new WeakSet,O=(e,...n)=>{const o=new Error("========");if(typeof e=="function"){const f=e;a.set(f,o),e=f}else e&&typeof e=="object"&&"$$typeof"in e?e.$$typeof===Symbol.for("react.memo")?(a.set(e,o),!e.type.name&&(s(e.type)||s(e))&&m(e.type,s(e.type)||"memo("+s(e)+")")):console.log("[CUSTOM] OTHER TYPE",e,{debugStack:o,owner:i(o)}):typeof e=="string"||console.log("[CUSTOM] OTHER TYPE",e,{debugStack:o,owner:i(o)});const r=l.createElement(e,...n);return r.props&&(t.has(r.props)&&(console.warn("[CUSTOM] THIS SHOULD NOT EXIST: CONFLICT ON ",r.props,r),t.delete(r.props),c.add(r.props)),c.has(r.props)||t.set(r.props,o)),r};window._DEBUG_MAPPED_TYPES=a;window._DEBUG_MAPPED_PROPS=t;export{i as f,O as h,m as s};
-//# sourceMappingURL=_utils.C7Vwdp56.js.map
