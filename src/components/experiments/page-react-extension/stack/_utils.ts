@@ -20,7 +20,7 @@ import * as React from "react";
 // - CustomPragma ✅
 // - Foo ❌ (says O.render, not Foo.render)
 // - Bar ❌ (says "", not BarInternal nor Bar)
-export function setName(obj: any, name: string) {
+export function setName(_obj: any, _name: string) {
   // Disable for now, to see how RUM works here
   // Object.defineProperty(obj, "name", {
   //   writable: false,
