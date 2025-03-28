@@ -11,6 +11,13 @@ export default defineConfig({
   site: "https://ayc0.github.io",
   base: "/", // We need the trailing / here otherwise links in the site will be broken
 
+  // Build source maps
+  vite: {
+    build: {
+      sourcemap: true,
+    },
+  },
+
   markdown: {
     remarkPlugins: [remarkBreaks],
   },
