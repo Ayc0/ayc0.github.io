@@ -304,3 +304,4 @@
       font-family: "Fira Code", monospace;
     }
   `;ds([Ut()],st.prototype,"isMobile",2);st=ds([ot("color-picker")],st);document.documentElement.style.backgroundColor=E().toString();E.on(t=>{document.documentElement.style.backgroundColor=t.toString()});
+//# sourceMappingURL=color-visualizer.astro_astro_type_script_index_0_lang.C803OhZN.js.map
