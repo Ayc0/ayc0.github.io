@@ -1,0 +1,2 @@
+import{r}from"./index.CRVbtxaI.js";import{h as o}from"./_utils.rfxrMRfT.js";import"./chunk-ELVWOSDS.DplWDq_q.js";const e=()=>o("div",void 0,"Hello h"),t=r.memo(function(){return o(e)});class s extends r.Component{render(){return console.log("[CUSTOM] Test component render log in all browser dev tools",new Error().stack),console.trace(),o("div",null,o(t),o(e))}}const m=()=>o(s);export{m as CustomPragma};
+//# sourceMappingURL=CustomPragma.CNwkIgct.js.map

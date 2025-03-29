@@ -1,0 +1,3 @@
+import{g as a,a as i}from"./fiber.D_L7F8YT.js";import{f as l}from"./_utils.rfxrMRfT.js";import"./chunk-ELVWOSDS.DplWDq_q.js";import"./index.CRVbtxaI.js";const d=()=>{document.addEventListener("click",s=>{const c=s.target,o=a(c);if(!o)return;const e=[];let r=o;for(;r;){console.log("current.pendingProps",r.pendingProps),r.pendingProps||console.log(r);const t=window._DEBUG_MAPPED_PROPS.get(r.pendingProps);if(t?e.push(l(t)):console.warn(`[CUSTOM] No stack for "${r.elementType?.name}"`,r),r.return===r)break;r=r.return}console.log("[CUSTOM] Clicked on "+[i(o),`
+`,...e].join(""));const n=new Error(`[CUSTOM] Clicked on ${i(o)}`);n.stack=e.join(""),window.DD_RUM.addError(n)})};d();
+//# sourceMappingURL=custom-pragma.astro_astro_type_script_index_0_lang.BKH5Wjp6.js.map
