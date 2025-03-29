@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react";
 
 // Copied from https://github.com/facebook/react/blob/da996a15be4f14aeb9726037f4559ff1cb3c2600/packages/shared/DefaultPrepareStackTraceV8.js
 // function DefaultPrepareStackTrace(
@@ -72,22 +73,21 @@ const conflictProps = new WeakSet<any>();
 // @ts-expect-error
 window._DEBUG_MAPPED_PROPS = MAPPED_PROPS;
 
-// @ts-expect-error
-export const h: typeof React.createElement = (type, ...args) => {
+export function h(type: any, ...args: any[]) {
   // Note: those don't work nicely:
   // - with class in Firefox: only display `render`, not `ComponentName.render`
   // - in Safari: only `h` appears, not the component render
   const debugStack = new Error("========");
 
-  // When converting ReactElement to Fiber, only the type & the props are passed, so we can only play with those 2
-  // See https://github.com/facebook/react/blob/da996a15be4f14aeb9726037f4559ff1cb3c2600/packages/react-reconciler/src/ReactFiber.js#L746-L756 or https://github.com/facebook/react/blob/da996a15be4f14aeb9726037f4559ff1cb3c2600/packages/react-reconciler/src/ReactFiber.js#L546
-
   // Re-enable this comment to see the full pretty error when the React devtools are installed
   // console.error("HA");
   // console.log("[CUSTOM] stack", {
-  //   raw: debugStack.stack.split("\n"),
+  //   raw: debugStack.stack?.split("\n"),
   //   formatted: formatStack(debugStack),
   // });
+
+  // When converting ReactElement to Fiber, only the type & the props are passed, so we can only play with those 2
+  // See https://github.com/facebook/react/blob/da996a15be4f14aeb9726037f4559ff1cb3c2600/packages/react-reconciler/src/ReactFiber.js#L746-L756 or https://github.com/facebook/react/blob/da996a15be4f14aeb9726037f4559ff1cb3c2600/packages/react-reconciler/src/ReactFiber.js#L546
 
   const element = React.createElement(type, ...args);
 
@@ -107,7 +107,7 @@ export const h: typeof React.createElement = (type, ...args) => {
   }
 
   return element;
-};
+}
 
 // To make custom pragma work with TS
 export namespace h {

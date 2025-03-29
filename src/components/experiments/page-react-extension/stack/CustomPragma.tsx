@@ -9,9 +9,9 @@ import { h } from "./_utils";
 
 import { onClick } from "./on-click";
 
-const FC = () => {
+function FC() {
   return <button>Function</button>;
-};
+}
 
 const MemoizedNamed = React.memo(function MemoizedInternal() {
   return <button>Memoized with an internal name</button>;
