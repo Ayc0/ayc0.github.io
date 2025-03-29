@@ -42,5 +42,5 @@ export const onClick = (event: React.MouseEvent) => {
   const error = new Error(`[CUSTOM] Clicked on ${getFiberName(fiber)}`);
   error.stack = formattedErrorStack.join("");
 
-  window.DD_RUM.addError(error);
+  window.DD_RUM?.addError(error);
 };

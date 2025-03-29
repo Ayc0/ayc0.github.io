@@ -39,6 +39,63 @@ class Class extends React.Component<any> {
   }
 }
 
+const useTrackingError = () => {
+  const trackingError = new Error();
+
+  // `captureStackTrace` is not available in Firefox / older browsers
+  if ("captureStackTrace" in Error) {
+    // Avoid reporting `useErrorContext` in the stack trace to have the real source of the error
+    Error.captureStackTrace(trackingError, useTrackingError);
+  }
+
+  function mergeErrorWithTracking(error: Error) {
+    const trackedError = new Error(error.message, {
+      cause: trackingError,
+    });
+
+    // `captureStackTrace` is not available in Firefox / older browsers
+    if ("captureStackTrace" in Error) {
+      // Avoid reporting `useErrorContext` in the stack trace to have the real source of the error
+      Error.captureStackTrace(trackedError, mergeErrorWithTracking);
+    }
+
+    return trackedError;
+  }
+
+  return mergeErrorWithTracking;
+};
+
+function useC() {
+  const mergeErrorWithTracking = useTrackingError();
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      fetch("https://ayc0.github.io/unknown")
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`Fetch error: ${res.status}`);
+          }
+        })
+        .catch((error) => {
+          window.DD_RUM?.addError(mergeErrorWithTracking(error));
+        });
+    }, 100);
+  }, []);
+}
+
+function useB() {
+  useC();
+}
+
+function useA() {
+  useB();
+}
+
+function TrackHook() {
+  useA();
+  return <div>Hook</div>;
+}
+
 export const CustomPragma = () => {
   return (
     <fieldset
@@ -64,6 +121,10 @@ export const CustomPragma = () => {
 
       <ForwardedRefNamed />
       <ForwardedRefAnonymous />
+
+      <hr />
+
+      <TrackHook />
     </fieldset>
   );
 };
