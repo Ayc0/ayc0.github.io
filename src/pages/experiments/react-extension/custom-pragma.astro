@@ -24,10 +24,5 @@ import Analytics from "@components/Analytics.astro";
     <CustomPragma client:only />
 
     <Analytics />
-
-    <script>
-      import { startClickListening } from "@components/experiments/page-react-extension/stack/click-listener";
-      startClickListening();
-    </script>
   </body>
 </html>

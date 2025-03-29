@@ -90,7 +90,6 @@ export const h: typeof React.createElement = (type, ...args) => {
   // });
 
   const element = React.createElement(type, ...args);
-  // mapType.set(element, debugStack);
 
   if (element.props) {
     if (MAPPED_PROPS.has(element.props)) {
