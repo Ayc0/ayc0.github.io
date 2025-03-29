@@ -1,16 +1,19 @@
+/** @jsxRuntime classic */
+/** @jsx h */
+
+// TO: make it work with automatic and jsx & jsx-automatic etc.
+
 import * as React from "react";
 
-import { setName, h } from "./_utils";
+import { h } from "./_utils";
 
 const Paz = () => {
-  return h("div", undefined, "Hello h");
+  return <div>Hello h</div>;
 };
-setName(Paz, "Paz");
 
 const Bar = React.memo(function BarInternal() {
-  return h(Paz);
+  return <Paz />;
 });
-setName(Bar, "Bar");
 
 class Foo extends React.Component {
   override render() {
@@ -20,12 +23,15 @@ class Foo extends React.Component {
     );
     console.trace();
     // console.log("Class current fiber:", this._reactInternals);
-    return h("div", null, h(Bar), h(Paz));
+    return (
+      <div>
+        <Bar />
+        <Paz />
+      </div>
+    );
   }
 }
-setName(Foo, "Foo");
 
 export const CustomPragma = () => {
-  return h(Foo);
+  return <Foo />;
 };
-setName(CustomPragma, "CustomPragma");

@@ -1,4 +1,3 @@
-import { getDisplayName } from "bippy";
 import * as React from "react";
 
 // Copied from https://github.com/facebook/react/blob/da996a15be4f14aeb9726037f4559ff1cb3c2600/packages/shared/DefaultPrepareStackTraceV8.js
@@ -14,21 +13,6 @@ import * as React from "react";
 //   }
 //   return stack;
 // }
-
-// Doesn't work for debugging errors
-// But works for the React devtools & for some minified logs:
-// - CustomPragma ✅
-// - Foo ❌ (says O.render, not Foo.render)
-// - Bar ❌ (says "", not BarInternal nor Bar)
-export function setName(_obj: any, _name: string) {
-  // Disable for now, to see how RUM works here
-  // Object.defineProperty(obj, "name", {
-  //   writable: false,
-  //   enumerable: false,
-  //   configurable: true,
-  //   value: name,
-  // });
-}
 
 // Inspired from https://github.com/facebook/react/blob/4a9df08157f001c01b078d259748512211233dcf/packages/shared/ReactOwnerStackFrames.js#L12 but swapped `react-stack-top-frame` with `========`
 export function formatStack(error: Error): string {
@@ -86,6 +70,9 @@ const MAPPED_PROPS = new WeakMap<any, Error>();
 const conflictProps = new WeakSet<any>();
 
 // @ts-expect-error
+window._DEBUG_MAPPED_PROPS = MAPPED_PROPS;
+
+// @ts-expect-error
 export const h: typeof React.createElement = (type, ...args) => {
   // Note: those don't work nicely:
   // - with class in Firefox: only display `render`, not `ComponentName.render`
@@ -94,51 +81,6 @@ export const h: typeof React.createElement = (type, ...args) => {
 
   // When converting ReactElement to Fiber, only the type & the props are passed, so we can only play with those 2
   // See https://github.com/facebook/react/blob/da996a15be4f14aeb9726037f4559ff1cb3c2600/packages/react-reconciler/src/ReactFiber.js#L746-L756 or https://github.com/facebook/react/blob/da996a15be4f14aeb9726037f4559ff1cb3c2600/packages/react-reconciler/src/ReactFiber.js#L546
-
-  if (typeof type === "function") {
-    // We could want to bind to have a location per render, but realistically those don't change
-    const cloned = type;
-
-    // const cloned = type.bind();
-
-    // const name = type.displayName || type.name;
-    // setName(cloned, name);
-
-    type = cloned;
-    // console.log("[CUSTOM] function", debugStack.stack?.split("\n"));
-  } else if (type && typeof type === "object" && "$$typeof" in type) {
-    if (type.$$typeof === Symbol.for("react.memo")) {
-      // MAPPED_TYPES.set(type.type, debugStack); // Set for fiber.type
-
-      // For Object.memo, often we use them with anonymous functions, like React.memo(() => <div />)
-      // But this generates "" for the name for the stack traces
-      if (
-        !type.type.name &&
-        (getDisplayName(type.type) || getDisplayName(type))
-      ) {
-        setName(
-          type.type,
-          getDisplayName(type.type) || "memo(" + getDisplayName(type) + ")",
-        );
-      }
-    } else {
-      console.log("[CUSTOM] OTHER TYPE", type, {
-        debugStack,
-        owner: formatStack(debugStack),
-      });
-    }
-  } else if (typeof type === "string") {
-    // Do nothing
-  } else {
-    console.log("[CUSTOM] OTHER TYPE", type, {
-      debugStack,
-      owner: formatStack(debugStack),
-    });
-  }
-
-  // if (type && typeof type === "object") {
-  // TODO: handle `memo` & `forwardRef` (& `lazy`?)
-  // }
 
   // Re-enable this comment to see the full pretty error when the React devtools are installed
   // console.error("HA");
@@ -168,5 +110,9 @@ export const h: typeof React.createElement = (type, ...args) => {
   return element;
 };
 
-// @ts-expect-error
-window._DEBUG_MAPPED_PROPS = MAPPED_PROPS;
+// To make custom pragma work with TS
+export namespace h {
+  export namespace JSX {
+    export interface IntrinsicElements extends React.JSX.IntrinsicElements {}
+  }
+}
