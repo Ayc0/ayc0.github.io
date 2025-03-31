@@ -105,6 +105,7 @@ function TrackHook() {
 const withTracking = <P,>(Component: React.ComponentType<P>) => {
   class WrappedComponent extends React.Component<P> {
     override render() {
+      // Undocumented & brittle API, see https://github.com/facebook/react/blob/6377903074d4b3a2de48c4da91783a5af9fc5237/packages/shared/ReactInstanceMap.js#L22-L24
       // @ts-expect-error
       const thisFiber = getStackFromFiber(this._reactInternals);
 
