@@ -1,4 +1,6 @@
 import * as React from "react";
+import { getFiberName } from "../fiber";
+import type { Fiber } from "bippy";
 
 // Copied from https://github.com/facebook/react/blob/da996a15be4f14aeb9726037f4559ff1cb3c2600/packages/shared/DefaultPrepareStackTraceV8.js
 // function DefaultPrepareStackTrace(
@@ -15,7 +17,7 @@ import * as React from "react";
 // }
 
 // Inspired from https://github.com/facebook/react/blob/4a9df08157f001c01b078d259748512211233dcf/packages/shared/ReactOwnerStackFrames.js#L12 but swapped `react-stack-top-frame` with `========`
-export function formatStack(error: Error): string {
+function formatStack(error: Error): string {
   // const prevPrepareStackTrace = Error.prepareStackTrace;
   // Error.prepareStackTrace = DefaultPrepareStackTrace;
   let stack = error.stack!;
@@ -60,6 +62,40 @@ export function formatStack(error: Error): string {
     // return "";
   }
   return stack;
+}
+
+export function getStackFromFiber(fiber: Fiber, message?: string) {
+  const formattedErrorStack = [];
+  let current: Fiber | null = fiber;
+
+  while (current) {
+    console.log("current.pendingProps", current.pendingProps);
+    if (!current.pendingProps) {
+      console.log(current);
+    }
+    // @ts-expect-error
+    const foundStackViaProps = window._DEBUG_MAPPED_PROPS.get(
+      current.pendingProps,
+    );
+
+    if (foundStackViaProps) {
+      formattedErrorStack.push(formatStack(foundStackViaProps));
+    } else {
+      console.warn(
+        `[CUSTOM] No stack for "${current.elementType?.name}"`,
+        current,
+      );
+    }
+    if (current.return === current) {
+      break;
+    }
+    current = current.return;
+  }
+
+  const error = new Error(message);
+  error.stack = (message ? message + "\n" : "") + formattedErrorStack.join("");
+
+  return error;
 }
 
 // Every JSX created is mapped to unique objects. So we can identify every render of every JSX with the props

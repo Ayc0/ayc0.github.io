@@ -5,7 +5,7 @@
 
 import * as React from "react";
 
-import { h } from "./_utils";
+import { getStackFromFiber, h } from "./_utils";
 
 import { onClick } from "./on-click";
 
@@ -39,8 +39,14 @@ class Class extends React.Component<any> {
   }
 }
 
+const TrackingContext = React.createContext<Error | undefined>(undefined);
+
 const useTrackingError = () => {
-  const trackingError = new Error();
+  const wrappingTrackingError = React.useContext(TrackingContext);
+
+  const trackingError = new Error(undefined, {
+    cause: wrappingTrackingError,
+  });
 
   // `captureStackTrace` is not available in Firefox / older browsers
   if ("captureStackTrace" in Error) {
@@ -77,7 +83,8 @@ function useC() {
           }
         })
         .catch((error) => {
-          window.DD_RUM?.addError(mergeErrorWithTracking(error));
+          console.error(mergeErrorWithTracking(error));
+          // window.DD_RUM?.addError(mergeErrorWithTracking(error));
         });
     }, 100);
   }, []);
@@ -95,6 +102,25 @@ function TrackHook() {
   useA();
   return <div>Hook</div>;
 }
+
+const withTracking = <P,>(Component: React.ComponentType<P>) => {
+  class WrappedComponent extends React.Component<P> {
+    override render() {
+      // @ts-expect-error
+      const thisFiber = getStackFromFiber(this._reactInternals);
+
+      return (
+        <TrackingContext.Provider value={thisFiber}>
+          <Component {...this.props} />
+        </TrackingContext.Provider>
+      );
+    }
+  }
+
+  return WrappedComponent;
+};
+
+const TrackHookSurroundedByContext = withTracking(TrackHook);
 
 export const CustomPragma = () => {
   return (
@@ -125,6 +151,7 @@ export const CustomPragma = () => {
       <hr />
 
       <TrackHook />
+      <TrackHookSurroundedByContext />
     </fieldset>
   );
 };

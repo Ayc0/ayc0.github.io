@@ -1,6 +1,5 @@
-import type { Fiber } from "bippy";
 import { getFiberFromElement, getFiberName } from "../fiber";
-import { formatStack } from "./_utils";
+import { getStackFromFiber } from "./_utils";
 
 export const onClick = (event: React.MouseEvent) => {
   const target = event.target as EventTarget;
@@ -8,39 +7,13 @@ export const onClick = (event: React.MouseEvent) => {
   if (!fiber) {
     return;
   }
-  const formattedErrorStack = [];
-  let current: Fiber | null = fiber;
-  while (current) {
-    console.log("current.pendingProps", current.pendingProps);
-    if (!current.pendingProps) {
-      console.log(current);
-    }
-    // @ts-expect-error
-    const foundStackViaProps = window._DEBUG_MAPPED_PROPS.get(
-      current.pendingProps,
-    );
 
-    if (foundStackViaProps) {
-      formattedErrorStack.push(formatStack(foundStackViaProps));
-    } else {
-      console.warn(
-        `[CUSTOM] No stack for "${current.elementType?.name}"`,
-        current,
-      );
-    }
-    if (current.return === current) {
-      // console.log("INF");
-      break;
-    }
-    current = current.return;
-  }
-  console.log(
-    "[CUSTOM] Clicked on " +
-      [getFiberName(fiber), "\n", ...formattedErrorStack].join(""),
+  const error = getStackFromFiber(
+    fiber,
+    `[CUSTOM] Clicked on ${getFiberName(fiber)}`,
   );
 
-  const error = new Error(`[CUSTOM] Clicked on ${getFiberName(fiber)}`);
-  error.stack = formattedErrorStack.join("");
+  console.log(error.stack);
 
   window.DD_RUM?.addError(error);
 };
