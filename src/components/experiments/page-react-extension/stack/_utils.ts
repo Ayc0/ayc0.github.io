@@ -1,5 +1,4 @@
 import * as React from "react";
-import { getFiberName } from "../fiber";
 import type { Fiber } from "bippy";
 
 // Copied from https://github.com/facebook/react/blob/da996a15be4f14aeb9726037f4559ff1cb3c2600/packages/shared/DefaultPrepareStackTraceV8.js
