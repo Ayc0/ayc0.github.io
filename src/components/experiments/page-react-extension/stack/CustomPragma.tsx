@@ -83,8 +83,7 @@ function useC() {
           }
         })
         .catch((error) => {
-          console.error(mergeErrorWithTracking(error));
-          // window.DD_RUM?.addError(mergeErrorWithTracking(error));
+          window.DD_RUM?.addError(mergeErrorWithTracking(error));
         });
     }, 100);
   }, []);
