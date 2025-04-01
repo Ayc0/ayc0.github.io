@@ -1,0 +1,132 @@
+---
+import Analytics from "@components/Analytics.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Experiment-react</title>
+  </head>
+  <body>
+    <script>
+      const observer = new PerformanceObserver((list) => {
+        console.log(list.getEntries()[0]);
+
+        /*
+{
+  "blockingDuration": 557.672,
+  "duration": 607.7999999523163,
+  "entryType": "long-animation-frame",
+  "firstUIEventTimestamp": 17003,
+  "name": "long-animation-frame",
+  "renderStart": 17612.100000023842,
+  "scripts": [{
+    "duration": 602,
+    "entryType": "script",
+    "executionStart": 17008.800000071526,
+    "forcedStyleAndLayoutDuration": 0,
+    "invoker": "BUTTON#button4.onclick",
+    "invokerType": "event-listener",
+    "name": "script",
+    "pauseDuration": 0,
+    "sourceCharPosition": 109,
+    "sourceFunctionName": "slowClick",
+    "sourceURL": "http://localhost:4321/src/pages/experiments/loaf.astro?astro&type=script&index=0&lang.ts",
+    "startTime": 17008.800000071526,
+    "windowAttribution": "self"
+  }],
+  "startTime": 17004.300000071526,
+  "styleAndLayoutStart": 17612.100000023842
+}
+*/
+
+        const entry = list.getEntries()[0];
+
+        if (!entry) return;
+        if (!("scripts" in entry) || !Array.isArray(entry.scripts)) return;
+
+        entry.scripts.forEach((script) => {
+          if (script.invokerType === "classic-script") {
+            return;
+          }
+
+          const error = new Error(
+            `Long animation frame caused by ${script.invoker}`,
+          );
+
+          if (script.sourceURL === document.location.href) {
+            console.error(error);
+            return;
+          }
+
+          // Create custom stack frame pointing to the source location
+          fetch(script.sourceURL)
+            .then((res) => res.text())
+            .then((text) => {
+              const relevantText = text.slice(0, script.sourceCharPosition);
+              const lines = relevantText.split("\n");
+              const lastLine = lines.at(-1)!;
+
+              const line = lines.length;
+              const column = lastLine.length;
+
+              const stackFrame = `    at ${script.sourceFunctionName} (${script.sourceURL}:${line}:${column})`;
+              error.stack = `${error.message}\n${stackFrame}`;
+              console.error(error);
+            });
+        });
+      });
+
+      observer.observe({ type: "long-animation-frame" });
+    </script>
+
+    <button onclick="slowClick()"
+      >Click me for a slow click (inline script, inlined onclick)</button
+    >
+
+    <button onclick="slowClick()"
+      >Click me for a slow click (linked script, inlined onclick)</button
+    >
+
+    <button id="button3"
+      >Click me for a slow click (linked script, added onclick later)</button
+    >
+
+    <button id="button4"
+      >Click me for a slow click (linked script, added addEventListener('click')
+      later)</button
+    >
+
+    <script>
+      // This here is just to pad the file
+      const a = 1;
+      const b = 2;
+      const c = 3;
+      const d = 4;
+      const e = 5;
+      const f = 6;
+      const g = 7;
+
+      // True code
+      function slowClick() {
+        for (let i = a + b + c + d + e + f + g; i < 1000000000; i++) {}
+      }
+
+      // Explicitly declare slowClick on window interface
+      declare global {
+        interface Window {
+          slowClick: typeof slowClick;
+        }
+      }
+
+      window.slowClick = slowClick;
+
+      document.getElementById("button3")!.onclick = slowClick;
+      document.getElementById("button4")!.addEventListener("click", slowClick);
+    </script>
+
+    <Analytics />
+  </body>
+</html>
