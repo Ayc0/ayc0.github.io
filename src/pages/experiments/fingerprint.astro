@@ -1,0 +1,37 @@
+---
+import Analytics from "@components/Analytics.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Experiment-react</title>
+  </head>
+  <body>
+    <Analytics />
+
+    <script is:inline type="module">
+      // Initialize the agent at application startup.
+      // If you're using an ad blocker or Brave/Firefox, this import will not work.
+      // Please use the NPM package instead: https://t.ly/ORyXk
+      const fpPromise = import("https://openfpcdn.io/fingerprintjs/v4").then(
+        (FingerprintJS) => FingerprintJS.load(),
+      );
+
+      // Get the visitor identifier when you need it.
+      fpPromise
+        .then((fp) => fp.get())
+        .then((result) => {
+          // This is the visitor identifier:
+          const visitorId = result.visitorId;
+          console.log(visitorId);
+
+          window.DD_RUM.setUser({
+            id: visitorId,
+          });
+        });
+    </script>
+  </body>
+</html>
