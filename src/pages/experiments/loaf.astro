@@ -111,7 +111,10 @@ import Analytics from "@components/Analytics.astro";
 
       // True code
       function slowClick() {
-        for (let i = a + b + c + d + e + f + g; i < 1000000000; i++) {}
+        let i: any = a + b + c + d + e + f + g;
+        for (; i < 1000000000; i++) {}
+        i = "finish slow click";
+        window.alert(i);
       }
 
       // Explicitly declare slowClick on window interface
