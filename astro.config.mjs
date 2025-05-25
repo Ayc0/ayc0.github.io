@@ -33,11 +33,23 @@ export default defineConfig({
       lastUpdated: true,
       favicon: "/images/favicon.png",
 
-      social: {
-        github: "https://github.com/Ayc0",
-        blueSky: "https://bsky.app/profile/ayc0.github.io",
-        rss: "https://ayc0.github.io/rss.xml",
-      },
+      social: [
+        {
+          icon: "github",
+          label: "GitHub",
+          href: "https://github.com/Ayc0",
+        },
+        {
+          icon: "blueSky",
+          label: "Bluesky",
+          href: "https://bsky.app/profile/ayc0.github.io",
+        },
+        {
+          icon: "rss",
+          label: "RSS",
+          href: "https://ayc0.github.io/rss.xml",
+        },
+      ],
 
       head: [
         {
