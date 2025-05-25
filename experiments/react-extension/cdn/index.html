@@ -1,1 +1,21 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Experiment-react</title><script type="module" src="/_astro/page.7qqag-5g.js"></script></head> <body> <script type="module" src="/_astro/cdn.astro_astro_type_script_index_0_lang.B9sTm-FK.js"></script> <script crossorigin="anonymous" src="https://unpkg.com/react@18/umd/react.production.min.js"></script> <script crossorigin="anonymous" src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script> <button onclick="ReactDOM.createRoot(document.getElementById(`node`)).render(React.createElement(`div`, null, `Hello World`));this.disabled=true;">Click me to render react node (createRoot)</button> <div id="node"></div> <button onclick="ReactDOM.render(React.createElement(`div`, null, `Hello World`), document.getElementById(`legacy`));this.disabled=true;">Click me to render react node (legacy)</button> <div id="legacy"></div> <div>Open your console</div> <script type="module" src="/_astro/cdn.astro_astro_type_script_index_1_lang.BF46ptNM.js"></script> </body> </html>
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Experiment-react</title><script type="module" src="/_astro/page.7qqag-5g.js"></script></head> <body> <script crossorigin="anonymous" src="//unpkg.com/react-scan/dist/auto.global.js"></script> <script type="module" src="/_astro/cdn.astro_astro_type_script_index_0_lang.B9sTm-FK.js"></script> <script crossorigin="anonymous" src="https://unpkg.com/react@18/umd/react.production.min.js"></script> <script crossorigin="anonymous" src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script> <script>
+      {
+        const App = () => {
+          const [count, setCount] = React.useState(0);
+          const [count2, setCount2] = React.useState(0);
+          const [count3] = React.useState(0); // Don't modify it
+
+          React.useEffect(() => {
+            const timer = setInterval(() => {
+              setCount((c) => c + 1);
+              setCount2((c) => c + 1);
+            }, 1000);
+
+            return () => clearInterval(timer);
+          }, []);
+
+          return React.createElement("div", null, `Count: ${count}`);
+        };
+        window.ElementToRender = React.createElement(App);
+      }
+    </script> <button onclick="ReactDOM.createRoot(document.getElementById(`node`)).render(ElementToRender);this.disabled=true;">Click me to render react node (createRoot)</button> <div id="node"></div> <button onclick="ReactDOM.render(ElementToRender, document.getElementById(`legacy`));this.disabled=true;">Click me to render react node (legacy)</button> <div id="legacy"></div> <div>Open your console</div> <script type="module" src="/_astro/cdn.astro_astro_type_script_index_1_lang.DHyRlfUR.js"></script> </body> </html>
