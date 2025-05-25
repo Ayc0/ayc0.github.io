@@ -43,6 +43,7 @@ export function remarkReadingTime() {
         nbOfImages++;
       }
       return (
+        // Food for thoughts: treat `code` as images 🤔
         node.type !== "code" && // Remove code blocks (easily read)
         node.type !== "mdxJsxFlowElement" && // Remove component rendered (like <Hello />)
         node.type !== "mdxjsEsm" // Remove imports
