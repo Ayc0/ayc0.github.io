@@ -6,6 +6,10 @@ import assert from "node:assert/strict";
 
 const WORDS_PER_MINUTE = 265;
 
+// Food for thoughts: have 2 different metrics for images & code blocks.
+// And use the image size as a baseline (bigger images will take more time than smaller ones),
+// and same for code blocks: larger code blocks should take more time.
+// But keep the idea of desensitization after a few
 const getSecondsAddedByImages = (imageCount) => {
   const nbOfImagesBellow10 = Math.max(Math.min(imageCount, 10), 0);
   const secondsAddedByImagesBellow10 =
@@ -39,11 +43,11 @@ export function remarkReadingTime() {
   return (tree, { data }) => {
     let nbOfImages = 0;
     const filteredTree = filter(tree, (node) => {
-      if (node.type === "image") {
+      // Treat images & code as "meta content"
+      if (node.type === "image" || node.type === "code") {
         nbOfImages++;
       }
       return (
-        // Food for thoughts: treat `code` as images 🤔
         node.type !== "code" && // Remove code blocks (easily read)
         node.type !== "mdxJsxFlowElement" && // Remove component rendered (like <Hello />)
         node.type !== "mdxjsEsm" // Remove imports
