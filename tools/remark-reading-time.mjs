@@ -1,10 +1,13 @@
-import getReadingTime from "reading-time";
 import { toString } from "mdast-util-to-string";
 import { filter } from "unist-util-filter";
 
 import assert from "node:assert/strict";
 
 const WORDS_PER_MINUTE = 265;
+
+const segmenter = new Intl.Segmenter("en-US", {
+  granularity: "word",
+});
 
 // Food for thoughts: have 2 different metrics for images & code blocks.
 // And use the image size as a baseline (bigger images will take more time than smaller ones),
@@ -41,11 +44,11 @@ assert.equal(getSecondsAddedByImages(14), (totalForTest += 3));
 
 export function remarkReadingTime() {
   return (tree, { data }) => {
-    let nbOfImages = 0;
+    let imagesCount = 0;
     const filteredTree = filter(tree, (node) => {
       // Treat images & code as "meta content"
       if (node.type === "image" || node.type === "code") {
-        nbOfImages++;
+        imagesCount++;
       }
       return (
         node.type !== "code" && // Remove code blocks (easily read)
@@ -62,31 +65,23 @@ export function remarkReadingTime() {
     // - https://help.medium.com/hc/en-us/articles/214991667-Read-time (for 265WPM)
     // - https://mediumcourse.com/how-is-medium-article-read-time-calculated/ (for the image timing)
 
-    const readingTime = getReadingTime(textOnPage);
+    const wordsCount = [...segmenter.segment(textOnPage)].filter(
+      ({ isWordLike }) => isWordLike,
+    ).length;
 
-    // `readingTime` contains a few information:
-    // - `text`: Human readable duration, like "3 min read",
-    // - `words`: The total word count
-    // - `minutes`: Total reading time duration in minutes
-    // - `time`: Total reading time duration in milliseconds
-    // As we want to manipulate this data manually, we'll just use `words`
+    let totalMs = Math.round((wordsCount / WORDS_PER_MINUTE) * 60_000); // round to avoid issues with floats
 
-    const words = readingTime.words;
+    const nbOfImagesBellow10 = Math.min(imagesCount, 10);
+    const timeAddedByImages = getSecondsAddedByImages(imagesCount) * 1000; // to milliseconds
+    totalMs += timeAddedByImages;
 
-    let time = Math.round((words / WORDS_PER_MINUTE) * 60_000); // round to avoid issues with floats
-
-    const nbOfImagesBellow10 = Math.min(nbOfImages, 10);
-    const timeAddedByImages = getSecondsAddedByImages(nbOfImages) * 1000; // to milliseconds
-    time += timeAddedByImages;
-
-    const minutes = time / 60_000;
+    const minutes = totalMs / 60_000;
     const displayedText = Math.ceil(minutes.toFixed(2)) + " min read";
 
     const finalReadingTime = {
-      words,
-      time,
-      minutes,
-      displayedText,
+      words: wordsCount, // The total word count
+      minutes, // Total reading time duration in minutes
+      displayedText, // Human readable duration, like "3 min read"
     };
 
     data.astro.frontmatter.readingTime = finalReadingTime;

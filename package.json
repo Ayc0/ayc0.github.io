@@ -45,7 +45,6 @@
     "mdast-util-to-string": "^4.0.0",
     "prettier": "^3.5.3",
     "prettier-plugin-astro": "^0.14.1",
-    "reading-time": "^1.5.0",
     "remark-breaks": "^4.0.0",
     "typescript": "^5.8.2",
     "unist-util-filter": "^5.0.1"
