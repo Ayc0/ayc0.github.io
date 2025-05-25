@@ -39,11 +39,11 @@ export function remarkReadingTime() {
   return (tree, { data }) => {
     let nbOfImages = 0;
     const filteredTree = filter(tree, (node) => {
-      if (node.type === "image") {
+      // Treat images & code as "images"
+      if (node.type === "image" || node.type === "code") {
         nbOfImages++;
       }
       return (
-        // Food for thoughts: treat `code` as images 🤔
         node.type !== "code" && // Remove code blocks (easily read)
         node.type !== "mdxJsxFlowElement" && // Remove component rendered (like <Hello />)
         node.type !== "mdxjsEsm" // Remove imports
