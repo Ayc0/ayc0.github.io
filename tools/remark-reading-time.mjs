@@ -76,7 +76,7 @@ export function remarkReadingTime() {
     totalMs += timeAddedByImages;
 
     const minutes = totalMs / 60_000;
-    const displayedText = Math.ceil(minutes.toFixed(2)) + " min read";
+    const displayedText = Math.ceil(minutes) + " min read";
 
     const finalReadingTime = {
       words: wordsCount, // The total word count
