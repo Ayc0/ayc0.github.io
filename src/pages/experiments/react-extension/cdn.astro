@@ -10,7 +10,11 @@
     <title>Experiment-react</title>
   </head>
   <body>
-    <script src="@components/experiments/page-react-extension/extension.js"
+    <script
+      crossorigin="anonymous"
+      src="//unpkg.com/react-scan/dist/auto.global.js"></script>
+
+    <script src="@components/experiments/page-react-extension/extension.ts"
     ></script>
 
     <script
@@ -23,15 +27,37 @@
       src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
     ></script>
 
+    <script is:inline>
+      {
+        const App = () => {
+          const [count, setCount] = React.useState(0);
+          const [count2, setCount2] = React.useState(0);
+          const [count3] = React.useState(0); // Don't modify it
+
+          React.useEffect(() => {
+            const timer = setInterval(() => {
+              setCount((c) => c + 1);
+              setCount2((c) => c + 1);
+            }, 1000);
+
+            return () => clearInterval(timer);
+          }, []);
+
+          return React.createElement("div", null, `Count: ${count}`);
+        };
+        window.ElementToRender = React.createElement(App);
+      }
+    </script>
+
     <button
-      onclick="ReactDOM.createRoot(document.getElementById(`node`)).render(React.createElement(`div`, null, `Hello World`));this.disabled=true;"
+      onclick="ReactDOM.createRoot(document.getElementById(`node`)).render(ElementToRender);this.disabled=true;"
       >Click me to render react node (createRoot)</button
     >
 
     <div id="node"></div>
 
     <button
-      onclick="ReactDOM.render(React.createElement(`div`, null, `Hello World`), document.getElementById(`legacy`));this.disabled=true;"
+      onclick="ReactDOM.render(ElementToRender, document.getElementById(`legacy`));this.disabled=true;"
       >Click me to render react node (legacy)</button
     >
 
