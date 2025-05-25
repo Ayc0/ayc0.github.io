@@ -43,7 +43,7 @@ export function remarkReadingTime() {
   return (tree, { data }) => {
     let nbOfImages = 0;
     const filteredTree = filter(tree, (node) => {
-      // Treat images & code as "images"
+      // Treat images & code as "meta content"
       if (node.type === "image" || node.type === "code") {
         nbOfImages++;
       }
