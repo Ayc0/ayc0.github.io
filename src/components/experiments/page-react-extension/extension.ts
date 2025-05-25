@@ -90,7 +90,7 @@
 import { instrument, traverseRenderedFibers } from "bippy"; // must be imported BEFORE react
 
 instrument({
-  onCommitFiberRoot(rendererID, root) {
+  onCommitFiberRoot(_rendererID, root) {
     // console.log("root ready to commit", rendererID, root);
     traverseRenderedFibers(root, (fiber) => {
       console.log("fiber rendered", fiber);

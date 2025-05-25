@@ -7780,6 +7780,7 @@ __metadata:
     konva: "npm:^9.3.20"
     lit: "npm:^3.2.1"
     manatea: "npm:^0.6.1"
+    mdast-util-to-string: "npm:^4.0.0"
     prettier: "npm:^3.5.3"
     prettier-plugin-astro: "npm:^0.14.1"
     react: "npm:^19.1.0"
@@ -7791,6 +7792,7 @@ __metadata:
     remark-breaks: "npm:^4.0.0"
     reveal.js: "npm:^5.2.1"
     typescript: "npm:^5.8.2"
+    unist-util-filter: "npm:^5.0.1"
   languageName: unknown
   linkType: soft
 
@@ -9390,6 +9392,17 @@ __metadata:
   dependencies:
     imurmurhash: "npm:^0.1.4"
   checksum: 10c0/d324c5a44887bd7e105ce800fcf7533d43f29c48757ac410afd42975de82cc38ea2035c0483f4de82d186691bf3208ef35c644f73aa2b1b20b8e651be5afd293
+  languageName: node
+  linkType: hard
+
+"unist-util-filter@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "unist-util-filter@npm:5.0.1"
+  dependencies:
+    "@types/unist": "npm:^3.0.0"
+    unist-util-is: "npm:^6.0.0"
+    unist-util-visit-parents: "npm:^6.0.0"
+  checksum: 10c0/57e523811d4c01c41fc4338a220ee28d27eee2d824ef9230963d5541f30b883a5a5a1623a9dfc4327196cf6253c5f74b3cff361d2531d8e9386f00d549994436
   languageName: node
   linkType: hard
 
