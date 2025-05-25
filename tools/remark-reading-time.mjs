@@ -76,7 +76,7 @@ export function remarkReadingTime() {
     time += timeAddedByImages;
 
     const minutes = time / 60_000;
-    const displayedText = Math.ceil(minutes.toFixed(2));
+    const displayedText = Math.ceil(minutes.toFixed(2)) + " min read";
 
     const finalReadingTime = {
       words,
@@ -85,6 +85,6 @@ export function remarkReadingTime() {
       displayedText,
     };
 
-    data.astro.frontmatter.readingTime = readingTime;
+    data.astro.frontmatter.readingTime = finalReadingTime;
   };
 }
