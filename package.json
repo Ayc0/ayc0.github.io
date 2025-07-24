@@ -8,8 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint:check": "yarn prettier . --check",
-    "lint:fix": "yarn prettier . --write"
+    "lint:check": "pnpm prettier . --check",
+    "lint:fix": "pnpm prettier . --write"
   },
   "volta": {
     "node": "22.11.0",
