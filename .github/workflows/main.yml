@@ -12,26 +12,33 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Get cached node_modules
-        uses: actions/cache@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          path: |
-            ./node_modules
-            ./.yarn/cache
-          key: ${{ runner.os }}-modules-${{ hashFiles('./yarn.lock') }}
+          version: 10
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
 
       - name: Install and Build
         env:
           DATADOG_SITE: datadoghq.eu
           DATADOG_API_KEY: ${{ secrets.DD_API_KEY }}
         run: |
-          yarn install
-          yarn build
-          yarn datadog-ci sourcemaps upload dist --service ayc0.github.io --minified-path-prefix https://ayc0.github.io/ --release-version $GITHUB_RUN_ID
+          pnpm install
+          pnpm build
+          pnpm datadog-ci sourcemaps upload dist --service ayc0.github.io --minified-path-prefix https://ayc0.github.io/ --release-version $GITHUB_RUN_ID
           echo "" > ./dist/.nojekyll
 
       - name: Deploy 🚀
