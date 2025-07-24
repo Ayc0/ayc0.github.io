@@ -5,20 +5,25 @@ on: [push]
 jobs:
   checks:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Get cached node_modules
-        uses: actions/cache@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
         with:
-          path: |
-            ./node_modules
-            ./.yarn/cache
-          key: ${{ runner.os }}-modules-${{ hashFiles('./yarn.lock') }}
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
 
       - name: Install and run checks
         run: |
-          yarn install
-          yarn astro check
-          yarn lint:check
+          pnpm install
+          pnpm astro check
+          pnpm lint:check
