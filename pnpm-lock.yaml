@@ -6,8 +6,8 @@ settings:
 
 patchedDependencies:
   react-dom@18.3.1:
-    hash: ede6fa15c832c4a5f43afa4c41b71032884a342c67b58c418b5d6a50c4d6e241
-    path: patches/react-dom-npm-18.3.1-a805663f38.patch
+    hash: 713749ac4d7816aac2dd7a26e1343333a0a50cefd5964110775693de0408cb12
+    path: patches/react-dom@18.3.1.patch
 
 importers:
 
@@ -45,7 +45,7 @@ importers:
         version: 19.1.0(react@19.1.0)
       react-dom-18:
         specifier: npm:react-dom@^18.3.1
-        version: react-dom@18.3.1(patch_hash=ede6fa15c832c4a5f43afa4c41b71032884a342c67b58c418b5d6a50c4d6e241)(react@19.1.0)
+        version: react-dom@18.3.1(patch_hash=713749ac4d7816aac2dd7a26e1343333a0a50cefd5964110775693de0408cb12)(react@19.1.0)
       react-konva:
         specifier: ^19.0.4
         version: 19.0.7(@types/react@19.1.8)(konva@9.3.22)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -8386,7 +8386,7 @@ snapshots:
       minimist: 1.2.8
       strip-json-comments: 2.0.1
 
-  react-dom@18.3.1(patch_hash=ede6fa15c832c4a5f43afa4c41b71032884a342c67b58c418b5d6a50c4d6e241)(react@19.1.0):
+  react-dom@18.3.1(patch_hash=713749ac4d7816aac2dd7a26e1343333a0a50cefd5964110775693de0408cb12)(react@19.1.0):
     dependencies:
       loose-envify: 1.4.0
       react: 19.1.0

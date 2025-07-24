@@ -1,2 +1,2 @@
 patchedDependencies:
-  react-dom@18.3.1: patches/react-dom-npm-18.3.1-a805663f38.patch
+  react-dom@18.3.1: patches/react-dom@18.3.1.patch
