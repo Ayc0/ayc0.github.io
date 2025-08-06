@@ -19,7 +19,6 @@ if (entry == null) {
   throw new Error(`slug ${slug} isn’t valid`);
 }
 
-// TODO: rework to include the real description
 let description: string | undefined;
 if (includeDate) {
   description = getCreatedDate(entry);

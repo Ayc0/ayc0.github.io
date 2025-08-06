@@ -17,3 +17,53 @@ import LinkToPost from "@components/LinkToPost.astro";
 :::caution[Warning]
 Still in draft
 :::
+
+## Introduction
+
+A few years ago, `npm` was released, changing forever the JavaScript & Node.js environment. But `npm` was very slow in its first versions, so Facebook released another package manager: yarnpkg. It was promising a few interesting features compared to npm at the time:
+
+- faster installs,
+- nicer DX:
+  - with automatic shortcuts like `yarn <cmd>` instead of `npm run <cmd>`,
+  - support for workspaces,
+- safer with a lockfile, ensuring that everyone would get the same versions after a `yarn install`
+  With npm, if the version "^1.0.0" of a package was installed, you could do the install and get 1.1.0, and redo the install a week later and get 1.1.2 without any visible changes in your package.json
+
+All of those lead to Yarn being the de-facto package manager for JavaScript projects.
+
+Alas, this changed with the years for a few reasons:
+
+- yarn went through a huge breaking change with its v2 codename "yarn berry",
+- npm started to get faster and add missing features like workspaces & implementing lockfile,
+- pnpm was released, building up on the last 2 package managers and being even faster.
+
+The v2 migration is the biggest reason why people moved away from yarn: when released, v2.0.0 was not fully stable (specially with node_modules), and was forcing people to switch to [Plug'n'Play](https://yarnpkg.com/features/pnp) (a version without node_modules). But almost 0 package in the ecosystem was compatible with it.
+
+The goal of this article is to mention that Yarn is still relevant in 2025+.
+
+## Background
+
+Hello, I'm Ayc0, a Frontend Engineer working for [Datadog](https://datadoghq.com/). To give a bit more context about Datadog, our frontend repository is **big**:
+
+- about 12M lines of TypeScript code,
+- more than 5k packages (using yarn workspace),
+- about 2M CI jobs per month,
+- for more than 5k PRs per for month.
+
+At this scale, having a tool that ensures us safety, speed, and the ability to audit, act, and enforce patterns across the whole codebase is not a desire: it's a requirement.
+
+## ROUGH SKETCH
+
+- [ ] background
+- [ ] auto pin mechanism
+- [ ] speed
+- [ ] v1 -> v3+ easy migration & node_modules
+- [ ] directive & multiple packages
+- [ ] `yarn up` & `yarn up -R`
+- [ ] constraints (v4+)
+- [ ] plugins
+- [ ] patch
+- [ ] yarn config
+- [ ] peer deps no build
+- [ ] workspace
+- [ ] publish & publishConfig & workspace directive
