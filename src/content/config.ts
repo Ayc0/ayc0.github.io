@@ -18,6 +18,8 @@ export const collections = {
           // Draft pages don’t have any requirements
           z
             .object({
+              wip: z.literal(true), // Custom key to drive all the changes, better DX
+
               pagefind: z.literal(false),
               sidebar: z.object({
                 hidden: z.literal(true),
@@ -27,22 +29,26 @@ export const collections = {
             // Splash don’t need requirements
             .or(
               z.object({
+                wip: z.literal(false).optional(), // Proper disjoint union with draft posts
+
                 template: z.literal("splash"),
-                pagefind: z.literal(true).optional(), // To avoid matching with the draft
+                pagefind: z.literal(true).optional(), // Making sure that all public posts are searchable
               }),
             )
 
             // For regular blog posts
             .or(
               z.object({
+                wip: z.literal(false).optional(), // Proper disjoint union with draft posts
+
                 template: z.literal("doc").optional(),
-                pagefind: z.literal(true).optional(), // To avoid matching with the draft
                 createdAt: z.date(),
                 lastUpdated: z.date().optional(),
 
                 // Required for published posts to have those defined
                 description: z.string(),
                 tags: z.array(z.string()), // TODO: use a set list of tags to avoid typos
+                pagefind: z.literal(true).optional(), // Making sure that all public posts are searchable
               }),
             ),
         ),

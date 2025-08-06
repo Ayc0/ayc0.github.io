@@ -11,12 +11,19 @@ const getTime = (post: CollectionEntry<"docs">): number => {
 export const getPublishablePosts = async () => {
   const posts = await getCollection(
     "docs",
-    (post) => post.data.createdAt && !post.data.draft && post.data.pagefind,
+    (post) =>
+      // Some of those fields aren't required as already checked in the config, but it's fine
+      post.data.createdAt &&
+      !post.data.draft &&
+      post.data.pagefind &&
+      !post.data.wip,
   );
 
   posts.forEach((post) => {
     if (post.slug.startsWith("posts/drafts/")) {
-      throw new Error(`Public post ${post.id} cannot be in the drafts folder`);
+      throw new Error(
+        `Public post "${post.id}" cannot be in the drafts folder`,
+      );
     }
   });
 
@@ -34,7 +41,7 @@ export const getPublishablePostsBySection = async () => {
   for (const post of posts) {
     const group = post.id.split("/")[1];
     if (!group) {
-      throw new Error(`Post ${post.id} has no section`);
+      throw new Error(`Post "${post.id}" has no section`);
     }
     groups[group]!.push(post);
   }
@@ -43,14 +50,23 @@ export const getPublishablePostsBySection = async () => {
 };
 
 export const getDraftPosts = async () => {
-  const posts = await getCollection(
-    "docs",
-    (post) => post.data.draft || !post.data.pagefind,
-  );
+  const posts = await getCollection("docs", (post) => post.data.wip);
 
   posts.forEach((post) => {
     if (!post.slug.startsWith("posts/drafts/")) {
-      throw new Error(`Draft post ${post.id} is not in the drafts folder`);
+      throw new Error(
+        `Draft post "${post.id}" is not in the drafts folder.\nYou can use for instance "posts/drafts/${crypto.randomUUID()}`,
+      );
+    }
+
+    if (
+      !post.slug.match(
+        /^posts\/drafts\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/,
+      )
+    ) {
+      throw new Error(
+        `Please use a stable UUID for the post "${post.id}".\nYou can use for instance "posts/drafts/${crypto.randomUUID()}`,
+      );
     }
   });
 
