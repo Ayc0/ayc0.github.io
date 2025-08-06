@@ -1,2 +1,11 @@
+ignoredBuiltDependencies:
+  - cpu-features
+  - esbuild
+  - protobufjs
+  - ssh2
+
+onlyBuiltDependencies:
+  - sharp
+
 patchedDependencies:
   react-dom@18.3.1: patches/react-dom@18.3.1.patch
