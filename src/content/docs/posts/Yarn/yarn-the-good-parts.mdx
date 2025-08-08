@@ -79,11 +79,26 @@ This is mostly beneficiary in 3 use-cases:
 This can also be solved by tools like [Volta](https://volta.sh) can also allow you to setup a similar behavior, but it requires an external tool to be installed.
 And `pnpm` for instance solves it by hard crashing if you aren’t using the exact same version as written in your package.json’s `packageManager` field. But it won’t auto update your users, nor work that nicely if you have different repositories using different versions of pnpm.
 
+### Speed
+
+For this section, I’ll use 2 metrics: benchmarks created by [pnpm](https://pnpm.io/benchmarks) and [yarn](https://yarnpkg.com/features/performances), and my personal experience.
+
+To me, only 3 metrics matter (as they are related to operations done the most by devs):
+
+- 1st time install (with no cache, no node_modules, but a lockfile already filed),
+- adding/removing a package,
+- running install with full cache
+
+In all of those 3 categories, yarn has around the same speed as pnpm (which is considered the reference in term of performances), or sometimes even faster when using Plug'n'Play (as it doesn’t have to write into the z
+`node_modules/` folder).
+
+And when running with PNP, you won’t even have to run `yarn install` that often as all packages will always be here.
+
 ## ROUGH SKETCH
 
 - [x] ~background~
 - [x] auto pin mechanism
-- [ ] speed
+- [x] speed
 - [ ] v1 -> v3+ easy migration & node_modules
 - [ ] directive & multiple packages
 - [ ] `yarn up` & `yarn up -R`
