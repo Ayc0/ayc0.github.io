@@ -50,12 +50,39 @@ Hello, I'm Ayc0, a Frontend Engineer working for [Datadog](https://datadoghq.com
 - about 2M CI jobs per month,
 - for more than 5k PRs per for month.
 
-At this scale, having a tool that ensures us safety, speed, and the ability to audit, act, and enforce patterns across the whole codebase is not a desire: it's a requirement.
+At this scale, having a tool that ensures us safety, speed, and the ability to audit, act, and enforce patterns across the whole codebase is not a desire: it’s a requirement.
+
+## Features
+
+Let’s dive into a few of very good features that Yarn has. For each of those features, I’ll mention if they are unique to yarn, or if other package managers share similar features.
+
+TODO: DO I WANNA DO THAT?
+
+### Auto pin yarn version per repository
+
+To enable yarn 2+, you need to set `yarn set version berry`, or `yarn set version 4.0.0`. This will do 3 things:
+
+- Set in your `package.json` a field `"packageManage": "yarn@<version>"`,
+- Create / Add to your `.yarnrc.yml` a few field `yarnPath: ".yarn/releases/yarn-<version>.cjs"`,
+- Add a new file to your repository: `.yarn/releases/yarn-<version>.cjs`
+
+This `.yarn/releases` folder should be tracked by Git (but not necessarily the rest of the .yarn folder, please follow [Yarn best practices around Git usage](https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored)).
+
+Even if this can be a bit annoying as it has to be done for **each repository** using Yarn 2+, it is very nice to ensure that everyone in your repo is using the same version. No matter which global yarn version setup on anyone’s computer, this local version will be used.
+
+This is mostly beneficiary in 3 use-cases:
+
+- Sharing the same version between local and CI without having to update the CI config when updating yarn locally,
+- For very big repositories with a lot of contributors (to update all of them at once without any manipulation on their end),
+- For repositories with a lot of 1 time new contributors / open source repositories.
+
+This can also be solved by tools like [Volta](https://volta.sh) can also allow you to setup a similar behavior, but it requires an external tool to be installed.
+And `pnpm` for instance solves it by hard crashing if you aren’t using the exact same version as written in your package.json’s `packageManager` field. But it won’t auto update your users, nor work that nicely if you have different repositories using different versions of pnpm.
 
 ## ROUGH SKETCH
 
-- [ ] background
-- [ ] auto pin mechanism
+- [x] ~background~
+- [x] auto pin mechanism
 - [ ] speed
 - [ ] v1 -> v3+ easy migration & node_modules
 - [ ] directive & multiple packages
