@@ -62,7 +62,7 @@ TODO: DO I WANNA DO THAT?
 
 To enable yarn 2+, you need to set `yarn set version berry`, or `yarn set version 4.0.0`. This will do 3 things:
 
-- Set in your `package.json` a field `"packageManage": "yarn@<version>"`,
+- Set in your `package.json` a field `"packageManager": "yarn@<version>"`,
 - Create / Add to your `.yarnrc.yml` a few field `yarnPath: ".yarn/releases/yarn-<version>.cjs"`,
 - Add a new file to your repository: `.yarn/releases/yarn-<version>.cjs`
 
@@ -94,12 +94,58 @@ In all of those 3 categories, yarn has around the same speed as pnpm (which is c
 
 And when running with PNP, you won’t even have to run `yarn install` that often as all packages will always be here.
 
+### Automatic update from yarn 1
+
+Let’s tackle the elephant in the room: yarn 2. Updating from Yarn 1 to Yarn 2 was very rough when it was released. I won’t go in more details here, but Yarn 2 is **not** a finished product. But the Yarn team acknowledged its issues, and fixed them in Yarn 3. And they went even further with Yarn 4.
+
+:::tip[You can quote me on that]
+Yarn 3 is what Yarn 2 should have been.
+And Yarn 4 is what people wanted Yarn 2 to be.
+:::
+
+If you have a project running Yarn 1, just run `yarn set version 3.7.0`. This will:
+
+- add a new `.yarn/releases/yarn-3.7.0.cjs` file,
+- add `"packageManager": "yarn@3.7.0"` in package.json,
+- create a new `.yarnrc.yml` file with:
+
+```yaml title=".yarnrc.yml"
+yarnPath: .yarn/releases/yarn-3.7.0.cjs
+```
+
+And after running `yarn install`, it’ll tell you:
+
+```raw wrap
+➤ YN0070: Migrating from Yarn 1; automatically enabling the compatibility node-modules linker 👍
+```
+
+:::note
+In Yarn 4, it’ll say instead a more generic error message, but the principle is the same:
+
+```raw wrap
+➤ YN0087: Migrated your project to the latest Yarn version 🚀
+```
+
+:::
+
+And then modify your `.yarnrc.yml` into:
+
+```yaml title=".yarnrc.yml"
+nodeLinker: node-modules
+
+yarnPath: .yarn/releases/yarn-3.7.0.cjs
+```
+
+By default, yarn berry uses PNP and not node_modules. But `nodeLinker: node-modules` will tell it to use node_modules/ again. This linker is fully stable, and makes Yarn fully compatible with the rest of the ecosystem. I’ve never seen any single project that weren’t working with it (even React-Native projects).
+
+There are other options that will be deprecated between each Yarn major, and most of the time, Yarn 3+ will auto-fix most of them with this code: [YN0087](https://yarnpkg.com/advanced/error-codes#yn0087---migration_success).
+
 ## ROUGH SKETCH
 
 - [x] ~background~
 - [x] auto pin mechanism
 - [x] speed
-- [ ] v1 -> v3+ easy migration & node_modules
+- [x] v1 -> v3+ easy migration & node_modules
 - [ ] directive & multiple packages
 - [ ] `yarn up` & `yarn up -R`
 - [ ] constraints (v4+)
