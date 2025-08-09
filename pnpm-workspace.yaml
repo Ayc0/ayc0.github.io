@@ -9,3 +9,12 @@ onlyBuiltDependencies:
 
 patchedDependencies:
   react-dom@18.3.1: patches/react-dom@18.3.1.patch
+
+packageExtensions:
+  react-dom@18:
+    peerDependencies:
+      react-18: "18.x.x" # as we patch react-dom-18 to import react-18 instead
+
+peerDependencyRules:
+  allowAny:
+    - react # as we have 2 versions

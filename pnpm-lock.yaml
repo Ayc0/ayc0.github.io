@@ -4,6 +4,8 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+packageExtensionsChecksum: sha256-YE9adKiqJ4vqTFxr3nEeVZzW+oFDNMhFNjFesCPn9zs=
+
 patchedDependencies:
   react-dom@18.3.1:
     hash: 713749ac4d7816aac2dd7a26e1343333a0a50cefd5964110775693de0408cb12
@@ -45,7 +47,7 @@ importers:
         version: 19.1.0(react@19.1.0)
       react-dom-18:
         specifier: npm:react-dom@^18.3.1
-        version: react-dom@18.3.1(patch_hash=713749ac4d7816aac2dd7a26e1343333a0a50cefd5964110775693de0408cb12)(react@19.1.0)
+        version: react-dom@18.3.1(patch_hash=713749ac4d7816aac2dd7a26e1343333a0a50cefd5964110775693de0408cb12)(react@18.3.1)(react@19.1.0)
       react-konva:
         specifier: ^19.0.4
         version: 19.0.7(@types/react@19.1.8)(konva@9.3.22)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -3103,6 +3105,7 @@ packages:
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
     peerDependencies:
       react: ^18.3.1
+      react-18: 18.x.x
 
   react-dom@19.1.0:
     resolution: {integrity: sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==}
@@ -8385,10 +8388,11 @@ snapshots:
       minimist: 1.2.8
       strip-json-comments: 2.0.1
 
-  react-dom@18.3.1(patch_hash=713749ac4d7816aac2dd7a26e1343333a0a50cefd5964110775693de0408cb12)(react@19.1.0):
+  react-dom@18.3.1(patch_hash=713749ac4d7816aac2dd7a26e1343333a0a50cefd5964110775693de0408cb12)(react@18.3.1)(react@19.1.0):
     dependencies:
       loose-envify: 1.4.0
       react: 19.1.0
+      react-18: react@18.3.1
       scheduler: 0.23.2
 
   react-dom@19.1.0(react@19.1.0):
