@@ -34,8 +34,8 @@ importers:
         specifier: ^3.3.0
         version: 3.3.1
       manatea:
-        specifier: ^0.6.1
-        version: 0.6.1
+        specifier: ^1.0.0
+        version: 1.0.0
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -2626,8 +2626,8 @@ packages:
   magicast@0.3.5:
     resolution: {integrity: sha512-L0WhttDl+2BOsybvEOLK7fW3UA0OQ0IQ2d6Zl2x/a6vVRs3bAY0ECOSHHeL5jD+SbOpOCUEi0y1DgHEn9Qn1AQ==}
 
-  manatea@0.6.1:
-    resolution: {integrity: sha512-G4kEhdC58nwdPFUR6WAzOu5DjWXqc8Cido5noW6K8UBe4nN6/yBGsQ//Qp3kOx62nFJ5mcA7/IBGJb8VWAENww==}
+  manatea@1.0.0:
+    resolution: {integrity: sha512-7DGh/KrtKCgGwwB/AmiCMfBzCHbq3GStlcBHL7mzrkweHUcd4n9dwZTIk1SC0qj9IeBR/S/yWzRRg3sKEZS4Dw==}
 
   markdown-extensions@2.0.0:
     resolution: {integrity: sha512-o5vL7aDWatOTX8LzaS1WMoaoxIiLRQJuIKKe2wAw6IeULDHaqbiqiggmx+pKvZDb1Sj+pE46Sn1T7lCqfFtg1Q==}
@@ -7604,7 +7604,7 @@ snapshots:
       '@babel/types': 7.28.1
       source-map-js: 1.2.1
 
-  manatea@0.6.1: {}
+  manatea@1.0.0: {}
 
   markdown-extensions@2.0.0: {}
 
