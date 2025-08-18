@@ -39,7 +39,7 @@
     "@datadog/datadog-ci": "^3.6.1",
     "@types/diff": "^8.0.0",
     "@types/react": "^19.1.5",
-    "@types/react-dom": "^19.1.5",
+    "@types/react-dom": "^19.1.7",
     "@types/reveal.js": "^5.0.5",
     "astro": "^5.8.0",
     "mdast-util-to-string": "^4.0.0",
