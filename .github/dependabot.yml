@@ -11,6 +11,8 @@ updates:
       - Ayc0
     schedule:
       interval: "weekly"
+    ignore:
+      - dependency-name: sharp
 
   - package-ecosystem: "github-actions"
     directory: "/"
