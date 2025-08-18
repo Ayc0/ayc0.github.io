@@ -12,10 +12,10 @@
     "lint:fix": "pnpm prettier . --write"
   },
   "volta": {
-    "node": "22.11.0",
-    "pnpm": "10.13.1"
+    "node": "24.6.0",
+    "pnpm": "10.14.0"
   },
-  "packageManager": "pnpm@10.13.1",
+  "packageManager": "pnpm@10.14.0",
   "dependencies": {
     "@astrojs/starlight": "^0.35.2",
     "bippy": "^0.3.18",
