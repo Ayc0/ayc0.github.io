@@ -12,7 +12,11 @@ updates:
     schedule:
       interval: "weekly"
     ignore:
-      - dependency-name: sharp
+      - dependency-name: sharp # needs to follow Astro's optionalDependency version
+      - dependency-name: react
+        versions: [18.3.1] # pinned to this version on purpose
+      - dependency-name: react-dom
+        versions: [18.3.1] # pinned to this version on purpose
 
   - package-ecosystem: "github-actions"
     directory: "/"
