@@ -4,11 +4,11 @@ template: splash
 ---
 
 import LinkToPost from "@components/LinkToPost.astro";
-import { getPublishablePostsBySection } from "@components/get-posts";
+import { getPublishablePostsByYear } from "@components/get-posts";
 
 {
-Object.entries(await getPublishablePostsBySection()).map(([section, posts]) => {
-return (<><h2 id={section}>{section}</h2>
-{posts.map(post => <LinkToPost slug={post.slug} includeDate />)}</>)
+Object.entries(await getPublishablePostsByYear()).reverse().map(([year, posts]) => {
+return (<><h2 id={year}>{year}</h2>
+{posts.map(post => <LinkToPost slug={post.slug} includeDate includeTags />)}</>)
 })
 }

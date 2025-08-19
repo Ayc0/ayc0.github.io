@@ -2,14 +2,15 @@
 import { getEntry } from "astro:content";
 import { LinkCard } from "@astrojs/starlight/components";
 
-import { getCreatedDate } from "@components/get-posts";
+import { getCreatedDate, getTagsHtml } from "@components/get-posts";
 
 export interface Props {
   slug: string;
   includeDate?: boolean;
+  includeTags?: boolean;
 }
 
-const { slug, includeDate } = Astro.props;
+const { slug, includeDate, includeTags } = Astro.props;
 
 const entry = await getEntry(
   "docs",
@@ -19,16 +20,20 @@ if (entry == null) {
   throw new Error(`slug ${slug} isn’t valid`);
 }
 
+// TODO: include in the name the series' name (only for light/dark for now)
+
 let description: string | undefined;
 if (includeDate) {
   description = getCreatedDate(entry);
 }
-if (entry.data.tags?.length) {
-  const tags = entry.data.tags.map((tag) => `<code>#${tag}</code>`).join(" ");
-  if (!description) {
-    description = tags;
-  } else {
-    description += `<br/>${tags}`;
+if (includeTags) {
+  const tags = getTagsHtml(entry);
+  if (tags) {
+    if (!description) {
+      description = tags;
+    } else {
+      description += `<br/>${tags}`;
+    }
   }
 }
 

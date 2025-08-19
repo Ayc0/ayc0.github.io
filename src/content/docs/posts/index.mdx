@@ -8,7 +8,7 @@ import { getPublishablePosts } from "@components/get-posts";
 
 ### Latest posts
 
-{(await getPublishablePosts()).slice(0, 10).map((post) => <LinkToPost slug={post.slug} includeDate />)}
+{(await getPublishablePosts()).slice(0, 10).map((post) => <LinkToPost slug={post.slug} includeDate includeTags />)}
 
 ### See more
 
