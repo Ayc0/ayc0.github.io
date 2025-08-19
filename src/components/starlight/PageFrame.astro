@@ -1,6 +1,8 @@
 ---
 import Default from "@astrojs/starlight/components/PageFrame.astro";
 import Analytics from "@components/Analytics.astro";
+
+Astro.locals.starlightRoute.hasSidebar = false;
 ---
 
 <Default hasSidebar={false}>
@@ -17,10 +19,21 @@ import Analytics from "@components/Analytics.astro";
   .main-frame {
     max-width: 80ch;
   }
+
   @media (min-width: 50rem) {
     .main-frame {
       margin-inline: auto;
     }
+  }
+
+  @media (max-width: 50rem) {
+    .title-wrapper + * {
+      order: 2; /* On mobile, put search at the end */
+    }
+  }
+  .title-wrapper + * + * {
+    display: flex; /* On mobile, keep the buttons & theme in header */
+    margin-left: auto; /* and put it on the right, instead of centered */
   }
 </style>
 
