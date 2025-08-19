@@ -53,10 +53,8 @@ export const getPublishablePostsBySection = async (): Promise<
   return groups;
 };
 
-export const getPublishablePostsByTags = async (): Promise<
-  Record<string, Post[]>
-> => {
-  const posts = await getPublishablePosts();
+export const getPostsByTags = async (): Promise<Record<string, Post[]>> => {
+  const posts = await getCollection("docs");
   const tagGroups: Record<string, Post[]> = {};
   for (const post of posts) {
     for (const tag of post.data.tags || []) {
@@ -65,7 +63,9 @@ export const getPublishablePostsByTags = async (): Promise<
     }
   }
 
-  return tagGroups;
+  return Object.fromEntries(
+    Object.entries(tagGroups).sort((a, b) => a[0].localeCompare(b[0])),
+  );
 };
 
 export const getDraftPosts = async () => {

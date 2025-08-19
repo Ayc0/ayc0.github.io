@@ -4,11 +4,11 @@ template: splash
 ---
 
 import LinkToPost from "@components/LinkToPost.astro";
-import { getPublishablePostsByTags } from "@components/get-posts";
+import { getPostsByTags } from "@components/get-posts";
 
 {
-Object.entries(await getPublishablePostsByTags()).map(([tag, posts]) => {
-return (<><h2 id={tag}>#{tag}</h2>
+Object.entries(await getPostsByTags()).map(([tag, posts]) => {
+return (<><h2 id={tag}>#{tag} ({posts.length})</h2>
 
 <ul>
 {posts.map(post => <li><a href={`/${post.slug}`}>{post.data.title}</a> | {post.data.tags.map(tag => `#${tag}`).join(' ')}</li>)}
