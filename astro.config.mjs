@@ -33,6 +33,8 @@ export default defineConfig({
       lastUpdated: true,
       favicon: "/images/favicon.png",
 
+      pagination: false,
+
       social: [
         {
           icon: "github",
