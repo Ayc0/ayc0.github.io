@@ -3,7 +3,7 @@ import { render } from "astro:content";
 
 import Default from "@astrojs/starlight/components/PageTitle.astro";
 
-import { getCreatedDate } from "@components/get-posts";
+import { getCreatedDate, getTagsHtml } from "@components/get-posts";
 
 const { remarkPluginFrontmatter } = await render(
   // @ts-expect-error – this works, but for some reasons, it doesn’t seem to be compatible at the type level
@@ -11,6 +11,7 @@ const { remarkPluginFrontmatter } = await render(
 );
 
 const createdDate = getCreatedDate(Astro.locals.starlightRoute.entry);
+const tags = getTagsHtml(Astro.locals.starlightRoute.entry);
 ---
 
 <Default />
@@ -18,9 +19,12 @@ const createdDate = getCreatedDate(Astro.locals.starlightRoute.entry);
 {
   // Only display the reading time & last updated when it is a doc
   Astro.locals.starlightRoute.entry.data.template === "doc" ? (
-    <p>
-      {remarkPluginFrontmatter.readingTime.displayedText}
-      {createdDate ? ` • ${createdDate}` : ""}
-    </p>
+    <>
+      {tags ? <div class="sl-markdown-content" set:html={tags} /> : null}
+      <p style={tags ? "margin-top: 0.5rem" : ""}>
+        {remarkPluginFrontmatter.readingTime.displayedText}
+        {createdDate ? ` • ${createdDate}` : ""}
+      </p>
+    </>
   ) : null
 }

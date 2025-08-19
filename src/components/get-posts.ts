@@ -32,24 +32,22 @@ export const getPublishablePosts = async (): Promise<Post[]> => {
   return posts.sort((postA, postB) => getTime(postB) - getTime(postA));
 };
 
-const sections = ["React", "Dark mode", "CSS", "TypeScript", "Yarn", "Others"];
-
-export const getPublishablePostsBySection = async (): Promise<
-  Record<string, Post[]>
+export const getPublishablePostsByYear = async (): Promise<
+  Record<number, Post[]>
 > => {
   const posts = await getPublishablePosts();
 
-  const groups: Record<string, Post[]> = Object.fromEntries(
-    sections.map((section) => [section, []]),
-  );
+  const groups: Record<number, Post[]> = {};
   for (const post of posts) {
-    const group = post.id.split("/")[1];
-    if (!group) {
-      throw new Error(`Post "${post.id}" has no section`);
+    if (!post.data.createdAt) {
+      throw new Error(`Post "${post.id}" has no createdAt`);
     }
-    groups[group]!.push(post);
+    const year = post.data.createdAt.getUTCFullYear();
+    groups[year] ??= [];
+    groups[year].push(post);
   }
 
+  // in JS, number-keys in objects are auto sorted as-per the spec (from low to high)
   return groups;
 };
 
@@ -117,4 +115,14 @@ export const getCreatedDate = (post: Pick<Post, "data">): string => {
   }
 
   return full;
+};
+
+export const getTagsHtml = (post: Pick<Post, "data">): string | null => {
+  if (!post.data.tags?.length) {
+    return null;
+  }
+  // TODO: turn those into links, but links to where?
+  return post.data.tags
+    .map((tag) => `<code data-tag=${tag}>#${tag}</code>`)
+    .join(" ");
 };
