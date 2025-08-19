@@ -1,6 +1,8 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 
-const getTime = (post: CollectionEntry<"docs">): number => {
+type Post = CollectionEntry<"docs">;
+
+const getTime = (post: Post): number => {
   if (post.data.createdAt) {
     return post.data.createdAt.getTime();
   }
@@ -8,7 +10,7 @@ const getTime = (post: CollectionEntry<"docs">): number => {
   return 0;
 };
 
-export const getPublishablePosts = async () => {
+export const getPublishablePosts = async (): Promise<Post[]> => {
   const posts = await getCollection(
     "docs",
     (post) =>
@@ -32,10 +34,12 @@ export const getPublishablePosts = async () => {
 
 const sections = ["React", "Dark mode", "CSS", "TypeScript", "Yarn", "Others"];
 
-export const getPublishablePostsBySection = async () => {
+export const getPublishablePostsBySection = async (): Promise<
+  Record<string, Post[]>
+> => {
   const posts = await getPublishablePosts();
-  // console.log(posts);
-  const groups: Record<string, CollectionEntry<"docs">[]> = Object.fromEntries(
+
+  const groups: Record<string, Post[]> = Object.fromEntries(
     sections.map((section) => [section, []]),
   );
   for (const post of posts) {
@@ -47,6 +51,21 @@ export const getPublishablePostsBySection = async () => {
   }
 
   return groups;
+};
+
+export const getPublishablePostsByTags = async (): Promise<
+  Record<string, Post[]>
+> => {
+  const posts = await getPublishablePosts();
+  const tagGroups: Record<string, Post[]> = {};
+  for (const post of posts) {
+    for (const tag of post.data.tags || []) {
+      tagGroups[tag] ??= [];
+      tagGroups[tag].push(post);
+    }
+  }
+
+  return tagGroups;
 };
 
 export const getDraftPosts = async () => {
@@ -73,9 +92,7 @@ export const getDraftPosts = async () => {
   return posts.sort((postA, postB) => getTime(postB) - getTime(postA));
 };
 
-export const getCreatedDate = (
-  post: Pick<CollectionEntry<"docs">, "data">,
-): string => {
+export const getCreatedDate = (post: Pick<Post, "data">): string => {
   if (!post.data.createdAt) {
     return "";
   }
