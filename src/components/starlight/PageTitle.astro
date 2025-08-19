@@ -20,11 +20,17 @@ const tags = getTagsHtml(Astro.locals.starlightRoute.entry);
   // Only display the reading time & last updated when it is a doc
   Astro.locals.starlightRoute.entry.data.template === "doc" ? (
     <>
-      {tags ? <div class="sl-markdown-content" set:html={tags} /> : null}
-      <p style={tags ? "margin-top: 0.5rem" : ""}>
+      <p>
         {remarkPluginFrontmatter.readingTime.displayedText}
         {createdDate ? ` • ${createdDate}` : ""}
       </p>
+      {tags ? (
+        <div
+          class="sl-markdown-content"
+          style="margin-top: 0"
+          set:html={tags}
+        />
+      ) : null}
     </>
   ) : null
 }
