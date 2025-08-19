@@ -23,6 +23,14 @@ let description: string | undefined;
 if (includeDate) {
   description = getCreatedDate(entry);
 }
+if (entry.data.tags?.length) {
+  const tags = entry.data.tags.map((tag) => `<code>#${tag}</code>`).join(" ");
+  if (!description) {
+    description = tags;
+  } else {
+    description += `<br/>${tags}`;
+  }
+}
 
 if (entry.data.description) {
   if (!description) {
