@@ -1,5 +1,5 @@
 ---
-import { getEntry } from "astro:content";
+import { getEntry, render } from "astro:content";
 import { LinkCard } from "@astrojs/starlight/components";
 
 import { getCreatedDate, getTagsHtml } from "@components/get-posts";
@@ -8,9 +8,15 @@ export interface Props {
   slug: string;
   includeDate?: boolean;
   includeTags?: boolean;
+  includeReadingTime?: boolean;
 }
 
-const { slug, includeDate, includeTags } = Astro.props;
+const {
+  slug,
+  includeDate,
+  includeTags,
+  includeReadingTime = true,
+} = Astro.props;
 
 const entry = await getEntry(
   "docs",
@@ -23,8 +29,19 @@ if (entry == null) {
 // TODO: include in the name the series' name (only for light/dark for now)
 
 let description: string | undefined;
+
+if (includeReadingTime) {
+  const { remarkPluginFrontmatter } = await render(entry);
+  description = remarkPluginFrontmatter.readingTime.displayedText;
+}
+
 if (includeDate) {
-  description = getCreatedDate(entry);
+  const date = getCreatedDate(entry);
+  if (!description) {
+    description = date;
+  } else {
+    description += ` • ${date}`;
+  }
 }
 if (includeTags) {
   const tags = getTagsHtml(entry);
@@ -38,10 +55,11 @@ if (includeTags) {
 }
 
 if (entry.data.description) {
+  const descriptionToAdd = entry.data.description;
   if (!description) {
-    description = entry.data.description;
+    description = descriptionToAdd;
   } else {
-    description = `<p>${description}</p><p>${entry.data.description}</p>`;
+    description = `<p>${description}</p><p>${descriptionToAdd}</p>`;
   }
 }
 
