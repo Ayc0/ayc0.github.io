@@ -25,6 +25,16 @@ Astro.locals.starlightRoute.hasSidebar = false;
       margin-inline: auto;
     }
   }
+
+  @media (max-width: 50rem) {
+    .title-wrapper + * {
+      order: 2; /* On mobile, put search at the end */
+    }
+  }
+  .title-wrapper + * + * {
+    display: flex; /* On mobile, keep the buttons & theme in header */
+    margin-left: auto; /* and put it on the right, instead of centered */
+  }
 </style>
 
 <Analytics />
