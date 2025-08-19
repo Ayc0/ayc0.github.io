@@ -68,33 +68,6 @@ export default defineConfig({
         PageFrame: "./src/components/starlight/PageFrame.astro",
         PageTitle: "./src/components/starlight/PageTitle.astro",
       },
-      // Technically not required, but to avoid having the next/prev buttons at the bottom of other pages
-      sidebar: [
-        {
-          label: "React",
-          autogenerate: { directory: "posts/React" },
-        },
-        {
-          label: "Dark mode",
-          autogenerate: { directory: "posts/Dark mode" },
-        },
-        {
-          label: "CSS",
-          autogenerate: { directory: "posts/CSS" },
-        },
-        {
-          label: "TypeScript",
-          autogenerate: { directory: "posts/TypeScript" },
-        },
-        {
-          label: "Yarn",
-          autogenerate: { directory: "posts/Yarn" },
-        },
-        {
-          label: "Others",
-          autogenerate: { directory: "posts/Others" },
-        },
-      ],
     }),
 
     // Starlight comes with its own sitemap, but it makes all private pages public (and in general all pages public)

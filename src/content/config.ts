@@ -43,9 +43,6 @@ export const collections = {
               wip: z.literal(true), // Custom key to drive all the changes, better DX
 
               pagefind: z.literal(false),
-              sidebar: z.object({
-                hidden: z.literal(true),
-              }),
             })
 
             // Splash don’t need requirements

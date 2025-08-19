@@ -1,6 +1,8 @@
 ---
 import Default from "@astrojs/starlight/components/PageFrame.astro";
 import Analytics from "@components/Analytics.astro";
+
+Astro.locals.starlightRoute.hasSidebar = false;
 ---
 
 <Default hasSidebar={false}>
@@ -17,6 +19,7 @@ import Analytics from "@components/Analytics.astro";
   .main-frame {
     max-width: 80ch;
   }
+
   @media (min-width: 50rem) {
     .main-frame {
       margin-inline: auto;
