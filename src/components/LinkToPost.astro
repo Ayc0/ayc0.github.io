@@ -2,7 +2,11 @@
 import { getEntry, render } from "astro:content";
 import { LinkCard } from "@astrojs/starlight/components";
 
-import { getCreatedDate, getTagsHtml } from "@components/get-posts";
+import {
+  getCreatedDate,
+  getSeriesHtml,
+  getTagsHtml,
+} from "@components/get-posts";
 
 export interface Props {
   slug: string;
@@ -18,11 +22,11 @@ const {
   includeReadingTime = true,
 } = Astro.props;
 
-const entry = await getEntry(
+const post = await getEntry(
   "docs",
   slug.startsWith("posts/") ? slug : "posts/" + slug,
 );
-if (entry == null) {
+if (post == null) {
   throw new Error(`slug ${slug} isn’t valid`);
 }
 
@@ -31,12 +35,12 @@ if (entry == null) {
 let description: string | undefined;
 
 if (includeReadingTime) {
-  const { remarkPluginFrontmatter } = await render(entry);
+  const { remarkPluginFrontmatter } = await render(post);
   description = remarkPluginFrontmatter.readingTime.displayedText;
 }
 
 if (includeDate) {
-  const date = getCreatedDate(entry);
+  const date = getCreatedDate(post);
   if (!description) {
     description = date;
   } else {
@@ -44,7 +48,7 @@ if (includeDate) {
   }
 }
 if (includeTags) {
-  const tags = getTagsHtml(entry);
+  const tags = getTagsHtml(post);
   if (tags) {
     if (!description) {
       description = tags;
@@ -54,8 +58,8 @@ if (includeTags) {
   }
 }
 
-if (entry.data.description) {
-  const descriptionToAdd = entry.data.description;
+if (post.data.description) {
+  const descriptionToAdd = post.data.description;
   if (!description) {
     description = descriptionToAdd;
   } else {
@@ -64,11 +68,16 @@ if (entry.data.description) {
 }
 
 const props: { href: string; title: string; description?: string } = {
-  href: import.meta.env.BASE_URL + entry.slug,
-  title: entry.data.title,
+  href: import.meta.env.BASE_URL + post.slug,
+  title: post.data.title,
 };
 if (description) {
   props.description = description;
+}
+
+const seriesHtml = getSeriesHtml(post);
+if (seriesHtml) {
+  props.title += " " + seriesHtml;
 }
 ---
 
