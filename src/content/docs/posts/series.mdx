@@ -40,5 +40,9 @@ import { series as seriesList } from "../../config";
         body:has(:target) h2[id]:not(:target) + div {
             display: none;
         }
+        h2 > a[href] {
+            text-decoration: none;
+            color: var(--sl-color-white);
+        }
     `}
 </style>

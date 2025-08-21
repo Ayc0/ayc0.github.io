@@ -152,8 +152,7 @@ export const getSeriesHtml = (post: Pick<Post, "data">) => {
   if (!seriesData) {
     return null;
   }
-  // TODO: turn those into links, but links to where?
-  return `<span data-series=${seriesData.name}>${seriesData.name}</span>`;
+  return `<a data-series=${seriesData.name} href=${`/posts/series#${seriesData.name}`}>${seriesData.name}</a>`;
 };
 
 export const getPublishablePostsMatchingSeries = async (
