@@ -90,23 +90,23 @@ export const getDraftPosts = async () => {
   return posts.sort((postA, postB) => getTime(postB) - getTime(postA));
 };
 
-export const getCreatedDate = (post: Pick<Post, "data">): string => {
-  if (!post.data.createdAt) {
+export const getCreatedDate = ({ data }: Pick<Post, "data">): string => {
+  if (!data.createdAt) {
     return "";
   }
 
-  let full = `Posted on ${post.data.createdAt.toLocaleDateString("en-US", {
+  let full = `Posted on ${data.createdAt.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
   })}`;
 
-  if (post.data.lastUpdated instanceof Date) {
+  if (data.lastUpdated instanceof Date) {
     if (
-      post.data.createdAt.toLocaleDateString("en-US") !==
-      post.data.lastUpdated.toLocaleDateString("en-US")
+      data.createdAt.toLocaleDateString("en-US") !==
+      data.lastUpdated.toLocaleDateString("en-US")
     ) {
-      full += ` (Edited on ${post.data.lastUpdated.toLocaleDateString("en-US", {
+      full += ` (Edited on ${data.lastUpdated.toLocaleDateString("en-US", {
         year: "numeric",
         month: "short",
         day: "numeric",
@@ -117,12 +117,74 @@ export const getCreatedDate = (post: Pick<Post, "data">): string => {
   return full;
 };
 
-export const getTagsHtml = (post: Pick<Post, "data">): string | null => {
-  if (!post.data.tags?.length) {
+export const getTagsHtml = ({
+  data: { tags },
+}: Pick<Post, "data">): string | null => {
+  if (!tags?.length) {
     return null;
   }
-  // TODO: turn those into links, but links to where?
-  return post.data.tags
-    .map((tag) => `<code data-tag=${tag}>#${tag}</code>`)
-    .join(" ");
+  // TODO: turn those into links & better styling, but links to where?
+  return tags.map((tag) => `<code data-tag=${tag}>#${tag}</code>`).join(" ");
+};
+
+export const getSeriesData = ({
+  data: { series },
+}: Pick<Post, "data">): { name: string; order: number } | undefined => {
+  let name: string;
+  let order = 0;
+  if (!series) {
+    return;
+  }
+  if (typeof series === "string") {
+    name = series;
+  } else {
+    name = series.name;
+    if (series.order != null) {
+      order = series.order;
+    }
+  }
+
+  return { name: name, order };
+};
+
+export const getSeriesHtml = (post: Pick<Post, "data">) => {
+  const seriesData = getSeriesData(post);
+  if (!seriesData) {
+    return null;
+  }
+  return `<a data-series=${seriesData.name} href=${`/posts/series#${seriesData.name}`}>${seriesData.name}</a>`;
+};
+
+export const getPublishablePostsMatchingSeries = async (
+  series: string,
+): Promise<Post[]> => {
+  const posts = await getPublishablePosts();
+  const postsInSameSeries = posts.filter((post) => {
+    const postSeriesData = getSeriesData(post);
+    if (!postSeriesData) {
+      return false;
+    }
+    return postSeriesData.name === series;
+  });
+
+  postsInSameSeries.sort((postA, postB) => {
+    if (!postA.data.createdAt && !postB.data.createdAt) {
+      return 0;
+    }
+    if (!postA.data.createdAt) {
+      return -1;
+    }
+    if (!postB.data.createdAt) {
+      return 1;
+    }
+    if (postA.data.createdAt.getTime() !== postB.data.createdAt.getTime()) {
+      return postA.data.createdAt.getTime() - postB.data.createdAt.getTime();
+    }
+
+    const postASeriesData = getSeriesData(postA)!;
+    const postBSeriesData = getSeriesData(postB)!;
+    return postASeriesData.order - postBSeriesData.order;
+  });
+
+  return postsInSameSeries;
 };
