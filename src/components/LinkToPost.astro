@@ -82,7 +82,8 @@ if (description) {
 if (includeSeries) {
   const seriesHtml = getSeriesHtml(post);
   if (seriesHtml) {
-    props.title += " " + seriesHtml;
+    // <object> is here because these are nested links, and browsers don't like that
+    props.title += ` <object type="nested/link">${seriesHtml}</object>`;
   }
 }
 ---
