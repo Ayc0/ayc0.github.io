@@ -123,7 +123,7 @@ export const getTagsHtml = ({
   if (!tags?.length) {
     return null;
   }
-  // TODO: turn those into links, but links to where?
+  // TODO: turn those into links & better styling, but links to where?
   return tags.map((tag) => `<code data-tag=${tag}>#${tag}</code>`).join(" ");
 };
 
@@ -145,6 +145,15 @@ export const getSeriesData = ({
   }
 
   return { name: name, order };
+};
+
+export const getSeriesHtml = (post: Pick<Post, "data">) => {
+  const seriesData = getSeriesData(post);
+  if (!seriesData) {
+    return null;
+  }
+  // TODO: turn those into links, but links to where?
+  return `<span data-series=${seriesData.name}>${seriesData.name}</span>`;
 };
 
 export const getPublishablePostsMatchingSeries = async (

@@ -1,20 +1,46 @@
 ---
 import { render } from "astro:content";
 
-import Default from "@astrojs/starlight/components/PageTitle.astro";
+// Most of the HTML was copied from @astrojs/starlight/components/PageTitle.astro
 
-import { getCreatedDate, getTagsHtml } from "@components/get-posts";
+import {
+  getCreatedDate,
+  getSeriesHtml,
+  getTagsHtml,
+} from "@components/get-posts";
+
+const post = Astro.locals.starlightRoute.entry;
 
 const { remarkPluginFrontmatter } = await render(
   // @ts-expect-error – this works, but for some reasons, it doesn’t seem to be compatible at the type level
-  Astro.locals.starlightRoute.entry,
+  post,
 );
 
-const createdDate = getCreatedDate(Astro.locals.starlightRoute.entry);
-const tags = getTagsHtml(Astro.locals.starlightRoute.entry);
+const createdDate = getCreatedDate(post);
+const tags = getTagsHtml(post);
+
+// Copied from node_modules/@astrojs/starlight/constants.ts as not exported
+const PAGE_TITLE_ID = "_top";
+
+const series = getSeriesHtml(post);
 ---
 
-<Default />
+<h1 id={PAGE_TITLE_ID}>
+  {post.data.title}
+  {series ? <span set:html={series} /> : null}
+</h1>
+
+<style>
+  @layer starlight.core {
+    h1 {
+      margin-top: 1rem;
+      font-size: var(--sl-text-h1);
+      line-height: var(--sl-line-height-headings);
+      font-weight: 600;
+      color: var(--sl-color-white);
+    }
+  }
+</style>
 
 {
   // Only display the reading time & last updated when it is a doc

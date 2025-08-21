@@ -35,6 +35,19 @@ Astro.locals.starlightRoute.hasSidebar = false;
     display: flex; /* On mobile, keep the buttons & theme in header */
     margin-left: auto; /* and put it on the right, instead of centered */
   }
+
+  [data-series] {
+    /* TODO: more beautiful colors */
+    background-color: var(--sl-color-bg-inline-code);
+    color: var(--sl-color-white);
+
+    margin-block: -0.125em;
+    padding: 0.125em 0.375em;
+    border-radius: 0.375em;
+    font-size: max(var(--sl-text-code-sm), 0.5em);
+    font-style: italic;
+    vertical-align: middle;
+  }
 </style>
 
 <Analytics />
