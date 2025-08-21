@@ -1,0 +1,87 @@
+---
+import Default from "@astrojs/starlight/components/Pagination.astro";
+
+import { getPublishablePosts, type Post } from "@components/get-posts";
+
+const getSeriesData = (
+  data: Post["data"],
+): { name: string; order: number } | undefined => {
+  let name: string;
+  let order = 0;
+  if (!data.series) {
+    return;
+  }
+  if (typeof data.series === "string") {
+    name = data.series;
+  } else {
+    name = data.series.name;
+    if (data.series.order != null) {
+      order = data.series.order;
+    }
+  }
+
+  return { name: name, order };
+};
+
+const thisSeriesData = getSeriesData(Astro.locals.starlightRoute.entry.data);
+
+Astro.locals.starlightRoute.pagination.prev = undefined;
+Astro.locals.starlightRoute.pagination.next = undefined;
+if (thisSeriesData) {
+  const posts = await getPublishablePosts();
+  const postsInSameSeries = posts.filter((post) => {
+    const postSeriesData = getSeriesData(post.data);
+    if (!postSeriesData) {
+      return false;
+    }
+    return postSeriesData.name === thisSeriesData.name;
+  });
+
+  postsInSameSeries.sort((postA, postB) => {
+    if (!postA.data.createdAt && !postB.data.createdAt) {
+      return 0;
+    }
+    if (!postA.data.createdAt) {
+      return -1;
+    }
+    if (!postB.data.createdAt) {
+      return 1;
+    }
+    if (postA.data.createdAt.getTime() !== postB.data.createdAt.getTime()) {
+      return postA.data.createdAt.getTime() - postB.data.createdAt.getTime();
+    }
+
+    const postASeriesData = getSeriesData(postA.data)!;
+    const postBSeriesData = getSeriesData(postB.data)!;
+    return postASeriesData.order - postBSeriesData.order;
+  });
+
+  const indexOfCurrentPost = postsInSameSeries.findIndex(
+    (post) => post.id === Astro.locals.starlightRoute.id,
+  );
+
+  if (indexOfCurrentPost !== 0) {
+    Astro.locals.starlightRoute.pagination.prev = {
+      type: "link",
+      label: postsInSameSeries[indexOfCurrentPost - 1]!.data.title,
+      href: "/" + postsInSameSeries[indexOfCurrentPost - 1]!.slug,
+      badge: undefined,
+      isCurrent: false,
+      attrs: {},
+    };
+  }
+
+  if (indexOfCurrentPost !== postsInSameSeries.length - 1) {
+    Astro.locals.starlightRoute.pagination.next = {
+      type: "link",
+      label: postsInSameSeries[indexOfCurrentPost + 1]!.data.title,
+      href: "/" + postsInSameSeries[indexOfCurrentPost + 1]!.slug,
+      badge: undefined,
+      isCurrent: false,
+      attrs: {},
+    };
+  }
+}
+---
+
+<Default />
