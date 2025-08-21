@@ -1,6 +1,6 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 
-type Post = CollectionEntry<"docs">;
+export type Post = CollectionEntry<"docs">;
 
 const getTime = (post: Post): number => {
   if (post.data.createdAt) {
