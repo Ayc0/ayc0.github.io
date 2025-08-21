@@ -13,6 +13,8 @@ export interface Props {
   includeDate?: boolean;
   includeTags?: boolean;
   includeReadingTime?: boolean;
+  includeDescription?: boolean;
+  includeSeries?: boolean;
 }
 
 const {
@@ -20,6 +22,8 @@ const {
   includeDate,
   includeTags,
   includeReadingTime = true,
+  includeDescription = true,
+  includeSeries = true,
 } = Astro.props;
 
 const post = await getEntry(
@@ -58,7 +62,7 @@ if (includeTags) {
   }
 }
 
-if (post.data.description) {
+if (includeDescription && post.data.description) {
   const descriptionToAdd = post.data.description;
   if (!description) {
     description = descriptionToAdd;
@@ -75,9 +79,11 @@ if (description) {
   props.description = description;
 }
 
-const seriesHtml = getSeriesHtml(post);
-if (seriesHtml) {
-  props.title += " " + seriesHtml;
+if (includeSeries) {
+  const seriesHtml = getSeriesHtml(post);
+  if (seriesHtml) {
+    props.title += " " + seriesHtml;
+  }
 }
 ---
 

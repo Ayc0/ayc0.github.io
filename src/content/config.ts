@@ -23,7 +23,7 @@ const tags = [
   "yarn",
 ] as const;
 
-const series = ["Light/dark"] as const;
+export const series = ["Light/dark"] as const;
 
 export const collections = {
   docs: defineCollection({

@@ -89,8 +89,13 @@ export default defineConfig({
         if (page.startsWith("https://ayc0.github.io/posts/drafts/")) {
           return false;
         }
-        // Same for the listing of tags posts
+        // Same for the listing of posts tags
         if (page.startsWith("https://ayc0.github.io/posts/tags/")) {
+          return false;
+        }
+
+        // Same for the listing of posts series
+        if (page.startsWith("https://ayc0.github.io/posts/series/")) {
           return false;
         }
 

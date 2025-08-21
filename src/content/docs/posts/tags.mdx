@@ -6,17 +6,26 @@ template: splash
 import LinkToPost from "@components/LinkToPost.astro";
 import { getPostsByTags } from "@components/get-posts";
 
-<a href="" data-view-all>← View all</a>
-{
-Object.entries(await getPostsByTags()).map(([tag, posts]) => {
-return (<><h2 id={tag}><a href={`#${tag}`}>#{tag}</a></h2>
-
-<ul>
-{posts.map(post => <li><a href={`/${post.slug}`}>{post.data.title}</a> | {post.data.tags.map(tag => `#${tag}`).join(' ')}</li>)}
-</ul>
-</>)
-})
-}
+<a href="" data-view-all>
+  ← View all
+</a>
+{Object.entries(await getPostsByTags()).map(([tag, posts]) => {
+  return (
+    <>
+      <h2 id={tag}>
+        <a href={`#${tag}`}>#{tag}</a>
+      </h2>
+      <ul>
+        {posts.map((post) => (
+          <li>
+            <a href={`/${post.slug}`}>{post.data.title}</a> |{" "}
+            {post.data.tags.map((tag) => `#${tag}`).join(" ")}
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+})}
 
 <style>
   {`
