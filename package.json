@@ -38,7 +38,7 @@
     "@astrojs/sitemap": "^3.5.0",
     "@datadog/datadog-ci": "^3.18.0",
     "@types/diff": "^8.0.0",
-    "@types/react": "^19.1.10",
+    "@types/react": "^19.1.11",
     "@types/react-dom": "^19.1.7",
     "@types/reveal.js": "^5.0.5",
     "astro": "^5.13.2",
