@@ -61,7 +61,8 @@
     imageWidth: number,
     imageHeight: number,
   ) {
-    const imgData = new ImageData(array, imageWidth, imageHeight);
+    // as any because astro check fails for some reason, but not the IDE
+    const imgData = new ImageData(array as any, imageWidth, imageHeight);
 
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d")!;
