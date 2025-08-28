@@ -1,0 +1,219 @@
+---
+
+---
+
+<fieldset>
+  <legend>Algorithm</legend>
+  <label>
+    <input id="ssim" name="algo" value="ssim" type="radio" checked /> SSIM
+  </label>
+  <label>
+    <input id="pixel" name="algo" value="pixel" type="radio" /> Pixel
+  </label>
+</fieldset>
+
+<fieldset>
+  <legend>Images</legend>
+  <input type="file" id="input" name="input" accept="image/png" />
+  <input type="file" id="output" name="output" accept="image/png" />
+</fieldset>
+
+<div class="wrapper">
+  <img id="baseline" />
+  <img id="diff" />
+  <img id="new" />
+</div>
+
+<style>
+  .wrapper {
+    display: flex;
+  }
+  .wrapper > img {
+    flex: 1;
+    min-width: 0;
+  }
+</style>
+
+<script>
+  import { ssim, type Options } from "ssim.js";
+  import pixelmatch from "pixelmatch";
+
+  const pixelElement = document.querySelector<HTMLInputElement>("input#pixel")!;
+  const ssimElement = document.querySelector<HTMLInputElement>("input#ssim")!;
+
+  const baselineImage =
+    document.querySelector<HTMLImageElement>("img#baseline")!;
+  const diffImage = document.querySelector<HTMLImageElement>("img#diff")!;
+  const newImage = document.querySelector<HTMLImageElement>("img#new")!;
+
+  function setImage(image: HTMLImageElement, file: File): Promise<void> {
+    return new Promise((res) => {
+      image.onload = () => {
+        res();
+      };
+      image.src = URL.createObjectURL(file);
+    });
+  }
+
+  function drawImage(
+    image: HTMLImageElement,
+    array: Uint8ClampedArray,
+    imageWidth: number,
+    imageHeight: number,
+  ) {
+    const imgData = new ImageData(array, imageWidth, imageHeight);
+
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d")!;
+    canvas.width = imgData.width;
+    canvas.height = imgData.height;
+    ctx.putImageData(imgData, 0, 0);
+
+    image.src = canvas.toDataURL();
+  }
+
+  function createNormalizedImage(
+    image: HTMLImageElement,
+    imageWidth: number,
+    imageHeight: number,
+  ): Uint8ClampedArray {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d")!;
+    canvas.width = imageWidth;
+    canvas.height = imageHeight;
+    ctx.drawImage(image, 0, 0);
+
+    return ctx.getImageData(0, 0, imageWidth, imageHeight).data;
+  }
+
+  document
+    .getElementById("input")!
+    .addEventListener("change", async (event) => {
+      const file = (event.currentTarget as HTMLInputElement).files?.[0];
+      if (!file) {
+        return;
+      }
+      const buffer = await file?.arrayBuffer();
+      if (!buffer) {
+        return;
+      }
+
+      await setImage(baselineImage, file);
+
+      onAfter();
+    });
+
+  pixelElement.addEventListener("change", () => {
+    onAfter();
+  });
+  ssimElement.addEventListener("change", () => {
+    onAfter();
+  });
+
+  document
+    .getElementById("output")!
+    .addEventListener("change", async (event) => {
+      const file = (event.currentTarget as HTMLInputElement).files?.[0];
+      if (!file) {
+        return;
+      }
+      const buffer = await file?.arrayBuffer();
+      if (!buffer) {
+        return;
+      }
+
+      await setImage(newImage, file);
+
+      onAfter();
+    });
+
+  function onAfter() {
+    const imageWidth = Math.max(
+      baselineImage.naturalWidth,
+      newImage.naturalWidth,
+    );
+    const imageHeight = Math.max(
+      baselineImage.naturalHeight,
+      newImage.naturalHeight,
+    );
+
+    const baselineImageData = createNormalizedImage(
+      baselineImage,
+      imageWidth,
+      imageHeight,
+    );
+    const newImageData = createNormalizedImage(
+      newImage,
+      imageWidth,
+      imageHeight,
+    );
+
+    const diffImageData = new Uint8ClampedArray(imageWidth * imageHeight * 4);
+
+    const config: any = pixelElement.checked
+      ? { threshold: 0.01 }
+      : { ssim: "bezkrovny" };
+
+    const fn = pixelElement.checked ? pixelmatch : ssimMatch;
+
+    fn(
+      newImageData,
+      baselineImageData,
+      diffImageData,
+      imageWidth,
+      imageHeight,
+      config,
+    );
+
+    drawImage(diffImage, diffImageData, imageWidth, imageHeight);
+  }
+
+  //   const defaultSSIMDiffConfig = { ssim: "bezkrovny" as const };
+
+  // Copied from https://github.com/americanexpress/jest-image-snapshot/blob/63637d79d9838adadd8833aff270cefb61ba448b/src/diff-snapshot.js#L89-L120
+  function ssimMatch(
+    newImageData: Uint8ClampedArray,
+    baselineImageData: Uint8ClampedArray,
+    diffImageData: Uint8ClampedArray,
+    imageWidth: number,
+    imageHeight: number,
+    diffConfig: Partial<Options> /* = defaultSSIMDiffConfig */,
+  ) {
+    const newImage = {
+      data: newImageData,
+      width: imageWidth,
+      height: imageHeight,
+    };
+    const baselineImage = {
+      data: baselineImageData,
+      width: imageWidth,
+      height: imageHeight,
+    };
+    const { ssim_map, mssim } = ssim(newImage, baselineImage, diffConfig);
+    const diffPixels = (1 - mssim) * imageWidth * imageHeight;
+    const diffRgbaPixels = new DataView(
+      diffImageData.buffer,
+      diffImageData.byteOffset,
+    );
+    for (let ln = 0; ln !== imageHeight; ++ln) {
+      for (let pos = 0; pos !== imageWidth; ++pos) {
+        const rpos = ln * imageWidth + pos;
+        const diffValue =
+          0xff000000 +
+          Math.floor(
+            0xff *
+              (1 -
+                (ssim_map.data[
+                  // eslint-disable-next-line no-mixed-operators
+                  ssim_map.width *
+                    Math.round((ssim_map.height * ln) / imageHeight) +
+                    // eslint-disable-next-line no-mixed-operators
+                    Math.round((ssim_map.width * pos) / imageWidth)
+                ] ?? 0)),
+          );
+        diffRgbaPixels.setUint32(rpos * 4, diffValue);
+      }
+    }
+    return diffPixels;
+  }
+</script>
