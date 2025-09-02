@@ -19,8 +19,8 @@ importers:
         specifier: ^0.35.2
         version: 0.35.2(astro@5.13.3(@azure/identity@4.11.1)(@types/node@24.3.0)(rollup@4.45.1)(typescript@5.9.2)(yaml@2.8.0))
       bippy:
-        specifier: ^0.3.18
-        version: 0.3.18(@types/react@19.1.11)(react@19.1.1)
+        specifier: ^0.3.23
+        version: 0.3.23(@types/react@19.1.11)(react@19.1.1)
       colorjs.io:
         specifier: ^0.5.2
         version: 0.5.2
@@ -1783,8 +1783,8 @@ packages:
   bignumber.js@9.3.1:
     resolution: {integrity: sha512-Ko0uX15oIUS7wJ3Rb30Fs6SkVbLmPBAKdlm7q9+ak9bbIeFf0MwuBsQV6z7+X768/cHsfg+WlysDWJcmthjsjQ==}
 
-  bippy@0.3.18:
-    resolution: {integrity: sha512-ndTOYOJh/yf988NVRS8W0dhhqSXS88kWVbmKbePtbUP1eaRCN07cjjRVZwIFSdL1HtQ4mhtxJYmqCBT8NyAl/g==}
+  bippy@0.3.23:
+    resolution: {integrity: sha512-lTY3XtpYjLAYTP6De791B+Hxuf3qkSxZm7pSfhbEK6O6hTXRvbqpkon1BE0+Al2r0H99hupg0FlC6OnPZ8SxfA==}
     peerDependencies:
       react: '>=17.0.1'
 
@@ -6684,7 +6684,7 @@ snapshots:
 
   bignumber.js@9.3.1: {}
 
-  bippy@0.3.18(@types/react@19.1.11)(react@19.1.1):
+  bippy@0.3.23(@types/react@19.1.11)(react@19.1.1):
     dependencies:
       '@types/react-reconciler': 0.28.9(@types/react@19.1.11)
       react: 19.1.1
