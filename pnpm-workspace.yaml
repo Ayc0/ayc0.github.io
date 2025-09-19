@@ -1,9 +1,3 @@
-ignoredBuiltDependencies:
-  - cpu-features
-  - esbuild
-  - protobufjs
-  - ssh2
-
 onlyBuiltDependencies:
   - sharp
 
@@ -18,3 +12,6 @@ packageExtensions:
 peerDependencyRules:
   allowAny:
     - react # as we have 2 versions
+
+overrides:
+  esbuild: 0.25.10 # we have 2 versions otherwise
