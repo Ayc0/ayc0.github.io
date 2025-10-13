@@ -40,7 +40,7 @@
     "@astrojs/sitemap": "^3.6.0",
     "@datadog/datadog-ci": "^3.21.4",
     "@types/diff": "^8.0.0",
-    "@types/react": "^19.2.1",
+    "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.0",
     "@types/reveal.js": "^5.0.5",
     "astro": "^5.14.1",
