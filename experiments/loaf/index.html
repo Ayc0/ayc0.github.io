@@ -1,10 +1,10 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Test LoAF</title><script type="module" src="/_astro/page.7qqag-5g.js"></script></head> <body> <script type="module">function n(){let t=28;for(;t<1e9;t++);t="finish slow click",window.alert(t)}window.slowClick=n;document.getElementById("button3").onclick=n;document.getElementById("button4").addEventListener("click",n);
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Test LoAF</title><script type="module" src="/_astro/page.CqwDW6Ek.js"></script></head> <body> <script type="module">function n(){let t=28;for(;t<1e9;t++);t="finish slow click",window.alert(t)}window.slowClick=n;document.getElementById("button3").onclick=n;document.getElementById("button4").addEventListener("click",n);
 //# sourceMappingURL=loaf.astro_astro_type_script_index_0_lang.CbEF8mUG.js.map</script> <button onclick="slowClick()">Click me for a slow click (inline script, inlined onclick)</button> <button onclick="slowClick()">Click me for a slow click (linked script, inlined onclick)</button> <button id="button3">Click me for a slow click (linked script, added onclick later)</button> <button id="button4">Click me for a slow click (linked script, added addEventListener('click')
       later)</button> <script type="module">const u=new PerformanceObserver(t=>{console.log(t.getEntries()[0]);const n=t.getEntries()[0];n&&(!("scripts"in n)||!Array.isArray(n.scripts)||n.scripts.forEach(e=>{if(e.invokerType==="classic-script")return;const r=new Error(`Long animation frame caused by ${e.invoker}`);if(e.sourceURL===document.location.href){console.error(r);return}fetch(e.sourceURL).then(o=>o.text()).then(o=>{const s=o.slice(0,e.sourceCharPosition).split(`
 `),c=s.at(-1),a=s.length,i=c.length,l=`    at ${e.sourceFunctionName} (${e.sourceURL}:${a}:${i})`;r.stack=`${r.message}
 ${l}`,console.error(r)})}))});u.observe({type:"long-animation-frame"});
 //# sourceMappingURL=loaf.astro_astro_type_script_index_1_lang.D_3xLle1.js.map</script> <!-- 100% privacy-first analytics --><script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script> <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade"></noscript><!-- Datadog --><script src="https://www.datadoghq-browser-agent.com/eu1/v6/datadog-rum.js" type="text/javascript"></script><script>(function(){const MODE = "production";
-const GITHUB_RUN_ID = "18575365120";
+const GITHUB_RUN_ID = "18575403633";
 const datadogClientToken = "pub65a306a096de7824a32d9879df04de68";
 
   window.DD_RUM &&
@@ -19,7 +19,7 @@ const datadogClientToken = "pub65a306a096de7824a32d9879df04de68";
       sessionReplaySampleRate: 20,
       defaultPrivacyLevel: "allow",
     });
-})();</script><script type="text/javascript" src="https://www.datadoghq-browser-agent.com/eu1/v6/datadog-logs.js"></script><script>(function(){const GITHUB_RUN_ID = "18575365120";
+})();</script><script type="text/javascript" src="https://www.datadoghq-browser-agent.com/eu1/v6/datadog-logs.js"></script><script>(function(){const GITHUB_RUN_ID = "18575403633";
 const datadogClientToken = "pub65a306a096de7824a32d9879df04de68";
 
   window.DD_LOGS &&
