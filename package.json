@@ -43,7 +43,7 @@
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "@types/reveal.js": "^5.2.1",
-    "astro": "^5.15.7",
+    "astro": "^5.15.9",
     "mdast-util-to-string": "^4.0.0",
     "prettier": "^3.5.3",
     "prettier-plugin-astro": "^0.14.1",
