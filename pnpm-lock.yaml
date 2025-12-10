@@ -55,8 +55,8 @@ importers:
         specifier: npm:react-dom@^18.3.1
         version: react-dom@18.3.1(patch_hash=713749ac4d7816aac2dd7a26e1343333a0a50cefd5964110775693de0408cb12)(react@18.3.1)(react@19.2.0)
       react-konva:
-        specifier: ^19.2.0
-        version: 19.2.0(@types/react@19.2.7)(konva@10.0.9)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: ^19.2.1
+        version: 19.2.1(@types/react@19.2.7)(konva@10.0.9)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       reveal.js:
         specifier: ^5.2.1
         version: 5.2.1
@@ -2606,8 +2606,8 @@ packages:
   react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
 
-  react-konva@19.2.0:
-    resolution: {integrity: sha512-Ofifq/rdNvff50+Lj8x86WSfoeQDvdysOlsXMMrpD2uWmDxUPrEYSRLt27iCfdovQZL6xinKRpX9VaL9xDwXDQ==}
+  react-konva@19.2.1:
+    resolution: {integrity: sha512-sqZWCzQGpdMrU5aeunR0oxUY8UeCPbU8gnAYxMtAn6BT4coeSpiATKOctsoxRu6F56TAcF+s0c6Lul9ansNqQA==}
     peerDependencies:
       konva: ^8.0.1 || ^7.2.5 || ^9.0.0 || ^10.0.0
       react: ^19.2.0
@@ -6674,7 +6674,7 @@ snapshots:
 
   react-is@18.3.1: {}
 
-  react-konva@19.2.0(@types/react@19.2.7)(konva@10.0.9)(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
+  react-konva@19.2.1(@types/react@19.2.7)(konva@10.0.9)(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
       '@types/react-reconciler': 0.32.3(@types/react@19.2.7)
       its-fine: 2.0.0(@types/react@19.2.7)(react@19.2.0)
