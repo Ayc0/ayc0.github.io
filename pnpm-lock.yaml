@@ -31,8 +31,8 @@ importers:
         specifier: ^8.0.2
         version: 8.0.2
       konva:
-        specifier: ^10.0.9
-        version: 10.0.9
+        specifier: ^10.0.12
+        version: 10.0.12
       lit:
         specifier: ^3.3.0
         version: 3.3.1
@@ -56,7 +56,7 @@ importers:
         version: react-dom@18.3.1(patch_hash=713749ac4d7816aac2dd7a26e1343333a0a50cefd5964110775693de0408cb12)(react@18.3.1)(react@19.2.0)
       react-konva:
         specifier: ^19.2.1
-        version: 19.2.1(@types/react@19.2.7)(konva@10.0.9)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 19.2.1(@types/react@19.2.7)(konva@10.0.12)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       reveal.js:
         specifier: ^5.2.1
         version: 5.2.1
@@ -2093,8 +2093,8 @@ packages:
     resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
     engines: {node: '>= 8'}
 
-  konva@10.0.9:
-    resolution: {integrity: sha512-AEqV0XqfE0ouHjcSo/IVAXZUK4jB/r18OlUoIzPFEx/59Vb95Yq1S4Ch5QuDDEXJT21SEpOMb89zSpEpsQWzWg==}
+  konva@10.0.12:
+    resolution: {integrity: sha512-DHmkeG5FbW6tLCkbMQTi1ihWycfzljrn0V7umUUuewxx7aoINcI71ksgBX9fTPNXhlsK4/JoMgKwI/iCde+BRw==}
 
   lie@3.3.0:
     resolution: {integrity: sha512-UaiMJzeWRlEujzAuw5LokY1L5ecNQYZKfmyZ9L7wDHb/p5etKaxXhohBcrw0EYby+G/NA52vRSN4N39dxHAIwQ==}
@@ -5851,7 +5851,7 @@ snapshots:
 
   klona@2.0.6: {}
 
-  konva@10.0.9: {}
+  konva@10.0.12: {}
 
   lie@3.3.0:
     dependencies:
@@ -6674,11 +6674,11 @@ snapshots:
 
   react-is@18.3.1: {}
 
-  react-konva@19.2.1(@types/react@19.2.7)(konva@10.0.9)(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
+  react-konva@19.2.1(@types/react@19.2.7)(konva@10.0.12)(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
       '@types/react-reconciler': 0.32.3(@types/react@19.2.7)
       its-fine: 2.0.0(@types/react@19.2.7)(react@19.2.0)
-      konva: 10.0.9
+      konva: 10.0.12
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
       react-reconciler: 0.33.0(react@19.2.0)
