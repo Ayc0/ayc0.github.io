@@ -5,8 +5,7 @@ import type { Tea, Cup, Waiter } from "manatea";
 export class ManateaController<
   FlavoredTea extends Tea,
   UnflavoredTea extends Tea = FlavoredTea,
-> implements ReactiveController
-{
+> implements ReactiveController {
   private host: ReactiveControllerHost;
   cup: Cup<FlavoredTea, UnflavoredTea>;
   private listener: Waiter;
