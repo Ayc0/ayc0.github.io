@@ -37,7 +37,7 @@
     "@astrojs/check": "^0.9.6",
     "@astrojs/react": "^4.4.2",
     "@astrojs/rss": "^4.0.14",
-    "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/sitemap": "^3.6.1",
     "@datadog/datadog-ci": "^5.1.0",
     "@types/diff": "^8.0.0",
     "@types/react": "^19.2.7",
