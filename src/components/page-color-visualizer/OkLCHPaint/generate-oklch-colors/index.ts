@@ -5,7 +5,7 @@ const worker = new GenerateColorsWorker();
 
 export const createGenerateColors = (offscreenCanvas: OffscreenCanvas) => {
   worker.postMessage(offscreenCanvas, [offscreenCanvas]);
-  return (hue: number, width: number, height: number) => {
+  return (hue: number | null, width: number, height: number) => {
     worker.postMessage([
       hue,
       width,

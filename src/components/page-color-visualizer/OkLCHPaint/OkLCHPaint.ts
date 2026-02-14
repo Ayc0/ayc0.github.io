@@ -6,8 +6,8 @@ import { colorController } from "../color-controller";
 
 import { createGenerateColors } from "./generate-oklch-colors";
 
-const clamp = (min: number, value: number, max: number) =>
-  Math.min(Math.max(value, min), max);
+const clamp = (min: number, value: number | null, max: number) =>
+  value == null ? min : Math.min(Math.max(value, min), max);
 
 @customElement("oklch-paint")
 export class OkLCHPaint extends LitElement {
