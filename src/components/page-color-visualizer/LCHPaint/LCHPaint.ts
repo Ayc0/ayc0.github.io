@@ -6,8 +6,8 @@ import { colorController } from "../color-controller";
 
 import { createGenerateColors } from "./generate-lch-colors";
 
-const clamp = (min: number, value: number, max: number) =>
-  Math.min(Math.max(value, min), max);
+const clamp = (min: number, value: number | null, max: number) =>
+  value == null ? min : Math.min(Math.max(value, min), max);
 
 @customElement("lch-paint")
 export class LCHPaint extends LitElement {

@@ -2,7 +2,7 @@ import Color from "colorjs.io";
 import type { Step } from "../../worker-utils";
 
 export function* generateColors(
-  hue: number,
+  hue: number | null,
   width: number,
   height: number,
   colorSpace: "srgb" | "display-p3",

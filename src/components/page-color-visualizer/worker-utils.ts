@@ -1,10 +1,10 @@
 export interface Step {
   coordinates: { x: number; y: number };
-  colors: [r: number, g: number, b: number];
+  colors: [r: number | null, g: number | null, b: number | null];
 }
 
 type GenerateColors = (
-  hue: number,
+  hue: number | null,
   width: number,
   height: number,
   colorSpace: "srgb" | "display-p3",
@@ -14,7 +14,7 @@ export const createOnMessage = (generateColors: GenerateColors) => {
   let offscreenCanvas: OffscreenCanvas | undefined;
 
   type Message = [
-    hue: number,
+    hue: number | null,
     width: number,
     height: number,
     colorSpace: "srgb" | "display-p3",
@@ -67,9 +67,9 @@ export const createOnMessage = (generateColors: GenerateColors) => {
       colorSpace,
     )) {
       const position = 4 * (coordinates.y * width + coordinates.x);
-      colorArray[position + 0] = colors[0] * 255; // X in P3
-      colorArray[position + 1] = colors[1] * 255; // Y in P3
-      colorArray[position + 2] = colors[2] * 255; // Z in P3
+      colorArray[position + 0] = (colors[0] || 0) * 255; // X in P3
+      colorArray[position + 1] = (colors[1] || 0) * 255; // Y in P3
+      colorArray[position + 2] = (colors[2] || 0) * 255; // Z in P3
       colorArray[position + 3] = 255; // A value
     }
 
