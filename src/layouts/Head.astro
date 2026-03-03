@@ -22,6 +22,7 @@ let imagePath: string | undefined = await getImagePath(image);
   <title>{title}</title>
   {description ? <meta name="description" content={description} /> : null}
   <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
+  <link rel="sitemap" href="/ayc0-sitemap-index.xml" />
 
   <!-- Facebook Meta Tags -->
   <meta property="og:url" content={Astro.url.href} />
