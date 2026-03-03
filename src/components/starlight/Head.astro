@@ -3,6 +3,18 @@ import Default from "@astrojs/starlight/components/Head.astro";
 
 import { getImagePath } from "@components/images";
 
+// Update the sitemap to point to our custom sitemap
+Astro.locals.starlightRoute.head.forEach(({ tag, attrs }) => {
+  if (
+    tag === "link" &&
+    attrs &&
+    attrs.rel === "sitemap" &&
+    attrs.href === "/sitemap-index.xml"
+  ) {
+    attrs.href = "/ayc0-sitemap-index.xml";
+  }
+});
+
 let imagePath: string | undefined = await getImagePath(
   Astro.locals.starlightRoute.entry.data.image,
 );
