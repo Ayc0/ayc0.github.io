@@ -75,6 +75,7 @@ export default defineConfig({
 
     // Starlight comes with its own sitemap, but it makes all private pages public (and in general all pages public)
     sitemap({
+      filenameBase: "ayc0-sitemap",
       lastmod: new Date("2025-08-21"), // Update every time we want to website to be re-crawled
       filter: (page) => {
         // No slides should be exposed

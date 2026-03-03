@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ayc0.github.io/ayc0-sitemap-index.xml
