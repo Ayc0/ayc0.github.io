@@ -77,8 +77,8 @@ importers:
         specifier: ^3.7.0
         version: 3.7.0
       '@datadog/datadog-ci':
-        specifier: ^5.8.0
-        version: 5.8.0(@types/node@25.0.3)
+        specifier: ^5.9.1
+        version: 5.9.1(@types/node@25.0.3)
       '@types/diff':
         specifier: ^8.0.0
         version: 8.0.0
@@ -203,8 +203,8 @@ packages:
     resolution: {integrity: sha512-Nh5PhEOeY6PrnxNPsEHRr9eimxLwgLlpmguQaHKBinFYA/RU9+kOYVOQqOrTsCL+KSxrLLl1gD8Dk5BFW/7l/w==}
     engines: {node: '>=20.0.0'}
 
-  '@azure/core-rest-pipeline@1.22.2':
-    resolution: {integrity: sha512-MzHym+wOi8CLUlKCQu12de0nwcq9k9Kuv43j4Wa++CsCpJwps2eeBQwD2Bu8snkxTtDKDx4GwjuR9E8yC8LNrg==}
+  '@azure/core-rest-pipeline@1.23.0':
+    resolution: {integrity: sha512-Evs1INHo+jUjwHi1T6SG6Ua/LHOQBCLuKEEE6efIpt4ZOoNonaT1kP32GoOcdNDbfqsD2445CPri3MubBy5DEQ==}
     engines: {node: '>=20.0.0'}
 
   '@azure/core-tracing@1.3.1':
@@ -223,16 +223,16 @@ packages:
     resolution: {integrity: sha512-fCqPIfOcLE+CGqGPd66c8bZpwAji98tZ4JI9i/mlTNTlsIWslCfpg48s/ypyLxZTump5sypjrKn2/kY7q8oAbA==}
     engines: {node: '>=20.0.0'}
 
-  '@azure/msal-browser@4.28.2':
-    resolution: {integrity: sha512-6vYUMvs6kJxJgxaCmHn/F8VxjLHNh7i9wzfwPGf8kyBJ8Gg2yvBXx175Uev8LdrD1F5C4o7qHa2CC4IrhGE1XQ==}
+  '@azure/msal-browser@4.29.1':
+    resolution: {integrity: sha512-1Vrt27du1cl4QHkzLc6L4aeXqliPIDIs5l/1I4hWWMXkXccY/EznJT1+pBdoVze0azTAI8sCyq5B4cBVYG1t9w==}
     engines: {node: '>=0.8.0'}
 
-  '@azure/msal-common@15.14.2':
-    resolution: {integrity: sha512-n8RBJEUmd5QotoqbZfd+eGBkzuFI1KX6jw2b3WcpSyGjwmzoeI/Jb99opIBPHpb8y312NB+B6+FGi2ZVSR8yfA==}
+  '@azure/msal-common@15.16.1':
+    resolution: {integrity: sha512-qxUG9TCl+TVSSX58onVDHDWrvT5CE0+NeeUAbkQqaESpSm79u5IePLnPWMMjCUnUR2zJd4+Bt9vioVRzLmJb2g==}
     engines: {node: '>=0.8.0'}
 
-  '@azure/msal-node@3.8.7':
-    resolution: {integrity: sha512-a+Xnrae+uwLnlw68bplS1X4kuJ9F/7K6afuMFyRkNIskhjgDezl5Fhrx+1pmAlDmC0VaaAxjRQMp1OmcqVwkIg==}
+  '@azure/msal-node@3.8.9':
+    resolution: {integrity: sha512-jZ0pw/BbdEUWGhomCaAiVDfXRI/9K56m5hTNqB/CzcbZEYhXm5qpK1cDngN1iXfwSfmUMorOUQ2FC0dyuQ9uRg==}
     engines: {node: '>=16'}
 
   '@babel/code-frame@7.27.1':
@@ -339,22 +339,23 @@ packages:
     resolution: {integrity: sha512-kzyuwOAQnXJNLS9PSyrk0CWk35nWJW/zl/6KvnTBMFK65gm7U1/Z5BqjxeapjZCIhQcM/DsrEmcbRwDyXyXK4A==}
     engines: {node: '>=14'}
 
-  '@datadog/datadog-ci-base@5.8.0':
-    resolution: {integrity: sha512-pUlIZLI4WFWOTXSqPmifbsa4LedflmCzj4g7qHNkQ20ompyZJtg3RPFdXI/JA5uzOTI1ZkHeYif4WkVs3K9CLQ==}
+  '@datadog/datadog-ci-base@5.9.1':
+    resolution: {integrity: sha512-1lMRCPEsCDD53Cxe1/cQqwpLY2LOYlZP9wqjEEmwgMJiTgyCHNs2Siq9/NKVlVkMg28AE6EGFHg35zreU4mexQ==}
     peerDependencies:
-      '@datadog/datadog-ci-plugin-aas': 5.8.0
-      '@datadog/datadog-ci-plugin-cloud-run': 5.8.0
-      '@datadog/datadog-ci-plugin-container-app': 5.8.0
-      '@datadog/datadog-ci-plugin-coverage': 5.8.0
-      '@datadog/datadog-ci-plugin-deployment': 5.8.0
-      '@datadog/datadog-ci-plugin-dora': 5.8.0
-      '@datadog/datadog-ci-plugin-gate': 5.8.0
-      '@datadog/datadog-ci-plugin-junit': 5.8.0
-      '@datadog/datadog-ci-plugin-lambda': 5.8.0
-      '@datadog/datadog-ci-plugin-sarif': 5.8.0
-      '@datadog/datadog-ci-plugin-sbom': 5.8.0
-      '@datadog/datadog-ci-plugin-stepfunctions': 5.8.0
-      '@datadog/datadog-ci-plugin-synthetics': 5.8.0
+      '@datadog/datadog-ci-plugin-aas': 5.9.1
+      '@datadog/datadog-ci-plugin-cloud-run': 5.9.1
+      '@datadog/datadog-ci-plugin-container-app': 5.9.1
+      '@datadog/datadog-ci-plugin-coverage': 5.9.1
+      '@datadog/datadog-ci-plugin-deployment': 5.9.1
+      '@datadog/datadog-ci-plugin-dora': 5.9.1
+      '@datadog/datadog-ci-plugin-gate': 5.9.1
+      '@datadog/datadog-ci-plugin-junit': 5.9.1
+      '@datadog/datadog-ci-plugin-lambda': 5.9.1
+      '@datadog/datadog-ci-plugin-sarif': 5.9.1
+      '@datadog/datadog-ci-plugin-sbom': 5.9.1
+      '@datadog/datadog-ci-plugin-stepfunctions': 5.9.1
+      '@datadog/datadog-ci-plugin-synthetics': 5.9.1
+      '@datadog/datadog-ci-plugin-terraform': 5.9.1
     peerDependenciesMeta:
       '@datadog/datadog-ci-plugin-aas':
         optional: true
@@ -382,44 +383,46 @@ packages:
         optional: true
       '@datadog/datadog-ci-plugin-synthetics':
         optional: true
+      '@datadog/datadog-ci-plugin-terraform':
+        optional: true
 
-  '@datadog/datadog-ci-plugin-coverage@5.8.0':
-    resolution: {integrity: sha512-SeH5iyykFZSb06nkK50FnYSRj+vtK6JcAs3ghpHTeVcUD2n5Hg6G9gQNwF5IcpEiZqt0YKPk1jlAgWMvwZSAVw==}
+  '@datadog/datadog-ci-plugin-coverage@5.9.1':
+    resolution: {integrity: sha512-zmPyP/qjeoZiqWEj3izwN/2ocUgt3PdKWfgs0+Q6xmWBOa55aoMzK7AOI9XlXC98DzlcpvTXKbkR+eTtg+O6XA==}
     peerDependencies:
-      '@datadog/datadog-ci-base': 5.8.0
+      '@datadog/datadog-ci-base': 5.9.1
 
-  '@datadog/datadog-ci-plugin-deployment@5.8.0':
-    resolution: {integrity: sha512-aqRY+qiO3o0cJmDouEQUAtui9qOflFhFxvmDcgL5d2IvjhDx4/pFOPqoyWm9uDsGfXImYw8Nybt8Xs/oq6bIlQ==}
+  '@datadog/datadog-ci-plugin-deployment@5.9.1':
+    resolution: {integrity: sha512-J2s2bx6ppCP12+o5VNKUTt9lh+0qjybD8JqoCoGM87YckuBWxq0o0u/EKa1pdaScSOIF3WFuul4pHJQCASdP4w==}
     peerDependencies:
-      '@datadog/datadog-ci-base': 5.8.0
+      '@datadog/datadog-ci-base': 5.9.1
 
-  '@datadog/datadog-ci-plugin-dora@5.8.0':
-    resolution: {integrity: sha512-/MFgnGQkDFBepWEIX3KyjBCucqH/nEsatVG8l+p3FACgn0souFOa5pyuUSALO/BL8qZCYxyNsIvNR0XhIpp0nA==}
+  '@datadog/datadog-ci-plugin-dora@5.9.1':
+    resolution: {integrity: sha512-nv5nYjF6s0Mf/H4a3Slt75ZyTYGUjLMwVEgEckR6fON163KqdXJoShWUeZlhBTjsB0WyS5B5ZnQ1R+jz3BS/fA==}
     peerDependencies:
-      '@datadog/datadog-ci-base': 5.8.0
+      '@datadog/datadog-ci-base': 5.9.1
 
-  '@datadog/datadog-ci-plugin-gate@5.8.0':
-    resolution: {integrity: sha512-OifW23CSdSvHCDV8+VLNmR8jQ2NGTUsFKX8i7bzw8yAZ3c5ijJkaltt4A0iNOX/sHRhFlSR4qGOkSdtPw/2O4Q==}
+  '@datadog/datadog-ci-plugin-gate@5.9.1':
+    resolution: {integrity: sha512-Ni314TTsLP5aNCN6Au9KlgRweJ+kcFKTgB3CKzOeTTQkvBooY/4QDNyfg1F5hvdkeSiUPm9vpFB1nBGnv6jU4Q==}
     peerDependencies:
-      '@datadog/datadog-ci-base': 5.8.0
+      '@datadog/datadog-ci-base': 5.9.1
 
-  '@datadog/datadog-ci-plugin-junit@5.8.0':
-    resolution: {integrity: sha512-BG9E8bFf/vuMHKcJJyx7UIB/U6EsI/9q1jwtboir/QhD5kqNMCVDmCm6LrzIk9PTpwXlqdysuCYbbr3HrnVw+w==}
+  '@datadog/datadog-ci-plugin-junit@5.9.1':
+    resolution: {integrity: sha512-/32ZNIosaF5LTdr4d1WYI62+n0I3dss7MC5tgJar70ZN1BHS85ZhhLyyaz9qlUkij2WWaJqeVyBmYnpYIXZpGg==}
     peerDependencies:
-      '@datadog/datadog-ci-base': 5.8.0
+      '@datadog/datadog-ci-base': 5.9.1
 
-  '@datadog/datadog-ci-plugin-sarif@5.8.0':
-    resolution: {integrity: sha512-XSt1B5RER1q8F8hUAjVbn/T6nM49a2gJWEVtfPRa1EGyNyBJhPyB95Yk79DxMdsV+LzlN/E3vbOJTDaFd0XxaQ==}
+  '@datadog/datadog-ci-plugin-sarif@5.9.1':
+    resolution: {integrity: sha512-kBglD297VYF1ofDmlj9ny74/D2fvxrKZkZE6btsCEmCGhSWWdSzhD2d+XxqE1oPdxEV9OiiKywp60JseK73cCg==}
     peerDependencies:
-      '@datadog/datadog-ci-base': 5.8.0
+      '@datadog/datadog-ci-base': 5.9.1
 
-  '@datadog/datadog-ci-plugin-sbom@5.8.0':
-    resolution: {integrity: sha512-oEBlS7IyloLrz46rUctLB75ZBZT6Vo7PnzJURHGqjijQMRjlfOwgAtryThtThcE+D5ghz3ZK8SwXQgPn6Hrsng==}
+  '@datadog/datadog-ci-plugin-sbom@5.9.1':
+    resolution: {integrity: sha512-6lJAgbznXxYAQEreGEhORFOZdGXWfViMV7Iaa6EB/89HHa0R7Ju1aP2gOH4PkBxswSAu3VtL/Vs6D4iVZVRqkQ==}
     peerDependencies:
-      '@datadog/datadog-ci-base': 5.8.0
+      '@datadog/datadog-ci-base': 5.9.1
 
-  '@datadog/datadog-ci@5.8.0':
-    resolution: {integrity: sha512-76axFLAaCTt+0EXOr3l44wXQ/RQxp39MrtstCXxg3yTtZRe0bdu7ckXoPMmHzmTsoty3bXpt2zJ+gLFkHKL8/A==}
+  '@datadog/datadog-ci@5.9.1':
+    resolution: {integrity: sha512-S10fzR2W85JNVpTLDiBjwk6E5uzy9lwDQoGYWnQEzw/kiD7kR2Yt1o0gg5tF8VkZyI6PUCZT7VhQuOohf6799A==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -760,12 +763,8 @@ packages:
       '@types/node':
         optional: true
 
-  '@isaacs/cliui@8.0.2':
-    resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
-    engines: {node: '>=12'}
-
-  '@jest/diff-sequences@30.0.1':
-    resolution: {integrity: sha512-n5H8QLDJ47QqbCNn5SuFjCRDrOLEZ0h8vAHCK5RL9Ls7Xa8AQLa/YxAc9UjFqoEDM48muwtBGjtMY5cr0PLDCw==}
+  '@jest/diff-sequences@30.3.0':
+    resolution: {integrity: sha512-cG51MVnLq1ecVUaQ3fr6YuuAOitHK1S4WUJHnsPFE/quQr33ADUx1FfrTCpMCRxvy0Yr9BThKpDjSlcTi91tMA==}
     engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
 
   '@jest/get-type@30.1.0':
@@ -854,10 +853,6 @@ packages:
     resolution: {integrity: sha512-NkT+YAdgS2FPCn8mIA9bQhiBs+xmniMGq1LFPDhcFn0+2yIUEiIG06t7bsZlhdjknEQRTSdT7YitP6fC5qwP0g==}
     cpu: [x64]
     os: [win32]
-
-  '@pkgjs/parseargs@0.11.0':
-    resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
-    engines: {node: '>=14'}
 
   '@rolldown/pluginutils@1.0.0-beta.27':
     resolution: {integrity: sha512-+d0F4MKMCbeVUJwG96uQ4SgAznZNSq93I3V+9NHA4OpvqG8mRCpGdKmK8l/dl02h2CCDHwW2FqilnTyDcAnqjA==}
@@ -1124,8 +1119,8 @@ packages:
   '@types/uuid@9.0.8':
     resolution: {integrity: sha512-jg+97EGIcY9AGHJJRaaPVgetKDsrTgbRjQ5Msgjh/DQKEFl0DtyRr/VCOyD1T2R1MNeWPK/u7JoGhlDZnKBAfA==}
 
-  '@typespec/ts-http-runtime@0.3.3':
-    resolution: {integrity: sha512-91fp6CAAJSRtH5ja95T1FHSKa8aPW9/Zw6cta81jlZTUw/+Vq8jM/AfF/14h2b71wwR84JUTW/3Y8QPhDAawFA==}
+  '@typespec/ts-http-runtime@0.3.4':
+    resolution: {integrity: sha512-CI0NhTrz4EBaa0U+HaaUZrJhPoso8sG7ZFya8uQoBA57fjzrjRSv87ekCjLZOFExN+gXE/z0xuN2QfH4H2HrLQ==}
     engines: {node: '>=20.0.0'}
 
   '@ungap/structured-clone@1.3.0':
@@ -1185,16 +1180,16 @@ packages:
       ajv:
         optional: true
 
-  ajv-formats@2.1.1:
-    resolution: {integrity: sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==}
+  ajv-formats@3.0.1:
+    resolution: {integrity: sha512-8iUql50EUR+uUcdRQ3HDqa6EVyo3docL8g5WJ3FNcWmu62IbkGUue/pEyLBW8VGKKucTPgqeks4fIU1DA4yowQ==}
     peerDependencies:
       ajv: ^8.0.0
     peerDependenciesMeta:
       ajv:
         optional: true
 
-  ajv@8.17.1:
-    resolution: {integrity: sha512-B/gBuNg5SiMTrPkC+A2+cW0RszwxYmn6VYxB/inlBStS5nx6xHIt/ehKRhIMhqusl7a8LjQoZnjCs5vhwxOQ1g==}
+  ajv@8.18.0:
+    resolution: {integrity: sha512-PlXPeEWMXMZ7sPYOHqmDyCJzcfNrUr3fGNKtezX14ykXOEIvyK81d+qydx89KY5O71FKMPaQ2vBfBFI5NHR63A==}
 
   ansi-align@3.0.1:
     resolution: {integrity: sha512-IOfwwBF5iczOjp/WeY4YxyjqAFMQoZufdQWDd19SEExbVLNXqvpzSJ/M7Za4/sCPmQ0+GRquoA7bGcINcxew6w==}
@@ -1264,8 +1259,8 @@ packages:
   asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
 
-  axios@1.13.5:
-    resolution: {integrity: sha512-cz4ur7Vb0xS4/KUN0tPWe44eqxrIu31me+fbang3ijiNscE129POzipJJA6zniq2C/Z6sJCjMimjS8Lc/GAs8Q==}
+  axios@1.13.6:
+    resolution: {integrity: sha512-ChTCHMouEe2kn713WHbQGcuYrr6fXTBiu460OTwWrWob16g1bXn4vtz07Ope7ewMozJAnEquLk5lWQWtBig9DQ==}
 
   axobject-query@4.1.0:
     resolution: {integrity: sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==}
@@ -1274,8 +1269,9 @@ packages:
   bail@2.0.2:
     resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
 
-  balanced-match@1.0.2:
-    resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+  balanced-match@4.0.4:
+    resolution: {integrity: sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==}
+    engines: {node: 18 || 20 || >=22}
 
   base-64@1.0.0:
     resolution: {integrity: sha512-kwDPIFCGx0NZHog36dj+tHiwP4QMzsZ3AgMViUBKI0+V5n4U0ufTCUMhnQ04diaRI8EX/QcPfql7zlhZ7j4zgg==}
@@ -1287,10 +1283,9 @@ packages:
     resolution: {integrity: sha512-gYjt7OIqdM0PcttNYP2aVrr2G0bMALkBaoehD4BuRGjAOtipg0b6wHg1yNL+s5zSnLZZrGHOw4IrND8CD+3oIQ==}
     hasBin: true
 
-  basic-ftp@5.1.0:
-    resolution: {integrity: sha512-RkaJzeJKDbaDWTIPiJwubyljaEPwpVWkm9Rt5h9Nd6h7tEXTJ3VB4qxdZBioV7JO5yLUaOKwz7vDOzlncUsegw==}
+  basic-ftp@5.2.0:
+    resolution: {integrity: sha512-VoMINM2rqJwJgfdHq6RiUudKt2BV+FY5ZFezP/ypmwayk68+NzzAQy4XXLlqsGD4MCzq3DrmNFD/uUmBJuGoXw==}
     engines: {node: '>=10.0.0'}
-    deprecated: Security vulnerability fixed in 5.2.0, please upgrade
 
   bcp-47-match@2.0.3:
     resolution: {integrity: sha512-JtTezzbAibu8G0R9op9zb3vcWZd9JF6M0xOYGPn0fNCd7wOpRB1mU2mH9T8gaBGbAAyIIVgB2G7xG0GP98zMAQ==}
@@ -1316,8 +1311,9 @@ packages:
     resolution: {integrity: sha512-F3PH5k5juxom4xktynS7MoFY+NUWH5LC4CnH11YB8NPew+HLpmBLCybSAEyb2F+4pRXhuhWqFesoQd6DAyc2hw==}
     engines: {node: '>=18'}
 
-  brace-expansion@2.0.2:
-    resolution: {integrity: sha512-Jt0vHyM+jmUBqojB7E1NIYadt0vI0Qxjxd2TErW94wDz+E2LAm5vKMXXwg6ZZBTHPuUlDgQHKXvjGBdfcF1ZDQ==}
+  brace-expansion@5.0.4:
+    resolution: {integrity: sha512-h+DEnpVvxmfVefa4jFbCf5HdH5YMDXRsmKflpf1pILZWRFlTbJpxeU55nJl4Smt5HQaGzg1o6RHFPJaOqnmBDg==}
+    engines: {node: 18 || 20 || >=22}
 
   braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
@@ -1471,10 +1467,6 @@ packages:
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
 
-  cross-spawn@7.0.6:
-    resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
-    engines: {node: '>= 8'}
-
   crossws@0.3.5:
     resolution: {integrity: sha512-ojKiDvcmByhwa8YYqbQI/hg7MEU0NC03+pSdEq4ZUnZR9xXpwk7E43SMNGkn+JxJGPFtNvQ48+vV2p+P1ml5PA==}
 
@@ -1622,9 +1614,6 @@ packages:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
     engines: {node: '>= 0.4'}
 
-  eastasianwidth@0.2.0:
-    resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
-
   ecdsa-sig-formatter@1.0.11:
     resolution: {integrity: sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==}
 
@@ -1639,9 +1628,6 @@ packages:
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
-
-  emoji-regex@9.2.2:
-    resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
 
   entities@4.5.0:
     resolution: {integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==}
@@ -1754,8 +1740,15 @@ packages:
   fast-uri@3.1.0:
     resolution: {integrity: sha512-iPeeDKJSWf4IEOasVVrknXpaBV0IApz/gp7S2bb7Z4Lljbl2MGJRqInZiUrQwV16cpzw/D3S5j5Julj/gT52AA==}
 
+  fast-xml-builder@1.1.4:
+    resolution: {integrity: sha512-f2jhpN4Eccy0/Uz9csxh3Nu6q4ErKxf0XIsasomfOihuSUa3/xw6w8dnOtCDgEItQFJG8KyXPzQXzcODDrrbOg==}
+
   fast-xml-parser@5.3.6:
     resolution: {integrity: sha512-QNI3sAvSvaOiaMl8FYU4trnEzCwiRr8XMWgAHzlrWpTSj+QaCSvOf1h82OEP1s4hiAXhnbXSyFWCf4ldZzZRVA==}
+    hasBin: true
+
+  fast-xml-parser@5.5.6:
+    resolution: {integrity: sha512-3+fdZyBRVg29n4rXP0joHthhcHdPUHaIC16cuyyd1iLsuaO6Vea36MPrxgAzbZna8lhvZeRL8Bc9GP56/J9xEw==}
     hasBin: true
 
   fastq@1.19.1:
@@ -1797,10 +1790,6 @@ packages:
   fontkitten@1.0.2:
     resolution: {integrity: sha512-piJxbLnkD9Xcyi7dWJRnqszEURixe7CrF/efBfbffe2DPyabmuIuqraruY8cXTs19QoM8VJzx47BDRVNXETM7Q==}
     engines: {node: '>=20'}
-
-  foreground-child@3.3.1:
-    resolution: {integrity: sha512-gIXjKqtFuWEgzFRJA9WCQeSJLZDjgJUOMCMzxtvFq/37KojM1BFGufqsCy0r4qSQmYLsZYMeyRqzIWOMup03sw==}
-    engines: {node: '>=14'}
 
   form-data@4.0.5:
     resolution: {integrity: sha512-8RipRLol37bNs2bhoV67fiTEvdTrbMUYcFTiy3+wuuOnUog2QBHCZWXDRijWQfAkhBj2Uf5UnVaiWwA5vdd82w==}
@@ -1845,10 +1834,9 @@ packages:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
     engines: {node: '>= 6'}
 
-  glob@10.5.0:
-    resolution: {integrity: sha512-DfXN8DfhJ7NH3Oe7cFmu3NCu1wKbkReJ8TorzSAFbSKrlNaQSKfIzqYqVY8zlbs2NLBbWpRiU52GX2PbaBVNkg==}
-    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
-    hasBin: true
+  glob@13.0.6:
+    resolution: {integrity: sha512-Wjlyrolmm8uDpm/ogGyXZXb1Z+Ca2B8NbJwqBVg0axK9GbBeoS7yGV6vjXnYdGm6X53iehEuxxbyiKp8QmN4Vw==}
+    engines: {node: 18 || 20 || >=22}
 
   gopd@1.2.0:
     resolution: {integrity: sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx+BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==}
@@ -2006,6 +1994,11 @@ packages:
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     hasBin: true
 
+  is-docker@4.0.0:
+    resolution: {integrity: sha512-LHE+wROyG/Y/0ZnbktRCoTix2c1RhgWaZraMZ8o1Q7zCh0VSrICJQO5oqIIISrcSBtrXv0o233w1IYwsWCjTzA==}
+    engines: {node: '>=20'}
+    hasBin: true
+
   is-extglob@2.1.1:
     resolution: {integrity: sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==}
     engines: {node: '>=0.10.0'}
@@ -2046,22 +2039,20 @@ packages:
     resolution: {integrity: sha512-UcVfVfaK4Sc4m7X3dUSoHoozQGBEFeDC+zVo06t98xe8CzHSZZBekNXH+tu0NalHolcJ/QAGqS46Hef7QXBIMw==}
     engines: {node: '>=16'}
 
+  is-wsl@3.1.1:
+    resolution: {integrity: sha512-e6rvdUCiQCAuumZslxRJWR/Doq4VpPR82kqclvcS0efgt430SlGIk05vdCN58+VrzgtIcfNODjozVielycD4Sw==}
+    engines: {node: '>=16'}
+
   isarray@1.0.0:
     resolution: {integrity: sha512-VLghIWNM6ELQzo7zwmcg0NmTVyWKYjvIeM83yjp0wRDTmUnrM678fQbcKBo6n2CJEF0szoG//ytg+TKla89ALQ==}
-
-  isexe@2.0.0:
-    resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
 
   its-fine@2.0.0:
     resolution: {integrity: sha512-KLViCmWx94zOvpLwSlsx6yOCeMhZYaxrJV87Po5k/FoZzcPSahvK5qJ7fYhS61sZi5ikmh2S3Hz55A2l3U69ng==}
     peerDependencies:
       react: ^19.0.0
 
-  jackspeak@3.4.3:
-    resolution: {integrity: sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==}
-
-  jest-diff@30.2.0:
-    resolution: {integrity: sha512-dQHFo3Pt4/NLlG5z4PxZ/3yZTZ1C7s9hveiOj+GCN+uT109NC2QgsoVZsVOAvbJ3RgKkvyLGXZV9+piDpWbm6A==}
+  jest-diff@30.3.0:
+    resolution: {integrity: sha512-n3q4PDQjS4LrKxfWB3Z5KNk1XjXtZTBwQp71OP0Jo03Z6V60x++K5L8k6ZrW8MY8pOFylZvHM0zsjS1RqlHJZQ==}
     engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
 
   js-tokens@4.0.0:
@@ -2171,11 +2162,12 @@ packages:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
     hasBin: true
 
-  lru-cache@10.4.3:
-    resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
-
   lru-cache@11.2.6:
     resolution: {integrity: sha512-ESL2CrkS/2wTPfuend7Zhkzo2u0daGJ/A2VucJOgQ/C48S/zB8MMeMHSGKYpXhIjbPxfuezITkaBH1wqv00DDQ==}
+    engines: {node: 20 || >=22}
+
+  lru-cache@11.2.7:
+    resolution: {integrity: sha512-aY/R+aEsRelme17KGQa/1ZSIpLpNYYrhcrepKTZgE+W3WM16YMCaPwOHLHsmopZHELU0Ojin1lPVxKR0MihncA==}
     engines: {node: 20 || >=22}
 
   lru-cache@5.1.1:
@@ -2396,15 +2388,15 @@ packages:
     resolution: {integrity: sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==}
     engines: {node: '>=6'}
 
-  minimatch@9.0.5:
-    resolution: {integrity: sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==}
-    engines: {node: '>=16 || 14 >=14.17'}
+  minimatch@10.2.4:
+    resolution: {integrity: sha512-oRjTw/97aTBN0RHbYCdtF1MQfvusSIBQM0IZEgzl6426+8jSC0nF1a/GmnVLpfB9yyr6g6FTqWqiZVbxrtaCIg==}
+    engines: {node: 18 || 20 || >=22}
 
   minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
 
-  minipass@7.1.2:
-    resolution: {integrity: sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==}
+  minipass@7.1.3:
+    resolution: {integrity: sha512-tEBHqDnIoM/1rXME1zgka9g6Q2lcoCkxHLuc7ODJ5BxbP5d4c2Z5cGgtXAku59200Cx7diuHTOYfSBD8n6mm8A==}
     engines: {node: '>=16 || 14 >=14.17'}
 
   mrmime@2.0.1:
@@ -2499,9 +2491,6 @@ packages:
     resolution: {integrity: sha512-5NPgf87AT2STgwa2ntRMr45jTKrYBGkVU36yT0ig/n/GMAa3oPqhZfIQ2kMEimReg0+t9kZViDVZ83qfVUlckg==}
     engines: {node: '>= 14'}
 
-  package-json-from-dist@1.0.1:
-    resolution: {integrity: sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==}
-
   package-manager-detector@1.6.0:
     resolution: {integrity: sha512-61A5ThoTiDG/C8s8UMZwSorAGwMJ0ERVGj2OjoW5pAalsNOg15+iQiPzrLJ4jhZ1HJzmC2PIHT2oEiH3R5fzNA==}
 
@@ -2527,13 +2516,13 @@ packages:
   path-browserify@1.0.1:
     resolution: {integrity: sha512-b7uo2UCUOYZcnF/3ID0lulOJi/bafxa1xPe7ZPsammBSpjSWQkjNxlt635YGS2MiR9GjvuXCtz2emr3jbsz98g==}
 
-  path-key@3.1.1:
-    resolution: {integrity: sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==}
-    engines: {node: '>=8'}
+  path-expression-matcher@1.1.3:
+    resolution: {integrity: sha512-qdVgY8KXmVdJZRSS1JdEPOKPdTiEK/pi0RkcT2sw1RhXxohdujUlJFPuS1TSkevZ9vzd3ZlL7ULl1MHGTApKzQ==}
+    engines: {node: '>=14.0.0'}
 
-  path-scurry@1.11.1:
-    resolution: {integrity: sha512-Xa4Nw17FS9ApQFJ9umLiJS4orGjm7ZzwUrwamcGQuHSzDyth9boKDaycYdDcZDuqYATXw4HFXgaqWTctW/v1HA==}
-    engines: {node: '>=16 || 14 >=14.18'}
+  path-scurry@2.0.2:
+    resolution: {integrity: sha512-3O/iVVsJAPsOnpwWIeD+d6z/7PmqApyQePUtCndjatj/9I5LylHvt5qluFaBT3I5h3r1ejfR056c+FCv+NnNXg==}
+    engines: {node: 18 || 20 || >=22}
 
   piccolore@0.1.3:
     resolution: {integrity: sha512-o8bTeDWjE086iwKrROaDf31K0qC/BENdm15/uH9usSC/uZjJOKb2YGiVHfLY4GhwsERiPI1jmwI2XrA7ACOxVw==}
@@ -2580,8 +2569,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  pretty-format@30.2.0:
-    resolution: {integrity: sha512-9uBdv/B4EefsuAL+pWqueZyZS2Ba+LxfFeQ9DN14HU4bN8bhaxKdkpjpB6fs9+pSjIBu+FXQHImEg8j/Lw0+vA==}
+  pretty-format@30.3.0:
+    resolution: {integrity: sha512-oG4T3wCbfeuvljnyAzhBvpN45E8iOTXCU/TD3zXW80HA3dQ4ahdqMkWGiPWZvjpQwlbyHrPTWUAqUzGzv4l1JQ==}
     engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
 
   prismjs@1.30.0:
@@ -2833,11 +2822,6 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  semver@7.7.3:
-    resolution: {integrity: sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==}
-    engines: {node: '>=10'}
-    hasBin: true
-
   semver@7.7.4:
     resolution: {integrity: sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM+MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA==}
     engines: {node: '>=10'}
@@ -2850,26 +2834,14 @@ packages:
     resolution: {integrity: sha512-eX2IQ6nFohW4DbvHIOLRB3MHFpYqaqvXd3Tp5e/T/dSH83fxaNJQRvDMhASmkNTsNTVF2/OOopzRCt7xokgPfg==}
     engines: {node: ^18.17.0 || ^20.3.0 || >=21.0.0}
 
-  shebang-command@2.0.0:
-    resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
-    engines: {node: '>=8'}
-
-  shebang-regex@3.0.0:
-    resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
-    engines: {node: '>=8'}
-
   shiki@3.22.0:
     resolution: {integrity: sha512-LBnhsoYEe0Eou4e1VgJACes+O6S6QC0w71fCSp5Oya79inkwkm15gQ1UF6VtQ8j/taMDh79hAB49WUk8ALQW3g==}
 
   signal-exit@3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
 
-  signal-exit@4.1.0:
-    resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
-    engines: {node: '>=14'}
-
-  simple-git@3.16.0:
-    resolution: {integrity: sha512-zuWYsOLEhbJRWVxpjdiXl6eyAyGo/KzVW+KFhhw9MqEEJttcq+32jTWSGyxTdf9e/YCohxRE+9xpWFj9FdiJNw==}
+  simple-git@3.33.0:
+    resolution: {integrity: sha512-D4V/tGC2sjsoNhoMybKyGoE+v8A60hRawKQ1iFRA1zwuDgGZCBJ4ByOzZ5J8joBbi4Oam0qiPH+GhzmSBwbJng==}
 
   simple-swizzle@0.2.2:
     resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
@@ -2923,10 +2895,6 @@ packages:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
     engines: {node: '>=8'}
 
-  string-width@5.1.2:
-    resolution: {integrity: sha512-HnLOCR3vjcY8beoNLtcjZ5/nxn2afmME6lhrDrebokqMap+XbeW8n9TXpPDOqdGK5qcI3oT0GKTW6wC7EMiVqA==}
-    engines: {node: '>=12'}
-
   string-width@7.2.0:
     resolution: {integrity: sha512-tsaTIkKW9b4N+AEj+SVA+WhJzV7/zMhcSu78mLKWSk7cXMOSHsBKFWUs0fWwq8QyK3MgJBQRX6Gbi4kYbdvGkQ==}
     engines: {node: '>=18'}
@@ -2954,6 +2922,9 @@ packages:
 
   strnum@2.1.2:
     resolution: {integrity: sha512-l63NF9y/cLROq/yqKXSLtcMeeyOfnSQlfMSlzFt/K73oIaD8DGaQWd7Z34X9GPiKqP5rbSh84Hl4bOlLcjiSrQ==}
+
+  strnum@2.2.0:
+    resolution: {integrity: sha512-Y7Bj8XyJxnPAORMZj/xltsfo55uOiyHcU2tnAVzHUnSJR/KsEX+9RoDeXEnsXtl/CX4fAcrt64gZ13aGaWPeBg==}
 
   style-to-js@1.1.21:
     resolution: {integrity: sha512-RjQetxJrrUJLQPHbLku6U/ocGtzyjbJMP9lCNK7Ag0CNh690nSH8woqWH9u16nMjYBAok+i7JO1NP2pOy8IsPQ==}
@@ -2992,6 +2963,10 @@ packages:
 
   tinyexec@1.0.2:
     resolution: {integrity: sha512-W/KYk+NFhkmsYpuHq5JykngiOCnxeVL8v8dFnqxSD8qEEdRfXk1SDM6JzNqcERbcGYj9tMrDQBYV9cjgnunFIg==}
+    engines: {node: '>=18'}
+
+  tinyexec@1.0.4:
+    resolution: {integrity: sha512-u9r3uZC0bdpGOXtlxUIdwf9pkmvhqJdrVCH9fapQtgy/OeTTMZ1nqH7agtvEfmGui6e1XxjcdrlxvxJvc3sMqw==}
     engines: {node: '>=18'}
 
   tinyglobby@0.2.15:
@@ -3342,11 +3317,6 @@ packages:
     resolution: {integrity: sha512-n1brCuqClxfFfq/Rb0ICg9giSZqCS+pLtccdag6C2HyufBrh3fBOiy9nb6ggRMvWOVH5GrdJskj5iGTZNxd7SA==}
     engines: {node: '>=4'}
 
-  which@2.0.2:
-    resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
-    engines: {node: '>= 8'}
-    hasBin: true
-
   widest-line@5.0.0:
     resolution: {integrity: sha512-c9bZp7b5YtRj2wOe6dlj32MK+Bx/M/d+9VB2SHM1OtsUHR0aV0tdP6DWh/iMt0kWi1t5g1Iudu6hQRNd1A4PVA==}
     engines: {node: '>=18'}
@@ -3358,10 +3328,6 @@ packages:
   wrap-ansi@7.0.0:
     resolution: {integrity: sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==}
     engines: {node: '>=10'}
-
-  wrap-ansi@8.1.0:
-    resolution: {integrity: sha512-si7QWI6zUMq56bESFvagtmzMdGOtoxfR+Sez11Mobfc7tm+VkUckk9bW2UeffTGVUbOksxmSw0AA2gs8g71NCQ==}
-    engines: {node: '>=12'}
 
   wrap-ansi@9.0.2:
     resolution: {integrity: sha512-42AtmgqjV+X1VpdOfyTGOYRi0/zsoLqtXQckTmqTeybT+BDIbM/Guxo7x3pE2vtpr1ok6xRqM9OpBe+Jyoqyww==}
@@ -3437,7 +3403,7 @@ snapshots:
   '@antfu/install-pkg@1.1.0':
     dependencies:
       package-manager-detector: 1.6.0
-      tinyexec: 1.0.2
+      tinyexec: 1.0.4
 
   '@astrojs/check@0.9.6(prettier-plugin-astro@0.14.1)(prettier@3.8.1)(typescript@5.9.3)':
     dependencies:
@@ -3635,7 +3601,7 @@ snapshots:
     dependencies:
       '@azure/abort-controller': 2.1.2
       '@azure/core-auth': 1.10.1
-      '@azure/core-rest-pipeline': 1.22.2
+      '@azure/core-rest-pipeline': 1.23.0
       '@azure/core-tracing': 1.3.1
       '@azure/core-util': 1.13.1
       '@azure/logger': 1.3.0
@@ -3644,14 +3610,14 @@ snapshots:
       - supports-color
     optional: true
 
-  '@azure/core-rest-pipeline@1.22.2':
+  '@azure/core-rest-pipeline@1.23.0':
     dependencies:
       '@azure/abort-controller': 2.1.2
       '@azure/core-auth': 1.10.1
       '@azure/core-tracing': 1.3.1
       '@azure/core-util': 1.13.1
       '@azure/logger': 1.3.0
-      '@typespec/ts-http-runtime': 0.3.3
+      '@typespec/ts-http-runtime': 0.3.4
       tslib: 2.8.1
     transitivePeerDependencies:
       - supports-color
@@ -3665,7 +3631,7 @@ snapshots:
   '@azure/core-util@1.13.1':
     dependencies:
       '@azure/abort-controller': 2.1.2
-      '@typespec/ts-http-runtime': 0.3.3
+      '@typespec/ts-http-runtime': 0.3.4
       tslib: 2.8.1
     transitivePeerDependencies:
       - supports-color
@@ -3676,12 +3642,12 @@ snapshots:
       '@azure/abort-controller': 2.1.2
       '@azure/core-auth': 1.10.1
       '@azure/core-client': 1.10.1
-      '@azure/core-rest-pipeline': 1.22.2
+      '@azure/core-rest-pipeline': 1.23.0
       '@azure/core-tracing': 1.3.1
       '@azure/core-util': 1.13.1
       '@azure/logger': 1.3.0
-      '@azure/msal-browser': 4.28.2
-      '@azure/msal-node': 3.8.7
+      '@azure/msal-browser': 4.29.1
+      '@azure/msal-node': 3.8.9
       open: 10.2.0
       tslib: 2.8.1
     transitivePeerDependencies:
@@ -3690,23 +3656,23 @@ snapshots:
 
   '@azure/logger@1.3.0':
     dependencies:
-      '@typespec/ts-http-runtime': 0.3.3
+      '@typespec/ts-http-runtime': 0.3.4
       tslib: 2.8.1
     transitivePeerDependencies:
       - supports-color
     optional: true
 
-  '@azure/msal-browser@4.28.2':
+  '@azure/msal-browser@4.29.1':
     dependencies:
-      '@azure/msal-common': 15.14.2
+      '@azure/msal-common': 15.16.1
     optional: true
 
-  '@azure/msal-common@15.14.2':
+  '@azure/msal-common@15.16.1':
     optional: true
 
-  '@azure/msal-node@3.8.7':
+  '@azure/msal-node@3.8.9':
     dependencies:
-      '@azure/msal-common': 15.14.2
+      '@azure/msal-common': 15.16.1
       jsonwebtoken: 9.0.3
       uuid: 8.3.2
     optional: true
@@ -3840,143 +3806,141 @@ snapshots:
 
   '@ctrl/tinycolor@4.2.0': {}
 
-  '@datadog/datadog-ci-base@5.8.0(@datadog/datadog-ci-plugin-coverage@5.8.0)(@datadog/datadog-ci-plugin-deployment@5.8.0)(@datadog/datadog-ci-plugin-dora@5.8.0)(@datadog/datadog-ci-plugin-gate@5.8.0)(@datadog/datadog-ci-plugin-junit@5.8.0)(@datadog/datadog-ci-plugin-sarif@5.8.0)(@datadog/datadog-ci-plugin-sbom@5.8.0)(@types/node@25.0.3)':
+  '@datadog/datadog-ci-base@5.9.1(@datadog/datadog-ci-plugin-coverage@5.9.1)(@datadog/datadog-ci-plugin-deployment@5.9.1)(@datadog/datadog-ci-plugin-dora@5.9.1)(@datadog/datadog-ci-plugin-gate@5.9.1)(@datadog/datadog-ci-plugin-junit@5.9.1)(@datadog/datadog-ci-plugin-sarif@5.9.1)(@datadog/datadog-ci-plugin-sbom@5.9.1)(@types/node@25.0.3)':
     dependencies:
       '@antfu/install-pkg': 1.1.0
       '@types/datadog-metrics': 0.6.1
       async-retry: 1.3.1
-      axios: 1.13.5(debug@4.4.3)
+      axios: 1.13.6(debug@4.4.3)
       chalk: 3.0.0
       clipanion: 3.2.1(typanion@3.14.0)
       datadog-metrics: 0.9.3
       debug: 4.4.3
       deep-extend: 0.6.0
-      fast-xml-parser: 5.3.6
+      fast-xml-parser: 5.5.6
       form-data: 4.0.5
-      glob: 10.5.0
+      glob: 13.0.6
       inquirer: 8.2.7(@types/node@25.0.3)
-      jest-diff: 30.2.0
+      is-docker: 4.0.0
+      jest-diff: 30.3.0
+      js-yaml: 4.1.1
       jszip: 3.10.1
       proxy-agent: 6.5.0
       semver: 7.7.4
-      simple-git: 3.16.0
+      simple-git: 3.33.0
       terminal-link: 2.1.1
       tiny-async-pool: 2.1.0
       typanion: 3.14.0
       upath: 2.0.1
     optionalDependencies:
-      '@datadog/datadog-ci-plugin-coverage': 5.8.0(@datadog/datadog-ci-base@5.8.0)
-      '@datadog/datadog-ci-plugin-deployment': 5.8.0(@datadog/datadog-ci-base@5.8.0)
-      '@datadog/datadog-ci-plugin-dora': 5.8.0(@datadog/datadog-ci-base@5.8.0)
-      '@datadog/datadog-ci-plugin-gate': 5.8.0(@datadog/datadog-ci-base@5.8.0)
-      '@datadog/datadog-ci-plugin-junit': 5.8.0(@datadog/datadog-ci-base@5.8.0)
-      '@datadog/datadog-ci-plugin-sarif': 5.8.0(@datadog/datadog-ci-base@5.8.0)
-      '@datadog/datadog-ci-plugin-sbom': 5.8.0(@datadog/datadog-ci-base@5.8.0)
+      '@datadog/datadog-ci-plugin-coverage': 5.9.1(@datadog/datadog-ci-base@5.9.1)
+      '@datadog/datadog-ci-plugin-deployment': 5.9.1(@datadog/datadog-ci-base@5.9.1)
+      '@datadog/datadog-ci-plugin-dora': 5.9.1(@datadog/datadog-ci-base@5.9.1)
+      '@datadog/datadog-ci-plugin-gate': 5.9.1(@datadog/datadog-ci-base@5.9.1)
+      '@datadog/datadog-ci-plugin-junit': 5.9.1(@datadog/datadog-ci-base@5.9.1)
+      '@datadog/datadog-ci-plugin-sarif': 5.9.1(@datadog/datadog-ci-base@5.9.1)
+      '@datadog/datadog-ci-plugin-sbom': 5.9.1(@datadog/datadog-ci-base@5.9.1)
     transitivePeerDependencies:
       - '@types/node'
       - supports-color
 
-  '@datadog/datadog-ci-plugin-coverage@5.8.0(@datadog/datadog-ci-base@5.8.0)':
+  '@datadog/datadog-ci-plugin-coverage@5.9.1(@datadog/datadog-ci-base@5.9.1)':
     dependencies:
-      '@datadog/datadog-ci-base': 5.8.0(@datadog/datadog-ci-plugin-coverage@5.8.0)(@datadog/datadog-ci-plugin-deployment@5.8.0)(@datadog/datadog-ci-plugin-dora@5.8.0)(@datadog/datadog-ci-plugin-gate@5.8.0)(@datadog/datadog-ci-plugin-junit@5.8.0)(@datadog/datadog-ci-plugin-sarif@5.8.0)(@datadog/datadog-ci-plugin-sbom@5.8.0)(@types/node@25.0.3)
-      axios: 1.13.5(debug@4.4.3)
+      '@datadog/datadog-ci-base': 5.9.1(@datadog/datadog-ci-plugin-coverage@5.9.1)(@datadog/datadog-ci-plugin-deployment@5.9.1)(@datadog/datadog-ci-plugin-dora@5.9.1)(@datadog/datadog-ci-plugin-gate@5.9.1)(@datadog/datadog-ci-plugin-junit@5.9.1)(@datadog/datadog-ci-plugin-sarif@5.9.1)(@datadog/datadog-ci-plugin-sbom@5.9.1)(@types/node@25.0.3)
+      axios: 1.13.6(debug@4.4.3)
       chalk: 3.0.0
-      fast-xml-parser: 5.3.6
+      fast-xml-parser: 5.5.6
       form-data: 4.0.5
-      simple-git: 3.16.0
+      simple-git: 3.33.0
       upath: 2.0.1
     transitivePeerDependencies:
       - debug
       - supports-color
 
-  '@datadog/datadog-ci-plugin-deployment@5.8.0(@datadog/datadog-ci-base@5.8.0)':
+  '@datadog/datadog-ci-plugin-deployment@5.9.1(@datadog/datadog-ci-base@5.9.1)':
     dependencies:
-      '@datadog/datadog-ci-base': 5.8.0(@datadog/datadog-ci-plugin-coverage@5.8.0)(@datadog/datadog-ci-plugin-deployment@5.8.0)(@datadog/datadog-ci-plugin-dora@5.8.0)(@datadog/datadog-ci-plugin-gate@5.8.0)(@datadog/datadog-ci-plugin-junit@5.8.0)(@datadog/datadog-ci-plugin-sarif@5.8.0)(@datadog/datadog-ci-plugin-sbom@5.8.0)(@types/node@25.0.3)
-      axios: 1.13.5(debug@4.4.3)
+      '@datadog/datadog-ci-base': 5.9.1(@datadog/datadog-ci-plugin-coverage@5.9.1)(@datadog/datadog-ci-plugin-deployment@5.9.1)(@datadog/datadog-ci-plugin-dora@5.9.1)(@datadog/datadog-ci-plugin-gate@5.9.1)(@datadog/datadog-ci-plugin-junit@5.9.1)(@datadog/datadog-ci-plugin-sarif@5.9.1)(@datadog/datadog-ci-plugin-sbom@5.9.1)(@types/node@25.0.3)
+      axios: 1.13.6(debug@4.4.3)
       chalk: 3.0.0
-      simple-git: 3.16.0
+      simple-git: 3.33.0
     transitivePeerDependencies:
       - debug
       - supports-color
 
-  '@datadog/datadog-ci-plugin-dora@5.8.0(@datadog/datadog-ci-base@5.8.0)':
+  '@datadog/datadog-ci-plugin-dora@5.9.1(@datadog/datadog-ci-base@5.9.1)':
     dependencies:
-      '@datadog/datadog-ci-base': 5.8.0(@datadog/datadog-ci-plugin-coverage@5.8.0)(@datadog/datadog-ci-plugin-deployment@5.8.0)(@datadog/datadog-ci-plugin-dora@5.8.0)(@datadog/datadog-ci-plugin-gate@5.8.0)(@datadog/datadog-ci-plugin-junit@5.8.0)(@datadog/datadog-ci-plugin-sarif@5.8.0)(@datadog/datadog-ci-plugin-sbom@5.8.0)(@types/node@25.0.3)
-      axios: 1.13.5(debug@4.4.3)
+      '@datadog/datadog-ci-base': 5.9.1(@datadog/datadog-ci-plugin-coverage@5.9.1)(@datadog/datadog-ci-plugin-deployment@5.9.1)(@datadog/datadog-ci-plugin-dora@5.9.1)(@datadog/datadog-ci-plugin-gate@5.9.1)(@datadog/datadog-ci-plugin-junit@5.9.1)(@datadog/datadog-ci-plugin-sarif@5.9.1)(@datadog/datadog-ci-plugin-sbom@5.9.1)(@types/node@25.0.3)
+      axios: 1.13.6(debug@4.4.3)
       chalk: 3.0.0
-      simple-git: 3.16.0
+      simple-git: 3.33.0
     transitivePeerDependencies:
       - debug
       - supports-color
 
-  '@datadog/datadog-ci-plugin-gate@5.8.0(@datadog/datadog-ci-base@5.8.0)':
+  '@datadog/datadog-ci-plugin-gate@5.9.1(@datadog/datadog-ci-base@5.9.1)':
     dependencies:
-      '@datadog/datadog-ci-base': 5.8.0(@datadog/datadog-ci-plugin-coverage@5.8.0)(@datadog/datadog-ci-plugin-deployment@5.8.0)(@datadog/datadog-ci-plugin-dora@5.8.0)(@datadog/datadog-ci-plugin-gate@5.8.0)(@datadog/datadog-ci-plugin-junit@5.8.0)(@datadog/datadog-ci-plugin-sarif@5.8.0)(@datadog/datadog-ci-plugin-sbom@5.8.0)(@types/node@25.0.3)
+      '@datadog/datadog-ci-base': 5.9.1(@datadog/datadog-ci-plugin-coverage@5.9.1)(@datadog/datadog-ci-plugin-deployment@5.9.1)(@datadog/datadog-ci-plugin-dora@5.9.1)(@datadog/datadog-ci-plugin-gate@5.9.1)(@datadog/datadog-ci-plugin-junit@5.9.1)(@datadog/datadog-ci-plugin-sarif@5.9.1)(@datadog/datadog-ci-plugin-sbom@5.9.1)(@types/node@25.0.3)
       '@types/uuid': 9.0.8
-      axios: 1.13.5(debug@4.4.3)
+      axios: 1.13.6(debug@4.4.3)
       chalk: 3.0.0
       uuid: 9.0.1
     transitivePeerDependencies:
       - debug
 
-  '@datadog/datadog-ci-plugin-junit@5.8.0(@datadog/datadog-ci-base@5.8.0)':
+  '@datadog/datadog-ci-plugin-junit@5.9.1(@datadog/datadog-ci-base@5.9.1)':
     dependencies:
-      '@datadog/datadog-ci-base': 5.8.0(@datadog/datadog-ci-plugin-coverage@5.8.0)(@datadog/datadog-ci-plugin-deployment@5.8.0)(@datadog/datadog-ci-plugin-dora@5.8.0)(@datadog/datadog-ci-plugin-gate@5.8.0)(@datadog/datadog-ci-plugin-junit@5.8.0)(@datadog/datadog-ci-plugin-sarif@5.8.0)(@datadog/datadog-ci-plugin-sbom@5.8.0)(@types/node@25.0.3)
-      axios: 1.13.5(debug@4.4.3)
+      '@datadog/datadog-ci-base': 5.9.1(@datadog/datadog-ci-plugin-coverage@5.9.1)(@datadog/datadog-ci-plugin-deployment@5.9.1)(@datadog/datadog-ci-plugin-dora@5.9.1)(@datadog/datadog-ci-plugin-gate@5.9.1)(@datadog/datadog-ci-plugin-junit@5.9.1)(@datadog/datadog-ci-plugin-sarif@5.9.1)(@datadog/datadog-ci-plugin-sbom@5.9.1)(@types/node@25.0.3)
+      axios: 1.13.6(debug@4.4.3)
       chalk: 3.0.0
-      fast-xml-parser: 5.3.6
+      fast-xml-parser: 5.5.6
       form-data: 4.0.5
       upath: 2.0.1
       uuid: 9.0.1
     transitivePeerDependencies:
       - debug
 
-  '@datadog/datadog-ci-plugin-sarif@5.8.0(@datadog/datadog-ci-base@5.8.0)':
+  '@datadog/datadog-ci-plugin-sarif@5.9.1(@datadog/datadog-ci-base@5.9.1)':
     dependencies:
-      '@datadog/datadog-ci-base': 5.8.0(@datadog/datadog-ci-plugin-coverage@5.8.0)(@datadog/datadog-ci-plugin-deployment@5.8.0)(@datadog/datadog-ci-plugin-dora@5.8.0)(@datadog/datadog-ci-plugin-gate@5.8.0)(@datadog/datadog-ci-plugin-junit@5.8.0)(@datadog/datadog-ci-plugin-sarif@5.8.0)(@datadog/datadog-ci-plugin-sbom@5.8.0)(@types/node@25.0.3)
-      ajv: 8.17.1
-      ajv-formats: 2.1.1(ajv@8.17.1)
-      axios: 1.13.5(debug@4.4.3)
+      '@datadog/datadog-ci-base': 5.9.1(@datadog/datadog-ci-plugin-coverage@5.9.1)(@datadog/datadog-ci-plugin-deployment@5.9.1)(@datadog/datadog-ci-plugin-dora@5.9.1)(@datadog/datadog-ci-plugin-gate@5.9.1)(@datadog/datadog-ci-plugin-junit@5.9.1)(@datadog/datadog-ci-plugin-sarif@5.9.1)(@datadog/datadog-ci-plugin-sbom@5.9.1)(@types/node@25.0.3)
+      ajv: 8.18.0
+      ajv-formats: 3.0.1(ajv@8.18.0)
+      axios: 1.13.6(debug@4.4.3)
       chalk: 3.0.0
       form-data: 4.0.5
-      simple-git: 3.16.0
+      simple-git: 3.33.0
       upath: 2.0.1
       uuid: 9.0.1
     transitivePeerDependencies:
       - debug
       - supports-color
 
-  '@datadog/datadog-ci-plugin-sbom@5.8.0(@datadog/datadog-ci-base@5.8.0)':
+  '@datadog/datadog-ci-plugin-sbom@5.9.1(@datadog/datadog-ci-base@5.9.1)':
     dependencies:
-      '@datadog/datadog-ci-base': 5.8.0(@datadog/datadog-ci-plugin-coverage@5.8.0)(@datadog/datadog-ci-plugin-deployment@5.8.0)(@datadog/datadog-ci-plugin-dora@5.8.0)(@datadog/datadog-ci-plugin-gate@5.8.0)(@datadog/datadog-ci-plugin-junit@5.8.0)(@datadog/datadog-ci-plugin-sarif@5.8.0)(@datadog/datadog-ci-plugin-sbom@5.8.0)(@types/node@25.0.3)
-      ajv: 8.17.1
-      ajv-formats: 2.1.1(ajv@8.17.1)
-      axios: 1.13.5(debug@4.4.3)
+      '@datadog/datadog-ci-base': 5.9.1(@datadog/datadog-ci-plugin-coverage@5.9.1)(@datadog/datadog-ci-plugin-deployment@5.9.1)(@datadog/datadog-ci-plugin-dora@5.9.1)(@datadog/datadog-ci-plugin-gate@5.9.1)(@datadog/datadog-ci-plugin-junit@5.9.1)(@datadog/datadog-ci-plugin-sarif@5.9.1)(@datadog/datadog-ci-plugin-sbom@5.9.1)(@types/node@25.0.3)
+      ajv: 8.18.0
+      ajv-formats: 3.0.1(ajv@8.18.0)
+      axios: 1.13.6(debug@4.4.3)
       chalk: 3.0.0
       packageurl-js: 2.0.1
-      simple-git: 3.16.0
+      simple-git: 3.33.0
       upath: 2.0.1
     transitivePeerDependencies:
       - debug
       - supports-color
 
-  '@datadog/datadog-ci@5.8.0(@types/node@25.0.3)':
+  '@datadog/datadog-ci@5.9.1(@types/node@25.0.3)':
     dependencies:
-      '@datadog/datadog-ci-base': 5.8.0(@datadog/datadog-ci-plugin-coverage@5.8.0)(@datadog/datadog-ci-plugin-deployment@5.8.0)(@datadog/datadog-ci-plugin-dora@5.8.0)(@datadog/datadog-ci-plugin-gate@5.8.0)(@datadog/datadog-ci-plugin-junit@5.8.0)(@datadog/datadog-ci-plugin-sarif@5.8.0)(@datadog/datadog-ci-plugin-sbom@5.8.0)(@types/node@25.0.3)
-      '@datadog/datadog-ci-plugin-coverage': 5.8.0(@datadog/datadog-ci-base@5.8.0)
-      '@datadog/datadog-ci-plugin-deployment': 5.8.0(@datadog/datadog-ci-base@5.8.0)
-      '@datadog/datadog-ci-plugin-dora': 5.8.0(@datadog/datadog-ci-base@5.8.0)
-      '@datadog/datadog-ci-plugin-gate': 5.8.0(@datadog/datadog-ci-base@5.8.0)
-      '@datadog/datadog-ci-plugin-junit': 5.8.0(@datadog/datadog-ci-base@5.8.0)
-      '@datadog/datadog-ci-plugin-sarif': 5.8.0(@datadog/datadog-ci-base@5.8.0)
-      '@datadog/datadog-ci-plugin-sbom': 5.8.0(@datadog/datadog-ci-base@5.8.0)
-      axios: 1.13.5(debug@4.4.3)
+      '@datadog/datadog-ci-base': 5.9.1(@datadog/datadog-ci-plugin-coverage@5.9.1)(@datadog/datadog-ci-plugin-deployment@5.9.1)(@datadog/datadog-ci-plugin-dora@5.9.1)(@datadog/datadog-ci-plugin-gate@5.9.1)(@datadog/datadog-ci-plugin-junit@5.9.1)(@datadog/datadog-ci-plugin-sarif@5.9.1)(@datadog/datadog-ci-plugin-sbom@5.9.1)(@types/node@25.0.3)
+      '@datadog/datadog-ci-plugin-coverage': 5.9.1(@datadog/datadog-ci-base@5.9.1)
+      '@datadog/datadog-ci-plugin-deployment': 5.9.1(@datadog/datadog-ci-base@5.9.1)
+      '@datadog/datadog-ci-plugin-dora': 5.9.1(@datadog/datadog-ci-base@5.9.1)
+      '@datadog/datadog-ci-plugin-gate': 5.9.1(@datadog/datadog-ci-base@5.9.1)
+      '@datadog/datadog-ci-plugin-junit': 5.9.1(@datadog/datadog-ci-base@5.9.1)
+      '@datadog/datadog-ci-plugin-sarif': 5.9.1(@datadog/datadog-ci-base@5.9.1)
+      '@datadog/datadog-ci-plugin-sbom': 5.9.1(@datadog/datadog-ci-base@5.9.1)
       chalk: 3.0.0
       clipanion: 3.2.1(typanion@3.14.0)
-      js-yaml: 4.1.1
-      semver: 7.7.4
       typanion: 3.14.0
-      upath: 2.0.1
     transitivePeerDependencies:
       - '@datadog/datadog-ci-plugin-aas'
       - '@datadog/datadog-ci-plugin-cloud-run'
@@ -3984,6 +3948,7 @@ snapshots:
       - '@datadog/datadog-ci-plugin-lambda'
       - '@datadog/datadog-ci-plugin-stepfunctions'
       - '@datadog/datadog-ci-plugin-synthetics'
+      - '@datadog/datadog-ci-plugin-terraform'
       - '@types/node'
       - debug
       - supports-color
@@ -4212,16 +4177,7 @@ snapshots:
     optionalDependencies:
       '@types/node': 25.0.3
 
-  '@isaacs/cliui@8.0.2':
-    dependencies:
-      string-width: 5.1.2
-      string-width-cjs: string-width@4.2.3
-      strip-ansi: 7.1.2
-      strip-ansi-cjs: strip-ansi@6.0.1
-      wrap-ansi: 8.1.0
-      wrap-ansi-cjs: wrap-ansi@7.0.0
-
-  '@jest/diff-sequences@30.0.1': {}
+  '@jest/diff-sequences@30.3.0': {}
 
   '@jest/get-type@30.1.0': {}
 
@@ -4324,9 +4280,6 @@ snapshots:
     optional: true
 
   '@pagefind/windows-x64@1.4.0':
-    optional: true
-
-  '@pkgjs/parseargs@0.11.0':
     optional: true
 
   '@rolldown/pluginutils@1.0.0-beta.27': {}
@@ -4543,7 +4496,7 @@ snapshots:
 
   '@types/uuid@9.0.8': {}
 
-  '@typespec/ts-http-runtime@0.3.3':
+  '@typespec/ts-http-runtime@0.3.4':
     dependencies:
       http-proxy-agent: 7.0.2
       https-proxy-agent: 7.0.6
@@ -4624,15 +4577,15 @@ snapshots:
 
   agent-base@7.1.4: {}
 
-  ajv-draft-04@1.0.0(ajv@8.17.1):
+  ajv-draft-04@1.0.0(ajv@8.18.0):
     optionalDependencies:
-      ajv: 8.17.1
+      ajv: 8.18.0
 
-  ajv-formats@2.1.1(ajv@8.17.1):
+  ajv-formats@3.0.1(ajv@8.18.0):
     optionalDependencies:
-      ajv: 8.17.1
+      ajv: 8.18.0
 
-  ajv@8.17.1:
+  ajv@8.18.0:
     dependencies:
       fast-deep-equal: 3.1.3
       fast-uri: 3.1.0
@@ -4791,7 +4744,7 @@ snapshots:
 
   asynckit@0.4.0: {}
 
-  axios@1.13.5(debug@4.4.3):
+  axios@1.13.6(debug@4.4.3):
     dependencies:
       follow-redirects: 1.15.11(debug@4.4.3)
       form-data: 4.0.5
@@ -4803,7 +4756,7 @@ snapshots:
 
   bail@2.0.2: {}
 
-  balanced-match@1.0.2: {}
+  balanced-match@4.0.4: {}
 
   base-64@1.0.0: {}
 
@@ -4811,7 +4764,7 @@ snapshots:
 
   baseline-browser-mapping@2.8.28: {}
 
-  basic-ftp@5.1.0: {}
+  basic-ftp@5.2.0: {}
 
   bcp-47-match@2.0.3: {}
 
@@ -4849,9 +4802,9 @@ snapshots:
       widest-line: 5.0.0
       wrap-ansi: 9.0.2
 
-  brace-expansion@2.0.2:
+  brace-expansion@5.0.4:
     dependencies:
-      balanced-match: 1.0.2
+      balanced-match: 4.0.4
 
   braces@3.0.3:
     dependencies:
@@ -4982,12 +4935,6 @@ snapshots:
   cookie@1.1.1: {}
 
   core-util-is@1.0.3: {}
-
-  cross-spawn@7.0.6:
-    dependencies:
-      path-key: 3.1.1
-      shebang-command: 2.0.0
-      which: 2.0.2
 
   crossws@0.3.5:
     dependencies:
@@ -5128,8 +5075,6 @@ snapshots:
       es-errors: 1.3.0
       gopd: 1.2.0
 
-  eastasianwidth@0.2.0: {}
-
   ecdsa-sig-formatter@1.0.11:
     dependencies:
       safe-buffer: 5.2.1
@@ -5145,8 +5090,6 @@ snapshots:
   emoji-regex@10.6.0: {}
 
   emoji-regex@8.0.0: {}
-
-  emoji-regex@9.2.2: {}
 
   entities@4.5.0: {}
 
@@ -5290,9 +5233,19 @@ snapshots:
 
   fast-uri@3.1.0: {}
 
+  fast-xml-builder@1.1.4:
+    dependencies:
+      path-expression-matcher: 1.1.3
+
   fast-xml-parser@5.3.6:
     dependencies:
       strnum: 2.1.2
+
+  fast-xml-parser@5.5.6:
+    dependencies:
+      fast-xml-builder: 1.1.4
+      path-expression-matcher: 1.1.3
+      strnum: 2.2.0
 
   fastq@1.19.1:
     dependencies:
@@ -5323,11 +5276,6 @@ snapshots:
   fontkitten@1.0.2:
     dependencies:
       tiny-inflate: 1.0.3
-
-  foreground-child@3.3.1:
-    dependencies:
-      cross-spawn: 7.0.6
-      signal-exit: 4.1.0
 
   form-data@4.0.5:
     dependencies:
@@ -5368,7 +5316,7 @@ snapshots:
 
   get-uri@6.0.5:
     dependencies:
-      basic-ftp: 5.1.0
+      basic-ftp: 5.2.0
       data-uri-to-buffer: 6.0.2
       debug: 4.4.3
     transitivePeerDependencies:
@@ -5380,14 +5328,11 @@ snapshots:
     dependencies:
       is-glob: 4.0.3
 
-  glob@10.5.0:
+  glob@13.0.6:
     dependencies:
-      foreground-child: 3.3.1
-      jackspeak: 3.4.3
-      minimatch: 9.0.5
-      minipass: 7.1.2
-      package-json-from-dist: 1.0.1
-      path-scurry: 1.11.1
+      minimatch: 10.2.4
+      minipass: 7.1.3
+      path-scurry: 2.0.2
 
   gopd@1.2.0: {}
 
@@ -5683,6 +5628,8 @@ snapshots:
 
   is-docker@3.0.0: {}
 
+  is-docker@4.0.0: {}
+
   is-extglob@2.1.1: {}
 
   is-fullwidth-code-point@3.0.0: {}
@@ -5709,9 +5656,12 @@ snapshots:
     dependencies:
       is-inside-container: 1.0.0
 
-  isarray@1.0.0: {}
+  is-wsl@3.1.1:
+    dependencies:
+      is-inside-container: 1.0.0
+    optional: true
 
-  isexe@2.0.0: {}
+  isarray@1.0.0: {}
 
   its-fine@2.0.0(@types/react@19.2.14)(react@19.2.4):
     dependencies:
@@ -5720,18 +5670,12 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
-  jackspeak@3.4.3:
+  jest-diff@30.3.0:
     dependencies:
-      '@isaacs/cliui': 8.0.2
-    optionalDependencies:
-      '@pkgjs/parseargs': 0.11.0
-
-  jest-diff@30.2.0:
-    dependencies:
-      '@jest/diff-sequences': 30.0.1
+      '@jest/diff-sequences': 30.3.0
       '@jest/get-type': 30.1.0
       chalk: 4.1.2
-      pretty-format: 30.2.0
+      pretty-format: 30.3.0
 
   js-tokens@4.0.0: {}
 
@@ -5851,9 +5795,9 @@ snapshots:
     dependencies:
       js-tokens: 4.0.0
 
-  lru-cache@10.4.3: {}
-
   lru-cache@11.2.6: {}
+
+  lru-cache@11.2.7: {}
 
   lru-cache@5.1.1:
     dependencies:
@@ -6360,13 +6304,13 @@ snapshots:
 
   mimic-fn@2.1.0: {}
 
-  minimatch@9.0.5:
+  minimatch@10.2.4:
     dependencies:
-      brace-expansion: 2.0.2
+      brace-expansion: 5.0.4
 
   minimist@1.2.8: {}
 
-  minipass@7.1.2: {}
+  minipass@7.1.3: {}
 
   mrmime@2.0.1: {}
 
@@ -6469,8 +6413,6 @@ snapshots:
       degenerator: 5.0.1
       netmask: 2.0.2
 
-  package-json-from-dist@1.0.1: {}
-
   package-manager-detector@1.6.0: {}
 
   packageurl-js@2.0.1: {}
@@ -6511,12 +6453,12 @@ snapshots:
 
   path-browserify@1.0.1: {}
 
-  path-key@3.1.1: {}
+  path-expression-matcher@1.1.3: {}
 
-  path-scurry@1.11.1:
+  path-scurry@2.0.2:
     dependencies:
-      lru-cache: 10.4.3
-      minipass: 7.1.2
+      lru-cache: 11.2.7
+      minipass: 7.1.3
 
   piccolore@0.1.3: {}
 
@@ -6556,7 +6498,7 @@ snapshots:
 
   prettier@3.8.1: {}
 
-  pretty-format@30.2.0:
+  pretty-format@30.3.0:
     dependencies:
       '@jest/schemas': 30.0.5
       ansi-styles: 5.2.0
@@ -6914,8 +6856,6 @@ snapshots:
 
   semver@7.7.2: {}
 
-  semver@7.7.3: {}
-
   semver@7.7.4: {}
 
   setimmediate@1.0.5: {}
@@ -6949,12 +6889,6 @@ snapshots:
       '@img/sharp-win32-ia32': 0.34.3
       '@img/sharp-win32-x64': 0.34.3
 
-  shebang-command@2.0.0:
-    dependencies:
-      shebang-regex: 3.0.0
-
-  shebang-regex@3.0.0: {}
-
   shiki@3.22.0:
     dependencies:
       '@shikijs/core': 3.22.0
@@ -6968,9 +6902,7 @@ snapshots:
 
   signal-exit@3.0.7: {}
 
-  signal-exit@4.1.0: {}
-
-  simple-git@3.16.0:
+  simple-git@3.33.0:
     dependencies:
       '@kwsites/file-exists': 1.1.1
       '@kwsites/promise-deferred': 1.1.1
@@ -7027,12 +6959,6 @@ snapshots:
       is-fullwidth-code-point: 3.0.0
       strip-ansi: 6.0.1
 
-  string-width@5.1.2:
-    dependencies:
-      eastasianwidth: 0.2.0
-      emoji-regex: 9.2.2
-      strip-ansi: 7.1.2
-
   string-width@7.2.0:
     dependencies:
       emoji-regex: 10.6.0
@@ -7063,6 +6989,8 @@ snapshots:
   strip-json-comments@2.0.1: {}
 
   strnum@2.1.2: {}
+
+  strnum@2.2.0: {}
 
   style-to-js@1.1.21:
     dependencies:
@@ -7108,6 +7036,8 @@ snapshots:
 
   tinyexec@1.0.2: {}
 
+  tinyexec@1.0.4: {}
+
   tinyglobby@0.2.15:
     dependencies:
       fdir: 6.5.0(picomatch@4.0.3)
@@ -7137,7 +7067,7 @@ snapshots:
 
   typescript-auto-import-cache@0.3.6:
     dependencies:
-      semver: 7.7.3
+      semver: 7.7.4
 
   typescript@5.9.3: {}
 
@@ -7328,7 +7258,7 @@ snapshots:
   volar-service-typescript@0.0.67(@volar/language-service@2.4.27):
     dependencies:
       path-browserify: 1.0.1
-      semver: 7.7.3
+      semver: 7.7.4
       typescript-auto-import-cache: 0.3.6
       vscode-languageserver-textdocument: 1.0.12
       vscode-nls: 5.2.0
@@ -7392,10 +7322,6 @@ snapshots:
 
   which-pm-runs@1.1.0: {}
 
-  which@2.0.2:
-    dependencies:
-      isexe: 2.0.0
-
   widest-line@5.0.0:
     dependencies:
       string-width: 7.2.0
@@ -7412,12 +7338,6 @@ snapshots:
       string-width: 4.2.3
       strip-ansi: 6.0.1
 
-  wrap-ansi@8.1.0:
-    dependencies:
-      ansi-styles: 6.2.3
-      string-width: 5.1.2
-      strip-ansi: 7.1.2
-
   wrap-ansi@9.0.2:
     dependencies:
       ansi-styles: 6.2.3
@@ -7426,7 +7346,7 @@ snapshots:
 
   wsl-utils@0.1.0:
     dependencies:
-      is-wsl: 3.1.0
+      is-wsl: 3.1.1
     optional: true
 
   xxhash-wasm@1.1.0: {}
@@ -7438,8 +7358,8 @@ snapshots:
   yaml-language-server@1.19.2:
     dependencies:
       '@vscode/l10n': 0.0.18
-      ajv: 8.17.1
-      ajv-draft-04: 1.0.0(ajv@8.17.1)
+      ajv: 8.18.0
+      ajv-draft-04: 1.0.0(ajv@8.18.0)
       lodash: 4.17.21
       prettier: 3.8.1
       request-light: 0.5.8
