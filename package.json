@@ -30,7 +30,7 @@
     "react-dom": "^19.2.4",
     "react-dom-18": "npm:react-dom@^18.3.1",
     "react-konva": "^19.2.3",
-    "reveal.js": "^5.2.1",
+    "reveal.js": "^6.0.0",
     "ssim.js": "^3.5.0"
   },
   "devDependencies": {
