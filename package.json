@@ -18,7 +18,7 @@
   "packageManager": "pnpm@10.32.1",
   "dependencies": {
     "@astrojs/starlight": "^0.37.7",
-    "bippy": "^0.5.32",
+    "bippy": "^0.5.38",
     "colorjs.io": "^0.6.1",
     "diff": "^8.0.4",
     "konva": "^10.2.3",
