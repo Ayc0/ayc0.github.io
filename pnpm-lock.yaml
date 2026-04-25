@@ -58,8 +58,8 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.14)(konva@10.2.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       reveal.js:
-        specifier: ^6.0.0
-        version: 6.0.0
+        specifier: ^6.0.1
+        version: 6.0.1
       ssim.js:
         specifier: ^3.5.0
         version: 3.5.0
@@ -2311,8 +2311,8 @@ packages:
   retext@9.0.0:
     resolution: {integrity: sha512-sbMDcpHCNjvlheSgMfEcVrZko3cDzdbe1x/e7G66dFp0Ff7Mldvi2uv6JkJQzdRcvLYE8CA8Oe8siQx8ZOgTcA==}
 
-  reveal.js@6.0.0:
-    resolution: {integrity: sha512-RayDr1FL3Jglnf6p9xHGJ0U18va96PiuLs/JHnd1cdDOXvC+3lsXKe6ujl7PX0pvnhNW2Tpqnr6PEKpJVO2exw==}
+  reveal.js@6.0.1:
+    resolution: {integrity: sha512-9eacArNIgqO2HGWOK+93gJNn+gvdGDVbSq+i2u3Ja9kjiHps0XNLpgYTZTYjKRH91uXy3clGimeGiw4umHG/tg==}
 
   rollup@4.59.0:
     resolution: {integrity: sha512-2oMpl67a3zCH9H79LeMcbDhXW/UmWG/y2zuqnF2jQq5uq9TbM9TVyXvA4+t+ne2IIkBdrLpAaRQAvo7YI/Yyeg==}
@@ -5690,7 +5690,7 @@ snapshots:
       retext-stringify: 4.0.0
       unified: 11.0.5
 
-  reveal.js@6.0.0: {}
+  reveal.js@6.0.1: {}
 
   rollup@4.59.0:
     dependencies:
