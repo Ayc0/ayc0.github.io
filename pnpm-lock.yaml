@@ -77,8 +77,8 @@ importers:
         specifier: ^3.7.2
         version: 3.7.2
       '@datadog/datadog-ci':
-        specifier: ^5.13.0
-        version: 5.13.0
+        specifier: ^5.14.0
+        version: 5.14.0
       '@types/diff':
         specifier: ^8.0.0
         version: 8.0.0
@@ -327,8 +327,8 @@ packages:
     resolution: {integrity: sha512-kzyuwOAQnXJNLS9PSyrk0CWk35nWJW/zl/6KvnTBMFK65gm7U1/Z5BqjxeapjZCIhQcM/DsrEmcbRwDyXyXK4A==}
     engines: {node: '>=14'}
 
-  '@datadog/datadog-ci@5.13.0':
-    resolution: {integrity: sha512-QEooWT2OE6J//OV4gka3F8Ca8QkmVGEyKR8zpJVZ6EufJVsNSnBX2V2VE3tzkvndcKRe2/Q9ZCiL9GUiZ4wTLA==}
+  '@datadog/datadog-ci@5.14.0':
+    resolution: {integrity: sha512-CQFw5twAJTWK8EPj3QjTd0n54ClHrVTrotUuQ/SDISoUpvDMHFFOnCY9KSTaB8A2PH546abMdE89B/DeQeIVlQ==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -3303,7 +3303,7 @@ snapshots:
 
   '@ctrl/tinycolor@4.2.0': {}
 
-  '@datadog/datadog-ci@5.13.0': {}
+  '@datadog/datadog-ci@5.14.0': {}
 
   '@emmetio/abbreviation@2.3.3':
     dependencies:
