@@ -17,6 +17,13 @@ updates:
         versions: [18.3.1] # pinned to this version on purpose
       - dependency-name: react-dom
         versions: [18.3.1] # pinned to this version on purpose
+    groups:
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
 
   - package-ecosystem: "github-actions"
     directory: "/"
