@@ -22,7 +22,7 @@ export const getPublishablePosts = async (): Promise<Post[]> => {
   );
 
   posts.forEach((post) => {
-    if (post.slug.startsWith("posts/drafts/")) {
+    if (post.id.startsWith("posts/drafts/")) {
       throw new Error(
         `Public post "${post.id}" cannot be in the drafts folder`,
       );
@@ -70,14 +70,14 @@ export const getDraftPosts = async () => {
   const posts = await getCollection("docs", (post) => post.data.wip);
 
   posts.forEach((post) => {
-    if (!post.slug.startsWith("posts/drafts/")) {
+    if (!post.id.startsWith("posts/drafts/")) {
       throw new Error(
         `Draft post "${post.id}" is not in the drafts folder.\nYou can use for instance "posts/drafts/${crypto.randomUUID()}`,
       );
     }
 
     if (
-      !post.slug.match(
+      !post.id.match(
         /^posts\/drafts\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/,
       )
     ) {

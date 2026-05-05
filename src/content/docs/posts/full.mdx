@@ -14,7 +14,7 @@ import { getPublishablePostsByYear } from "@components/get-posts";
       <>
         <h2 id={year}>{year}</h2>
         {posts.map((post) => (
-          <LinkToPost slug={post.slug} includeDate includeTags />
+          <LinkToPost slug={post.id} includeDate includeTags />
         ))}
       </>
     );

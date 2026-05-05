@@ -6,11 +6,10 @@
     "useDefineForClassFields": false, // For Lit, https://lit.dev/docs/components/properties/#avoiding-issues-with-class-fields
 
     // For easier imports
-    "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@assets/*": ["src/assets/*"],
-      "@layouts/*": ["src/layouts/*"]
+      "@components/*": ["./src/components/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@layouts/*": ["./src/layouts/*"]
     }
   }
 }
