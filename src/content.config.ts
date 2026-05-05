@@ -1,5 +1,7 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { docsLoader } from "@astrojs/starlight/loaders";
 import { docsSchema } from "@astrojs/starlight/schema";
+import { z } from "astro/zod";
 
 // TODO: add dark-mode
 const tags = [
@@ -23,10 +25,11 @@ const tags = [
   "yarn",
 ] as const;
 
-export const series = ["Light/dark"] as const;
+const series = ["Light/dark"] as const;
 
 export const collections = {
   docs: defineCollection({
+    loader: docsLoader(),
     schema: docsSchema({
       extend: z
         .object({

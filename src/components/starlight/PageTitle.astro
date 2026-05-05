@@ -11,10 +11,7 @@ import {
 
 const post = Astro.locals.starlightRoute.entry;
 
-const { remarkPluginFrontmatter } = await render(
-  // @ts-expect-error – this works, but for some reasons, it doesn’t seem to be compatible at the type level
-  post,
-);
+const { remarkPluginFrontmatter } = await render(post);
 
 const createdDate = getCreatedDate(post);
 const tags = getTagsHtml(post);

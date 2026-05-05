@@ -23,7 +23,7 @@ if (thisSeriesData) {
     Astro.locals.starlightRoute.pagination.prev = {
       type: "link",
       label: postsInSameSeries[indexOfCurrentPost - 1]!.data.title,
-      href: "/" + postsInSameSeries[indexOfCurrentPost - 1]!.slug,
+      href: "/" + postsInSameSeries[indexOfCurrentPost - 1]!.id,
       badge: undefined,
       isCurrent: false,
       attrs: {},
@@ -34,7 +34,7 @@ if (thisSeriesData) {
     Astro.locals.starlightRoute.pagination.next = {
       type: "link",
       label: postsInSameSeries[indexOfCurrentPost + 1]!.data.title,
-      href: "/" + postsInSameSeries[indexOfCurrentPost + 1]!.slug,
+      href: "/" + postsInSameSeries[indexOfCurrentPost + 1]!.id,
       badge: undefined,
       isCurrent: false,
       attrs: {},
