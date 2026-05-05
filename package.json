@@ -17,7 +17,7 @@
   },
   "packageManager": "pnpm@10.32.1",
   "dependencies": {
-    "@astrojs/starlight": "^0.37.7",
+    "@astrojs/starlight": "^0.38.4",
     "bippy": "^0.5.39",
     "colorjs.io": "^0.6.1",
     "diff": "^9.0.0",
@@ -34,7 +34,7 @@
     "ssim.js": "^3.5.0"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.8",
+    "@astrojs/check": "^0.9.9",
     "@astrojs/react": "^5.0.4",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
@@ -43,7 +43,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@types/reveal.js": "^5.2.2",
-    "astro": "^5.18.1",
+    "astro": "^6.2.2",
     "mdast-util-to-string": "^4.0.0",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
