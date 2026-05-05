@@ -24,6 +24,10 @@ updates:
           - "react-dom"
           - "@types/react"
           - "@types/react-dom"
+      astro:
+        patterns:
+          - "astro"
+          - "@astrojs/*"
 
   - package-ecosystem: "github-actions"
     directory: "/"
