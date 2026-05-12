@@ -55,8 +55,8 @@ importers:
         specifier: npm:react-dom@^18.3.1
         version: react-dom@18.3.1(patch_hash=713749ac4d7816aac2dd7a26e1343333a0a50cefd5964110775693de0408cb12)(react@18.3.1)(react@19.2.5)
       react-konva:
-        specifier: ^19.2.3
-        version: 19.2.3(@types/react@19.2.14)(konva@10.3.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        specifier: ^19.2.4
+        version: 19.2.4(@types/react@19.2.14)(konva@10.3.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       reveal.js:
         specifier: ^6.0.1
         version: 6.0.1
@@ -970,6 +970,7 @@ packages:
 
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
+    deprecated: Potential CWE-502 - Update to 1.3.1 or higher
 
   '@vitejs/plugin-react@5.2.0':
     resolution: {integrity: sha512-YmKkfhOAi3wsB1PhJq5Scj3GXMn3WvtQ/JC0xoopuHoXSdmtdStOpFrYaT1kie2YgFBcIe64ROzMYRjCrYOdYw==}
@@ -1936,8 +1937,8 @@ packages:
     peerDependencies:
       react: ^19.2.5
 
-  react-konva@19.2.3:
-    resolution: {integrity: sha512-VsO5CJZwUo12xFa33UEIDOQn6ZZBeE6jlkStGFvpR/3NiDA/9RPQTzw6Ri++C0Pnh3Arco1AehB8qJNv9YCRwg==}
+  react-konva@19.2.4:
+    resolution: {integrity: sha512-AjRT4CwGprm/DV7fTXAjLCjYgNKZlwL+ghhw1pb1RSL7E0BKOlXeiiUSfF/ajd7OdSJOhkf9iuVUNlFk1PvlzQ==}
     peerDependencies:
       konva: ^8.0.1 || ^7.2.5 || ^9.0.0 || ^10.0.0
       react: ^19.2.0
@@ -4857,7 +4858,7 @@ snapshots:
       react: 19.2.5
       scheduler: 0.27.0
 
-  react-konva@19.2.3(@types/react@19.2.14)(konva@10.3.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5):
+  react-konva@19.2.4(@types/react@19.2.14)(konva@10.3.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5):
     dependencies:
       '@types/react-reconciler': 0.33.0(@types/react@19.2.14)
       its-fine: 2.0.0(@types/react@19.2.14)(react@19.2.5)
