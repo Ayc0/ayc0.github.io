@@ -77,8 +77,8 @@ importers:
         specifier: ^3.7.2
         version: 3.7.2
       '@datadog/datadog-ci':
-        specifier: ^5.16.0
-        version: 5.16.0
+        specifier: ^5.16.1
+        version: 5.16.1
       '@types/diff':
         specifier: ^8.0.0
         version: 8.0.0
@@ -288,8 +288,8 @@ packages:
     resolution: {integrity: sha512-kzyuwOAQnXJNLS9PSyrk0CWk35nWJW/zl/6KvnTBMFK65gm7U1/Z5BqjxeapjZCIhQcM/DsrEmcbRwDyXyXK4A==}
     engines: {node: '>=14'}
 
-  '@datadog/datadog-ci@5.16.0':
-    resolution: {integrity: sha512-0ykDASeq6cM9LAZibf/n8VxyVYLFGSCGmepuY0tLzcFHZuob2hszN++C8R91afW3cOTy/fKWHdDADFKv4qD1RQ==}
+  '@datadog/datadog-ci@5.16.1':
+    resolution: {integrity: sha512-Uz6gS0hl4zG3I2JEBTsmpPZbURaA8kVs+09xFxcCsnWK6t7zvjWUksG5GKS2woWRYnaFb+54SFfQ3rMyaVagcw==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -970,6 +970,7 @@ packages:
 
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
+    deprecated: Potential CWE-502 - Update to 1.3.1 or higher
 
   '@vitejs/plugin-react@5.2.0':
     resolution: {integrity: sha512-YmKkfhOAi3wsB1PhJq5Scj3GXMn3WvtQ/JC0xoopuHoXSdmtdStOpFrYaT1kie2YgFBcIe64ROzMYRjCrYOdYw==}
@@ -2846,7 +2847,7 @@ snapshots:
 
   '@ctrl/tinycolor@4.2.0': {}
 
-  '@datadog/datadog-ci@5.16.0': {}
+  '@datadog/datadog-ci@5.16.1': {}
 
   '@emmetio/abbreviation@2.3.3':
     dependencies:
