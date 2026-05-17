@@ -1,6 +1,3 @@
-onlyBuiltDependencies:
-  - sharp
-
 patchedDependencies:
   react-dom@18.3.1: patches/react-dom@18.3.1.patch
 
@@ -15,3 +12,7 @@ peerDependencyRules:
 
 overrides:
   esbuild: 0.25.10 # we have 2 versions otherwise
+
+allowBuilds:
+  esbuild: false
+  sharp: true
