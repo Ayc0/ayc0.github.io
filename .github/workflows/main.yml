@@ -1,43 +1,65 @@
-name: Deploy to GitHub Pages
+name: CI/CD
 
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+on: push
 
 permissions:
   contents: write
   pages: write
 
 jobs:
-  build-and-deploy:
+  checks:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v6.0.2
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v6
+      - name: Setup
+        uses: ./.github/actions/setup
 
-      - name: Use Node.js
-        uses: actions/setup-node@v6
+      - name: Run checks
+        run: |
+          pnpm astro check
+          pnpm lint:check
+
+      - name: Build
+        run: |
+          pnpm build
+          echo "" > ./dist/.nojekyll
+
+      - name: Upload build artifact
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v7.0.1
         with:
-          node-version-file: "package.json"
-          cache: "pnpm"
+          name: dist
+          path: dist/
 
-      - name: Install and Build
+  deploy:
+    needs: checks
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v8.0.1
+        with:
+          name: dist
+          path: dist
+
+      - name: Upload sourcemaps to Datadog
         env:
           DATADOG_SITE: datadoghq.eu
           DATADOG_API_KEY: ${{ secrets.DD_API_KEY }}
-        run: |
-          pnpm install
-          pnpm build
-          pnpm datadog-ci sourcemaps upload dist --service ayc0.github.io --minified-path-prefix https://ayc0.github.io/ --release-version $GITHUB_RUN_ID
-          echo "" > ./dist/.nojekyll
+        run: pnpm datadog-ci sourcemaps upload dist --service ayc0.github.io --minified-path-prefix https://ayc0.github.io/ --release-version $GITHUB_RUN_ID
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           branch: gh-pages
           folder: dist
