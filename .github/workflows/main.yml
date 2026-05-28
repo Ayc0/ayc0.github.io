@@ -1,42 +1,57 @@
-name: Deploy to GitHub Pages
+name: CI/CD
 
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+on: push
 
 permissions:
   contents: write
   pages: write
 
 jobs:
-  build-and-deploy:
+  checks:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
+      - name: Setup
+        uses: ./.github/actions/setup
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v6
+      - name: Run checks
+        run: |
+          pnpm astro check
+          pnpm lint:check
 
-      - name: Use Node.js
-        uses: actions/setup-node@v6
+      - name: Build
+        run: |
+          pnpm build
+          echo "" > ./dist/.nojekyll
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
         with:
-          node-version-file: "package.json"
-          cache: "pnpm"
+          name: dist
+          path: dist/
 
-      - name: Install and Build
+  deploy:
+    needs: checks
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Upload sourcemaps to Datadog
         env:
           DATADOG_SITE: datadoghq.eu
           DATADOG_API_KEY: ${{ secrets.DD_API_KEY }}
-        run: |
-          pnpm install
-          pnpm build
-          pnpm datadog-ci sourcemaps upload dist --service ayc0.github.io --minified-path-prefix https://ayc0.github.io/ --release-version $GITHUB_RUN_ID
-          echo "" > ./dist/.nojekyll
+        run: pnpm datadog-ci sourcemaps upload dist --service ayc0.github.io --minified-path-prefix https://ayc0.github.io/ --release-version $GITHUB_RUN_ID
 
-      - name: Deploy 🚀
+      - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
