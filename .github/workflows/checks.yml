@@ -24,3 +24,4 @@ jobs:
           pnpm install
           pnpm astro check
           pnpm lint:check
+          pnpm build
