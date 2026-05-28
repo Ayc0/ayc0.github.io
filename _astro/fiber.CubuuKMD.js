@@ -1,0 +1,2 @@
+import{E as i,a}from"./core.xHV8QOyx.js";function r(e){return e?typeof e.type=="string"?e.type:a(e):null}function c(e){const t=Object.keys(e).find(n=>n.startsWith("__reactFiber$"));return t?e[t]:void 0}function f(e){return{fiberName:r(e),fiberStack:e?i(e).map(r).filter(Boolean).reverse().join(" > "):null}}export{c as a,r as b,f as g};
+//# sourceMappingURL=fiber.CubuuKMD.js.map
