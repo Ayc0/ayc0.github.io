@@ -24,4 +24,7 @@ jobs:
           pnpm install
           pnpm astro check
           pnpm lint:check
+
+      - name: Check build
+        run: |
           pnpm build
