@@ -40,7 +40,11 @@ let imagePath: string | undefined = await getImagePath(
 }
 
 <!-- https://standard.site/ -->
-<link
-  rel="site.standard.document"
-  href="at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.document/rkey"
-/>
+{
+  Astro.locals.starlightRoute.entry.data.atUri ? (
+    <link
+      rel="site.standard.document"
+      href={Astro.locals.starlightRoute.entry.data.atUri}
+    />
+  ) : null
+}
