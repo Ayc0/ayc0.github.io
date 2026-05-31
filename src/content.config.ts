@@ -47,7 +47,6 @@ export const collections = {
               z.object({ name: z.enum(series), order: z.number() }),
             ])
             .optional(),
-          hiddenFromSequoia: z.literal(true).optional(),
         })
         .and(
           // Draft pages don’t have any requirements
@@ -72,6 +71,7 @@ export const collections = {
             .or(
               z.object({
                 wip: z.literal(false).optional(), // Proper disjoint union with draft posts
+                atUri: z.string(), // Force all published to sequoia. Run `pnpm sequoia publish` to generate
 
                 template: z.literal("doc").optional(),
                 createdAt: z.date(),
