@@ -26,7 +26,7 @@ const tags = [
 ] as const;
 
 // Used by `src/content/docs/posts/series.mdx`
-export const series = ["Light/dark"] as const;
+export const series = ["Light/dark", "@blocz/react-responsive"] as const;
 
 export const collections = {
   docs: defineCollection({
