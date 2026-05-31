@@ -47,6 +47,7 @@ export const collections = {
               z.object({ name: z.enum(series), order: z.number() }),
             ])
             .optional(),
+          atUri: z.string().optional(), // needs to be defined for the `Head.astro` component
         })
         .and(
           // Draft pages don’t have any requirements
