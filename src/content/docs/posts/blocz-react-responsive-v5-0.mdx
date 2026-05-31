@@ -1,0 +1,91 @@
+---
+title: "@blocz/react-responsive v5.0"
+# series: "@blocz/react-responsive"
+tags: ["react", "news"]
+createdAt: 2026-06-01
+description: "@blocz/react-responsive v5.0 was just released. Let’s go through all the different features and changes added by this new major version"
+image: /src/assets/react-responsive.png
+wip: true
+hiddenFromSequoia: true
+pagefind: false
+---
+
+import LinkToPost from "@components/LinkToPost.astro";
+
+`@blocz/react-responsive` v5.0 was just released. Let’s go through all the different features and changes added by this new major version.
+
+## Introduction
+
+`@blocz/react-responsive` v5 was not supposed to be a major release.
+
+Everything started as a bug report: some people DM-ed me because in React 19, as the `@blocz/react-responsive` was doing a `setState` in a `useLayoutEffect`, it was causing 2 renders on mount. But when used in wide-spread components, React 19 would crash because it’d think there was an infinite loop.
+
+I initially released the fix in 4.0.1 (and 4.0.2, bug fix on the release for SSR.) But after realizing that:
+
+- my fix depended on `React.useSyncExternalStore` (see [#171](https://github.com/bloczjs/react-responsive/pull/171)),
+- `React.useSyncExternalStore` was released in React 18,
+- and my `peerDependencies` were still targeting React 16.8.0+,
+
+I decided to un-publish those two versions, and to instead publish a 5.0.0 (to properly follow semantic versioning.)
+
+## Changes in v5.0
+
+[See the official changelog](https://github.com/bloczjs/react-responsive/releases/tag/v5.0.0) for more details.
+
+### Minor breaking change
+
+As mentioned above, initially this 5.0.0 was supposed to be a bug fix (so a minor release). So except for the breaking change related to React 16.8+ to React 18, nothing related to the public API was changed.
+
+### Other changes: Dependabot & frequent updates
+
+Starting with this version (and also related to a change I applied to a few others of my projects), I started to use Dependabot to keep the dependencies up to date and avoid security vulnerabilities.
+
+As `@blocz/react-responsive` has no dependencies, this shouldn’t impact any users. But it means that way more PRs are getting generated (and thus included in the auto changelog from GitHub releases.)
+
+To avoid this, I decided:
+
+1. to change how I’m documenting the `CHANGELOG` with this unified template:
+
+   ```md
+   #### Breaking changes
+
+   _To fill_
+
+   #### Deprecations, will be removed in the next major
+
+   _To fill_
+
+   #### Customer facing
+
+   _To fill_
+
+   #### Internal
+
+   _To fill_
+   ```
+
+2. to migrate the codebase to more modern libraries with fewer total dependencies. For instance: `microbundle` depends on rollup & babel (and in total 443 transitive dependencies), to `tsdown` (total 41 transitive dependencies),
+
+This is why, this v5.0 includes a lot of packages updates in the changelog, including this migration to `tsdown`.
+
+## Plan for the future
+
+I’m already planning ahead for the v6.
+
+First, starting with this v6, I want to follow [Ember.js major version process](https://rfcs.emberjs.com/id/0830-evolving-embers-major-version-process/) (not strictly though). Instead of introducing the v6 right now, I want to split the v6 into 2:
+
+- 5.1.0 for all the new features that will be added in the v6 + all the deprecations so that people could upgrade & already try out the new APIs,
+- the v6.0.0 itself, that should be a boring upgrade, without any new features and only the removal of all deprecations.
+
+The issue tracker for the v6 is already available: https://github.com/bloczjs/react-responsive/issues/182.
+
+The overall ideas (not definitive as the issue will be kept up-to-date, but not this block post):
+
+1. Continue migrating to more modern libraries (pnpm / vite / rolldown / tsdown / oxfmt / etc).
+2. Removing the word `breakpoint`:\
+   `@blocz/react-responsive` works with media ranges **between breakpoints**, not breakpoints themselves. This has troubled me since the v1 but I never wanted to rename it.
+3. Safer typings (we use `string` at the moment).
+4. Being able to use it in bigger codebases (relying on React Context makes it impossible to use multiple systems of media ranges at the same time. Specially without safe typings)
+5. More modern syntax for media queries.
+
+As we speak, 1, 2, 3, and 4 are already implemented and shipped in the [v5.1.0-alpha.1](https://npmx.dev/package-changelog/@blocz/react-responsive/v/5.1.0-alpha.1). I think the v5.1.0 will be released without 5), and instead this will be released in 5.2.0. And of course, no breaking changes planned for the 5.1.0.
