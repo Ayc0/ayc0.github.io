@@ -14,5 +14,6 @@ overrides:
   esbuild: 0.25.10 # we have 2 versions otherwise
 
 allowBuilds:
+  core-js: false
   esbuild: false
   sharp: true
