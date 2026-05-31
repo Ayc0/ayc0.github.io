@@ -47,13 +47,14 @@ export const collections = {
               z.object({ name: z.enum(series), order: z.number() }),
             ])
             .optional(),
+          hiddenFromSequoia: z.literal(true).optional(),
         })
         .and(
           // Draft pages don’t have any requirements
           z
             .object({
               wip: z.literal(true), // Custom key to drive all the changes, better DX
-
+              hiddenFromSequoia: z.literal(true), // force removing from Sequoia
               pagefind: z.literal(false),
             })
 
@@ -61,7 +62,7 @@ export const collections = {
             .or(
               z.object({
                 wip: z.literal(false).optional(), // Proper disjoint union with draft posts
-
+                hiddenFromSequoia: z.literal(true), // force removing from Sequoia
                 template: z.literal("splash"),
                 pagefind: z.literal(true).optional(), // Making sure that all public posts are searchable
               }),
