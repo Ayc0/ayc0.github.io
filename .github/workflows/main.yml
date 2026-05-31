@@ -52,14 +52,14 @@ jobs:
           name: dist
           path: dist
 
-      - name: Upload sourcemaps to Datadog
-        env:
-          DATADOG_SITE: datadoghq.eu
-          DATADOG_API_KEY: ${{ secrets.DD_API_KEY }}
-        run: pnpm datadog-ci sourcemaps upload dist --service ayc0.github.io --minified-path-prefix https://ayc0.github.io/ --release-version $GITHUB_RUN_ID
-
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           branch: gh-pages
           folder: dist
+
+      - name: Upload sourcemaps to Datadog
+        env:
+          DATADOG_SITE: datadoghq.eu
+          DATADOG_API_KEY: ${{ secrets.DD_API_KEY }}
+        run: pnpm datadog-ci sourcemaps upload dist --service ayc0.github.io --minified-path-prefix https://ayc0.github.io/ --release-version $GITHUB_RUN_ID
