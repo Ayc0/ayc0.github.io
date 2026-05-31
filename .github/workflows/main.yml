@@ -29,6 +29,7 @@ jobs:
         with:
           name: dist
           path: dist/
+          include-hidden-files: true # for .well-known
 
   deploy:
     needs: checks
