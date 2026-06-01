@@ -24,7 +24,14 @@ const series = getSeriesHtml(post);
 
 <h1 id={PAGE_TITLE_ID}>
   {post.data.title}
-  {series ? <span set:html={series} /> : null}
+  {
+    series ? (
+      <div>
+        <span data-series-label>Series: </span>
+        <span set:html={series} />
+      </div>
+    ) : null
+  }
 </h1>
 
 <style>

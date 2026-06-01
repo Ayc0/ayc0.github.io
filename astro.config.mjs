@@ -138,9 +138,9 @@ export default defineConfig({
     "/posts/dark-mode/light-dark-mode-user-input":
       "/posts/light-dark-mode-user-input",
     "/posts/others/blocz-react-responsive-v3-is-out":
-      "/posts/blocz-react-responsive-v3-is-out",
+      "/posts/blocz-react-responsive-v3-0",
     "/posts/others/blocz-react-responsive-v4":
-      "/posts/blocz-react-responsive-v4",
+      "/posts/blocz-react-responsive-v4-0",
     "/posts/others/cra-vs-parcel": "/posts/cra-vs-parcel",
     "/posts/others/intlsegmenter-dont-use-stringsplit-nor-stringlength":
       "/posts/intlsegmenter-dont-use-stringsplit-nor-stringlength",
@@ -161,5 +161,10 @@ export default defineConfig({
     "/posts/yarn/yarn-lock-how-to-read-it": "/posts/yarn-lock-how-to-read-it",
     "/posts/yarn/yarn-lock-how-to-update-it":
       "/posts/yarn-lock-how-to-update-it",
+
+    // Unification of versioning
+    "/posts/blocz-react-responsive-v3-is-out":
+      "/posts/blocz-react-responsive-v3-0",
+    "/posts/blocz-react-responsive-v4": "/posts/blocz-react-responsive-v4-0",
   },
 });
