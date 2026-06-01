@@ -36,17 +36,22 @@ Astro.locals.starlightRoute.hasSidebar = false;
     margin-left: auto; /* and put it on the right, instead of centered */
   }
 
+  [data-series-label],
+  [data-series] {
+    vertical-align: middle;
+    font-size: max(var(--sl-text-code-sm), 0.5em);
+    font-style: italic;
+
+    /* TODO: more beautiful colors */
+    color: var(--sl-color-white);
+  }
   [data-series] {
     /* TODO: more beautiful colors */
     background-color: var(--sl-color-bg-inline-code);
-    color: var(--sl-color-white);
 
     margin-block: -0.125em;
     padding: 0.125em 0.375em;
     border-radius: 0.375em;
-    font-size: max(var(--sl-text-code-sm), 0.5em);
-    font-style: italic;
-    vertical-align: middle;
 
     text-decoration: none;
   }
