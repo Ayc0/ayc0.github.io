@@ -1,6 +1,6 @@
 {
   "$schema": "https://tangled.org/stevedylan.dev/sequoia/raw/main/sequoia.schema.json",
-  "siteUrl": "https://ayc0.github.io/",
+  "siteUrl": "https://ayc0.github.io",
   "contentDir": "./src/content/docs/posts/",
   "imagesDir": "./src/assets",
   "outputDir": "./dist",
