@@ -5,6 +5,9 @@
   "imagesDir": "./src/assets",
   "outputDir": "./dist",
   "publicationUri": "at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.publication/3mn6dj35act2i",
+  "bluesky": {
+    "enabled": true
+  },
   "frontmatter": {
     "publishDate": "createdAt",
     "coverImage": "image",
