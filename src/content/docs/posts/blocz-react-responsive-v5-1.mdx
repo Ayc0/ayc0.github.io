@@ -1,0 +1,237 @@
+---
+title: "@blocz/react-responsive v5.1"
+# series: "@blocz/react-responsive"
+tags: ["react", "news"]
+createdAt: 2026-06-06
+description: "@blocz/react-responsive v5.1 was just released. Let’s go through all the different features and changes added by this new minor version"
+image: /src/assets/react-responsive.png
+pagefind: false
+wip: true
+hiddenFromSequoia: true
+---
+
+import LinkToPost from "@components/LinkToPost.astro";
+
+As mentioned in the previous post, going forward `@blocz/react-responsive` will follow strict semver with new features released in minor versions & deprecations. And major will only be about removals of deprecated features (no added features).
+
+<LinkToPost slug="blocz-react-responsive-v5-0" />
+
+## New features
+
+### Renaming
+
+Before the 5.1.0, the word `breakpoint` was used for describe the defined _sizes_ available to all our utilities functions. But this name never sat right with me. Why? Because a breakpoint really is just a point, but when you looked at our documentations, we were defining those as ranges:
+
+> | Breakpoint | From   | To       |
+> | ---------- | ------ | -------- |
+> | xs         | 0px    | 575px    |
+> | sm         | 576px  | 767px    |
+> | md         | 768px  | 991px    |
+> | lg         | 992px  | 1199px   |
+> | xl         | 1200px | Infinity |
+
+The name initially came from `bootstrap`, so I initially chose it as I thought it made sense to people to explain the concepts. But I don’t think the tradeoff makes sense. And I decided to rename those to "media ranges". And this lead to a few renames:
+
+- `<BreakpointsProvider>` -> `<MediaRangesProvider>`
+  - the `breakpoints` prop was renamed to `mediaRanges`
+  - the `additionalBreakpoints` prop was renamed to `additionalMediaRanges`
+- `useBreakpoint()` -> `useMediaRange()`
+- `<BreakpointsContext>` -> `<MediaRangesContext>`
+
+Of course, the previous exports were kept without any changes done to them.
+
+### `createMediaRanges()`
+
+The suffered 2 main issues:
+
+- lack of strict typings for breakpoints,
+- hard to use in complex applications.
+
+#### Lack of strict typings
+
+`useBreakpoint()` and `<Only>` allowed you to use invalid breakpoints. The library would fail safely onto `false` / not rendering its children, but nothing would yell at you in case of typos or invalid values. Which means that this code would be 100% valid:
+
+```jsx
+<Only breakpoint="invalid">
+  <p>This will not render</p>
+</Only>
+```
+
+#### Hard to use in complex applications
+
+Due to the reliance on React contexts, when using multiple sets of breakpoints in the same app, it could be possible – due to conflicts – to have the same component being invalid/valid depending on where it was run.
+
+For instance, let’s take this component:
+
+```tsx
+const MyAwesomeComponent = () => {
+  const isMediaSmall = useBreakpoint("sm");
+
+  return isMediaSmall ? "small" : "not small";
+};
+```
+
+Very complex I know 😅.
+
+Now, if your app was defined breakpoint providers, it could behave differently. For instance:
+
+```tsx
+const App = () => {
+  return (
+    <>
+      {/* Default breakpoint: 576px -> 767px */}
+      <MyAwesomeComponent />
+
+      <BreakpointsProvider breakpoints={{ sm: [0, 100] }}>
+        {/* Definition of `sm` has been changed */}
+        <MyAwesomeComponent />
+      </BreakpointsProvider>
+
+      <BreakpointsProvider breakpoints={{ custom: [500, 1500] }}>
+        {/* `sm` is not defined anymore */}
+        <MyAwesomeComponent />
+      </BreakpointsProvider>
+    </>
+  );
+};
+
+createRoot(root).render(<App />);
+```
+
+#### Solution: `createMediaRanges()`
+
+Those 2 issues led me to create `createMediaRanges()`. By default, `useMediaRange()` and `<Only>` can’t read anymore from any global context, so they’ll always be set to this definition:
+
+| Media range | From   | To       |
+| ----------- | ------ | -------- |
+| xs          | 0px    | 575px    |
+| sm          | 576px  | 767px    |
+| md          | 768px  | 991px    |
+| lg          | 992px  | 1199px   |
+| xl          | 1200px | Infinity |
+
+Which means that in this example, `<MyAwesomeComponent>` would always have `sm` = `576px -> 767px`.
+
+Now, where does `createMediaRanges()` come into play? It allows you to create **new** connected `useMediaRange()` and `<Only>`:
+
+```tsx
+const customMediaRanges = createMediaRanges({
+  custom: [500, 1500],
+});
+
+const MyCustomComponent = () => {
+  const isCustom = customMediaRanges.useMediaRange("custom");
+  return isCustom ? "custom" : "not custom";
+};
+```
+
+And in a full app:
+
+```tsx
+const App = () => {
+  return (
+    <>
+      {/* Default breakpoint sm: 576px -> 767px */}
+      <MyAwesomeComponent />
+
+      {/* Definition of `custom` is always fixed */}
+      <MyCustomComponent />
+    </>
+  );
+};
+
+createRoot(root).render(<App />);
+```
+
+Benefits:
+
+- definitions are 100% stable, from every place in the codebase,
+- no dynamic context, so we can 100% type check it: `<Only>` & `useMediaRange()` can throw errors when used with media ranges that aren't the default, and `createMediaRanges()` can do the same with their custom versions.
+
+:::note[Note]
+As mentioned before, the 5.1.0 contains **no breaking changes**. Which means that:
+
+- the providers still exists,
+- `<Only>` & `useMediaRange()` still work as before, aka no TS errors and still read from the context.
+
+But `createMediaRanges()` has been released and:
+
+- doesn’t rely on the context,
+- is strictly typed.
+
+The changes to `<Only>` & `useMediaRange()` & to the context will come in the v6.0.0.
+:::
+
+## Deprecations
+
+### Renaming
+
+As new functions were introduced, but the old ones kept, those are indeed deprecated. This covers:
+
+- `useBreakpoint()`,
+- `<BreakpointsProvider>`,
+- `<BreakpointsContext>`
+
+### Context
+
+As we’re migrating towards `createMediaRanges()`, all contexts are now deprecated. This covers:
+
+- `<BreakpointsContext>` (already deprecated by the renaming),
+- `<MediaRangesContext>` (newly introduced in this version).
+
+It’s a bit weird to introduced a deprecated API. But this is done so that every renaming could be done in 1 go, and then the migration away from the context could be done too.
+
+### `<Only>` `as` prop
+
+`<Only>` contains a prop `as` that allows you to customize how it’ll be rendered in the DOM. By default, we use `Fragment`, but if you want it to be a `<div>` or any other element, you can specify it using the `as` prop.
+And to make this more powerful, any other props can also be passed through:
+
+```tsx
+<>
+  <Only>{/* Rendered as a fragment */}</Only>
+
+  <Only as="div">{/* Rendered as a <div> */}</Only>
+
+  <Only as={MyAwesomeComponent}>
+    {/* Rendered as a <MyAwesomeComponent> */}
+  </Only>
+
+  <Only as="a" href="https://example.com">
+    {/* Rendered as a <a href="https://example.com"> */}
+  </Only>
+</>
+```
+
+But this:
+
+- relies on a deprecated API [`cloneElement()`](https://react.dev/reference/react/cloneElement),
+- is not type safe:
+  - impossible to know which props are allowed in this child,
+  - can lead to bugs if you pass a prop that isn’t supported at all (like `href` on custom elements).
+
+In addition, I find this API 100% useless as we render Fragments. So you can just do this instead:
+
+```tsx
+<>
+  <Only>{/* */}</Only>
+
+  <Only>
+    <div>{/* */}</div>
+  </Only>
+
+  <Only>
+    <MyAwesomeComponent>{/* */}</MyAwesomeComponent>
+  </Only>
+
+  <Only>
+    <a href="https://example.com">{/* */}</a>
+  </Only>
+</>
+```
+
+## How to upgrade
+
+If you’re already using the 5.0.0, a plain upgrade will work and shouldn’t impact your apps.\
+If you’re using the v4.0.0, as long as you’re not using React version pre-18.0, it should be okay (as the 5.0.0 was just an update of the baseline version of React).
+
+After this, you can start using the new APIs as it pleases you.
