@@ -11,6 +11,6 @@ import { getDraftPosts } from "@components/get-posts";
 List of all posts that are in the process, but not ready to be open to public:
 
 <></>
-{(await getDraftPosts()).slice(0, 10).map((post) => (
+{(await getDraftPosts()).map((post) => (
   <LinkToPost slug={post.id} includeDate includeTags />
 ))}

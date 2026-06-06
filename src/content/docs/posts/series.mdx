@@ -6,45 +6,15 @@ hiddenFromSequoia: true
 pagefind: false
 ---
 
-import LinkToPost from "@components/LinkToPost.astro";
+import SectionsOfPosts from "@components/SectionsOfPosts.astro";
 import { getPublishablePostsMatchingSeries } from "@components/get-posts";
 import { series as seriesList } from "../../../content.config";
 
-<></>
-{await Promise.all(
-  seriesList.map(async (series) => {
-    const posts = await getPublishablePostsMatchingSeries(series);
-    return (
-      <>
-        <h2 id={series}>
-          <a href={`#${series}`}>{series}</a>
-        </h2>
-        <div>
-          {posts.map((post) => (
-            <LinkToPost
-              slug={post.id}
-              includeReadingTime={false}
-              includeDescription={false}
-              includeSeries={false}
-            />
-          ))}
-        </div>
-      </>
-    );
-  }),
-)}
-
-<style>
-  {`
-        body:has(:target) h2[id]:not(:target) {
-            display: none;
-        }
-        body:has(:target) h2[id]:not(:target) + div {
-            display: none;
-        }
-        h2 > a[href] {
-            text-decoration: none;
-            color: var(--sl-color-white);
-        }
-    `}
-</style>
+<SectionsOfPosts
+  sections={await Promise.all(
+    seriesList.map(async (series) => {
+      const posts = await getPublishablePostsMatchingSeries(series);
+      return [series, posts];
+    }),
+  )}
+/>

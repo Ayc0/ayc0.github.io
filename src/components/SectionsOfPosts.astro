@@ -1,0 +1,107 @@
+---
+import type { Post } from "./get-posts";
+
+import LinkToPost from "@components/LinkToPost.astro";
+import { LinkButton } from "@astrojs/starlight/components";
+
+export interface Props {
+  sections: Array<[section: string, posts: Post[]]>;
+  includeDate?: boolean;
+  includeTags?: boolean;
+  includeReadingTime?: boolean;
+  includeDescription?: boolean;
+  includeSeries?: boolean;
+}
+---
+
+<div class="sticky">
+  <div class="arrow-wrapper">
+    <LinkButton
+      class="arrow"
+      href=""
+      variant="secondary"
+      icon="left-arrow"
+      iconPlacement="start">View all</LinkButton
+    >
+  </div>
+</div>
+
+{
+  Astro.props.sections.map(([section, posts]) => {
+    return (
+      <div>
+        <h2 id={section} class="sticky">
+          <a href={`#${section}`}>{section}</a>
+        </h2>
+
+        <div class="post-wrapper">
+          {posts.map((post) => (
+            <LinkToPost
+              slug={post.id}
+              includeDate={Astro.props.includeDate}
+              includeTags={Astro.props.includeTags}
+              includeReadingTime={Astro.props.includeReadingTime}
+              includeDescription={Astro.props.includeDescription}
+              includeSeries={Astro.props.includeSeries}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  })
+}
+
+<style>
+  .sticky {
+    container-type: scroll-state;
+    position: sticky;
+    top: var(--sl-nav-height);
+    z-index: 1;
+
+    & > *:first-child {
+      padding-inline: var(--sl-content-pad-x);
+      padding-block: 0.2em;
+      margin-inline: calc(-1 * var(--sl-content-pad-x));
+      width: calc(100% + calc(var(--sl-content-pad-x) * 2));
+
+      background-color: var(--sl-color-bg);
+      background-color: rgb(from var(--sl-color-bg) r g b / 0.95);
+
+      @container scroll-state(stuck: top) {
+        box-shadow: 0 2px 0 0px var(--sl-color-hairline);
+      }
+    }
+  }
+
+  .arrow-wrapper {
+    display: flex;
+  }
+
+  .arrow {
+    margin-block: 0.4em;
+    margin-left: 1em;
+
+    padding-block: 0.2rem; /* Make slimmer */
+    padding-left: 0.8rem; /* Visual center because of the icon */
+    padding-right: 1.25rem;
+  }
+
+  body:not(:has(:target)) .arrow {
+    display: none;
+  }
+  body:has(:target) h2[id] {
+    display: none;
+  }
+  body:has(:target) h2[id]:not(:target) + .post-wrapper {
+    display: none;
+  }
+
+  h2 > a[href] {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--sl-color-white);
+  }
+  h2 > a[href]:hover {
+    color: var(--sl-color-blue-high);
+  }
+</style>
