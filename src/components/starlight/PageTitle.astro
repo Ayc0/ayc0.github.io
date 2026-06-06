@@ -25,10 +25,24 @@ const series = getSeriesHtml(post);
 <h1 id={PAGE_TITLE_ID}>
   {post.data.title}
   {
-    series ? (
-      <div>
-        <span data-series-label>Series: </span>
-        <span set:html={series} />
+    series || post.data.atUri ? (
+      <div class="subTitle">
+        {series ? (
+          <div>
+            {/* Keep same structure with the top-level span getting a font-size of h1, and the inside span a smaller one */}
+            <span>
+              <span data-series-label>Series: </span>
+            </span>
+            <span set:html={series} />
+          </div>
+        ) : null}
+        {series && post.data.atUri ? <vertical-rule /> : null}
+        {post.data.atUri ? (
+          <>
+            <sequoia-recommend document-uri={post.data.atUri} />
+            <script>import '@components/sequoia-subscribe.js';</script>
+          </>
+        ) : null}
       </div>
     ) : null
   }
@@ -42,6 +56,23 @@ const series = getSeriesHtml(post);
       line-height: var(--sl-line-height-headings);
       font-weight: 600;
       color: var(--sl-color-white);
+    }
+  }
+
+  .subTitle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+
+    & > * {
+      line-height: 0px;
+    }
+
+    & > vertical-rule {
+      align-self: stretch;
+      width: 1px;
+      margin-left: 2px;
+      border-right: 1px solid var(--sl-color-gray-5);
     }
   }
 </style>
