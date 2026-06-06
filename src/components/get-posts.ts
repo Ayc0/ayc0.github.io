@@ -52,7 +52,7 @@ export const getPublishablePostsByYear = async (): Promise<
 };
 
 export const getPostsByTags = async (): Promise<Record<string, Post[]>> => {
-  const posts = await getCollection("docs");
+  const posts = await getPublishablePosts();
   const tagGroups: Record<string, Post[]> = {};
   for (const post of posts) {
     for (const tag of post.data.tags || []) {
