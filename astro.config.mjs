@@ -5,6 +5,7 @@ import starlight from "@astrojs/starlight";
 import sitemap from "@astrojs/sitemap";
 
 import remarkBreaks from "remark-breaks";
+import remarkGfm from "remark-gfm";
 import { remarkReadingTime } from "./tools/remark-reading-time.mjs";
 
 // https://astro.build/config
@@ -20,7 +21,7 @@ export default defineConfig({
   },
 
   markdown: {
-    remarkPlugins: [remarkBreaks, remarkReadingTime],
+    remarkPlugins: [remarkBreaks, remarkGfm, remarkReadingTime],
   },
 
   integrations: [

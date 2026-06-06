@@ -48,6 +48,7 @@
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
     "remark-breaks": "^4.0.0",
+    "remark-gfm": "^4.0.1",
     "sequoia-cli": "^0.5.7",
     "sharp": "0.34.3",
     "typescript": "^6.0.3",
