@@ -75,7 +75,7 @@
 <li><code dir="auto">C</code> is the type selectors (e.g., <code dir="auto">h1</code>) and pseudo-elements (e.g., <code dir="auto">::before</code>)</li>
 </ol>
 <blockquote>
-<p>If you want to check the differences between pseudo-classes (like <code dir="auto">:hover</code>) and pseudo-elements (like <code dir="auto">::before</code>), you can check this post: https://dev.to/ayc0/css-before-vs-before-1d35.</p>
+<p>If you want to check the differences between pseudo-classes (like <code dir="auto">:hover</code>) and pseudo-elements (like <code dir="auto">::before</code>), you can check this post: <a href="https://dev.to/ayc0/css-before-vs-before-1d35">https://dev.to/ayc0/css-before-vs-before-1d35</a>.</p>
 </blockquote>
 <div class="sl-heading-wrapper level-h3"><h3 id="edge-cases">Edge cases</h3><a class="sl-anchor-link" href="#edge-cases"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Edge cases”</span></a></div>
 <ul>
@@ -89,7 +89,7 @@ For instance: <code dir="auto">:nth-child(2n of .class)</code> will have the sam
 <ul>
 <li><code dir="auto">.a.b.c</code> -> <code dir="auto">(0, 3, 0)</code> (3 classes)</li>
 <li><code dir="auto">div#id</code> -> <code dir="auto">(1, 0, 1)</code> (1 id + 1 element)</li>
-<li><code dir="auto">html</code> -> <code dir="auto">(0, 0, 1)</code> | <code dir="auto">:root</code> -> <code dir="auto">(0, 1, 0)</code> (which in https://dev.to/ayc0/lightdark-mode-corrections-5e19#-raw-root-endraw-with-class-names I said that they both represent the same element with just different specificity</li>
+<li><code dir="auto">html</code> -> <code dir="auto">(0, 0, 1)</code> | <code dir="auto">:root</code> -> <code dir="auto">(0, 1, 0)</code> (which in <a href="https://dev.to/ayc0/lightdark-mode-corrections-5e19#-raw-root-endraw-with-class-names">https://dev.to/ayc0/lightdark-mode-corrections-5e19#-raw-root-endraw-with-class-names</a> I said that they both represent the same element with just different specificity</li>
 <li><code dir="auto">span > a[href$=".org"]:not([disabled])</code> -> <code dir="auto">(0, 2, 2)</code> (2 elements (span &#x26; a) &#x26; 2 attributes selectors (href &#x26; not disabled)</li>
 </ul>
 <div class="sl-heading-wrapper level-h3"><h3 id="combining-selectors">Combining selectors</h3><a class="sl-anchor-link" href="#combining-selectors"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Combining selectors”</span></a></div>
@@ -128,7 +128,7 @@ For instance: <code dir="auto">:nth-child(2n of .class)</code> will have the sam
 <p>Similarly, VSCode can parse selectors and display their specificity on hover.</p>
 <p><img src="/_astro/0inob8t4o2jow1j5rwc2.DfBpsWMy_Za1x5D.webp" alt="VSCode parsing &quot;#foo > .bar + div.k1.k2 [id='baz'](2n)((#yolo))::before&quot;" loading="lazy" decoding="async" width="1192" height="392"></p> </div> <footer class="sl-flex astro-csfpehxf"> <div class="meta sl-flex astro-csfpehxf">  <p>Last updated: <time datetime="2023-01-30T00:00:00.000Z">Jan 30, 2023</time></p> </div> <div class="pagination-links print:hidden astro-rv7ndezm" dir="ltr">   </div>  </footer> </div> </div>  </main> </div> </div>  </div> </div> <script type="module">delete document.documentElement.dataset.hasSidebar;
 //# sourceMappingURL=PageFrame.astro_astro_type_script_index_0_lang.BPqoaBcd.js.map</script>  <!-- 100% privacy-first analytics --><script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script> <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade"></noscript><!-- Datadog --><script src="https://www.datadoghq-browser-agent.com/eu1/v6/datadog-rum.js" type="text/javascript"></script><script>(function(){const MODE = "production";
-const GITHUB_RUN_ID = "27059237078";
+const GITHUB_RUN_ID = "27061012987";
 const datadogClientToken = "pub65a306a096de7824a32d9879df04de68";
 
   window.DD_RUM &&
@@ -143,7 +143,7 @@ const datadogClientToken = "pub65a306a096de7824a32d9879df04de68";
       sessionReplaySampleRate: 20,
       defaultPrivacyLevel: "allow",
     });
-})();</script><script type="text/javascript" src="https://www.datadoghq-browser-agent.com/eu1/v6/datadog-logs.js"></script><script>(function(){const GITHUB_RUN_ID = "27059237078";
+})();</script><script type="text/javascript" src="https://www.datadoghq-browser-agent.com/eu1/v6/datadog-logs.js"></script><script>(function(){const GITHUB_RUN_ID = "27061012987";
 const datadogClientToken = "pub65a306a096de7824a32d9879df04de68";
 
   window.DD_LOGS &&
