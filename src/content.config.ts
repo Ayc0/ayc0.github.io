@@ -48,6 +48,7 @@ export const collections = {
             ])
             .optional(),
           atUri: z.string().optional(), // needs to be defined for the `Head.astro` component
+          blueskyPostUri: z.string().optional(),
         })
         .and(
           // Draft pages don’t have any requirements
