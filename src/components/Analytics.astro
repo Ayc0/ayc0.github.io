@@ -31,7 +31,7 @@ const datadogClientToken = "pub65a306a096de7824a32d9879df04de68";
   type="text/javascript"
   crossorigin="true"></script>
 <script define:vars={{ MODE, GITHUB_RUN_ID, datadogClientToken }}>
-  window.DD_RUM &&
+  if (window.DD_RUM) {
     window.DD_RUM.init({
       applicationId: "d5dc836c-8af7-48c6-85d4-ada010f382f5",
       clientToken: datadogClientToken,
@@ -45,7 +45,13 @@ const datadogClientToken = "pub65a306a096de7824a32d9879df04de68";
       trackUserInteractions: true,
       trackLongTasks: true,
       defaultPrivacyLevel: "allow",
+
+      trackViewsManually: true,
     });
+
+    // There is a "bug" in RUM where RUM replaces all URLs that _look like_ a variable with a `?`. Which means that we can’t use numbers in URLs. But we do for a few blog posts. So no need for that
+    window.DD_RUM.startView(document.location.pathname);
+  }
 </script>
 
 <script
