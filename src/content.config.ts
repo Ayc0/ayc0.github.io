@@ -65,7 +65,6 @@ export const collections = {
                 wip: z.literal(false).optional(), // Proper disjoint union with draft posts
                 hiddenFromSequoia: z.literal(true), // force removing from Sequoia
                 template: z.literal("splash"),
-                pagefind: z.literal(true).optional(), // Making sure that all public posts are searchable
               }),
             )
 

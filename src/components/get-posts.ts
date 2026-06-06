@@ -52,7 +52,7 @@ export const getPublishablePostsByYear = async (): Promise<
 };
 
 export const getPostsByTags = async (): Promise<Record<string, Post[]>> => {
-  const posts = await getCollection("docs");
+  const posts = await getPublishablePosts();
   const tagGroups: Record<string, Post[]> = {};
   for (const post of posts) {
     for (const tag of post.data.tags || []) {
@@ -172,18 +172,18 @@ export const getPublishablePostsMatchingSeries = async (
       return 0;
     }
     if (!postA.data.createdAt) {
-      return -1;
-    }
-    if (!postB.data.createdAt) {
       return 1;
     }
+    if (!postB.data.createdAt) {
+      return -1;
+    }
     if (postA.data.createdAt.getTime() !== postB.data.createdAt.getTime()) {
-      return postA.data.createdAt.getTime() - postB.data.createdAt.getTime();
+      return postB.data.createdAt.getTime() - postA.data.createdAt.getTime();
     }
 
     const postASeriesData = getSeriesData(postA)!;
     const postBSeriesData = getSeriesData(postB)!;
-    return postASeriesData.order - postBSeriesData.order;
+    return postBSeriesData.order - postASeriesData.order;
   });
 
   return postsInSameSeries;
