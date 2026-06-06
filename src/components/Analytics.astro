@@ -1,8 +1,11 @@
 ---
+import type { DatadogRum } from "@datadog/browser-rum";
+import type { DatadogLogs } from "@datadog/browser-logs";
+
 declare global {
   interface Window {
-    DD_RUM?: any;
-    DD_LOGS?: any;
+    DD_RUM?: DatadogRum;
+    DD_LOGS?: DatadogLogs;
   }
 }
 
