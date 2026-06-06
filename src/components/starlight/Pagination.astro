@@ -44,3 +44,31 @@ if (thisSeriesData) {
 ---
 
 <Default />
+
+{
+  Astro.locals.starlightRoute.entry.data.atUri &&
+  Astro.locals.starlightRoute.entry.data.blueskyPostUri ? (
+    <>
+      <hr class="hr" />
+
+      <sequoia-comments
+        post-uri={Astro.locals.starlightRoute.entry.data.blueskyPostUri}
+      >
+        <a
+          slot="reply-button"
+          href={Astro.locals.starlightRoute.entry.data.blueskyPostUri}
+        >
+          Reply
+        </a>
+      </sequoia-comments>
+      <script>import '@components/sequoia-comments.js';</script>
+    </>
+  ) : null
+}
+
+<style>
+  .hr {
+    border: none;
+    border-top: 1px solid var(--sl-color-hairline);
+  }
+</style>

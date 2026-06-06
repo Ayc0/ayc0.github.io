@@ -9,5 +9,8 @@
     "publishDate": "createdAt",
     "coverImage": "image",
     "draft": "hiddenFromSequoia"
+  },
+  "ui": {
+    "components": "src/components"
   }
 }

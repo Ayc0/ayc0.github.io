@@ -25,14 +25,35 @@ const series = getSeriesHtml(post);
 <h1 id={PAGE_TITLE_ID}>
   {post.data.title}
   {
-    series ? (
-      <div>
-        <span data-series-label>Series: </span>
-        <span set:html={series} />
+    series || post.data.atUri ? (
+      <div class="sub-title">
+        {series ? (
+          <div class="series">
+            {/* Keep same structure with the top-level span getting a font-size of h1, and the inside span a smaller one */}
+            <span>
+              <span data-series-label>Series: </span>
+            </span>
+            <span set:html={series} />
+          </div>
+        ) : null}
+
+        {post.data.atUri ? (
+          <div class="sequoia-wrapper">
+            <sequoia-recommend document-uri={post.data.atUri} />
+            <sequoia-subscribe
+              button-type="plain"
+              document-uri={post.data.atUri}
+            />
+          </div>
+        ) : null}
       </div>
     ) : null
   }
 </h1>
+
+<script>
+  import "@components/sequoia-subscribe.js";
+</script>
 
 <style>
   @layer starlight.core {
@@ -43,6 +64,32 @@ const series = getSeriesHtml(post);
       font-weight: 600;
       color: var(--sl-color-white);
     }
+  }
+
+  .sub-title,
+  .sequoia-wrapper {
+    display: inline-flex;
+    align-items: center;
+
+    & > * {
+      line-height: 0px;
+    }
+  }
+
+  .sub-title {
+    flex-wrap: wrap;
+    row-gap: 0.1em;
+    column-gap: 0.7em;
+
+    width: 100%;
+
+    & > .series {
+      line-height: 26px;
+    }
+  }
+
+  .sequoia-wrapper {
+    gap: 0.2em;
   }
 </style>
 
