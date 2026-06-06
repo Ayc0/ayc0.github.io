@@ -28,7 +28,7 @@ const series = getSeriesHtml(post);
     series || post.data.atUri ? (
       <div class="subTitle">
         {series ? (
-          <div>
+          <div class="series">
             {/* Keep same structure with the top-level span getting a font-size of h1, and the inside span a smaller one */}
             <span>
               <span data-series-label>Series: </span>
@@ -36,10 +36,18 @@ const series = getSeriesHtml(post);
             <span set:html={series} />
           </div>
         ) : null}
+
         {series && post.data.atUri ? <vertical-rule /> : null}
+
         {post.data.atUri ? (
           <>
             <sequoia-recommend document-uri={post.data.atUri} />
+            <vertical-rule />
+            <sequoia-subscribe
+              button-type="plain"
+              document-uri={post.data.atUri}
+            />
+
             <script>import '@components/sequoia-subscribe.js';</script>
           </>
         ) : null}
@@ -66,6 +74,9 @@ const series = getSeriesHtml(post);
 
     & > * {
       line-height: 0px;
+    }
+    & > .series {
+      line-height: 20px;
     }
 
     & > vertical-rule {
