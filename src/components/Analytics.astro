@@ -29,7 +29,7 @@ const datadogClientToken = "pub65a306a096de7824a32d9879df04de68";
 <script
   src="https://www.datadoghq-browser-agent.com/eu1/v7/datadog-rum.js"
   type="text/javascript"
-  crossorigin="true"></script>
+  crossorigin="anonymous"></script>
 <script define:vars={{ MODE, GITHUB_RUN_ID, datadogClientToken }}>
   if (window.DD_RUM) {
     window.DD_RUM.init({
@@ -56,7 +56,8 @@ const datadogClientToken = "pub65a306a096de7824a32d9879df04de68";
 
 <script
   type="text/javascript"
-  src="https://www.datadoghq-browser-agent.com/eu1/v6/datadog-logs.js"></script>
+  src="https://www.datadoghq-browser-agent.com/eu1/v7/datadog-logs.js"
+  crossorigin="anonymous"></script>
 <script define:vars={{ GITHUB_RUN_ID, datadogClientToken }}>
   window.DD_LOGS &&
     window.DD_LOGS.init({
