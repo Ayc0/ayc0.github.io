@@ -10,11 +10,11 @@ import {
 
 export interface Props {
   slug: string;
-  includeDate?: boolean;
-  includeTags?: boolean;
-  includeReadingTime?: boolean;
-  includeDescription?: boolean;
-  includeSeries?: boolean;
+  includeDate?: boolean | undefined;
+  includeTags?: boolean | undefined;
+  includeReadingTime?: boolean | undefined;
+  includeDescription?: boolean | undefined;
+  includeSeries?: boolean | undefined;
 }
 
 const {
