@@ -146,10 +146,10 @@
 <li>it’s easier to customize and to maintain.</li>
 </ul> </div> <footer class="sl-flex astro-csfpehxf"> <div class="meta sl-flex astro-csfpehxf">  <p>Last updated: <time datetime="2023-01-22T00:00:00.000Z">Jan 22, 2023</time></p> </div> <div class="pagination-links print:hidden astro-rv7ndezm" dir="ltr">   </div>   </footer> </div> </div>  </main> </div> </div>  </div> </div> <script type="module">delete document.documentElement.dataset.hasSidebar;
 //# sourceMappingURL=PageFrame.astro_astro_type_script_index_0_lang.BPqoaBcd.js.map</script>  <!-- 100% privacy-first analytics --><script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script> <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade"></noscript><!-- Datadog --><script type="module" src="/_astro/Analytics.astro_astro_type_script_index_0_lang.DnCeqbZp.js"></script><script>(function(){const MODE = "production";
-const GITHUB_RUN_ID = "27064510217";
+const GITHUB_RUN_ID = "27064929473";
 const datadogClientToken = "pub65a306a096de7824a32d9879df04de68";
 
-  window.DD_RUM &&
+  if (window.DD_RUM) {
     window.DD_RUM.init({
       applicationId: "d5dc836c-8af7-48c6-85d4-ada010f382f5",
       clientToken: datadogClientToken,
@@ -163,8 +163,14 @@ const datadogClientToken = "pub65a306a096de7824a32d9879df04de68";
       trackUserInteractions: true,
       trackLongTasks: true,
       defaultPrivacyLevel: "allow",
+
+      trackViewsManually: true,
     });
-})();</script><script type="text/javascript" src="https://www.datadoghq-browser-agent.com/eu1/v6/datadog-logs.js"></script><script>(function(){const GITHUB_RUN_ID = "27064510217";
+
+    // There is a "bug" in RUM where RUM replaces all URLs that _look like_ a variable with a `?`. Which means that we can’t use numbers in URLs. But we do for a few blog posts. So no need for that
+    window.DD_RUM.startView(document.location.pathname);
+  }
+})();</script><script type="text/javascript" src="https://www.datadoghq-browser-agent.com/eu1/v6/datadog-logs.js"></script><script>(function(){const GITHUB_RUN_ID = "27064929473";
 const datadogClientToken = "pub65a306a096de7824a32d9879df04de68";
 
   window.DD_LOGS &&
