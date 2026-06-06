@@ -18,7 +18,7 @@ As mentioned in the previous post, going forward `@blocz/react-responsive` will 
 
 ### Renaming
 
-Before the 5.1.0, the word `breakpoint` was used for describe the defined _sizes_ available to all our utilities functions. But this name never sat right with me. Why? Because a breakpoint really is just a point, but when you looked at our documentations, we were defining those as ranges:
+Before the 5.1.0, the word `breakpoint` was used to describe the defined _sizes_ available to all our utilities functions. But this name never sat right with me. Why? Because a breakpoint really is just a point, but when you looked at our documentations, we were defining those as ranges:
 
 > | Breakpoint | From   | To       |
 > | ---------- | ------ | -------- |
@@ -69,9 +69,8 @@ const MyAwesomeComponent = () => {
 };
 ```
 
-Very complex I know 😅.
-
-Now, if your app was defined breakpoint providers, it could behave differently. For instance:
+Very complex I know 😅.\
+Now, if your app relies on defined breakpoint providers, it could behave differently. For instance:
 
 ```tsx
 const App = () => {
@@ -177,7 +176,7 @@ As we’re migrating towards `createMediaRanges()`, all contexts are now depreca
 - `<BreakpointsContext>` (already deprecated by the renaming),
 - `<MediaRangesContext>` (newly introduced in this version).
 
-It’s a bit weird to introduced a deprecated API. But this is done so that every renaming could be done in 1 go, and then the migration away from the context could be done too.
+It’s a bit weird to introduce a deprecated API. But this is done so that every renaming could be done in 1 go, and then the migration away from the context could be done too.
 
 ### `<Only>` `as` prop
 
