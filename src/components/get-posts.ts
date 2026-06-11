@@ -172,18 +172,18 @@ export const getPublishablePostsMatchingSeries = async (
       return 0;
     }
     if (!postA.data.createdAt) {
-      return 1;
-    }
-    if (!postB.data.createdAt) {
       return -1;
     }
+    if (!postB.data.createdAt) {
+      return 1;
+    }
     if (postA.data.createdAt.getTime() !== postB.data.createdAt.getTime()) {
-      return postB.data.createdAt.getTime() - postA.data.createdAt.getTime();
+      return postA.data.createdAt.getTime() - postB.data.createdAt.getTime();
     }
 
     const postASeriesData = getSeriesData(postA)!;
     const postBSeriesData = getSeriesData(postB)!;
-    return postBSeriesData.order - postASeriesData.order;
+    return postASeriesData.order - postBSeriesData.order;
   });
 
   return postsInSameSeries;

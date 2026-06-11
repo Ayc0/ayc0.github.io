@@ -14,7 +14,7 @@ import { series as seriesList } from "../../../content.config";
   sections={await Promise.all(
     seriesList.map(async (series) => {
       const posts = await getPublishablePostsMatchingSeries(series);
-      return [series, posts];
+      return [series, posts.toReversed()];
     }),
   )}
 />
