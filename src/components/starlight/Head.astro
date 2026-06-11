@@ -1,5 +1,6 @@
 ---
 import Default from "@astrojs/starlight/components/Head.astro";
+import { ClientRouter } from "astro:transitions";
 
 import { getImagePath } from "@components/images";
 
@@ -20,6 +21,7 @@ let imagePath: string | undefined = await getImagePath(
 );
 ---
 
+<ClientRouter />
 <Default />
 
 {
