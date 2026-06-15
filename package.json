@@ -29,7 +29,7 @@
     "react-18": "npm:react@^18.3.1",
     "react-dom": "^19.2.6",
     "react-dom-18": "npm:react-dom@^18.3.1",
-    "react-konva": "^19.2.4",
+    "react-konva": "^19.2.5",
     "reveal.js": "^6.0.1",
     "ssim.js": "^3.5.0"
   },
