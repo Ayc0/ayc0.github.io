@@ -35,7 +35,7 @@ datadogRum.init({
 // See https://docs.astro.build/en/reference/modules/astro-transitions/#astropage-load-event
 document.addEventListener("astro:page-load", () => {
   datadogRum.startView(document.location.pathname);
-})
+});
 
 datadogLogs.init({
   clientToken: DATADOG_CLIENT_TOKEN,
