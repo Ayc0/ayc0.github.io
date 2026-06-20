@@ -5,19 +5,27 @@ import Analytics from "@components/Analytics.astro";
 Astro.locals.starlightRoute.hasSidebar = false;
 ---
 
-<Default hasSidebar={false}>
+<Default>
   <slot name="header" slot="header" />
   <slot name="sidebar" slot="sidebar" />
   <slot />
 </Default>
 
-<script>
+<!-- Run synchronously with `is:inline` before first paint to prevent layout shift from data-has-sidebar + avoid re-adding it on page navigation -->
+<script is:inline>
   delete document.documentElement.dataset.hasSidebar;
+
+  new MutationObserver(() => {
+    if (document.documentElement.dataset.hasSidebar !== undefined) {
+      delete document.documentElement.dataset.hasSidebar;
+    }
+  }).observe(document.documentElement, { attributeFilter: ["data-has-sidebar"] });
 </script>
 
 <style is:global>
   .main-frame {
     max-width: 80ch;
+    width: 100%;
   }
 
   @media (min-width: 50rem) {
