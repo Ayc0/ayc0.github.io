@@ -6,79 +6,78 @@ atUri: "at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.document/3mooezl5vym
 tags: []
 ---
 
-## Introduction
+## What is standard.site?
 
-### What is standard.site?
+Imagine you have your own blog. You’d love to notify readers when you publish something new, or have your posts show up in a unified search. Your first instinct might be to host on platforms like [Medium](https://medium.com/) or [dev.to](https://dev.to/). But that would mean giving up ownership of your content.
 
-Imagine you have your own blog post, and you’d love to notify other people that you released a new post. Or you’d love to have your posts discoverable via a unified search. As nothing like this exists, you may think about hosting your blog on platforms like https://medium.com/ or https://dev.to/. But it means that you wouldn’t own your data anymore.
+`standard.site` lets you keep your own website and register it – and its content – to a decentralized index that any client can search. A bit like what Google is supposed to be: making content discoverable.
 
-`standard.site` allows you to have your own website, and to register it – and its content – to a decentralized register that can be searched by any client. A bit like what Google is supposed to be: making content discoverable.
+## ATProto
 
-### ATProto
+The [AT Protocol](https://atproto.com/) is a decentralized social networking framework that lets you write records – custom JSON – onto a shared database. `standard.site` is a lexicon built on top of it. To understand how it all fits together, let’s look at the two main concepts.
 
-`standard.site` is a shared lexicon, based on the AT Protocol. This protocol allows you to write records – custom JSON – onto a decentralized database [see documentation](https://atproto.com/). To understand the AT Protocol, let’s see the major concepts in it.
+### User identity
 
-To start with, every user has a unique ID, called a DID ([Decentralized ID](https://atproto.com/guides/glossary#did-decentralized-id)). Those aren’t really readable, so on top of them, users also have readable [handle](https://atproto.com/specs/handle).
-For instance, for me, my handle is `ayc0.github.io`, and my DID is `did:plc:wifmfjqoxnruni5h62e6zp2y`. Handles can be provided by AT Proto providers, like BlueSky, or can be custom domains. For custom domains, you need to prove that you indeed own it, which is why you can find my DID at this URL: https://ayc0.github.io/.well-known/atproto-did.
+Every user has a unique [DID](https://atproto.com/guides/glossary#did-decentralized-id) (Decentralized ID).
+DIDs aren’t human-readable, so users also have a [handle](https://atproto.com/specs/handle) on top of them. For instance, my handle is `ayc0.github.io` and my DID is `did:plc:wifmfjqoxnruni5h62e6zp2y`.
 
-Then, in the ATmosphere, you can store any kind of records. You can use https://pds.ls/ to view all of them.
+Handles can come from AT Proto providers like BlueSky, or from custom domains. For custom domains, you prove ownership by hosting your DID at `/.well-known/atproto-did`, like mine at https://ayc0.github.io/.well-known/atproto-did.
 
-### standard.site data
+You can browse all records in the ATmosphere at https://pds.ls/.
 
-`standard.site` is based on multiple types of records:
+### standard.site lexicon
 
-- `publication` – aka sort of a website or a blog,
-- `document` – aka a page / article / blog post,
-- `recommend` – sort of like likes on YouTube / social medias, you can like other people’s `document`,
-- `subscription` – defining which `publication` a user can follow, sort of like a RSS feed / following someone on social media.
+`standard.site` is based on four types of records:
 
-![Representation of standard.site different resources](@assets/excalidraw/standard-site.png)
+- `publication` – a website or blog,
+- `document` – a page, article, or blog post,
+- `recommend` – a like, similar to YouTube or social media,
+- `subscription` – which publications a user follows, like an RSS feed.
+
+![Diagram showing an Author node with three relationships: a dashed arrow down to a Publication (blog), which itself has a dashed arrow down to a group of Documents (blog posts); a dashed purple arrow going right labeled "is subscribed to", pointing to someone else’s Publication; and a solid red arrow labeled "recommends" pointing diagonally to a group of that publication’s documents, with the top one labeled "Someone else’s document".](@assets/excalidraw/standard-site.png)
 
 See examples of all of those in https://pds.ls/:
 
-- All publications I have created – [link](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.publication)
-- This publication / blog – [link](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.publication/3mn6dj35act2i)
-- All documents / all posts I posted – [link](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.document)
-- 1 specific document (for [this post](https://ayc0.github.io/posts/intlsegmenter-dont-use-stringsplit-nor-stringlength/)) – [link](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.document/3mn6dvyazx72z)
-- All my recommendations – [link](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.graph.recommend)
-- 1 specific recommend (for [this post](https://ayc0.github.io/posts/blocz-react-responsive-v5-1/)) – [link](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.graph.recommend/3mnmrps3l3h2u#record)
-- All my subscriptions – [link](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.graph.subscription)
+- [All publications I have created](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.publication)
+- [This publication / blog](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.publication/3mn6dj35act2i)
+- [All documents / all posts I posted](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.document)
+- [1 specific document](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.document/3mn6dvyazx72z) (for [this post](https://ayc0.github.io/posts/intlsegmenter-dont-use-stringsplit-nor-stringlength/))
+- [All my recommendations](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.graph.recommend)
+- [1 specific recommend](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.graph.recommend/3mnmrps3l3h2u#record) (for [this post](https://ayc0.github.io/posts/blocz-react-responsive-v5-1/))
+- [All my subscriptions](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.graph.subscription)
 
 ## Setup
 
-At the moment of writing, I’m using [sequoia](https://sequoia.pub/), a CLI to help manage content published to `standard.site`. As this is a standard, you could use any other tool, or even manual scripts, but I found it quite convenient and easy to use.
+At the moment of writing, I’m using [sequoia](https://sequoia.pub/), a CLI to help manage content published to `standard.site`. As this is an open standard, any other tool or manual scripts would work, but I find sequoia quite convenient.
 
-Most of the setup is explained in https://sequoia.pub/quickstart, but shortly:
+Most of the setup is explained in https://sequoia.pub/quickstart, but in short:
 
-- you need to tell sequoia who you are (via `sequoia login` / `sequoia auth`) so that it can publish for you your records,
-- you need to configure sequoia to have information about this website (its URL, its ID on standard.site, etc.)
+- tell sequoia who you are via `sequoia login` / `sequoia auth` so it can publish records on your behalf,
+- configure sequoia with information about your website (its URL, its ID on standard.site, etc.)
 
-During this authentication, it’ll generate an ID for your publication, that you need to make available under `/.well-known/site.standard.publication` in your website, like for me: `https://ayc0.github.io/.well-known/site.standard.publication`. This proves to `standard.site` tools that you indeed actually own this website and that the information published to the ATmosphere is correct.
+During authentication, sequoia generates an ID for your publication that you need to host at `/.well-known/site.standard.publication`. Mine is at `https://ayc0.github.io/.well-known/site.standard.publication`. This proves to `standard.site` tools that you own the website.
 
 ## Publishing articles
 
-Now that the full setup is operational, each article needs to have a `atUri` (defined as metadata of each article. As I’m using Astro, this is stored in the frontmatter of each of my articles.) Those are auto-generated & auto-filled by sequoia directly via the CLI `sequoia publish` – [see docs](https://sequoia.pub/publishing).
+Each article needs an `atUri` defined in its metadata. As I’m using Astro, this is stored in the frontmatter of each article. These are auto-generated and auto-filled by sequoia via `sequoia publish`. See the [docs](https://sequoia.pub/publishing) for details.
 
-So when I’m publishing an article, at the same time of uploading the article, I’m running this CLI to update the ATmosphere.
+When publishing an article, I run this CLI at the same time as uploading, to update the ATmosphere.
 
-Once an article published, you use [https://site-validator.fly.dev/](https://site-validator.fly.dev/?utm_source=ayc0.github.io&utm_medium=blog&utm_campaign=standard-site) to ensure that everything is correctly set up.
+Once an article is published, you can use [the site validator](https://site-validator.fly.dev/?utm_source=ayc0.github.io&utm_medium=blog&utm_campaign=standard-site) to confirm everything is correctly set up.
 
 ## Interactions
 
-Out of the box, Sequoia comes with UI components to:
+Sequoia ships UI components for:
 
-- [automatically handles subscriptions](https://sequoia.pub/subscribe),
-- [automatically handles recommendations](https://sequoia.pub/recommend),
-- [automatically handles comments & replies via BlueSky posts](https://sequoia.pub/comments)
+- [subscriptions](https://sequoia.pub/subscribe),
+- [recommendations](https://sequoia.pub/recommend),
+- [comments and replies via BlueSky posts](https://sequoia.pub/comments)
 
-Of course, all of those are optional. And when using them, it’ll prompt your users to login via their ATmosphere account (BlueSky / Tangled / Eurosky / others)
-
-All of those pieces can be easily swapped out for custom / different implementations if needed as, as a reminder, none of those are sequoia–specific, but stored within the ATmosphere data.
+All are optional. When used, they prompt users to log in via their ATmosphere account (BlueSky, Tangled, Eurosky, etc.). All of those can be swapped out for custom implementations if needed, as none are sequoia-specific: the underlying data lives in the ATmosphere.
 
 ## Subscriptions
 
-By default, subscribing to a publication doesn’t do anything, except adding in a decentralized database that you’re following something.
-Instead, you need a client to be able to see the content of all the publications you’re following. Something like:
+Subscribing to a publication adds a record to the decentralized database, but doesn’t do anything on its own. You need a client to read the content of the publications you follow:
 
 - https://pckt.blog/read?filter=hot
 - https://leaflet.pub/reader/trending
@@ -87,43 +86,28 @@ Instead, you need a client to be able to see the content of all the publications
 
 ### WebSocket Feeds
 
-The AT Protocol is based on push events via WebSockets. Every time a record is published, it can be listened to via WebSocket feeds made available by instances.
+The AT Protocol pushes events via WebSocket. Every time a record is published, it can be picked up via feeds from any instance.
 
-PDS.ls shows those for you, for instance in [this feed](https://pds.ls/jetstream?collections=site.standard.document&dids=did:plc:wifmfjqoxnruni5h62e6zp2y), we are listened to:
+PDS.ls exposes these – for example, [this feed](https://pds.ls/jetstream?collections=site.standard.document&dids=did:plc:wifmfjqoxnruni5h62e6zp2y) listens to any new post (`collections=site.standard.document`) published by me (`dids=did:plc:wifmfjqoxnruni5h62e6zp2y`).
 
-- any new post (`collections=site.standard.document`)
-- published by me (`dids=did:plc:wifmfjqoxnruni5h62e6zp2y`)
-
-Based on the list of subscriptions + custom search + publications, any client can be built on top of WebSockets.
+Any client can be built on top of WebSockets using subscriptions, publications, and custom search.
 
 ### Openness
 
-As mentioned earlier, all of this data is publicly available. Which means that:
+All ATmosphere data is public, which means:
 
-- anyone can publish data to the ATmosphere (as long as they have an account),
-- anyone can read any of those records.
+- anyone can publish records (with an account),
+- anyone can read any record.
 
-Which means that by definition:
+So by definition: your BlueSky likes, recommendations, and subscriptions are all public. A client could look at your BlueSky followers, check which ones have `standard.site` publications, and suggest you follow them – which is exactly what [Skyreader does](https://skyreader.app/sources).
 
-- all of your likes on BlueSky are public,
-- similarly, all of your recommendations & subscriptions are also public,
-- anyone could build a custom client to "view the subscriptions of X"
-
-To me, this is a good idea as you can implement a client where you can follow any creators’ publications without having to create yourself an account. And it also creates more transparency on why certain custom feeds could be recommending (in trending for instance) some posts.
-
-As all the data is also available on the ATmosphere, it also allows clients to create a flow like:
-
-- see all your followers on BlueSky,
-- see if they have any publications in `standard.site`,
-- if so, propose that you follow them.
-
-By the way, this is what [Skyreader does](https://skyreader.app/sources).
+To me, this is a good idea: you can build a client where anyone can follow creators’ publications without needing an account. It also creates more transparency on why certain feeds recommend certain posts – in trending sections, for instance.
 
 ## Conclusion
 
-This was a very brief and not detailed overview of the AT Protocol and more specifically how to publish articles to it via the `standard.site` lexicon.
+This was a very brief and not very detailed overview of the AT Protocol and how to publish articles via the `standard.site` lexicon.
 
-If you want to see via actual examples how I implemented `standard.site` for this website, you can check out those 2 PRs:
+If you want to see actual examples of how I implemented `standard.site` for this website, check out these two PRs:
 
 - [#245](https://github.com/Ayc0/ayc0.github.io/pull/245),
 - [#260](https://github.com/Ayc0/ayc0.github.io/pull/260).
