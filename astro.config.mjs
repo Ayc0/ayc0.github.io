@@ -45,7 +45,7 @@ export default defineConfig({
         {
           icon: "blueSky",
           label: "Bluesky",
-          href: "https://bsky.app/profile/ayc0.github.io",
+          href: "https://bsky.app/profile/did:plc:wifmfjqoxnruni5h62e6zp2y",
         },
         {
           icon: "rss",
