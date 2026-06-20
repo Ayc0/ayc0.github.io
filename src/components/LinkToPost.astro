@@ -83,7 +83,8 @@ if (includeSeries) {
   const seriesHtml = getSeriesHtml(post);
   if (seriesHtml) {
     // <object> is here because these are nested links, and browsers don't like that
-    props.title += ` <object type="nested/link">${seriesHtml}</object>`;
+    // Add `style="contain: strict"` otherwise the `<object>` will take a lot of vertical space during initial load, which causes layout shift. `contain: strict` still creates layout shift, but from nothing to something, which is more okay
+    props.title += ` <object type="nested/link" style="contain: strict">${seriesHtml}</object>`;
   }
 }
 ---
