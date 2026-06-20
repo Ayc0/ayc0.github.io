@@ -23,7 +23,7 @@ const series = getSeriesHtml(post);
 ---
 
 <h1 id={PAGE_TITLE_ID}>
-  {post.data.title}
+  <span transition:name={post.data.title}>{post.data.title}</span>
   {
     series || post.data.atUri ? (
       <div class="sub-title">
