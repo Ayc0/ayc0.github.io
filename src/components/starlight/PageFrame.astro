@@ -18,7 +18,9 @@ Astro.locals.starlightRoute.hasSidebar = false;
     if (document.documentElement.dataset.hasSidebar !== undefined) {
       delete document.documentElement.dataset.hasSidebar;
     }
-  }).observe(document.documentElement, { attributeFilter: ["data-has-sidebar"] });
+  }).observe(document.documentElement, {
+    attributeFilter: ["data-has-sidebar"],
+  });
 </script>
 
 <style is:global>
