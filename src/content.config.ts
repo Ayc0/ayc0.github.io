@@ -80,7 +80,6 @@ export const collections = {
 
                 // Required for published posts to have those defined
                 description: z.string(),
-                tags: z.array(z.enum(tags)),
                 pagefind: z.literal(true).optional(), // Making sure that all public posts are searchable
               }),
             ),
