@@ -60,8 +60,19 @@ Astro.locals.starlightRoute.hasSidebar = false;
   }
 
   :root {
-    --sequoia-border-color: var(--sl-color-hairline);
+    /* See https://sequoia.pub/comments#styling */
+
+    /* Text colors */
+    --sequoia-fg-color: var(--sl-color-text);
+    --sequoia-secondary-color: var(--sl-color-gray-3);
     --sequoia-accent-color: var(--sl-color-accent);
+
+    /* Background */
+    --sequoia-bg-color: var(--sl-color-bg);
+
+    /* Borders */
+    --sequoia-border-color: var(--sl-color-hairline);
+    --sequoia-border-radius: 8px;
   }
 </style>
 
