@@ -2,12 +2,12 @@
 import { getEntry, render } from "astro:content";
 import { LinkCard } from "@astrojs/starlight/components";
 
+import { getTransitionName } from "@components/transitions";
 import {
   getCreatedDate,
   getSeriesHtml,
   getTagsHtml,
 } from "@components/posts/get-posts";
-import { getTransitionStyle } from "@components/transitions";
 
 export interface Props {
   slug: string;
@@ -88,8 +88,32 @@ if (includeSeries) {
     props.title += ` <object type="nested/link" style="contain: strict">${seriesHtml}</object>`;
   }
 }
+
+const id = "_" + crypto.randomUUID();
+const transitionName = getTransitionName(post.data.title);
 ---
 
 <div data-pagefind-ignore>
-  <LinkCard {...props} {...getTransitionStyle(post.data.title)} />
+  <LinkCard {...props} id={id} />
 </div>
+
+<script define:vars={{ id, transitionName }}>
+  const element = document.querySelector(`#${id} > .title`);
+
+  if (element) {
+    // You can have the same card rendered multiple times on the page. So only inject the transition name when it is currently visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            element.style.viewTransitionName = transitionName;
+          } else {
+            element.style.viewTransitionName = "";
+          }
+        }
+      },
+      { threshold: 0.1 },
+    );
+    observer.observe(element);
+  }
+</script>

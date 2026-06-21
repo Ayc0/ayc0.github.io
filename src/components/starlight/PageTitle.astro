@@ -8,7 +8,7 @@ import {
   getSeriesHtml,
   getTagsHtml,
 } from "@components/posts/get-posts";
-import { getTransitionStyle } from "@components/transitions";
+import { getTransitionName } from "@components/transitions";
 
 const post = Astro.locals.starlightRoute.entry;
 
@@ -24,7 +24,9 @@ const series = getSeriesHtml(post);
 ---
 
 <h1 id={PAGE_TITLE_ID}>
-  <span {...getTransitionStyle(post.data.title)}>{post.data.title}</span>
+  <span style={{ viewTransitionName: getTransitionName(post.data.title) }}
+    >{post.data.title}</span
+  >
   {
     series || post.data.atUri ? (
       <div class="sub-title">
