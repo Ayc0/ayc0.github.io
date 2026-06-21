@@ -1,0 +1,15 @@
+---
+import { Card } from "@astrojs/starlight/components";
+
+interface Props {
+  href: string;
+  title: string;
+}
+---
+
+<a
+  href={Astro.props.href}
+  style="text-decoration: none; color: initial; display: grid"
+>
+  <Card title={Astro.props.title}><slot /></Card>
+</a>

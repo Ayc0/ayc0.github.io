@@ -11,11 +11,12 @@ hero:
 hiddenFromSequoia: true
 ---
 
-import { CardGrid, Card, LinkCard } from "@astrojs/starlight/components";
+import { CardGrid, Card } from "@astrojs/starlight/components";
+import HomeCard from "@components/HomeCard.astro";
 
-<a href="/posts/" style="text-decoration: none; color: initial; display: grid">
-  <Card title="Blog posts">List of all the blog posts I wrote</Card>
-</a>
+<HomeCard href="/posts/" title="Blog posts">
+  List of all the blog posts I wrote
+</HomeCard>
 
 export const textFragments = {
   css: "Listing of all CSS length units available, with their definitions, links to doc, and live visualization of their sizes",
@@ -34,55 +35,39 @@ export const textFragments = {
 ## Projects
 
 <CardGrid stagger>
-  <a
-    href="/length-units/"
-    style="text-decoration: none; color: initial; display: grid"
-  >
-    <Card title="CSS length units">{textFragments.css}</Card>
-  </a>
-  <a
-    href="/color-visualizer/"
-    style="text-decoration: none; color: initial; display: grid"
-  >
-    <Card title="Color visualizer">{textFragments.colorVisualizer}</Card>
-  </a>
+  <HomeCard href="/length-units/" title="CSS length units">
+    {textFragments.css}
+  </HomeCard>
+  <HomeCard href="/color-visualizer/" title="Color visualizer">
+    {textFragments.colorVisualizer}
+  </HomeCard>
 </CardGrid>
 
 ## Libraries
 
 <CardGrid stagger>
 
-<a
+<HomeCard
   href="https://github.com/bloczjs/react-responsive"
-  style="text-decoration: none; color: initial; display: grid"
+  title="@blocz/react-responsive"
 >
-  <Card title="@blocz/react-responsive">{textFragments.reactResponsive}</Card>
-</a>
+  {textFragments.reactResponsive}
+</HomeCard>
 
-<a
-  href="https://github.com/bloczjs/mdx"
-  style="text-decoration: none; color: initial; display: grid"
->
-  <Card title="@blocz/mdx-*">
-    {textFragments.mdx} `@blocz/mdx-live` & `@blocz/mdx-plugin-detect-imports`
-  </Card>
-</a>
+<HomeCard href="https://github.com/bloczjs/mdx" title="@blocz/mdx-*">
+  {textFragments.mdx} `@blocz/mdx-live` & `@blocz/mdx-plugin-detect-imports`
+</HomeCard>
 
-<a
-  href="https://github.com/ayc0/manatea"
-  style="text-decoration: none; color: initial; display: grid"
->
-  <Card title="manatea">{textFragments.manatea} `react-manatea`</Card>
-</a>
+<HomeCard href="https://github.com/ayc0/manatea" title="manatea">
+  {textFragments.manatea} `react-manatea`
+</HomeCard>
 
-<a
+<HomeCard
   href="https://github.com/Ayc0/mock-match-media"
-  style="text-decoration: none; color: initial; display: grid"
+  title="mock-match-media"
 >
-  <Card title="mock-match-media">
-    Mock window.matchMedia for Node.JS environments (like tests or NextJS)
-  </Card>
-</a>
+  Mock window.matchMedia for Node.JS environments (like tests or NextJS)
+</HomeCard>
 
 {/* yarn-plugin-envs */}
 {/* eslint-plugin-blocz */}
@@ -92,16 +77,10 @@ export const textFragments = {
 ## Experiments
 
 <CardGrid stagger>
-  <a
-    href="/react-timings/"
-    style="text-decoration: none; color: initial; display: grid"
-  >
-    <Card title="React timings">{textFragments.reactTimings}</Card>
-  </a>
-  <a
-    href="/hexagons-without-rules/"
-    style="text-decoration: none; color: initial; display: grid"
-  >
-    <Card title="Hexagons">{textFragments.hexagons}</Card>
-  </a>
+  <HomeCard href="/react-timings/" title="React timings">
+    {textFragments.reactTimings}
+  </HomeCard>
+  <HomeCard href="/hexagons-without-rules/" title="Hexagons">
+    {textFragments.hexagons}
+  </HomeCard>
 </CardGrid>
