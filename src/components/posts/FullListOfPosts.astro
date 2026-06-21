@@ -3,15 +3,17 @@ import LinkToPost from "@components/posts/LinkToPost.astro";
 import { getPublishablePostsByYear } from "@components/posts/get-posts";
 ---
 
-{Object.entries(await getPublishablePostsByYear())
-  .reverse()
-  .map(([year, posts]) => {
-    return (
-      <>
-        <h2 id={year}>{year}</h2>
-        {posts.map((post) => (
-          <LinkToPost slug={post.id} includeDate includeTags />
-        ))}
-      </>
-    );
-  })}
+{
+  Object.entries(await getPublishablePostsByYear())
+    .reverse()
+    .map(([year, posts]) => {
+      return (
+        <>
+          <h2 id={year}>{year}</h2>
+          {posts.map((post) => (
+            <LinkToPost slug={post.id} includeDate includeTags />
+          ))}
+        </>
+      );
+    })
+}

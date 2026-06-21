@@ -3,6 +3,8 @@ import LinkToPost from "./LinkToPost.astro";
 import { getDraftPosts } from "./get-posts";
 ---
 
-{(await getDraftPosts()).map((post) => (
-  <LinkToPost slug={post.id} includeDate includeTags />
-))}
+{
+  (await getDraftPosts()).map((post) => (
+    <LinkToPost slug={post.id} includeDate includeTags />
+  ))
+}
