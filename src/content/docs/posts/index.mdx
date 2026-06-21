@@ -4,12 +4,11 @@ template: splash
 hiddenFromSequoia: true
 ---
 
-import LinkToPost from "@components/LinkToPost.astro";
-import { getPublishablePosts } from "@components/get-posts";
+import LatestPosts from "@components/posts/LatestPosts.astro";
 
 ### Latest posts
 
-{(await getPublishablePosts()).slice(0, 10).map((post) => <LinkToPost slug={post.id} includeDate includeTags />)}
+<LatestPosts />
 
 ### See more
 

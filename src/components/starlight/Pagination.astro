@@ -4,7 +4,7 @@ import Default from "@astrojs/starlight/components/Pagination.astro";
 import {
   getSeriesData,
   getPublishablePostsMatchingSeries,
-} from "@components/get-posts";
+} from "@components/posts/get-posts";
 
 const thisSeriesData = getSeriesData(Astro.locals.starlightRoute.entry);
 

@@ -2,7 +2,7 @@ import type { APIRoute } from "astro";
 
 import rss from "@astrojs/rss";
 
-import { getPublishablePosts } from "@components/get-posts";
+import { getPublishablePosts } from "@components/posts/get-posts";
 import { getImagePath } from "@components/images";
 
 export const GET: APIRoute = async (context) => {

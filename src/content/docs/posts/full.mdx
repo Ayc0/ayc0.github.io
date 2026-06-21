@@ -4,19 +4,6 @@ template: splash
 hiddenFromSequoia: true
 ---
 
-import LinkToPost from "@components/LinkToPost.astro";
-import { getPublishablePostsByYear } from "@components/get-posts";
+import FullListOfPosts from "@components/posts/FullListOfPosts.astro";
 
-<></>
-{Object.entries(await getPublishablePostsByYear())
-  .reverse()
-  .map(([year, posts]) => {
-    return (
-      <>
-        <h2 id={year}>{year}</h2>
-        {posts.map((post) => (
-          <LinkToPost slug={post.id} includeDate includeTags />
-        ))}
-      </>
-    );
-  })}
+<FullListOfPosts />

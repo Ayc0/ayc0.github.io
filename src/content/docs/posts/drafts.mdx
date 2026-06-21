@@ -5,12 +5,8 @@ hiddenFromSequoia: true
 pagefind: false
 ---
 
-import LinkToPost from "@components/LinkToPost.astro";
-import { getDraftPosts } from "@components/get-posts";
+import DraftPosts from "@components/posts/DraftPosts.astro";
 
 List of all posts that are in the process, but not ready to be open to public:
 
-<></>
-{(await getDraftPosts()).map((post) => (
-  <LinkToPost slug={post.id} includeDate includeTags />
-))}
+<DraftPosts />

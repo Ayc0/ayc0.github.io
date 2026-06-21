@@ -1,6 +1,5 @@
 ---
 import Default from "@astrojs/starlight/components/Head.astro";
-import { ClientRouter } from "astro:transitions";
 
 import { getImagePath } from "@components/images";
 
@@ -21,7 +20,6 @@ let imagePath: string | undefined = await getImagePath(
 );
 ---
 
-<ClientRouter />
 <Default />
 
 {
@@ -50,3 +48,49 @@ let imagePath: string | undefined = await getImagePath(
     />
   ) : null
 }
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    @view-transition {
+      navigation: auto;
+    }
+
+    @keyframes astroFadeIn {
+      from {
+        opacity: 0;
+        mix-blend-mode: plus-lighter;
+      }
+      to {
+        opacity: 1;
+        mix-blend-mode: plus-lighter;
+      }
+    }
+
+    @keyframes astroFadeOut {
+      from {
+        opacity: 1;
+        mix-blend-mode: plus-lighter;
+      }
+      to {
+        opacity: 0;
+        mix-blend-mode: plus-lighter;
+      }
+    }
+    ::view-transition-old(*) {
+      animation-duration: 180ms;
+      animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+      animation-fill-mode: both;
+      animation-name: astroFadeOut;
+    }
+    ::view-transition-new(*) {
+      animation-duration: 180ms;
+      animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+      animation-fill-mode: both;
+      animation-name: astroFadeIn;
+    }
+  }
+
+  :global(header) {
+    view-transition-name: header;
+  }
+</style>
