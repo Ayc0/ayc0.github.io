@@ -83,6 +83,11 @@ Astro.locals.starlightRoute.hasSidebar = false;
     --sequoia-border-color: var(--sl-color-hairline);
     --sequoia-border-radius: 8px;
   }
+
+  /* Put the Search always at the same place (sometimes set to 0, sometimes unset, and when unset the search goes to the left) */
+  header.header {
+    --__toc-width: 0px;
+  }
 </style>
 
 <Analytics />
