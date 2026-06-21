@@ -28,14 +28,7 @@ datadogRum.init({
 });
 
 // There is a "bug" in RUM where RUM replaces all URLs that _look like_ a variable with a `?`. Which means that we can't use numbers in URLs. But we do for a few blog posts. So no need for that
-
-// As we use view transition, we need to use `astro:page-load` to start views for RUM instead of top level for:
-// - initial load (to avoid double counting),
-// - for navigation (as they act as SPA)
-// See https://docs.astro.build/en/reference/modules/astro-transitions/#astropage-load-event
-document.addEventListener("astro:page-load", () => {
-  datadogRum.startView(document.location.pathname);
-});
+datadogRum.startView(document.location.pathname);
 
 datadogLogs.init({
   clientToken: DATADOG_CLIENT_TOKEN,

@@ -7,6 +7,7 @@ import {
   getSeriesHtml,
   getTagsHtml,
 } from "@components/posts/get-posts";
+import { getTransitionStyle } from "@components/transitions";
 
 export interface Props {
   slug: string;
@@ -90,5 +91,5 @@ if (includeSeries) {
 ---
 
 <div data-pagefind-ignore>
-  <LinkCard {...props} transition:name={post.data.title} />
+  <LinkCard {...props} {...getTransitionStyle(post.data.title)} />
 </div>
