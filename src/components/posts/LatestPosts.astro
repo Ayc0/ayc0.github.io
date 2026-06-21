@@ -1,0 +1,6 @@
+---
+import LinkToPost from "./LinkToPost.astro";
+import { getPublishablePosts } from "./get-posts";
+---
+
+{(await getPublishablePosts()).slice(0, 10).map((post) => <LinkToPost slug={post.id} includeDate includeTags />)}

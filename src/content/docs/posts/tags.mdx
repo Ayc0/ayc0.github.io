@@ -6,7 +6,7 @@ pagefind: false
 ---
 
 import SectionsOfPosts from "@components/SectionsOfPosts.astro";
-import { getPostsByTags } from "@components/get-posts";
+import { getPostsByTags } from "@components/posts/get-posts";
 
 <SectionsOfPosts
   sections={Object.entries(await getPostsByTags())}

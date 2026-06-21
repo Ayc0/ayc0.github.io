@@ -127,6 +127,7 @@ export const getTagsHtml = ({
   return tags.map((tag) => `<code data-tag=${tag}>#${tag}</code>`).join(" ");
 };
 
+
 export const getSeriesData = ({
   data: { series },
 }: Pick<Post, "data">): { name: string; order: number } | undefined => {
