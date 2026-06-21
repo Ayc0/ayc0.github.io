@@ -1,0 +1,35 @@
+---
+import { Card } from "@astrojs/starlight/components";
+
+interface Props {
+  href: string;
+  title: string;
+}
+---
+
+<a href={Astro.props.href} class="HomeCard">
+  <Card title={Astro.props.title}>
+    <slot />
+  </Card>
+</a>
+
+<style>
+  .HomeCard {
+    display: grid;
+
+    color: var(--sl-color-text);
+    text-decoration: none;
+  }
+
+  .HomeCard > :global(*) {
+    /* Same as LinkCard from Starlight */
+    border-radius: 0.5rem;
+    box-shadow: var(--sl-shadow-sm);
+  }
+
+  .HomeCard:hover > :global(*) {
+    /* Same as LinkCard from Starlight */
+    background: var(--sl-color-gray-7, var(--sl-color-gray-6));
+    border-color: var(--sl-color-gray-2);
+  }
+</style>
