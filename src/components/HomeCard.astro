@@ -21,6 +21,12 @@ interface Props {
     text-decoration: none;
   }
 
+  .HomeCard > :global(*) {
+    /* Same as LinkCard from Starlight */
+    border-radius: 0.5rem;
+    box-shadow: var(--sl-shadow-sm);
+  }
+
   .HomeCard:hover > :global(*) {
     /* Same as LinkCard from Starlight */
     background: var(--sl-color-gray-7, var(--sl-color-gray-6));
