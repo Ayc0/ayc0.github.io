@@ -50,14 +50,13 @@ let imagePath: string | undefined = await getImagePath(
 }
 
 <style>
-
   @media (prefers-reduced-motion: no-preference) {
     @view-transition {
       navigation: auto;
     }
   }
 
-    @keyframes astroFadeIn {
+  @keyframes astroFadeIn {
     from {
       opacity: 0;
       mix-blend-mode: plus-lighter;
@@ -90,5 +89,4 @@ let imagePath: string | undefined = await getImagePath(
     animation-fill-mode: both;
     animation-name: astroFadeIn;
   }
-
 </style>
