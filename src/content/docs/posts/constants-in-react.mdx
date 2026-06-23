@@ -1,0 +1,34 @@
+---
+title: "React: how to define a constant variable"
+slug: "posts/drafts/0cd220c1-2550-4730-890f-b3ddc6cf1447"
+tags: ["react"]
+pagefind: false
+wip: true
+hiddenFromSequoia: true
+---
+
+```js
+const variable = React.useMemo(() => init(), []); // -> technically, React can decide to recompute even if nothing changed. So can change (I don't think it does)
+
+const variableRef = React.useRef(init()); // -> fixed BUT: -> `init()` is called (but not used) at every render. And not obvious that value is immutable
+
+const variableRef = React.useRef();
+if (variableRef.current !== undefined) {
+  // -> this is the ONLY time where it's okay to write a ref in render
+  variableRef.current = init(); // -> only called at init, never gain. BUT, for TS, this is `string | undefined`
+}
+
+const [variable] = React.useState(init()); // -> same issue as 2: `init()` is called every time but not used
+
+const [variable] = React.useState(() => init()); // -> the only safe thing
+```
+
+---
+
+```js
+const variableRef = React.useRef();
+if (variableRef.current !== undefined) { // -> this is the ONLY time where it's okay to write a ref in render
+  variableRef.current = init(); // -> only called at init, never gain. BUT, for TS, this is `string | undefined`
+}
+const variable = variableRef.current!;
+```
