@@ -22,3 +22,13 @@ const [variable] = React.useState(init()); // -> same issue as 2: `init()` is ca
 
 const [variable] = React.useState(() => init()); // -> the only safe thing
 ```
+
+---
+
+```js
+const variableRef = React.useRef();
+if (variableRef.current !== undefined) { // -> this is the ONLY time where it's okay to write a ref in render
+  variableRef.current = init(); // -> only called at init, never gain. BUT, for TS, this is `string | undefined`
+}
+const variable = variableRef.current!;
+```
