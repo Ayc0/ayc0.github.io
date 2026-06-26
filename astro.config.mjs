@@ -20,6 +20,15 @@ export default defineConfig({
     },
   },
 
+  // Makes navigating to another page faster
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "viewport",
+  },
+  experimental: {
+    clientPrerender: true,
+  },
+
   markdown: {
     remarkPlugins: [remarkBreaks, remarkGfm, remarkReadingTime],
   },
