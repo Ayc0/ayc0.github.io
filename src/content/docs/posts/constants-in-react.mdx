@@ -7,10 +7,105 @@ wip: true
 hiddenFromSequoia: true
 ---
 
-```js
-const variable = React.useMemo(() => init(), []); // -> technically, React can decide to recompute even if nothing changed. So can change (I don't think it does)
+## Introduction
 
-const variableRef = React.useRef(init()); // -> fixed BUT: -> `init()` is called (but not used) at every render. And not obvious that value is immutable
+When working with components, a use-case comes up often: computing an operation on component initial mount, and have it fully stable across the entire lifetime of the component.
+
+Why would you want to do something like this?
+
+- For performance reasons, you may want to compute something very expensive and ensure it never changes,
+- Generating an _id_ that has to respect a specific shape (and thus when you can’t use `useId()`):
+  - For instance, a random UUID,
+  - Or a constant object `{}` that you use as a stable pointer for objects like `WeakMap`
+- Generating a new instance of a class, like `new MutationObserver()`, or defining a web worker `new Worker()`, etc.
+- All of the above, but when you want those variables to be tied to **this component’s instance** (and can’t move it to the module and just be a constant).
+
+If you were there before [February 2019 and the introduction of hooks](https://legacy.reactjs.org/blog/2019/02/06/react-v16.8.0.html), there was a simple way to do it with class components:
+
+```js
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.variable = init(); // <- only compute it when the instance gets created
+  }
+
+  // ...
+}
+```
+
+## `useMemo()`
+
+The easiest way of doing this with React is:
+
+```js
+const variable = React.useMemo(() => init(), []);
+```
+
+Guess what? It works, and it’s easy. So the end 😄.
+
+...
+
+...
+
+Of course there is a pitfall 🥲. When reading [`useMemo()`](https://react.dev/reference/react/useMemo)'s docs, you can see: [“My calculation runs twice on every re-render”](https://react.dev/reference/react/useMemo#my-calculation-runs-twice-on-every-re-render) in the troubleshooting section. How is it possible?
+To go over it quickly, this is because **in dev**, React will run effects & memos twice to ensure that your components are pure.
+
+"Okay okay, so the pitfall is only in dev, big deal. It won’t affect production builds so it’s fine."
+Weeeeell, it means that we could have small bugs / performance issues in dev, but not in production. I agree that those should be _fine_ but it is still worthy of being mentioned.
+
+One more thing: when reading the old docs for [`useMemo()`](https://legacy.reactjs.org/docs/hooks-reference.html#usememo), we can read:
+
+> **You may rely on useMemo as a performance optimization, not as a semantic guarantee.** In the future, React may choose to “forget” some previously memoized values and recalculate them on next render, e.g. to free memory for offscreen components. Write your code so that it still works without `useMemo` — and then add it to optimize performance.
+
+But the new docs don’t mention it at all, they even say the opposite:
+
+> On next renders, React will return the same value again if the dependencies have not changed since the last render.
+
+I won’t lie, this is a grey area for me, and maybe React changed their vision for `useMemo()`. But I want to believe that the old version was technically more true, and that the new documentation website is made to be more understandable. And when checking other people’s blogs, like [TKDodo’s](https://tkdodo.eu/blog/use-state-for-one-time-initializations), they also recommend not using `useMemo()`. So I’ll follow their advice too.
+
+## `useRef()`
+
+In the class component, the expensive computation was stored in a class attribute `this.variable`. With hooks, most of the times, for such variables (that we want to modify outside of React lifecycle mechanism), we use `useRef()` instead.
+
+Let’s not make it complicated. `useRef()` can be initialized to a specific value, so let’s use it:
+
+```js
+const variableRef = React.useRef(init());
+```
+
+This technically works: `variableRef.current` will always be mapped to the call of `init()` during render.
+But this has 2 drawbacks:
+
+- `init()`, even if not used, is called at **every render**. This won’t (most likely) cause you bugs, but can be a huge performance issue,
+- _this is a personal preference_: nothing prevents you to mutate `variableRef.current` manually (without realizing, like if you used the wrong ref).
+
+## `useRef()` – lazy
+
+To only call `init()` during initialization, we can follow a lazy initialization pattern:
+
+```js
+const variableRef = React.useRef();
+if (variableRef.current !== undefined) {
+  variableRef.current = init();
+}
+```
+
+:::note[Note]
+In this code snippet, you are writing the `.current` value of the ref in render, which is banned by React rules.
+
+Well actually, this is only place where it’s not just safe but [the recommended way](https://react.dev/reference/react/useRef#avoiding-recreating-the-ref-contents) by the React team to do so. They even mention it explicitly in the docs:
+
+> Do not write _or read_ `ref.current` during rendering, except for [initialization](https://react.dev/reference/react/useRef#avoiding-recreating-the-ref-contents)
+
+:::
+
+---
+
+```js
+// -> technically, React can decide to recompute even if nothing changed. So can change (I don't think it does)
+
+// -> fixed BUT: -> `init()` is called (but not used) at every render. And not obvious that value is immutable
 
 const variableRef = React.useRef();
 if (variableRef.current !== undefined) {
