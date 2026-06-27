@@ -100,6 +100,18 @@ Well actually, this is only place where it’s not just safe but [the recommende
 
 :::
 
+## `useState()`
+
+## `useState()` – lazy
+
+## Recommendation
+
+[useState](https://github.com/react/react/blob/68631c0453b08e2c7c96a40910f4c91db1f66d5a/packages/react-server/src/ReactFizzHooks.js#L344) -> [useReducer](https://github.com/react/react/blob/68631c0453b08e2c7c96a40910f4c91db1f66d5a/packages/react-server/src/ReactFizzHooks.js#L357) very big.
+
+[useRef](https://github.com/react/react/blob/68631c0453b08e2c7c96a40910f4c91db1f66d5a/packages/react-server/src/ReactFizzHooks.js#L475) very small
+
+Custom hook using ref
+
 ---
 
 ```js
