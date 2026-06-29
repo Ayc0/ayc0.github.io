@@ -34,7 +34,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-## `useMemo()`
+## ❌ Bad: `useMemo()`
 
 The easiest way of doing this with React is:
 
@@ -48,23 +48,28 @@ Guess what? It works, and it’s easy. So the end 😄.
 
 ...
 
+### Issue 1: development
+
 Of course there is a pitfall 🥲. When reading [`useMemo()`](https://react.dev/reference/react/useMemo)'s docs, you can see: [“My calculation runs twice on every re-render”](https://react.dev/reference/react/useMemo#my-calculation-runs-twice-on-every-re-render) in the troubleshooting section. How is it possible?
 To go over it quickly, this is because **in dev**, React will run effects & memos twice to ensure that your components are pure.
 
 "Okay okay, so the pitfall is only in dev, big deal. It won’t affect production builds so it’s fine."
 Weeeeell, it means that we could have small bugs / performance issues in dev, but not in production. I agree that those should be _fine_ but it is still worthy of being mentioned.
 
-One more thing: when reading the old docs for [`useMemo()`](https://legacy.reactjs.org/docs/hooks-reference.html#usememo), we can read:
+### Issue 2: throwing away cache
 
-> **You may rely on useMemo as a performance optimization, not as a semantic guarantee.** In the future, React may choose to “forget” some previously memoized values and recalculate them on next render, e.g. to free memory for offscreen components. Write your code so that it still works without `useMemo` — and then add it to optimize performance.
+One more thing: when reading the docs for `useMemo()`, there is in the ["Caveats"](https://react.dev/reference/react/useMemo#caveats), we can read:
 
-But the new docs don’t mention it at all, they even say the opposite:
+> React **will not throw away the cached value unless there is a specific reason to do that.** (...) Both in development and in production, React will throw away the cache if your component suspends during the initial mount. In the future, React may add more features that take advantage of throwing away the cache (...)
 
-> On next renders, React will return the same value again if the dependencies have not changed since the last render.
+TKDodo also talked about it a few years ago in his post ["useState for one-time initializations"](https://tkdodo.eu/blog/use-state-for-one-time-initializations).
 
-I won’t lie, this is a grey area for me, and maybe React changed their vision for `useMemo()`. But I want to believe that the old version was technically more true, and that the new documentation website is made to be more understandable. And when checking other people’s blogs, like [TKDodo’s](https://tkdodo.eu/blog/use-state-for-one-time-initializations), they also recommend not using `useMemo()`. So I’ll follow their advice too.
+What does it mean? React can, and does, decide to call again the function `useMemo()` even if no dependencies changed if it feels like it’s necessary.
+This means that **`useMemo()` cannot be trusted** (by design) for elements that can only be called once per component instance.
 
-## `useRef()`
+{/* TODO: add a visual example interactive of this */}
+
+## ❌ Bad: `useRef()`
 
 In the class component, the expensive computation was stored in a class attribute `this.variable`. With hooks, most of the times, for such variables (that we want to modify outside of React lifecycle mechanism), we use `useRef()` instead.
 
@@ -80,7 +85,7 @@ But this has 2 drawbacks:
 - `init()`, even if not used, is called at **every render**. This won’t (most likely) cause you bugs, but can be a huge performance issue,
 - _this is a personal preference_: nothing prevents you to mutate `variableRef.current` manually (without realizing, like if you used the wrong ref).
 
-## `useRef()` – lazy
+## 👍 Okay: `useRef()` – lazy
 
 To only call `init()` during initialization, we can follow a lazy initialization pattern:
 
@@ -91,51 +96,259 @@ if (variableRef.current !== undefined) {
 }
 ```
 
-:::note[Note]
-In this code snippet, you are writing the `.current` value of the ref in render, which is banned by React rules.
+This code snippet may look weird to you if you’re familiar with React rules: the `.current` value of the ref is getting written in render, which is banned by the ESLint rules / compiler.
 
 Well actually, this is only place where it’s not just safe but [the recommended way](https://react.dev/reference/react/useRef#avoiding-recreating-the-ref-contents) by the React team to do so. They even mention it explicitly in the docs:
 
 > Do not write _or read_ `ref.current` during rendering, except for [initialization](https://react.dev/reference/react/useRef#avoiding-recreating-the-ref-contents)
 
-:::
+This code still has the issue of being able to mutate `variableRef.current`, but otherwise it’s pretty solid.
 
-## `useState()`
+## ❌ Bad: `useState()`
 
-## `useState()` – lazy
-
-## Recommendation
-
-[useState](https://github.com/react/react/blob/68631c0453b08e2c7c96a40910f4c91db1f66d5a/packages/react-server/src/ReactFizzHooks.js#L344) -> [useReducer](https://github.com/react/react/blob/68631c0453b08e2c7c96a40910f4c91db1f66d5a/packages/react-server/src/ReactFizzHooks.js#L357) very big.
-
-[useRef](https://github.com/react/react/blob/68631c0453b08e2c7c96a40910f4c91db1f66d5a/packages/react-server/src/ReactFizzHooks.js#L475) very small
-
-Custom hook using ref
-
----
+A fully different approach to using `useState()`. How? `useState()` can be initialized with a value, just like `useRef()`:
 
 ```js
-// -> technically, React can decide to recompute even if nothing changed. So can change (I don't think it does)
-
-// -> fixed BUT: -> `init()` is called (but not used) at every render. And not obvious that value is immutable
-
-const variableRef = React.useRef();
-if (variableRef.current !== undefined) {
-  // -> this is the ONLY time where it's okay to write a ref in render
-  variableRef.current = init(); // -> only called at init, never gain. BUT, for TS, this is `string | undefined`
-}
-
-const [variable] = React.useState(init()); // -> same issue as 2: `init()` is called every time but not used
-
-const [variable] = React.useState(() => init()); // -> the only safe thing
+const [variable] = React.useState(init());
 ```
 
----
+This is better than `useRef()` as you can’t mutate the `variable` as the setter is not defined. But the two code snippets share the same issue of `init()` being called in every render.
+
+## ✅ Good: `useState()` – lazy
+
+To only called the initialization once, this time, `useState()` comes with a solution available for you out of the box: instead of passing a value to `useState(initialValue)`, you can pass a function: `useState(() => initialValue)`. And this lazy initializer will only be called during the 1st call of the component.
 
 ```js
-const variableRef = React.useRef();
-if (variableRef.current !== undefined) { // -> this is the ONLY time where it's okay to write a ref in render
-  variableRef.current = init(); // -> only called at init, never gain. BUT, for TS, this is `string | undefined`
+const [variable] = React.useState(() => init());
+```
+
+This code is good. Period. No caveat. Do use it.
+
+This is not my personal preference because I don’t find it very explicit for new developers. From afar, it can look very weird to have to define a state for a constant variable that shouldn’t change.
+
+I’ve seen a few codebase adding comments for this kind of code to make it explicit:
+
+```js
+// Only calling `init()` once during the initialization.
+// We can’t use `useMemo()` as React may dispose of the cache even if no dependency has changed.
+const [variable] = React.useState(() => init());
+```
+
+## 🌟 Best: My personal recommendation
+
+Just wrap it in a custom hook.
+
+It doesn’t matter that much which method you’re using: ref / state. The last issue with ref was that people could override the `ref.current` value. And the biggest issue with the state was the potential confusion of why a state.
+Both are solved with a custom hook (with optional comments centralized within it, in only 1 place in the codebase).
+
+```js
+// with useRef
+const useConstant = (init) => {
+  const constantRef = React.useRef();
+  if (constantRef.current !== undefined) {
+    constantRef.current = init();
+  }
+  return constantRef.current;
+};
+
+// with useState
+const useConstant = (init) => {
+  const [constant] = React.useState(() => init());
+  return constant;
+};
+```
+
+### Nitpick 1: `useRef()` & undefined
+
+`useRef()`’s code still has 1 issue: `init()` **cannot** return `undefined`, otherwise `init()` will be called at every render. As long as you’re not in this case, using `useRef()` is fine. If you want tooling to help you, you can use TypeScript with such types:
+
+```ts
+function useConstant<T>(init: T extends undefined ? never : () => T): T {
+  const ref = React.useRef<T>(undefined);
+  if (ref.current === undefined) {
+    ref.current = init();
+  }
+  return ref.current;
 }
-const variable = variableRef.current!;
+```
+
+See in [TypeScript Play](https://www.typescriptlang.org/play/?#code/JYWwDg9gTgLgBAKjgQwM5wEoFNkGN4BmUEIcA5FDvmQNwBQduEAdqvAK6pYDCLbyzGACFkAEzgBeOAB4AKgBoAfAApgzYDABccZQEpJiuLN3bZBuAG86cOE1bw7-QdgKTMVGADpOWF3JXszKJYBGpYorr0NsCuyo4wAjAunrjsUJSCkhJSgcGhzOH6VjY28YnJqelYmVJqGnpRcAC+1nCUMGnMtnwJziEpaRkw9E30dASB+MAscD689okA4hAQov6q6lpGcFgAHjDVoui5IWHiAPxwBQBuWFBw2nrmxqaWraU9bSFu2HhePn5ZAEgqcChFGtFYpQCAMqjVsrMQflCm8SmivjDKkM3HUYA13s0Ce1OhjYUMRgx4nBIAdBMBkAAbBkATwAqkizm4AIwodA8gA+iLyZwYAHpRXBADLkcEAyARwAByEB26Wg8jgACN2PBUAALCDsBniGA64gAdzgqBIWDocx6iREomUTwkhhOyIiNq48ycwjETv0LupEFpMHpTLZHLBujFEsAoOSyuAAEQgWHQxrNyuIUFQaqwty6BGgcGuyCg9PVDNTcGNyAcAg1WAtVuNagA5nAi26RbaFoJlqt-eYu1HPTw7X2Vo7nYYadVQ4yWezhVGgA) how it handles errors differently than a plain `T` generic:
+
+```ts
+const useConstantBad = <T>(init: () => T): T => {
+  const constantRef = React.useRef<T>(undefined);
+  if (constantRef.current === undefined) {
+    constantRef.current = init();
+  }
+  return constantRef.current;
+};
+
+function useConstantGood<T>(init: T extends undefined ? never : () => T): T {
+  const ref = React.useRef<T>(undefined);
+  if (ref.current === undefined) {
+    ref.current = init();
+  }
+  return ref.current;
+}
+
+const potentiallyUndefined = 1 as 1 | undefined;
+
+// ❌ – No error, but should throw some
+useConstantBad(() => undefined);
+useConstantBad(() => potentiallyUndefined);
+
+// ✅ – Does throw errors, even for variables that can be something or undefined
+useConstantGood(() => undefined);
+useConstantGood(() => potentiallyUndefined);
+```
+
+### Nitpick 2: `useState()` allocation size
+
+:::caution[Disclaimer]
+
+This is section will be quite technical, and I don’t think will matter in a real app.
+So feel free to not take this into consideration.
+
+:::
+
+I was curious in checking how React works under-the-hood when it comes to `useRef()` and `useState()` to see if this could help us make a decision between `useRef()` and `useState()`.
+
+Side note: when reading React’s codebase, you can discard everything within `if (__DEV__) { ... }` as those are only guards for development builds. And here I'll only compare production code.
+
+:::note
+
+If you’re curious in reading React’s source code, you can see here some pointers in how their codebase is structured.
+
+<details>
+
+<summary>Expand </summary>
+
+Hooks’ code in React are in the file [`/packages/react/src/ReactHooks.js`](https://github.com/react/react/blob/68631c0453b08e2c7c96a40910f4c91db1f66d5a/packages/react/src/ReactHooks.js). But when reading this code, you can see that they don’t really do anything, for instance for `useRef()`:
+
+```ts
+export function useRef<T>(initialValue: T): { current: T } {
+  const dispatcher = resolveDispatcher();
+  return dispatcher.useRef(initialValue);
+}
+```
+
+This is because `react` by itself doesn’t do a lot of things. It’ll prepare JSX elements, and functions calls. But the main logic of how React should (re)render and synchronize with the DOM is done by the reconciler.
+
+What’s a reconciler? It’s what makes the bridge between React & your platform. React was built this way so that you can use it for multiple environments:
+
+- DOM -> `react-dom`,
+- Native -> `react-native`,
+- CLIs -> `ink`,
+- PDFs -> `react-pdf`,
+- etc.
+
+To come back on `resolveDispatcher()`, when reading [its code](https://github.com/react/react/blob/68631c0453b08e2c7c96a40910f4c91db1f66d5a/packages/react/src/ReactHooks.js#L24-L42), you’ll see that it access `ReactSharedInternals`:
+
+```ts
+function resolveDispatcher() {
+  const dispatcher = ReactSharedInternals.H;
+  return dispatcher as any as Dispatcher;
+}
+```
+
+Trying to find what `ReactSharedInternals.H` is or where it’s defined in a bit tricky, but you can find it in a file `ReactFiberHooks.js` in the `react-reconciler` package, in a function called [`renderWithHooks()`](https://github.com/react/react/blob/68631c0453b08e2c7c96a40910f4c91db1f66d5a/packages/react-reconciler/src/ReactFiberHooks.js#L560-L563) (without comments & dev-only code):
+
+```ts
+export function renderWithHooks<Props, SecondArg>(
+  current: Fiber | null,
+  workInProgress: Fiber,
+  Component: (p: Props, arg: SecondArg) => any,
+  props: Props,
+  secondArg: SecondArg,
+  nextRenderLanes: Lanes,
+): any {
+  renderLanes = nextRenderLanes;
+  currentlyRenderingFiber = workInProgress;
+
+  workInProgress.memoizedState = null;
+  workInProgress.updateQueue = null;
+  workInProgress.lanes = NoLanes;
+
+  ReactSharedInternals.H =
+    current === null || current.memoizedState === null
+      ? HooksDispatcherOnMount
+      : HooksDispatcherOnUpdate;
+
+  let children = Component(props, secondArg);
+
+  // Check if there was a render phase update
+  if (didScheduleRenderPhaseUpdateDuringThisPass) {
+    // Keep rendering until the component stabilizes (there are no more render
+    // phase updates).
+    children = renderWithHooksAgain(
+      workInProgress,
+      Component,
+      props,
+      secondArg,
+    );
+  }
+
+  finishRenderingHooks(current, workInProgress, Component);
+
+  return children;
+}
+```
+
+</details>
+
+I won’t go into more details here, if you want to explore the codebase more you already have a lot of pointers / important files to check. My main point with this explanation is that:
+
+- Most of hooks’ logic doesn't live in `react` itself, instead it invokes the dispatcher, which itself calls a function in the `react-reconciler` package,
+- All hooks have different behaviors on mount (`HooksDispatcherOnMount`) vs on update (`HooksDispatcherOnUpdate`)
+
+:::
+
+When checking the source code for [`useRef()`](https://github.com/react/react/blob/68631c0453b08e2c7c96a40910f4c91db1f66d5a/packages/react-reconciler/src/ReactFiberHooks.js#L2604-L2614), you can see that it barely does anything, it just defines a memory slot and retrieves it:
+
+```ts
+function mountRef<T>(initialValue: T): { current: T } {
+  const hook = mountWorkInProgressHook();
+  const ref = { current: initialValue };
+  hook.memoizedState = ref;
+  return ref;
+}
+
+function updateRef<T>(initialValue: T): { current: T } {
+  const hook = updateWorkInProgressHook();
+  return hook.memoizedState;
+}
+```
+
+On the other hand, `useState()` is a bit more complicated. [On mount](https://github.com/react/react/blob/68631c0453b08e2c7c96a40910f4c91db1f66d5a/packages/react-reconciler/src/ReactFiberHooks.js#L1896-L1936), it needs to:
+
+- handle the state initialization,
+- handle the dispatcher (the set state function),
+- start tracking update queues.
+
+And [on update](https://github.com/react/react/blob/68631c0453b08e2c7c96a40910f4c91db1f66d5a/packages/react-reconciler/src/ReactFiberHooks.js#L1938-L1948), it relies on [`useReducer()` implementation](https://github.com/react/react/blob/68631c0453b08e2c7c96a40910f4c91db1f66d5a/packages/react-reconciler/src/ReactFiberHooks.js#L1294-L1576), which I won't go into details as the function is 300 LOCs long.
+
+So the overhead of `useRef()` on the exact of branches & functions calls, and memory allocation is way lower than `useState()`’s.
+Is it relevant? I don’t know if it fully is as most React application will be very complex. And user components will even be bigger. But if we can cut down in centralized components their memory cost, maybe at wide scale (if this `useConstant()` custom hook is widely used) it could have an impact.
+
+### My personal conclusion + TypeScript code snippets
+
+If you don’t need to be able to handle any `undefined` values, use the `useRef()` implementation:
+
+```ts
+function useConstant<T>(init: T extends undefined ? never : () => T): T {
+  const ref = React.useRef<T>(undefined);
+  if (ref.current === undefined) {
+    ref.current = init();
+  }
+  return ref.current;
+}
+```
+
+But if you need to use potentially `undefined` variables, go with `useState()`:
+
+```ts
+function useConstant<T>(init: () => T) {
+  const [constant] = React.useState<T>(() => init());
+  return constant;
+}
 ```
