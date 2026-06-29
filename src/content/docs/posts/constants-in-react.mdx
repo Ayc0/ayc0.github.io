@@ -145,7 +145,7 @@ Both are solved with a custom hook (with optional comments centralized within it
 // Option A: with useRef
 const useConstant = (init) => {
   const constantRef = React.useRef();
-  if (constantRef.current !== undefined) {
+  if (constantRef.current === undefined) {
     constantRef.current = init();
   }
   return constantRef.current;
