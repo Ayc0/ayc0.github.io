@@ -142,7 +142,7 @@ It doesn’t matter that much which method you’re using: ref / state. The last
 Both are solved with a custom hook (with optional comments centralized within it, in only 1 place in the codebase).
 
 ```js
-// with useRef
+// Option A: with useRef
 const useConstant = (init) => {
   const constantRef = React.useRef();
   if (constantRef.current !== undefined) {
@@ -150,8 +150,10 @@ const useConstant = (init) => {
   }
   return constantRef.current;
 };
+```
 
-// with useState
+```js
+// Option B: with useState
 const useConstant = (init) => {
   const [constant] = React.useState(() => init());
   return constant;
