@@ -91,7 +91,7 @@ To only call `init()` during initialization, we can follow a lazy initialization
 
 ```js
 const variableRef = React.useRef();
-if (variableRef.current !== undefined) {
+if (variableRef.current === undefined) {
   variableRef.current = init();
 }
 ```
