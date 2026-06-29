@@ -62,7 +62,7 @@ One more thing: when reading the docs for `useMemo()`, in the ["Caveats"](https:
 
 > React **will not throw away the cached value unless there is a specific reason to do that.** (...) Both in development and in production, React will throw away the cache if your component suspends during the initial mount. In the future, React may add more features that take advantage of throwing away the cache (...)
 
-TKDodo also talked about it a few years ago in his post ["useState for one-time initializations"](https://tkdodo.eu/blog/use-state-for-one-time-initializations).
+Dominik / TkDodo also talked about it a few years ago in his post ["useState for one-time initializations"](https://tkdodo.eu/blog/use-state-for-one-time-initializations).
 
 What does it mean? React can, and does, decide to call `useMemo()` again even if no dependencies changed if it feels like it’s necessary.
 This means that **`useMemo()` cannot be trusted** (by design) for elements that can only be called once per component instance.
