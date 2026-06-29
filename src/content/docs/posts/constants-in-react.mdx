@@ -54,7 +54,7 @@ Of course there is a pitfall 🥲. When reading [`useMemo()`](https://react.dev/
 To go over it quickly, this is because **in dev**, React will run effects & memos twice to ensure that your components are pure.
 
 "Okay okay, so the pitfall is only in dev, big deal. It won’t affect production builds so it’s fine."
-Weeeeell, it means that we could have small bugs / performance issues in dev, but not in production. I agree that those should be _fine_ but it is still worthy of being mentioned.
+Weeeeell, it means that we could have small bugs / performance issues in dev, but not in production. I agree that those should be _fine_ but it is still worth mentioning.
 
 ### Issue 2: throwing away cache
 
@@ -64,7 +64,7 @@ One more thing: when reading the docs for `useMemo()`, in the ["Caveats"](https:
 
 TKDodo also talked about it a few years ago in his post ["useState for one-time initializations"](https://tkdodo.eu/blog/use-state-for-one-time-initializations).
 
-What does it mean? React can, and does, decide to call again the function `useMemo()` even if no dependencies changed if it feels like it’s necessary.
+What does it mean? React can, and does, decide to call `useMemo()` again even if no dependencies changed if it feels like it’s necessary.
 This means that **`useMemo()` cannot be trusted** (by design) for elements that can only be called once per component instance.
 
 {/* TODO: add a visual example interactive of this */}
@@ -83,7 +83,7 @@ This technically works: `variableRef.current` will always hold the value returne
 But this has 2 drawbacks:
 
 - `init()`, even if not used, is called at **every render**. This won’t (most likely) cause you bugs, but can be a huge performance issue,
-- _this is a personal preference_: nothing prevents you to mutate `variableRef.current` manually (without realizing, like if you used the wrong ref).
+- _this is a personal preference_: nothing prevents you from mutating `variableRef.current` manually (without realizing, like if you used the wrong ref).
 
 ## 👍 Okay: `useRef()` – lazy
 
@@ -112,7 +112,7 @@ Let's look at a fully different approach: `useState()`. It can be initialized wi
 const [variable] = React.useState(init());
 ```
 
-This is better than `useRef()` as you can’t mutate the `variable` as the setter is not defined. But the two code snippets share the same issue of `init()` being called in every render.
+This is better than `useRef()` as you can’t mutate the `variable` as the setter is not destructured. But the two code snippets share the same issue of `init()` being called in every render.
 
 ## ✅ Good: `useState()` – lazy
 
@@ -138,7 +138,7 @@ const [variable] = React.useState(() => init());
 
 Just wrap it in a custom hook.
 
-It doesn’t matter that much which method you’re using: ref / state. The last issue with ref was that people could override the `ref.current` value. And the biggest issue with the state was the potential confusion of why a state.
+It doesn’t matter that much which method you’re using: ref / state. The last issue with ref was that people could override the `ref.current` value. And the biggest issue with the state was the potential confusion of why it's a state.
 Both are solved with a custom hook (with optional comments centralized within it, in only 1 place in the codebase).
 
 ```js
@@ -213,7 +213,7 @@ So feel free to not take this into consideration.
 
 :::
 
-I was curious in checking how React works under-the-hood when it comes to `useRef()` and `useState()` to see if this could help us make a decision between `useRef()` and `useState()`.
+I was curious to check how React works under-the-hood when it comes to `useRef()` and `useState()` to see if this could help us make a decision between `useRef()` and `useState()`.
 
 Side note: when reading React’s codebase, you can discard everything within `if (__DEV__) { ... }` as those are only guards for development builds. And here I'll only compare production code.
 
@@ -225,7 +225,7 @@ If you’re curious in reading React’s source code, you can see here some poin
 
 <summary>Expand </summary>
 
-Hooks’ code in React are in the file [`/packages/react/src/ReactHooks.js`](https://github.com/react/react/blob/68631c0453b08e2c7c96a40910f4c91db1f66d5a/packages/react/src/ReactHooks.js). But when reading this code, you can see that they don’t really do anything, for instance for `useRef()`:
+Hooks’ code in React is in the file [`/packages/react/src/ReactHooks.js`](https://github.com/react/react/blob/68631c0453b08e2c7c96a40910f4c91db1f66d5a/packages/react/src/ReactHooks.js). But when reading this code, you can see that they don’t really do anything, for instance for `useRef()`:
 
 ```ts
 export function useRef<T>(initialValue: T): { current: T } {
@@ -234,7 +234,7 @@ export function useRef<T>(initialValue: T): { current: T } {
 }
 ```
 
-This is because `react` by itself doesn’t do a lot of things. It’ll prepare JSX elements, and functions calls. But the main logic of how React should (re)render and synchronize with the DOM is done by the reconciler.
+This is because `react` by itself doesn’t do a lot of things. It’ll prepare JSX elements, and function calls. But the main logic of how React should (re)render and synchronize with the DOM is done by the reconciler.
 
 What’s a reconciler? It’s what makes the bridge between React & your platform. React was built this way so that you can use it for multiple environments:
 
@@ -327,10 +327,10 @@ On the other hand, `useState()` is a bit more complicated. [On mount](https://gi
 - handle the dispatcher (the set state function),
 - start tracking update queues.
 
-And [on update](https://github.com/react/react/blob/68631c0453b08e2c7c96a40910f4c91db1f66d5a/packages/react-reconciler/src/ReactFiberHooks.js#L1938-L1948), it relies on [`useReducer()` implementation](https://github.com/react/react/blob/68631c0453b08e2c7c96a40910f4c91db1f66d5a/packages/react-reconciler/src/ReactFiberHooks.js#L1294-L1576), which I won't go into details as the function is 300 LOCs long.
+And [on update](https://github.com/react/react/blob/68631c0453b08e2c7c96a40910f4c91db1f66d5a/packages/react-reconciler/src/ReactFiberHooks.js#L1938-L1948), it relies on [`useReducer()` implementation](https://github.com/react/react/blob/68631c0453b08e2c7c96a40910f4c91db1f66d5a/packages/react-reconciler/src/ReactFiberHooks.js#L1294-L1576), which I won't go into detail, as the function is 300 LOCs long.
 
 So in terms of branch count, function calls, and memory allocation, `useRef()` has significantly lower overhead than `useState()`.
-Is it relevant? I don’t know if it fully is as most React application will be very complex. And user components will even be bigger. But if we can cut down in centralized components their memory cost, maybe at wide scale (if this `useConstant()` custom hook is widely used) it could have an impact.
+Is it relevant? I don’t know if it fully is as most React applications will be very complex. And user components will even be bigger. But if we can cut down in centralized components their memory cost, maybe at wide scale (if this `useConstant()` custom hook is widely used) it could have an impact.
 
 ### My personal conclusion + TypeScript code snippets
 
