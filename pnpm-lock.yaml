@@ -20,8 +20,8 @@ importers:
         specifier: ^0.40.0
         version: 0.40.0(astro@6.4.8(@types/node@24.13.0)(rollup@4.62.0)(yaml@2.8.4))(typescript@6.0.3)
       bippy:
-        specifier: ^0.5.41
-        version: 0.5.41(react@19.2.6)
+        specifier: ^0.5.42
+        version: 0.5.42(react@19.2.6)
       colorjs.io:
         specifier: ^0.6.1
         version: 0.6.1
@@ -1199,8 +1199,8 @@ packages:
   bcp-47@2.1.0:
     resolution: {integrity: sha512-9IIS3UPrvIa1Ej+lVDdDwO7zLehjqsaByECw0bu2RRGP73jALm6FYbzI5gWbgHLvNdkvfXB5YrSbocZdOS0c0w==}
 
-  bippy@0.5.41:
-    resolution: {integrity: sha512-jCP2pXXLhXqPrAN+iSEFZmLI4uUM4fjSqajh0K+TmM062VehfDT3ZJNkrTGyN701Z5XMejs9qAudSqkMGhSMKg==}
+  bippy@0.5.42:
+    resolution: {integrity: sha512-K3tpfO9uGQB2k/Vi5P6jgfrnXvO/FAQNUE2tqKjQmT0a93fJCysMGLgJmRKzYYfybAoOtwWwmKm0vw/uXE0hMw==}
     peerDependencies:
       react: '>=17.0.1'
 
@@ -4017,7 +4017,7 @@ snapshots:
       is-alphanumerical: 2.0.1
       is-decimal: 2.0.1
 
-  bippy@0.5.41(react@19.2.6):
+  bippy@0.5.42(react@19.2.6):
     dependencies:
       react: 19.2.6
 
