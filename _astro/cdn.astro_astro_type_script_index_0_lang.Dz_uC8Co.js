@@ -1,0 +1,2 @@
+import{N as n,A as r}from"./core.lgTHh1qb.js";n({onCommitFiberRoot(e,o){r(o,t=>{console.log("fiber rendered",t)})},onPostCommitFiberRoot(e,o){console.log("root with effects committed",e,o),console.log("[CUSTOM] Root mode:",o.tag===1?"ConcurrentRoot":"LegacyRoot")},onCommitFiberUnmount(e,o){console.log("fiber unmounted",e,o)}});
+//# sourceMappingURL=cdn.astro_astro_type_script_index_0_lang.Dz_uC8Co.js.map
