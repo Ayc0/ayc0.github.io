@@ -346,7 +346,7 @@ function useConstant<T>(init: T extends undefined ? never : () => T): T {
 }
 ```
 
-But if you need to use potentially `undefined` variables, go with `useState()`:
+But if your init function can return `undefined`, go with `useState()`:
 
 ```ts
 function useConstant<T>(init: () => T) {
@@ -354,3 +354,27 @@ function useConstant<T>(init: () => T) {
   return constant;
 }
 ```
+
+### Open question: React compiler
+
+When writing the implementation with the `useRef()`:
+
+```ts
+function useConstant<T>(init: T extends undefined ? never : () => T): T {
+  const ref = React.useRef<T>(undefined);
+  if (ref.current === undefined) {
+    ref.current = init();
+  }
+  return ref.current;
+}
+```
+
+Both the React linter and the React compiler seem to be unhappy with `ref.current`:
+
+```
+  return ref.current;
+         ^^^^^^^^^^^ Cannot access ref value during render
+```
+
+Based on the React documentation, this seems (for this specific example) to be okay. But just in case, I opened an issue to track it: https://github.com/react/react/issues/36896.
+Depending on the React team’s answer, my recommendation may switch to just `useState()`’s implementation solely because of the better compatibility with the compiler.
