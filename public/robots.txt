@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ayc0.github.io/site-map-index.xml
+Sitemap: https://ayc0.github.io/sitemaps-index.xml
