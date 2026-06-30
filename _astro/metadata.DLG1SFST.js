@@ -1,0 +1,2 @@
+window.React&&console.log(`[CUSTOM] global React`,React.version),window.ReactDOM&&console.log(`[CUSTOM] global ReactDOM`,ReactDOM.version),window.__REACT_DEVTOOLS_GLOBAL_HOOK__&&setTimeout(()=>{console.log(window.customDevTools?`[CUSTOM] From custom DevTools`:`[CUSTOM] From DevTools`,[...window.__REACT_DEVTOOLS_GLOBAL_HOOK__.renderers.values()].map(e=>({reactVersion:e.reconcilerVersion,rendererPackageName:e.rendererPackageName,rendererVersion:e.version}))),window.customDevTools&&delete window.__REACT_DEVTOOLS_GLOBAL_HOOK__},100);
+//# sourceMappingURL=metadata.DLG1SFST.js.map

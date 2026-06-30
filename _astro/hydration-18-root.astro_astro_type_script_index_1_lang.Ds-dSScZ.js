@@ -1,0 +1,2 @@
+import{r as e}from"./rolldown-runtime.QTnfLwEv.js";import{n as t,t as n}from"./react-dom.2LIuAoDf.js";var r=e(t());e(n()).hydrateRoot(document.getElementById(`root`),r.createElement(`div`,null,`World`),{onRecoverableError:e=>console.warn(`[CUSTOM] Recoverable error`,e)});
+//# sourceMappingURL=hydration-18-root.astro_astro_type_script_index_1_lang.Ds-dSScZ.js.map
