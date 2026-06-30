@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, envField } from "astro/config";
 import react from "@astrojs/react";
 
 import starlight from "@astrojs/starlight";
@@ -17,6 +17,16 @@ export default defineConfig({
   vite: {
     build: {
       sourcemap: true,
+    },
+  },
+
+  env: {
+    schema: {
+      GITHUB_RUN_ID: envField.string({
+        context: "client",
+        access: "public",
+        default: "local",
+      }),
     },
   },
 

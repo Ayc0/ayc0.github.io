@@ -1,3 +1,5 @@
+import { GITHUB_RUN_ID } from "astro:env/client";
+
 import { datadogRum } from "@datadog/browser-rum";
 import { datadogLogs } from "@datadog/browser-logs";
 
@@ -6,7 +8,7 @@ import { datadogLogs } from "@datadog/browser-logs";
 // - RUM & Logs can be bundled together (as they share the same dependencies)
 
 const MODE = import.meta.env.MODE;
-const VERSION = `${new Date().toISOString().split("T")[0]}--${import.meta.env.GITHUB_RUN_ID || "local"}`;
+const VERSION = `${new Date().toISOString().split("T")[0]}--${GITHUB_RUN_ID}`;
 const DATADOG_CLIENT_TOKEN = "pub65a306a096de7824a32d9879df04de68";
 const DATADOG_RUM_APPLICATION_ID = "d5dc836c-8af7-48c6-85d4-ada010f382f5";
 
