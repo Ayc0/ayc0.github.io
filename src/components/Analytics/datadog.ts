@@ -16,7 +16,7 @@ datadogRum.init({
   applicationId: DATADOG_RUM_APPLICATION_ID,
   clientToken: DATADOG_CLIENT_TOKEN,
   site: "datadoghq.eu",
-  service: "ayc0.github.io",
+  service: "ayc0.dev",
   env: MODE,
   version: VERSION,
   sessionSampleRate: 100,
