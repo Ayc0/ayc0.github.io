@@ -76,7 +76,7 @@ function useC() {
 
   React.useEffect(() => {
     setTimeout(() => {
-      fetch("https://ayc0.github.io/unknown")
+      fetch("https://ayc0.dev/unknown")
         .then((res) => {
           if (!res.ok) {
             throw new Error(`Fetch error: ${res.status}`);

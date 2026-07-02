@@ -62,4 +62,4 @@ jobs:
         env:
           DATADOG_SITE: datadoghq.eu
           DATADOG_API_KEY: ${{ secrets.DD_API_KEY }}
-        run: pnpm datadog-ci sourcemaps upload dist --service ayc0.github.io --minified-path-prefix https://ayc0.github.io/ --release-version $GITHUB_RUN_ID
+        run: pnpm datadog-ci sourcemaps upload dist --service ayc0.dev --minified-path-prefix https://ayc0.dev/ --release-version $GITHUB_RUN_ID

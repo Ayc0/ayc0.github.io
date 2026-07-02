@@ -10,7 +10,7 @@ import { remarkReadingTime } from "./tools/remark-reading-time.mjs";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://ayc0.github.io",
+  site: "https://ayc0.dev",
   base: "/", // We need the trailing / here otherwise links in the site will be broken
 
   // Build source maps
@@ -69,7 +69,7 @@ export default defineConfig({
         {
           icon: "rss",
           label: "RSS",
-          href: "https://ayc0.github.io/rss.xml",
+          href: "https://ayc0.dev/rss.xml",
         },
       ],
 
@@ -79,8 +79,8 @@ export default defineConfig({
           attrs: {
             rel: "alternate",
             type: "application/rss+xml",
-            title: "RSS Feed for ayc0.github.io",
-            href: "https://ayc0.github.io/rss.xml",
+            title: "RSS Feed for ayc0.dev",
+            href: "https://ayc0.dev/rss.xml",
           },
         },
       ],
@@ -99,24 +99,24 @@ export default defineConfig({
       lastmod: new Date("2025-08-21"), // Update every time we want to website to be re-crawled
       filter: (page) => {
         // No slides should be exposed
-        if (page.startsWith("https://ayc0.github.io/slides/")) {
+        if (page.startsWith("https://ayc0.dev/slides/")) {
           return false;
         }
         // No experiments should be exposed
-        if (page.startsWith("https://ayc0.github.io/experiments/")) {
+        if (page.startsWith("https://ayc0.dev/experiments/")) {
           return false;
         }
         // Same for the listing of draft posts
-        if (page.startsWith("https://ayc0.github.io/posts/drafts/")) {
+        if (page.startsWith("https://ayc0.dev/posts/drafts/")) {
           return false;
         }
         // Same for the listing of posts tags
-        if (page.startsWith("https://ayc0.github.io/posts/tags/")) {
+        if (page.startsWith("https://ayc0.dev/posts/tags/")) {
           return false;
         }
 
         // Same for the listing of posts series
-        if (page.startsWith("https://ayc0.github.io/posts/series/")) {
+        if (page.startsWith("https://ayc0.dev/posts/series/")) {
           return false;
         }
 

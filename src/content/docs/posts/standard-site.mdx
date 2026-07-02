@@ -19,9 +19,9 @@ The [AT Protocol](https://atproto.com/) is a decentralized social networking fra
 ### User identity
 
 Every user has a unique [DID](https://atproto.com/guides/glossary#did-decentralized-id) (Decentralized ID).
-DIDs aren’t human-readable, so users also have a [handle](https://atproto.com/specs/handle) on top of them. For instance, my handle is `ayc0.github.io` and my DID is `did:plc:wifmfjqoxnruni5h62e6zp2y`.
+DIDs aren’t human-readable, so users also have a [handle](https://atproto.com/specs/handle) on top of them. For instance, my handle is `ayc0.dev` and my DID is `did:plc:wifmfjqoxnruni5h62e6zp2y`.
 
-Handles can come from AT Proto providers like BlueSky, or from custom domains. For custom domains, you prove ownership by hosting your DID at `/.well-known/atproto-did`, like mine at https://ayc0.github.io/.well-known/atproto-did.
+Handles can come from AT Proto providers like BlueSky, or from custom domains. For custom domains, you prove ownership by hosting your DID at `/.well-known/atproto-did`, like mine at https://ayc0.dev/.well-known/atproto-did.
 
 You can browse all records in the ATmosphere at https://pds.ls/.
 
@@ -41,9 +41,9 @@ See examples of all of those in https://pds.ls/:
 - [All publications I have created](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.publication)
 - [This publication / blog](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.publication/3mn6dj35act2i)
 - [All documents / all posts I posted](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.document)
-- [1 specific document](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.document/3mn6dvyazx72z) (for [this post](https://ayc0.github.io/posts/intlsegmenter-dont-use-stringsplit-nor-stringlength/))
+- [1 specific document](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.document/3mn6dvyazx72z) (for [this post](https://ayc0.dev/posts/intlsegmenter-dont-use-stringsplit-nor-stringlength/))
 - [All my recommendations](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.graph.recommend)
-- [1 specific recommend](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.graph.recommend/3mnmrps3l3h2u#record) (for [this post](https://ayc0.github.io/posts/blocz-react-responsive-v5-1/))
+- [1 specific recommend](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.graph.recommend/3mnmrps3l3h2u#record) (for [this post](https://ayc0.dev/posts/blocz-react-responsive-v5-1/))
 - [All my subscriptions](https://pds.ls/at://did:plc:wifmfjqoxnruni5h62e6zp2y/site.standard.graph.subscription)
 
 ## Setup
@@ -55,7 +55,7 @@ Most of the setup is explained in https://sequoia.pub/quickstart, but in short:
 - tell sequoia who you are via `sequoia login` / `sequoia auth` so it can publish records on your behalf,
 - configure sequoia with information about your website (its URL, its ID on standard.site, etc.)
 
-During authentication, sequoia generates an ID for your publication that you need to host at `/.well-known/site.standard.publication`. Mine is at `https://ayc0.github.io/.well-known/site.standard.publication`. This proves to `standard.site` tools that you own the website.
+During authentication, sequoia generates an ID for your publication that you need to host at `/.well-known/site.standard.publication`. Mine is at `https://ayc0.dev/.well-known/site.standard.publication`. This proves to `standard.site` tools that you own the website.
 
 ## Publishing articles
 
@@ -63,7 +63,7 @@ Each article needs an `atUri` defined in its metadata. As I’m using Astro, thi
 
 When publishing an article, I run this CLI at the same time as uploading, to update the ATmosphere.
 
-Once an article is published, you can use [the site validator](https://site-validator.fly.dev/?utm_source=ayc0.github.io&utm_medium=blog&utm_campaign=standard-site) to confirm everything is correctly set up.
+Once an article is published, you can use [the site validator](https://site-validator.fly.dev/?utm_source=ayc0.dev&utm_medium=blog&utm_campaign=standard-site) to confirm everything is correctly set up.
 
 ## Interactions
 

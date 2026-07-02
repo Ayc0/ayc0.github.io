@@ -2,7 +2,7 @@
 
 ## Blog posts
 
-List of all of my blog posts: https://ayc0.github.io/posts/
+List of all of my blog posts: https://ayc0.dev/posts/
 
 ## Projects
 
@@ -10,7 +10,7 @@ List of all of my blog posts: https://ayc0.github.io/posts/
 
 This page lists all possible available length units in CSS (see [spec here](https://www.w3.org/TR/css-values-4/#lengths)).
 
-It also groups & displays them in a readable manner. Visit https://ayc0.github.io/length-units/ to view it.
+It also groups & displays them in a readable manner. Visit https://ayc0.dev/length-units/ to view it.
 
 ![Preview](./src/assets/css-length-units-og.png)
 
