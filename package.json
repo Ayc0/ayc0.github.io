@@ -13,9 +13,9 @@
   },
   "volta": {
     "node": "24.16.0",
-    "pnpm": "11.9.0"
+    "pnpm": "11.10.0"
   },
-  "packageManager": "pnpm@11.9.0",
+  "packageManager": "pnpm@11.10.0",
   "dependencies": {
     "@astrojs/starlight": "^0.41.1",
     "bippy": "^0.5.42",
