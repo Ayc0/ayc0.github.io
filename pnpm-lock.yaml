@@ -81,8 +81,8 @@ importers:
         specifier: ^7.4.0
         version: 7.4.0(@datadog/browser-logs@7.3.0)
       '@datadog/datadog-ci':
-        specifier: ^5.20.1
-        version: 5.20.1
+        specifier: ^5.21.0
+        version: 5.21.0
       '@types/diff':
         specifier: ^8.0.0
         version: 8.0.0
@@ -524,8 +524,8 @@ packages:
       '@datadog/browser-logs':
         optional: true
 
-  '@datadog/datadog-ci@5.20.1':
-    resolution: {integrity: sha512-4ZKbTcO+dR16mzhLyT6e47Ld0QdwRT5pBmhbmJK/xo1kOHpcJxOY7xd36CA2mGvN7ileXi7zOTouPnU/LxAB6A==}
+  '@datadog/datadog-ci@5.21.0':
+    resolution: {integrity: sha512-6R2KJvvsglg6YtRDzOk7f+aYMa3ig6N4/ZKYWk2H/Z4D/zo4btyXUwrk0ez7SvOuDHFpm2x0yNxySovnF3d5zg==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -3740,7 +3740,7 @@ snapshots:
     optionalDependencies:
       '@datadog/browser-logs': 7.3.0(@datadog/browser-rum@7.4.0)
 
-  '@datadog/datadog-ci@5.20.1': {}
+  '@datadog/datadog-ci@5.21.0': {}
 
   '@datadog/js-core@0.0.2': {}
 
