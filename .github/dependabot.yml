@@ -28,6 +28,9 @@ updates:
         patterns:
           - "astro"
           - "@astrojs/*"
+      datadog:
+        patterns:
+          - "@datadog/*"
 
   - package-ecosystem: "github-actions"
     directory: "/"
