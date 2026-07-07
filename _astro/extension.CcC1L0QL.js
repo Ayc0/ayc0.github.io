@@ -1,2 +1,0 @@
-import{i as e,t}from"./dist.CM6tQsbj.js";e({onCommitFiberRoot(e,n){t(n,e=>{console.log(`fiber rendered`,e)})},onPostCommitFiberRoot(e,t){console.log(`root with effects committed`,e,t),console.log(`[CUSTOM] Root mode:`,t.tag===1?`ConcurrentRoot`:`LegacyRoot`)},onCommitFiberUnmount(e,t){console.log(`fiber unmounted`,e,t)}});
-//# sourceMappingURL=extension.CcC1L0QL.js.map
