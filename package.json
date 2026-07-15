@@ -19,7 +19,7 @@
   "dependencies": {
     "@astrojs/starlight": "^0.41.3",
     "bippy": "^0.6.0",
-    "colorjs.io": "^0.6.1",
+    "colorjs.io": "^0.7.0",
     "diff": "^9.0.0",
     "konva": "^10.3.0",
     "lit": "^3.3.3",
