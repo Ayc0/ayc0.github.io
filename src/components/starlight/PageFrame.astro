@@ -29,6 +29,11 @@ Astro.locals.starlightRoute.hasSidebar = false;
     width: 100%;
   }
 
+  .right-sidebar-container {
+    /* Make the right sidebar takes as little space as possible so that the main content can take the full width of the .main-frame */
+    max-width: 0;
+  }
+
   @media (min-width: 50rem) {
     .main-frame {
       margin-inline: auto;
