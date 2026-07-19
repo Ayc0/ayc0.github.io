@@ -15,7 +15,7 @@ const post = Astro.locals.starlightRoute.entry;
 const { remarkPluginFrontmatter } = await render(post);
 
 const createdDate = getCreatedDate(post);
-const tags = getTagsHtml(post);
+const tags = getTagsHtml(post, { behavior: "link" });
 
 // Copied from node_modules/@astrojs/starlight/constants.ts as not exported
 const PAGE_TITLE_ID = "_top";
