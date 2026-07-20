@@ -1,2 +1,0 @@
-import{r as e}from"./rolldown-runtime.QTnfLwEv.js";import{n as t,t as n}from"./react-dom.2LIuAoDf.js";var r=e(t());e(n()).hydrate(r.createElement(`div`,null,`World`),document.getElementById(`root`),(...e)=>console.info(`[CUSTOM] Hydration done`,e));
-//# sourceMappingURL=hydration-18-legacy.astro_astro_type_script_index_1_lang.CHoM8VJJ.js.map

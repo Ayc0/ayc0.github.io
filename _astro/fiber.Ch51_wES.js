@@ -1,0 +1,2 @@
+import{n as e,r as t}from"./dist.0VpIQtC1.js";function n(e){return e?typeof e.type==`string`?e.type:t(e):null}function r(e){let t=Object.keys(e).find(e=>e.startsWith(`__reactFiber$`));if(t)return e[t]}function i(t){return{fiberName:n(t),fiberStack:t?e(t).map(n).filter(Boolean).reverse().join(` > `):null}}export{r as n,n as r,i as t};
+//# sourceMappingURL=fiber.Ch51_wES.js.map
