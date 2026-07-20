@@ -16,6 +16,7 @@ const tags = [
   "npm",
   "parcel",
   "react",
+  "react-compiler",
   "tip",
   "typescript",
   "unicode",

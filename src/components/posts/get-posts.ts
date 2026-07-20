@@ -117,14 +117,23 @@ export const getCreatedDate = ({ data }: Pick<Post, "data">): string => {
   return full;
 };
 
-export const getTagsHtml = ({
-  data: { tags },
-}: Pick<Post, "data">): string | null => {
+export const getTagsHtml = (
+  { data: { tags } }: Pick<Post, "data">,
+  { behavior = "static" }: { behavior?: "static" | "link" } = {},
+): string | null => {
   if (!tags?.length) {
     return null;
   }
-  // TODO: turn those into links & better styling, but links to where?
-  return tags.map((tag) => `<code data-tag=${tag}>#${tag}</code>`).join(" ");
+  // TODO: better styling
+  return tags
+    .map((tag) => {
+      const code = `<code data-tag=${tag}>#${tag}</code>`;
+      if (behavior === "static") {
+        return code;
+      }
+      return `<a href="/posts/tags#${tag}">${code}</a>`;
+    })
+    .join(" ");
 };
 
 export const getSeriesData = ({
