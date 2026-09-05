@@ -29,8 +29,8 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0
       konva:
-        specifier: ^10.3.0
-        version: 10.3.0
+        specifier: ^10.3.1
+        version: 10.3.1
       lit:
         specifier: ^3.3.3
         version: 3.3.3
@@ -54,7 +54,7 @@ importers:
         version: react-dom@18.3.1(patch_hash=713749ac4d7816aac2dd7a26e1343333a0a50cefd5964110775693de0408cb12)(react@18.3.1)(react@19.2.6)
       react-konva:
         specifier: ^19.2.5
-        version: 19.2.5(@types/react@19.2.18)(konva@10.3.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+        version: 19.2.5(@types/react@19.2.18)(konva@10.3.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       reveal.js:
         specifier: ^6.0.1
         version: 6.0.1
@@ -2145,8 +2145,16 @@ packages:
     resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
     engines: {node: '>= 8'}
 
-  konva@10.3.0:
-    resolution: {integrity: sha512-gt19K2gzY4lHbnkvsku7eSmB+A9PTS2jG4F9coBMsdjM1UKfJNxJbDbXVpeCW1wjEGRwBD3nBamcHnqJhAeKlg==}
+  konva@10.3.1:
+    resolution: {integrity: sha512-7fT/jSkL2bZZOHRBk2QVMKAUbgHoKG72W+KJtpP5YMJUZRmjgoafROgxTADsrxKOY2ZM5eKyN/x6CM9PrlFfOg==}
+    peerDependencies:
+      canvas: ^3.0.0
+      skia-canvas: ^3.0.0
+    peerDependenciesMeta:
+      canvas:
+        optional: true
+      skia-canvas:
+        optional: true
 
   lightningcss-android-arm64@1.32.0:
     resolution: {integrity: sha512-YK7/ClTt4kAK0vo6w3X+Pnm0D2cf2vPHbhOXdoNti1Ga0al1P4TBZhwjATvjNwLEBCnKvjJc2jQgHXH0NEwlAg==}
@@ -5511,7 +5519,7 @@ snapshots:
 
   klona@2.0.6: {}
 
-  konva@10.3.0: {}
+  konva@10.3.1: {}
 
   lightningcss-android-arm64@1.32.0:
     optional: true
@@ -6266,11 +6274,11 @@ snapshots:
       react: 19.2.6
       scheduler: 0.27.0
 
-  react-konva@19.2.5(@types/react@19.2.18)(konva@10.3.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
+  react-konva@19.2.5(@types/react@19.2.18)(konva@10.3.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
     dependencies:
       '@types/react-reconciler': 0.33.0(@types/react@19.2.18)
       its-fine: 2.0.0(@types/react@19.2.18)(react@19.2.6)
-      konva: 10.3.0
+      konva: 10.3.1
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
       react-reconciler: 0.33.0(react@19.2.6)
