@@ -1,0 +1,2 @@
+var e;function t(e){return s(e).segments_count}function n(e){s(e).segments_count+=1}function r(e){s(e).records_count+=1}function i(e){s(e).resources_count+=1}function a(e,t){s(e).segments_total_raw_size+=t}function o(t){return e?.get(t)}function s(t){e||=new Map;let n;return e.has(t)?n=e.get(t):(n={records_count:0,resources_count:0,segments_count:0,segments_total_raw_size:0},e.set(t,n),e.size>1e3&&c()),n}function c(){if(!e)return;let t=e.keys().next().value;t&&e.delete(t)}export{o as a,a as i,i as n,t as o,n as r,r as t};
+//# sourceMappingURL=replayStats.BsUIIwpR.js.map
