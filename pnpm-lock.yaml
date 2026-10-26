@@ -75,11 +75,11 @@ importers:
         specifier: ^3.7.3
         version: 3.7.3
       '@datadog/browser-logs':
-        specifier: ^7.15.0
-        version: 7.15.0(@datadog/browser-rum@7.15.0)
+        specifier: ^7.16.1
+        version: 7.16.1(@datadog/browser-rum@7.16.1)
       '@datadog/browser-rum':
-        specifier: ^7.15.0
-        version: 7.15.0(@datadog/browser-logs@7.15.0)
+        specifier: ^7.16.1
+        version: 7.16.1(@datadog/browser-logs@7.16.1)
       '@datadog/datadog-ci':
         specifier: ^5.25.0
         version: 5.25.0
@@ -551,24 +551,24 @@ packages:
     resolution: {integrity: sha512-kzyuwOAQnXJNLS9PSyrk0CWk35nWJW/zl/6KvnTBMFK65gm7U1/Z5BqjxeapjZCIhQcM/DsrEmcbRwDyXyXK4A==}
     engines: {node: '>=14'}
 
-  '@datadog/browser-core@7.15.0':
-    resolution: {integrity: sha512-htDnhCpWiP/dKItxi0unTp7j7m9X1+Bxh1PjLY3gTn6U+oWa1wo42UqnPt5Vmje5wHMmmuuNRxnr9zXH61xyag==}
+  '@datadog/browser-core@7.16.1':
+    resolution: {integrity: sha512-a/ShIFh9OvdznEL6tM0AIzqj5ZkIUPb8jPPpkChT6AUF4GKbPQMtK0M8yeXsluHlzXlcoTImyYYWxmSTa8aa1A==}
 
-  '@datadog/browser-logs@7.15.0':
-    resolution: {integrity: sha512-zGjWwJ6YYABP3rZHVkllq5ui9IjOH5zFU5qWUeXQrUj76SYgNRgzLcBbnskKZMF4CBuOqUaT8ica0T+C1qcnhQ==}
+  '@datadog/browser-logs@7.16.1':
+    resolution: {integrity: sha512-DdfrfwG08OeFW8QaoNsTt8XzrMTMOBiJJ0p9laGNwX6Ljl+8IXZk05SroujlARyTTy+J5e6qf7daqCJ8CBIflg==}
     peerDependencies:
-      '@datadog/browser-rum': 7.15.0
+      '@datadog/browser-rum': 7.16.1
     peerDependenciesMeta:
       '@datadog/browser-rum':
         optional: true
 
-  '@datadog/browser-rum-core@7.15.0':
-    resolution: {integrity: sha512-ReTr9t5Nx6ZCPlyN2f+weh6wzd9bi+l0+NKka0uswV8vC0/AnyAaKANW+49763LxBMtn4L+jrKHc5DfvXHiZAA==}
+  '@datadog/browser-rum-core@7.16.1':
+    resolution: {integrity: sha512-ammzIkfu3xfyrDTqkpB+Rq3icCcNCqC4zw1KZPVNKAyqgeifF4IRpyYXJ7ntLmsdnAl6BBgUOu2BwVsfoH35CA==}
 
-  '@datadog/browser-rum@7.15.0':
-    resolution: {integrity: sha512-pnyu2fbEKOcTLhJvggHOKKOquXQaYpnY4AWiZArQ4ygsSKEbUG9QVSIl/dgZwzJ6VF0zWxt88SrSVhbxH3LWZg==}
+  '@datadog/browser-rum@7.16.1':
+    resolution: {integrity: sha512-S5I3CsRdz1bzOdUR5EV4tMym4A0CoSjbgv5WYc88WuD9Tr6ghv1ej4FEK+X8LEKyioGmtTjzgT7DWToYKKAbDA==}
     peerDependencies:
-      '@datadog/browser-logs': 7.15.0
+      '@datadog/browser-logs': 7.16.1
     peerDependenciesMeta:
       '@datadog/browser-logs':
         optional: true
@@ -578,8 +578,8 @@ packages:
     engines: {node: '>=20'}
     hasBin: true
 
-  '@datadog/js-core@0.0.16':
-    resolution: {integrity: sha512-JHDE2CrVWz3kpS2SwZij4/NjFB1vvYtG4qtQTmnXVtVKabgQoane1XqRc4FiITYsZkrGdABfETTJJVEPW0xVpQ==}
+  '@datadog/js-core@0.0.18':
+    resolution: {integrity: sha512-aGriDAfBGmKtsoDY7/OUr3wieTagV8QWJNcY8ogp7NQKFlFGwJ7uj0jXxjnbysgDDWlVmgEuk9+nuqxDQS6NQg==}
 
   '@emmetio/abbreviation@2.3.3':
     resolution: {integrity: sha512-mgv58UrU3rh4YgbE/TzgLQwJ3pFsHHhCLqY20aJq+9comytTXUDNGG/SMtSeMJdkpxgXSXunBGLD8Boka3JyVA==}
@@ -3971,33 +3971,33 @@ snapshots:
 
   '@ctrl/tinycolor@4.2.0': {}
 
-  '@datadog/browser-core@7.15.0':
+  '@datadog/browser-core@7.16.1':
     dependencies:
-      '@datadog/js-core': 0.0.16
+      '@datadog/js-core': 0.0.18
 
-  '@datadog/browser-logs@7.15.0(@datadog/browser-rum@7.15.0)':
+  '@datadog/browser-logs@7.16.1(@datadog/browser-rum@7.16.1)':
     dependencies:
-      '@datadog/browser-core': 7.15.0
-      '@datadog/js-core': 0.0.16
+      '@datadog/browser-core': 7.16.1
+      '@datadog/js-core': 0.0.18
     optionalDependencies:
-      '@datadog/browser-rum': 7.15.0(@datadog/browser-logs@7.15.0)
+      '@datadog/browser-rum': 7.16.1(@datadog/browser-logs@7.16.1)
 
-  '@datadog/browser-rum-core@7.15.0':
+  '@datadog/browser-rum-core@7.16.1':
     dependencies:
-      '@datadog/browser-core': 7.15.0
-      '@datadog/js-core': 0.0.16
+      '@datadog/browser-core': 7.16.1
+      '@datadog/js-core': 0.0.18
 
-  '@datadog/browser-rum@7.15.0(@datadog/browser-logs@7.15.0)':
+  '@datadog/browser-rum@7.16.1(@datadog/browser-logs@7.16.1)':
     dependencies:
-      '@datadog/browser-core': 7.15.0
-      '@datadog/browser-rum-core': 7.15.0
-      '@datadog/js-core': 0.0.16
+      '@datadog/browser-core': 7.16.1
+      '@datadog/browser-rum-core': 7.16.1
+      '@datadog/js-core': 0.0.18
     optionalDependencies:
-      '@datadog/browser-logs': 7.15.0(@datadog/browser-rum@7.15.0)
+      '@datadog/browser-logs': 7.16.1(@datadog/browser-rum@7.16.1)
 
   '@datadog/datadog-ci@5.25.0': {}
 
-  '@datadog/js-core@0.0.16': {}
+  '@datadog/js-core@0.0.18': {}
 
   '@emmetio/abbreviation@2.3.3':
     dependencies:
