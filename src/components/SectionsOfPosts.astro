@@ -21,35 +21,35 @@ export interface Props {
       href=""
       variant="secondary"
       icon="left-arrow"
-      iconPlacement="start">View all</LinkButton
+      iconPlacement="start"
     >
+      View all
+    </LinkButton>
   </div>
 </div>
 
-{
-  Astro.props.sections.map(([section, posts]) => {
-    return (
-      <div>
-        <h2 id={section} class="sticky">
-          <a href={`#${section}`}>{section}</a>
-        </h2>
+{Astro.props.sections.map(([section, posts]) => {
+  return (
+    <div>
+      <h2 id={section} class="sticky">
+        <a href={`#${section}`}>{section}</a>
+      </h2>
 
-        <div class="post-wrapper">
-          {posts.map((post) => (
-            <LinkToPost
-              slug={post.id}
-              includeDate={Astro.props.includeDate}
-              includeTags={Astro.props.includeTags}
-              includeReadingTime={Astro.props.includeReadingTime}
-              includeDescription={Astro.props.includeDescription}
-              includeSeries={Astro.props.includeSeries}
-            />
-          ))}
-        </div>
+      <div class="post-wrapper">
+        {posts.map((post) => (
+          <LinkToPost
+            slug={post.id}
+            includeDate={Astro.props.includeDate}
+            includeTags={Astro.props.includeTags}
+            includeReadingTime={Astro.props.includeReadingTime}
+            includeDescription={Astro.props.includeDescription}
+            includeSeries={Astro.props.includeSeries}
+          />
+        ))}
       </div>
-    );
-  })
-}
+    </div>
+  );
+})}
 
 <style>
   .sticky {
