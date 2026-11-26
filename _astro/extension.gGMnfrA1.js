@@ -1,0 +1,2 @@
+import{i as e,r as t}from"./dist.DyjaTs9S.js";t({onCommitFiberRoot(t,n){e(n,e=>{console.log(`fiber rendered`,e)})},onPostCommitFiberRoot(e,t){console.log(`root with effects committed`,e,t),console.log(`[CUSTOM] Root mode:`,t.current.mode&1?`ConcurrentRoot`:`LegacyRoot`)},onCommitFiberUnmount(e,t){console.log(`fiber unmounted`,e,t)}});
+//# sourceMappingURL=extension.gGMnfrA1.js.map

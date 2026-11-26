@@ -1,0 +1,2 @@
+import{n as e,t}from"./dist.DyjaTs9S.js";function n(e){let n=[];return t(e,e=>{n.push(e)},!0),n}function r(t){return t?typeof t.type==`string`?t.type:e(t):null}function i(e){let t=Object.keys(e).find(e=>e.startsWith(`__reactFiber$`));if(t)return e[t]}function a(e){return{fiberName:r(e),fiberStack:e?n(e).map(r).filter(Boolean).reverse().join(` > `):null}}export{i as n,r,a as t};
+//# sourceMappingURL=fiber.CDhDogOO.js.map

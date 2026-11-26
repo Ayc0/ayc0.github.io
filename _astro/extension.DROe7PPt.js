@@ -1,2 +1,0 @@
-import{i as e,n as t}from"./dist.uZm9LTWm.js";t({onCommitFiberRoot(t,n){e(n,e=>{console.log(`fiber rendered`,e)})},onPostCommitFiberRoot(e,t){console.log(`root with effects committed`,e,t),console.log(`[CUSTOM] Root mode:`,t.tag===1?`ConcurrentRoot`:`LegacyRoot`)},onCommitFiberUnmount(e,t){console.log(`fiber unmounted`,e,t)}});
-//# sourceMappingURL=extension.DROe7PPt.js.map

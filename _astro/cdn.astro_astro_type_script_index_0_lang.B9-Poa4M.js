@@ -1,0 +1,1 @@
+import"./extension.gGMnfrA1.js";
