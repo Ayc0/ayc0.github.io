@@ -101,7 +101,9 @@ instrument({
     // See https://unpkg.com/browse/react-dom@18.3.1/umd/react-dom.development.js#L12003
     console.log(
       "[CUSTOM] Root mode:",
-      root.tag === 1 ? "ConcurrentRoot" : "LegacyRoot",
+      (root as typeof root & { tag: number }).tag === 1
+        ? "ConcurrentRoot"
+        : "LegacyRoot",
     );
   },
   onCommitFiberUnmount(rendererID, fiber) {

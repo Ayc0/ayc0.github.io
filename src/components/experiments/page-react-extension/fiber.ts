@@ -1,4 +1,16 @@
-import { getFiberStack, getDisplayName, type Fiber } from "bippy";
+import { getDisplayName, traverseFiber, type Fiber } from "bippy";
+
+function getFiberStack(fiber: Fiber) {
+  const stack: Fiber[] = [];
+  traverseFiber(
+    fiber,
+    (node) => {
+      stack.push(node);
+    },
+    true,
+  );
+  return stack;
+}
 
 export function getFiberName(fiber: Fiber | null) {
   if (!fiber) {
