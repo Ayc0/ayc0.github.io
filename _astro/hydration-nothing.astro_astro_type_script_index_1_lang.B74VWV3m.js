@@ -1,0 +1,2 @@
+import"./rolldown-runtime.XKyaHtl9.js";import{t as e}from"./react.CtZIs1pe.js";import{t}from"./client._cRVaBtF.js";import{t as n}from"./jsx-runtime.CpoXNhZb.js";e();var r=t(),i=n();(0,r.hydrateRoot)(document.getElementById(`root`),(0,i.jsx)(`div`,{children:`World`}));
+//# sourceMappingURL=hydration-nothing.astro_astro_type_script_index_1_lang.B74VWV3m.js.map

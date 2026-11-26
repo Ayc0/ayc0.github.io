@@ -1,0 +1,2 @@
+import"./rolldown-runtime.XKyaHtl9.js";import{t as e}from"./react.CtZIs1pe.js";import{t}from"./jsx-runtime.CpoXNhZb.js";e();var n=t(),r=()=>(0,n.jsx)(n.Fragment,{children:(0,n.jsxs)(`div`,{children:[`Random: `,Math.random()]})});export{r as HydrationIssue};
+//# sourceMappingURL=HydrationIssue.Dmoe-9r2.js.map

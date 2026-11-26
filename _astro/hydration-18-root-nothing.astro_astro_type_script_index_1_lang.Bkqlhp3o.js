@@ -1,0 +1,2 @@
+import{r as e}from"./rolldown-runtime.XKyaHtl9.js";import{n as t,t as n}from"./react-dom.Chef799N.js";var r=e(t());e(n()).hydrateRoot(document.getElementById(`root`),r.createElement(`div`,null,`World`));
+//# sourceMappingURL=hydration-18-root-nothing.astro_astro_type_script_index_1_lang.Bkqlhp3o.js.map
