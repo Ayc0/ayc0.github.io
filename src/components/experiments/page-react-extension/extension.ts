@@ -98,12 +98,12 @@ instrument({
   },
   onPostCommitFiberRoot(rendererID, root) {
     console.log("root with effects committed", rendererID, root);
+    // The HostRoot fiber gets `ConcurrentMode` (0b1) only for concurrent roots
     // See https://unpkg.com/browse/react-dom@18.3.1/umd/react-dom.development.js#L12003
+    const ConcurrentMode = 0b1;
     console.log(
       "[CUSTOM] Root mode:",
-      (root as typeof root & { tag: number }).tag === 1
-        ? "ConcurrentRoot"
-        : "LegacyRoot",
+      root.current.mode & ConcurrentMode ? "ConcurrentRoot" : "LegacyRoot",
     );
   },
   onCommitFiberUnmount(rendererID, fiber) {
