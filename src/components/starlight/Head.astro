@@ -22,32 +22,26 @@ let imagePath: string | undefined = await getImagePath(
 
 <Default />
 
-{
-  imagePath ? (
-    <meta
-      property="og:image"
-      content={Astro.url.origin + import.meta.env.BASE_URL + imagePath}
-    />
-  ) : null
-}
-{
-  imagePath ? (
-    <meta
-      name="twitter:image"
-      content={Astro.url.origin + import.meta.env.BASE_URL + imagePath}
-    />
-  ) : null
-}
+{imagePath ? (
+  <meta
+    property="og:image"
+    content={Astro.url.origin + import.meta.env.BASE_URL + imagePath}
+  />
+) : null}
+{imagePath ? (
+  <meta
+    name="twitter:image"
+    content={Astro.url.origin + import.meta.env.BASE_URL + imagePath}
+  />
+) : null}
 
 <!-- https://standard.site/ -->
-{
-  Astro.locals.starlightRoute.entry.data.atUri ? (
-    <link
-      rel="site.standard.document"
-      href={Astro.locals.starlightRoute.entry.data.atUri}
-    />
-  ) : null
-}
+{Astro.locals.starlightRoute.entry.data.atUri ? (
+  <link
+    rel="site.standard.document"
+    href={Astro.locals.starlightRoute.entry.data.atUri}
+  />
+) : null}
 
 <style>
   @media (prefers-reduced-motion: no-preference) {

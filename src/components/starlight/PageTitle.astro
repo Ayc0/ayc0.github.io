@@ -24,34 +24,32 @@ const series = getSeriesHtml(post);
 ---
 
 <h1 id={PAGE_TITLE_ID}>
-  <span style={{ viewTransitionName: getTransitionName(post.data.title) }}
-    >{post.data.title}</span
-  >
-  {
-    series || post.data.atUri ? (
-      <div class="sub-title">
-        {series ? (
-          <div class="series">
-            {/* Keep same structure with the top-level span getting a font-size of h1, and the inside span a smaller one */}
-            <span>
-              <span data-series-label>Series: </span>
-            </span>
-            <span set:html={series} />
-          </div>
-        ) : null}
+  <span style={{ viewTransitionName: getTransitionName(post.data.title) }}>
+    {post.data.title}
+  </span>
+  {series || post.data.atUri ? (
+    <div class="sub-title">
+      {series ? (
+        <div class="series">
+          {/* Keep same structure with the top-level span getting a font-size of h1, and the inside span a smaller one */}
+          <span>
+            <span data-series-label>Series: </span>
+          </span>
+          <span set:html={series} />
+        </div>
+      ) : null}
 
-        {post.data.atUri ? (
-          <div class="sequoia-wrapper">
-            <sequoia-recommend document-uri={post.data.atUri} />
-            <sequoia-subscribe
-              button-type="plain"
-              document-uri={post.data.atUri}
-            />
-          </div>
-        ) : null}
-      </div>
-    ) : null
-  }
+      {post.data.atUri ? (
+        <div class="sequoia-wrapper">
+          <sequoia-recommend document-uri={post.data.atUri} />
+          <sequoia-subscribe
+            button-type="plain"
+            document-uri={post.data.atUri}
+          />
+        </div>
+      ) : null}
+    </div>
+  ) : null}
 </h1>
 
 <script>

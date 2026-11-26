@@ -1,5 +1,4 @@
 ---
-
 ---
 
 <!doctype html>
@@ -12,15 +11,16 @@
   <body>
     <script
       crossorigin="anonymous"
-      src="//unpkg.com/react-scan/dist/auto.global.js"></script>
-
-    <script src="@components/experiments/page-react-extension/extension.ts"
+      src="//unpkg.com/react-scan/dist/auto.global.js"
     ></script>
+
+    <script src="@components/experiments/page-react-extension/extension.ts"></script>
 
     <script
       is:inline
       crossorigin="anonymous"
-      src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+      src="https://unpkg.com/react@18/umd/react.production.min.js"
+    ></script>
     <script
       is:inline
       crossorigin="anonymous"
@@ -49,23 +49,20 @@
       }
     </script>
 
-    <button
-      onclick="ReactDOM.createRoot(document.getElementById(`node`)).render(ElementToRender);this.disabled=true;"
-      >Click me to render react node (createRoot)</button
-    >
+    <button onclick="ReactDOM.createRoot(document.getElementById(`node`)).render(ElementToRender);this.disabled=true;">
+      Click me to render react node (createRoot)
+    </button>
 
     <div id="node"></div>
 
-    <button
-      onclick="ReactDOM.render(ElementToRender, document.getElementById(`legacy`));this.disabled=true;"
-      >Click me to render react node (legacy)</button
-    >
+    <button onclick="ReactDOM.render(ElementToRender, document.getElementById(`legacy`));this.disabled=true;">
+      Click me to render react node (legacy)
+    </button>
 
     <div id="legacy"></div>
 
     <div>Open your console</div>
 
-    <script src="@components/experiments/page-react-extension/metadata.js"
-    ></script>
+    <script src="@components/experiments/page-react-extension/metadata.js"></script>
   </body>
 </html>
