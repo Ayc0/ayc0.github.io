@@ -11,10 +11,6 @@
     "lint:check": "pnpm prettier . --check",
     "lint:fix": "pnpm prettier . --write"
   },
-  "volta": {
-    "node": "24.16.0",
-    "pnpm": "12.23.0"
-  },
   "packageManager": "pnpm@12.23.0",
   "dependencies": {
     "@astrojs/starlight": "^0.43.1",
@@ -56,5 +52,12 @@
     "sharp": "0.34.3",
     "typescript": "^6.0.3",
     "unist-util-filter": "^5.0.1"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "26.13.1",
+      "onFail": "download"
+    }
   }
 }
